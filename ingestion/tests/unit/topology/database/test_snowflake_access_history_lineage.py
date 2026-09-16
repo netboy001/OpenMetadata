@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -234,7 +234,7 @@ def test_combined_lineage_left_joins_query_history_for_text_only():
     enriches with query text. Every qh predicate (time prune + success) lives in
     the LEFT JOIN ON clause, so an absent/failed/boundary qh row yields null text
     but never drops the edge — no post-join WHERE guard needed. The
-    dbt/OpenMetadata noise filters are dropped — ACCESS_HISTORY only surfaces
+    dbt/UMetadata noise filters are dropped — ACCESS_HISTORY only surfaces
     queries that actually modified objects.
     """
     rendered = SNOWFLAKE_ACCESS_HISTORY_LINEAGE.format(
@@ -251,7 +251,7 @@ def test_combined_lineage_left_joins_query_history_for_text_only():
     assert "qh.EXECUTION_STATUS" not in where_clause
     assert "qh.QUERY_ID IS NULL" not in rendered
     assert '"app": "dbt"' not in rendered
-    assert '"app": "OpenMetadata"' not in rendered
+    assert '"app": "UMetadata"' not in rendered
 
 
 def test_combined_lineage_sql_surfaces_query_metadata():
@@ -625,7 +625,7 @@ def test_sql_query_text_attaches_when_present_in_row():
 def test_edge_with_query_text_also_creates_query_entity():
     """
     An edge whose row carries representative SQL must also emit a
-    CreateQueryRequest so the query surfaces in OpenMetadata exactly like the
+    CreateQueryRequest so the query surfaces in UMetadata exactly like the
     legacy parser path. processedLineage stays True so the legacy parser never
     re-processes an edge already derived from ACCESS_HISTORY.
     """
@@ -688,7 +688,7 @@ def test_edge_with_query_text_also_creates_query_entity():
 
 def test_query_entity_resolves_executing_user_to_om_user():
     """
-    When the Snowflake USER_NAME matches an OpenMetadata user, the created
+    When the Snowflake USER_NAME matches an UMetadata user, the created
     Query carries that user's FQN in `users`; the raw name always lands in
     `usedBy`.
     """
@@ -852,7 +852,7 @@ def test_table_edges_skip_when_either_side_unresolvable():
         edges = list(src._yield_combined_access_history())
         assert edges == []
         debug_messages = [str(call.args) for call in mock_logger.debug.call_args_list]
-        assert any("table not found in OpenMetadata" in msg for msg in debug_messages)
+        assert any("table not found in UMetadata" in msg for msg in debug_messages)
         assert any("DB.SCHEMA.ORDERS" in msg for msg in debug_messages)
         assert any("DB.SCHEMA.REVENUE" in msg for msg in debug_messages)
 

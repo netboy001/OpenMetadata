@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,7 +25,7 @@ from metadata.generated.schema.entity.services.ingestionPipelines.ingestionPipel
     PipelineStatus,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.generated.schema.type.filterPattern import FilterPattern
 from metadata.ingestion.source.database.snowflake.metadata import MAP, SnowflakeSource
@@ -50,9 +50,9 @@ SNOWFLAKE_CONFIGURATION = {
     },
     "sink": {"type": "metadata-rest", "config": {}},
     "workflowConfig": {
-        "openMetadataServerConfig": {
+        "uMetadataServerConfig": {
             "hostPort": "http://localhost:8585/api",
-            "authProvider": "openmetadata",
+            "authProvider": "umetadata",
             "securityConfig": {"jwtToken": "snowflake"},
         }
     },
@@ -174,21 +174,21 @@ def get_snowflake_sources():
         "metadata.ingestion.source.database.common_db_source.CommonDbSourceService.test_connection",
         return_value=False,
     ):
-        config = OpenMetadataWorkflowConfig.model_validate(
+        config = UMetadataWorkflowConfig.model_validate(
             SNOWFLAKE_CONFIGURATIONS["not_incremental"]
         )
         sources["not_incremental"] = SnowflakeSource.create(
             SNOWFLAKE_CONFIGURATIONS["not_incremental"]["source"],
-            config.workflowConfig.openMetadataServerConfig,
+            config.workflowConfig.uMetadataServerConfig,
             SNOWFLAKE_CONFIGURATIONS["not_incremental"]["ingestionPipelineFQN"],
         )
 
-        config_custom = OpenMetadataWorkflowConfig.model_validate(
+        config_custom = UMetadataWorkflowConfig.model_validate(
             SNOWFLAKE_CONFIGURATIONS["custom_host"]
         )
         sources["custom_host"] = SnowflakeSource.create(
             SNOWFLAKE_CONFIGURATIONS["custom_host"]["source"],
-            config_custom.workflowConfig.openMetadataServerConfig,
+            config_custom.workflowConfig.uMetadataServerConfig,
             SNOWFLAKE_CONFIGURATIONS["custom_host"]["ingestionPipelineFQN"],
         )
 
@@ -196,12 +196,12 @@ def get_snowflake_sources():
             "metadata.ingestion.source.database.incremental_metadata_extraction.IncrementalConfigCreator._get_pipeline_statuses",
             return_value=MOCK_PIPELINE_STATUSES,
         ):
-            config = OpenMetadataWorkflowConfig.model_validate(
+            config = UMetadataWorkflowConfig.model_validate(
                 SNOWFLAKE_CONFIGURATIONS["incremental"]
             )
             sources["incremental"] = SnowflakeSource.create(
                 SNOWFLAKE_CONFIGURATIONS["incremental"]["source"],
-                config.workflowConfig.openMetadataServerConfig,
+                config.workflowConfig.uMetadataServerConfig,
                 SNOWFLAKE_CONFIGURATIONS["incremental"]["ingestionPipelineFQN"],
             )
     return sources
@@ -452,7 +452,7 @@ class SnowflakeUnitTest(TestCase):
 
         self.assertEqual("(VARCHAR, INT)", sp_payload.unquote_signature())
 
-        # Check https://github.com/open-metadata/OpenMetadata/issues/14492
+        # Check https://github.com/u-metadata/UMetadata/issues/14492
         sp_payload = SnowflakeStoredProcedure(
             NAME="test_sp",
             OWNER="owner",

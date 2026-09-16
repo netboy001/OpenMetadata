@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,7 +31,7 @@ from metadata.generated.schema.entity.services.pipelineService import (
     PipelineServiceType,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.generated.schema.type.basic import FullyQualifiedEntityName, SourceUrl
 from metadata.generated.schema.type.entityReference import EntityReference
@@ -41,7 +41,7 @@ from metadata.generated.schema.type.tagLabel import (
     TagLabel,
     TagSource,
 )
-from metadata.ingestion.models.pipeline_status import OMetaPipelineStatus
+from metadata.ingestion.models.pipeline_status import UMetaPipelineStatus
 from metadata.ingestion.source.pipeline.dagster.metadata import DagsterSource
 from metadata.ingestion.source.pipeline.dagster.models import (
     AssetDependency,
@@ -72,9 +72,9 @@ mock_dagster_config = {
     },
     "sink": {"type": "metadata-rest", "config": {}},
     "workflowConfig": {
-        "openMetadataServerConfig": {
+        "uMetadataServerConfig": {
             "hostPort": "http://localhost:8585/api",
-            "authProvider": "openmetadata",
+            "authProvider": "umetadata",
             "securityConfig": {"jwtToken": "jnsdjonfonsodifnoisdnfoinsdonfonsd"},
         }
     },
@@ -203,7 +203,7 @@ MOCK_LOG_URL = (
 EXPTECTED_PIPELINE_NAME = ["story_recommender_job"]
 
 EXPECTED_PIPELINE_STATUS = [
-    OMetaPipelineStatus(
+    UMetaPipelineStatus(
         pipeline_fqn="dagster_source.a10f6d82-4fc6-4c90-ba04-bb773c8fbb0f",
         pipeline_status=PipelineStatus(
             executionStatus=StatusType.Pending.value,
@@ -219,7 +219,7 @@ EXPECTED_PIPELINE_STATUS = [
             timestamp=1659616635858,
         ),
     ),
-    OMetaPipelineStatus(
+    UMetaPipelineStatus(
         pipeline_fqn="dagster_source.a10f6d82-4fc6-4c90-ba04-bb773c8fbb0f",
         pipeline_status=PipelineStatus(
             executionStatus=StatusType.Successful.value,
@@ -280,10 +280,10 @@ class DagsterUnitTest(TestCase):
         super().__init__(methodName)
         test_connection.return_value = False
         graphql_client.return_value = False
-        config = OpenMetadataWorkflowConfig.model_validate(mock_dagster_config)
+        config = UMetadataWorkflowConfig.model_validate(mock_dagster_config)
         self.dagster = DagsterSource.create(
             mock_dagster_config["source"],
-            config.workflowConfig.openMetadataServerConfig,
+            config.workflowConfig.uMetadataServerConfig,
         )
         self.dagster.context.get().__dict__["pipeline"] = MOCK_PIPELINE.name.root
         self.dagster.context.get().__dict__[
@@ -499,10 +499,10 @@ class TestDagsterLineageHelpers(TestCase):
     def setUp(self, graphql_client, test_connection):
         test_connection.return_value = False
         graphql_client.return_value = False
-        config = OpenMetadataWorkflowConfig.model_validate(mock_dagster_config)
+        config = UMetadataWorkflowConfig.model_validate(mock_dagster_config)
         self.dagster = DagsterSource.create(
             mock_dagster_config["source"],
-            config.workflowConfig.openMetadataServerConfig,
+            config.workflowConfig.uMetadataServerConfig,
         )
         self.dagster.context.get().__dict__["pipeline"] = MOCK_PIPELINE.name.root
         self.dagster.context.get().__dict__[
@@ -684,18 +684,18 @@ class TestDagsterSourceWithStripping(TestCase):
             },
             "sink": {"type": "metadata-rest", "config": {}},
             "workflowConfig": {
-                "openMetadataServerConfig": {
+                "uMetadataServerConfig": {
                     "hostPort": "http://localhost:8585/api",
-                    "authProvider": "openmetadata",
+                    "authProvider": "umetadata",
                     "securityConfig": {"jwtToken": "token"},
                 }
             },
         }
 
-        workflow_config = OpenMetadataWorkflowConfig.model_validate(config)
+        workflow_config = UMetadataWorkflowConfig.model_validate(config)
         dagster_source = DagsterSource.create(
             config["source"],
-            workflow_config.workflowConfig.openMetadataServerConfig,
+            workflow_config.workflowConfig.uMetadataServerConfig,
         )
 
         assert dagster_source.strip_asset_key_prefix_length == 2

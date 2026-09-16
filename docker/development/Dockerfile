@@ -12,27 +12,27 @@
 # Build stage
 FROM alpine:3 AS build
 
-COPY openmetadata-dist/target/openmetadata-*.tar.gz /
+COPY umetadata-dist/target/umetadata-*.tar.gz /
 
-RUN mkdir -p /opt/openmetadata && \
-    tar zxvf openmetadata-*.tar.gz -C /opt/openmetadata --strip-components 1 && \
-    rm openmetadata-*.tar.gz
+RUN mkdir -p /opt/umetadata && \
+    tar zxvf umetadata-*.tar.gz -C /opt/umetadata --strip-components 1 && \
+    rm umetadata-*.tar.gz
 
 # Final stage
 FROM alpine:3
 
 EXPOSE 8585
 
-RUN adduser -D openmetadata && \
+RUN adduser -D umetadata && \
     apk update && \
     apk upgrade && \
     apk add --update --no-cache bash openjdk21-jre
 
-COPY --chown=openmetadata:openmetadata --from=build /opt/openmetadata /opt/openmetadata
-COPY --chmod=755 docker/openmetadata-start.sh /
+COPY --chown=umetadata:umetadata --from=build /opt/umetadata /opt/umetadata
+COPY --chmod=755 docker/umetadata-start.sh /
 
-USER openmetadata
+USER umetadata
 
-WORKDIR /opt/openmetadata
+WORKDIR /opt/umetadata
 ENTRYPOINT [ "/bin/bash" ]
-CMD ["/openmetadata-start.sh"]
+CMD ["/umetadata-start.sh"]

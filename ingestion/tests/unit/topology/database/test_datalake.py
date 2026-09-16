@@ -3,7 +3,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,7 +27,7 @@ from metadata.generated.schema.entity.services.databaseService import (
     DatabaseServiceType,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.generated.schema.type.entityReference import EntityReference
 from metadata.ingestion.source.database.datalake.metadata import DatalakeSource
@@ -70,9 +70,9 @@ mock_datalake_config = {
     },
     "sink": {"type": "metadata-rest", "config": {}},
     "workflowConfig": {
-        "openMetadataServerConfig": {
+        "uMetadataServerConfig": {
             "hostPort": "http://localhost:8585/api",
-            "authProvider": "openmetadata",
+            "authProvider": "umetadata",
             "securityConfig": {"jwtToken": "datalake"},
         }
     },
@@ -384,7 +384,7 @@ EXPECTED_AVRO_COL_2 = [
 ]
 
 AVRO_SCHEMA_FILE = b"""{
-    "namespace": "openmetadata.kafka",
+    "namespace": "umetadata.kafka",
     "name": "level",
     "type": "record",
     "fields": [
@@ -469,10 +469,10 @@ class DatalakeUnitTest(TestCase):
     def __init__(self, methodName, test_connection) -> None:
         super().__init__(methodName)
         test_connection.return_value = False
-        self.config = OpenMetadataWorkflowConfig.model_validate(mock_datalake_config)
+        self.config = UMetadataWorkflowConfig.model_validate(mock_datalake_config)
         self.datalake_source = DatalakeSource.create(
             mock_datalake_config["source"],
-            self.config.workflowConfig.openMetadataServerConfig,
+            self.config.workflowConfig.uMetadataServerConfig,
         )
         self.datalake_source.context.get().__dict__[
             "database"
@@ -652,9 +652,9 @@ mock_datalake_gcs_config = {
     "sink": {"type": "metadata-rest", "config": {}},
     "workflowConfig": {
         "loggerLevel": "DEBUG",
-        "openMetadataServerConfig": {
+        "uMetadataServerConfig": {
             "hostPort": "http://localhost:8585/api",
-            "authProvider": "openmetadata",
+            "authProvider": "umetadata",
             "securityConfig": {"jwtToken": "datalake"},
         },
     },
@@ -680,12 +680,12 @@ class DatalakeGCSUnitTest(TestCase):
     def __init__(self, methodName, _, __, test_connection) -> None:
         super().__init__(methodName)
         test_connection.return_value = False
-        self.config = OpenMetadataWorkflowConfig.model_validate(
+        self.config = UMetadataWorkflowConfig.model_validate(
             mock_datalake_gcs_config
         )
         self.datalake_source = DatalakeSource.create(
             mock_datalake_gcs_config["source"],
-            self.config.workflowConfig.openMetadataServerConfig,
+            self.config.workflowConfig.uMetadataServerConfig,
         )
         self.datalake_source.context.get().__dict__[
             "database"
@@ -705,9 +705,9 @@ class DatalakeGCSUnitTest(TestCase):
         print(mock_multiple_project_id)
         self.datalake_source_multiple_project_id = DatalakeSource.create(
             mock_multiple_project_id["source"],
-            OpenMetadataWorkflowConfig.model_validate(
+            UMetadataWorkflowConfig.model_validate(
                 mock_multiple_project_id
-            ).workflowConfig.openMetadataServerConfig,
+            ).workflowConfig.uMetadataServerConfig,
         )
 
     def test_gcs_schema_filer(self):

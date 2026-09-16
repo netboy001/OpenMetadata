@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -68,7 +68,7 @@ class User(declarative_base()):
 
 
 class MixedCaseTable(declarative_base()):
-    """Mimics ometa_to_sqa_orm output: name keeps original case, key is lowercased."""
+    """Mimics umeta_to_sqa_orm output: name keeps original case, key is lowercased."""
 
     __tablename__ = "mixed_case_test"
     reservationid = Column(
@@ -103,7 +103,7 @@ def sqa_profiler_interface(table_entity, sqlite_conn):
     with patch.object(SQASampler, "build_table_orm", return_value=User):
         sampler = SQASampler(
             service_connection_config=sqlite_conn,
-            ometa_client=None,
+            umeta_client=None,
             entity=None,
         )
 
@@ -152,7 +152,7 @@ def class_sqa_profiler_interface(class_sqlite_conn, class_table_entity):
     with patch.object(SQASampler, "build_table_orm", return_value=User):
         sampler = SQASampler(
             service_connection_config=class_sqlite_conn,
-            ometa_client=None,
+            umeta_client=None,
             entity=None,
         )
 

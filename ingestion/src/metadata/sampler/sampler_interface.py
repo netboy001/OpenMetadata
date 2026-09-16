@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -36,7 +36,7 @@ from metadata.generated.schema.entity.services.databaseService import DatabaseCo
 from metadata.generated.schema.metadataIngestion.databaseServiceProfilerPipeline import (
     ProcessingEngine,
 )
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.profiler.api.models import TableConfig
 from metadata.profiler.processor.sample_data_handler import upload_sample_data
 from metadata.sampler.config import (
@@ -67,7 +67,7 @@ class SamplerInterface(ABC):
     def __init__(
         self,
         service_connection_config: Union[DatabaseConnection, DatalakeConnection],
-        ometa_client: OpenMetadata,
+        umeta_client: UMetadata,
         entity: Table,
         include_columns: Optional[List[ColumnProfilerConfig]] = None,
         exclude_columns: Optional[List[str]] = None,
@@ -79,7 +79,7 @@ class SamplerInterface(ABC):
         processing_engine: Optional[ProcessingEngine] = None,
         **__,
     ):
-        self.ometa_client = ometa_client
+        self.umeta_client = umeta_client
         self._sample = None
         self._columns: List[SQALikeColumn] = []
         self.sample_config = sample_config
@@ -101,7 +101,7 @@ class SamplerInterface(ABC):
     def create(
         cls,
         service_connection_config: Union[DatabaseConnection, DatalakeConnection],
-        ometa_client: OpenMetadata,
+        umeta_client: UMetadata,
         entity: Table,
         schema_entity: DatabaseSchema,
         database_entity: Database,
@@ -137,7 +137,7 @@ class SamplerInterface(ABC):
 
         return cls(
             service_connection_config=service_connection_config,
-            ometa_client=ometa_client,
+            umeta_client=umeta_client,
             entity=entity,
             include_columns=include_columns,
             exclude_columns=exclude_columns,

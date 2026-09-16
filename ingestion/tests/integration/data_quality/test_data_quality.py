@@ -11,7 +11,7 @@ from metadata.generated.schema.metadataIngestion.testSuitePipeline import (
     List,
     TestSuiteConfigType,
 )
-from metadata.ingestion.ometa.routes import TestDefinition
+from metadata.ingestion.umeta.routes import TestDefinition
 from metadata.workflow.data_quality import TestSuiteWorkflow
 
 if not sys.version_info >= (3, 9):
@@ -61,7 +61,7 @@ def test_all_definition_exists(metadata):
     """Test that all test definitions defined in json schema exist in the platform."""
     cwd = Path(__file__).resolve().parent
     test_definition_path = (
-        cwd.parents[3] / "openmetadata-service/src/main/resources/json/data/tests"
+        cwd.parents[3] / "umetadata-service/src/main/resources/json/data/tests"
     )
     test_difinitions_glob = test_definition_path.glob("*.json")
 

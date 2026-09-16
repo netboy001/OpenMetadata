@@ -50,7 +50,7 @@ def update_docker_tag(args):
 
     regex_sub(
         file_path,
-        r"(image: docker\.getcollate\.io/openmetadata/.*?):.+",
+        r"(image: docker\.getcollate\.io/umetadata/.*?):.+",
         rf"\1:{tag}",
     )
 
@@ -86,16 +86,16 @@ def update_pyproject_version(args):
 
 
 def update_openapi_version(args):
-    """Updates OpenAPI version in OpenMetadataApplication.java."""
+    """Updates OpenAPI version in UMetadataApplication.java."""
 
     version = args.version
-    file_path = "openmetadata-service/src/main/java/org/openmetadata/service/OpenMetadataApplication.java"
+    file_path = "umetadata-service/src/main/java/org/umetadata/service/UMetadataApplication.java"
 
     logger.info(f"Updating OpenAPI version in {file_path} to {version}\n")
 
     regex_sub(
         file_path,
-        r'(@Info\s*\(\s*title\s*=\s*"OpenMetadata APIs",\s*version\s*=\s*")\d+\.\d+\.\d+(")',
+        r'(@Info\s*\(\s*title\s*=\s*"UMetadata APIs",\s*version\s*=\s*")\d+\.\d+\.\d+(")',
         rf"\g<1>{version}\g<2>",
     )
 
@@ -131,7 +131,7 @@ def main():
     parser_upv.add_argument("--version", "-v", type=str, help="Version to update to")
     parser_upv.set_defaults(func=update_pyproject_version)
 
-    # Update OpenAPI version in OpenMetadataApplication.java
+    # Update OpenAPI version in UMetadataApplication.java
     parser_uoav = subparsers.add_parser("update_openapi_version")
     parser_uoav.add_argument("--version", "-v", type=str, help="Version to update to")
     parser_uoav.set_defaults(func=update_openapi_version)

@@ -1,0 +1,10 @@
+{
+  "$id": "https://u-metadata.org/schema/monitoring/eventMonitorProvider.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Event Monitor Provider",
+  "description": "UMetadata Event Monitor Provider.",
+  "type": "string",
+  "javaType": "org.umetadata.schema.monitoring.EventMonitorProvider",
+  "enum": ["cloudwatch", "prometheus"],
+  "additionalProperties": false
+}

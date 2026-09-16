@@ -7,9 +7,9 @@ from metadata.generated.schema.entity.services.connections.database.mssqlConnect
     MssqlScheme,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.profiler.source.database.base.profiler_source import ProfilerSource
 
 
@@ -51,15 +51,15 @@ class MssqlProfilerSource(ProfilerSource):
 
     def __init__(
         self,
-        config: OpenMetadataWorkflowConfig,
+        config: UMetadataWorkflowConfig,
         database: Database,
-        ometa_client: OpenMetadata,
+        umeta_client: UMetadata,
         global_profiler_config: ProfilerConfiguration,
     ):
-        super().__init__(config, database, ometa_client, global_profiler_config)
+        super().__init__(config, database, umeta_client, global_profiler_config)
         self.set_is_disconnect(config)
 
-    def set_is_disconnect(self, config: OpenMetadataWorkflowConfig):
+    def set_is_disconnect(self, config: UMetadataWorkflowConfig):
         """Set the is_disconnect method based on the configured connection scheme"""
         # pylint: disable=import-outside-toplevel
 

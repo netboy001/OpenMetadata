@@ -7,8 +7,8 @@ from docker.types import EndpointConfig
 from testcontainers.core.container import DockerContainer
 from testcontainers.kafka import KafkaContainer
 
-from _openmetadata_testutils.kafka import load_csv_data
-from _openmetadata_testutils.kafka.schema_registry_container import (
+from _umetadata_testutils.kafka import load_csv_data
+from _umetadata_testutils.kafka.schema_registry_container import (
     SchemaRegistryContainer,
 )
 from metadata.generated.schema.api.services.createMessagingService import (

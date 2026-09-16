@@ -18,8 +18,8 @@ services:
       - ${DOCKER_VOLUMES_PATH:-./docker-volumes}/fuseki:/fuseki
     networks:
       - fuseki-net
-    # Create openmetadata dataset on startup
-    entrypoint: /bin/sh -c "mkdir -p /fuseki/databases/openmetadata && exec /docker-entrypoint.sh /jena-fuseki/fuseki-server --update --loc=/fuseki/databases/openmetadata /openmetadata"
+    # Create umetadata dataset on startup
+    entrypoint: /bin/sh -c "mkdir -p /fuseki/databases/umetadata && exec /docker-entrypoint.sh /jena-fuseki/fuseki-server --update --loc=/fuseki/databases/umetadata /umetadata"
     healthcheck:
       test: ["CMD", "wget", "-q", "--spider", "http://localhost:3030/$/ping"]
       interval: 15s
@@ -42,4 +42,4 @@ networks:
 # 2. Start: docker-compose -f docker-compose-fuseki-standalone.yml up -d
 # 3. Access Fuseki UI: http://localhost:3030
 # 4. Login: admin/admin
-# 5. SPARQL endpoint: http://localhost:3030/openmetadata/sparql
+# 5. SPARQL endpoint: http://localhost:3030/umetadata/sparql

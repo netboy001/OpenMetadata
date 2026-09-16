@@ -14,7 +14,7 @@ from metadata.generated.schema.entity.services.connections.testConnectionResult 
 )
 from metadata.generated.schema.type.basic import Timestamp
 from metadata.ingestion.connections.connection import BaseConnection
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 
 
 @pytest.fixture
@@ -24,7 +24,7 @@ def mock_service_connection():
 
 @pytest.fixture
 def mock_metadata():
-    return MagicMock(spec=OpenMetadata)
+    return MagicMock(spec=UMetadata)
 
 
 @pytest.fixture

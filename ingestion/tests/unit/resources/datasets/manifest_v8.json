@@ -33,7 +33,7 @@
                 ],
                 "meta": {
                     "owner": "aaron_johnson0",
-                    "openmetadata": {
+                    "umetadata": {
                         "glossary": [
                             "Test_Glossary.term_one",
                             "Test_Glossary.term_two.nested_term.more_nested_term"
@@ -122,7 +122,7 @@
             },
             "meta": {
                 "owner": "aaron_johnson0",
-                "openmetadata": {
+                "umetadata": {
                     "glossary": [
                         "Test_Glossary.term_one",
                         "Test_Glossary.term_two.nested_term.more_nested_term"
@@ -145,7 +145,7 @@
                 ],
                 "meta": {
                     "owner": "aaron_johnson0",
-                    "openmetadata": {
+                    "umetadata": {
                         "glossary": [
                             "Test_Glossary.term_one",
                             "Test_Glossary.term_two.nested_term.more_nested_term"

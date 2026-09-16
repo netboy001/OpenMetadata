@@ -102,11 +102,11 @@ COPY ingestion/operators/docker/*.py .
 # via pip --user, as the installed packages are invisible to the import
 # system. Creating the user ensures Python recognises UID 1000 and
 # enables the standard ~/.local install path.
-RUN groupadd -g 1000 openmetadata && useradd -m -u 1000 -g 1000 openmetadata
-RUN chown -R openmetadata:openmetadata /ingestion
-ENV HOME=/home/openmetadata
-ENV PATH="/home/openmetadata/.local/bin:${PATH}"
-USER openmetadata
+RUN groupadd -g 1000 umetadata && useradd -m -u 1000 -g 1000 umetadata
+RUN chown -R umetadata:umetadata /ingestion
+ENV HOME=/home/umetadata
+ENV PATH="/home/umetadata/.local/bin:${PATH}"
+USER umetadata
 
 # Disable pip cache dir
 # https://pip.pypa.io/en/stable/topics/caching/#avoiding-caching
@@ -122,13 +122,13 @@ RUN pip install --no-build-isolation "cx_Oracle>=8.3.0,<9"
 
 ARG INGESTION_DEPENDENCY="all"
 ARG RI_VERSION="1.12.14.0"
-RUN pip install "openmetadata-ingestion[airflow]~=${RI_VERSION}"
-RUN pip install "openmetadata-ingestion[${INGESTION_DEPENDENCY}]~=${RI_VERSION}"
+RUN pip install "umetadata-ingestion[airflow]~=${RI_VERSION}"
+RUN pip install "umetadata-ingestion[${INGESTION_DEPENDENCY}]~=${RI_VERSION}"
 
 
-# Temporary workaround for https://github.com/open-metadata/OpenMetadata/issues/9593
+# Temporary workaround for https://github.com/u-metadata/UMetadata/issues/9593
 RUN [ $(uname -m) = "x86_64" ] \
-  && pip install "openmetadata-ingestion[db2]~=${RI_VERSION}" \
+  && pip install "umetadata-ingestion[db2]~=${RI_VERSION}" \
   || echo "DB2 not supported on ARM architectures."
 
 # Uninstalling psycopg2-binary and installing psycopg2 instead

@@ -4,7 +4,7 @@ from typing import List, Tuple, Type
 
 import pytest
 
-from _openmetadata_testutils.ometa import int_admin_ometa
+from _umetadata_testutils.umeta import int_admin_umeta
 from metadata.generated.schema.entity.services.databaseService import DatabaseService
 from metadata.generated.schema.metadataIngestion.databaseServiceAutoClassificationPipeline import (
     AutoClassificationConfigType,
@@ -14,7 +14,7 @@ from metadata.generated.schema.metadataIngestion.databaseServiceMetadataPipeline
 )
 from metadata.generated.schema.metadataIngestion.workflow import LogLevels
 from metadata.ingestion.api.common import Entity
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.workflow.ingestion import IngestionWorkflow
 
 if not sys.version_info >= (3, 9):
@@ -30,7 +30,7 @@ def configure_logging():
 
 @pytest.fixture(scope="session")
 def metadata():
-    return int_admin_ometa()
+    return int_admin_umeta()
 
 
 def pytest_pycollect_makeitem(collector, name, obj):
@@ -80,7 +80,7 @@ def sink_config(metadata):
 def workflow_config(metadata):
     return {
         "loggerLevel": LogLevels.DEBUG.value,
-        "openMetadataServerConfig": metadata.config.model_dump(),
+        "uMetadataServerConfig": metadata.config.model_dump(),
     }
 
 
@@ -239,13 +239,13 @@ def patch_passwords_for_db_services(db_service, unmask_password, monkeymodule):
         return inner
 
     monkeymodule.setattr(
-        "metadata.ingestion.ometa.ometa_api.OpenMetadata.get_by_name",
-        override_password(OpenMetadata.get_by_name),
+        "metadata.ingestion.umeta.umeta_api.UMetadata.get_by_name",
+        override_password(UMetadata.get_by_name),
     )
 
     monkeymodule.setattr(
-        "metadata.ingestion.ometa.ometa_api.OpenMetadata.get_by_id",
-        override_password(OpenMetadata.get_by_id),
+        "metadata.ingestion.umeta.umeta_api.UMetadata.get_by_id",
+        override_password(UMetadata.get_by_id),
     )
 
 

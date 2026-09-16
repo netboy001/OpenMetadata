@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -38,7 +38,7 @@ from metadata.generated.schema.entity.services.dashboardService import (
     DashboardServiceType,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.generated.schema.type.basic import FullyQualifiedEntityName
 from metadata.generated.schema.type.entityLineage import EntitiesEdge, LineageDetails
@@ -49,7 +49,7 @@ from metadata.generated.schema.type.usageDetails import UsageDetails, UsageStats
 from metadata.generated.schema.type.usageRequest import UsageRequest
 from metadata.ingestion.api.steps import InvalidSourceException
 from metadata.ingestion.lineage.models import Dialect
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.dashboard.dashboard_service import DashboardUsage
 from metadata.ingestion.source.dashboard.looker.metadata import LookerSource
 from metadata.utils import fqn
@@ -75,9 +75,9 @@ MOCK_LOOKER_CONFIG = {
     },
     "sink": {"type": "metadata-rest", "config": {}},
     "workflowConfig": {
-        "openMetadataServerConfig": {
+        "uMetadataServerConfig": {
             "hostPort": "http://localhost:8585/api",
-            "authProvider": "openmetadata",
+            "authProvider": "umetadata",
             "securityConfig": {"jwtToken": "token"},
         },
     },
@@ -146,12 +146,12 @@ class LookerUnitTest(TestCase):
     def __init__(self, methodName, test_connection) -> None:
         super().__init__(methodName)
         test_connection.return_value = False
-        self.config = OpenMetadataWorkflowConfig.model_validate(MOCK_LOOKER_CONFIG)
+        self.config = UMetadataWorkflowConfig.model_validate(MOCK_LOOKER_CONFIG)
 
         # This already validates that the source can be initialized
         self.looker: LookerSource = LookerSource.create(
             MOCK_LOOKER_CONFIG["source"],
-            OpenMetadata(self.config.workflowConfig.openMetadataServerConfig),
+            UMetadata(self.config.workflowConfig.uMetadataServerConfig),
         )
 
         self.looker.context.get().__dict__[
@@ -168,10 +168,10 @@ class LookerUnitTest(TestCase):
             "serviceConnection": {
                 "config": {
                     "type": "Mysql",
-                    "username": "openmetadata_user",
-                    "authType": {"password": "openmetadata_password"},
+                    "username": "umetadata_user",
+                    "authType": {"password": "umetadata_password"},
                     "hostPort": "localhost:3306",
-                    "databaseSchema": "openmetadata_db",
+                    "databaseSchema": "umetadata_db",
                 }
             },
             "sourceConfig": {
@@ -185,7 +185,7 @@ class LookerUnitTest(TestCase):
             InvalidSourceException,
             LookerSource.create,
             not_looker_source,
-            self.config.workflowConfig.openMetadataServerConfig,
+            self.config.workflowConfig.uMetadataServerConfig,
         )
 
     def test_get_dashboards_list(self):
@@ -265,7 +265,7 @@ class LookerUnitTest(TestCase):
         with (
             patch.object(Looker40SDK, "user", return_value=MOCK_USER),
             patch.object(
-                OpenMetadata,
+                UMetadata,
                 "get_reference_by_email",
                 return_value=ref,
             ),
@@ -335,10 +335,10 @@ class LookerUnitTest(TestCase):
 
     def test_render_table_name(self):
         """
-        Check that table is rendered correctly if "openmetadata" or default condition apply, or no templating is present
+        Check that table is rendered correctly if "umetadata" or default condition apply, or no templating is present
         """
         tagged_table_name_template = """
-        {%- if openmetadata -%}
+        {%- if umetadata -%}
         `BQ-project.dataset.sample_data`
         {%- elsif prod -%}
         `BQ-project.dataset.sample_data`
@@ -498,7 +498,7 @@ class LookerUnitTest(TestCase):
         # If no from_entity, return none
         with (
             patch.object(fqn, "build", return_value=None),
-            patch.object(OpenMetadata, "get_by_name", return_value=None),
+            patch.object(UMetadata, "get_by_name", return_value=None),
         ):
             self.assertIsNone(
                 self.looker.build_lineage_request(source, db_service_name, to_entity)
@@ -513,7 +513,7 @@ class LookerUnitTest(TestCase):
         )
         with (
             patch.object(fqn, "build", return_value=None),
-            patch.object(OpenMetadata, "get_by_name", return_value=table),
+            patch.object(UMetadata, "get_by_name", return_value=table),
         ):
             original_lineage = self.looker.build_lineage_request(
                 source, db_service_name, to_entity
@@ -574,7 +574,7 @@ class LookerUnitTest(TestCase):
             fullyQualifiedName="dashboard_service.dashboard_name",
             service=EntityReference(id=uuid.uuid4(), type="dashboardService"),
         )
-        with patch.object(OpenMetadata, "get_by_name", return_value=return_value):
+        with patch.object(UMetadata, "get_by_name", return_value=return_value):
             self.assertEqual(
                 next(self.looker.yield_dashboard_usage(MOCK_LOOKER_DASHBOARD)).right,
                 DashboardUsage(
@@ -593,7 +593,7 @@ class LookerUnitTest(TestCase):
                 dailyStats=UsageStats(count=10), date=self.looker.today
             ),
         )
-        with patch.object(OpenMetadata, "get_by_name", return_value=return_value):
+        with patch.object(UMetadata, "get_by_name", return_value=return_value):
             # Nothing is returned
             self.assertEqual(
                 len(list(self.looker.yield_dashboard_usage(MOCK_LOOKER_DASHBOARD))), 0
@@ -609,7 +609,7 @@ class LookerUnitTest(TestCase):
                 dailyStats=UsageStats(count=0), date=self.looker.today
             ),
         )
-        with patch.object(OpenMetadata, "get_by_name", return_value=return_value):
+        with patch.object(UMetadata, "get_by_name", return_value=return_value):
             self.assertEqual(
                 next(self.looker.yield_dashboard_usage(MOCK_LOOKER_DASHBOARD)).right,
                 DashboardUsage(
@@ -629,7 +629,7 @@ class LookerUnitTest(TestCase):
                 date=datetime.strftime(datetime.now() - timedelta(1), "%Y-%m-%d"),
             ),
         )
-        with patch.object(OpenMetadata, "get_by_name", return_value=return_value):
+        with patch.object(UMetadata, "get_by_name", return_value=return_value):
             self.assertEqual(
                 next(self.looker.yield_dashboard_usage(MOCK_LOOKER_DASHBOARD)).right,
                 DashboardUsage(
@@ -650,7 +650,7 @@ class LookerUnitTest(TestCase):
                 date=datetime.strftime(datetime.now() - timedelta(1), "%Y-%m-%d"),
             ),
         )
-        with patch.object(OpenMetadata, "get_by_name", return_value=return_value):
+        with patch.object(UMetadata, "get_by_name", return_value=return_value):
             self.assertEqual(
                 len(list(self.looker.yield_dashboard_usage(MOCK_LOOKER_DASHBOARD))), 0
             )

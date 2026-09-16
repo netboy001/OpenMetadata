@@ -61,7 +61,7 @@ docker compose -f docker/development/docker-compose.yml down --remove-orphans
 if [[ $skipMaven == "false" ]]; then
     if [[ $mode == "no-ui" ]]; then
         echo "Maven Build - Skipping Tests and UI"
-        mvn -DskipTests -DonlyBackend clean package -pl !openmetadata-ui
+        mvn -DskipTests -DonlyBackend clean package -pl !umetadata-ui
     else
         echo "Maven Build - Skipping Tests"
         mvn -DskipTests clean package
@@ -77,7 +77,7 @@ if [ $RESULT -ne 0 ]; then
 fi
 
 if [[ $debugOM == "true" ]]; then
- export OPENMETADATA_DEBUG=true
+ export UMETADATA_DEBUG=true
 fi
 
 if [[ $cleanDbVolumes == "true" ]]
@@ -121,8 +121,8 @@ if [[ $includeIngestion == "true" ]]; then
     docker compose -f $COMPOSE_FILE build --build-arg INGESTION_DEPENDENCY="${INGESTION_DEPENDENCY:-all}" && docker compose -f $COMPOSE_FILE up -d
 else
     echo "Building services without ingestion"
-    docker compose -f $COMPOSE_FILE build $SEARCH_SERVICE $DB_SERVICE execute-migrate-all openmetadata-server && \
-    docker compose -f $COMPOSE_FILE up -d $SEARCH_SERVICE $DB_SERVICE execute-migrate-all openmetadata-server
+    docker compose -f $COMPOSE_FILE build $SEARCH_SERVICE $DB_SERVICE execute-migrate-all umetadata-server && \
+    docker compose -f $COMPOSE_FILE up -d $SEARCH_SERVICE $DB_SERVICE execute-migrate-all umetadata-server
 fi
 
 RESULT=$?
@@ -131,7 +131,7 @@ if [ $RESULT -ne 0 ]; then
   exit 1
 fi
 
-until curl -s -f "http://localhost:9200/_cat/indices/openmetadata_team_search_index"; do
+until curl -s -f "http://localhost:9200/_cat/indices/umetadata_team_search_index"; do
   echo 'Checking if Elastic Search instance is up...\n'
   sleep 5
 done
@@ -289,5 +289,5 @@ curl --location --request POST 'http://localhost:8585/api/v1/apps/trigger/Search
 
 sleep 60 # Sleep for 60 seconds to make sure the elasticsearch reindexing from UI finishes
 tput setaf 2
-echo "✔ OpenMetadata is up and running"
+echo "✔ UMetadata is up and running"
 

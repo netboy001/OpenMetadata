@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,7 +25,7 @@ import yaml
 from dotenv import load_dotenv
 from pydantic import BaseModel, Field, field_validator
 
-from metadata.ingestion.ometa.credentials import URL
+from metadata.ingestion.umeta.credentials import URL
 from metadata.utils.logger import cli_logger
 from metadata.workflow.metadata import MetadataWorkflow
 
@@ -41,47 +41,47 @@ class FilterPattern(BaseModel):
     )
 
 
-class OpenMetadataDBTConfig(BaseModel):
-    """Pydantic model for OpenMetadata DBT configuration"""
+class UMetadataDBTConfig(BaseModel):
+    """Pydantic model for UMetadata DBT configuration"""
 
     # Required fields
-    openmetadata_host_port: str = Field(
-        ..., description="OpenMetadata server host and port"
+    umetadata_host_port: str = Field(
+        ..., description="UMetadata server host and port"
     )
-    openmetadata_jwt_token: str = Field(..., description="JWT token for authentication")
-    openmetadata_service_name: str = Field(
+    umetadata_jwt_token: str = Field(..., description="JWT token for authentication")
+    umetadata_service_name: str = Field(
         ..., description="Service name for the DBT service"
     )
 
     # Optional DBT source configuration with defaults
-    openmetadata_dbt_update_descriptions: bool = Field(
+    umetadata_dbt_update_descriptions: bool = Field(
         default=True, description="Update model descriptions from DBT"
     )
-    openmetadata_dbt_update_owners: bool = Field(
+    umetadata_dbt_update_owners: bool = Field(
         default=True, description="Update model owners from DBT"
     )
-    openmetadata_include_tags: bool = Field(
+    umetadata_include_tags: bool = Field(
         default=True, description="Include DBT tags as metadata"
     )
-    openmetadata_search_across_databases: bool = Field(
+    umetadata_search_across_databases: bool = Field(
         default=False, description="Search across multiple databases"
     )
-    openmetadata_dbt_classification_name: Optional[str] = Field(
+    umetadata_dbt_classification_name: Optional[str] = Field(
         default=None, description="Custom classification name for DBT tags"
     )
 
     # Filter patterns - standardized to dict format only
-    openmetadata_database_filter_pattern: Optional[Dict[str, List[str]]] = Field(
+    umetadata_database_filter_pattern: Optional[Dict[str, List[str]]] = Field(
         default=None, description="Database filter pattern with includes/excludes"
     )
-    openmetadata_schema_filter_pattern: Optional[Dict[str, List[str]]] = Field(
+    umetadata_schema_filter_pattern: Optional[Dict[str, List[str]]] = Field(
         default=None, description="Schema filter pattern with includes/excludes"
     )
-    openmetadata_table_filter_pattern: Optional[Dict[str, List[str]]] = Field(
+    umetadata_table_filter_pattern: Optional[Dict[str, List[str]]] = Field(
         default=None, description="Table filter pattern with includes/excludes"
     )
 
-    @field_validator("openmetadata_host_port")
+    @field_validator("umetadata_host_port")
     @classmethod
     def validate_host_port(cls, v):
         """Validate that host_port is a valid URL using the existing URL class"""
@@ -105,30 +105,30 @@ class OpenMetadataDBTConfig(BaseModel):
     @property
     def database_filter(self) -> FilterPattern:
         """Get database filter pattern as FilterPattern model"""
-        return self._get_filter_pattern(self.openmetadata_database_filter_pattern)
+        return self._get_filter_pattern(self.umetadata_database_filter_pattern)
 
     @property
     def schema_filter(self) -> FilterPattern:
         """Get schema filter pattern as FilterPattern model"""
-        return self._get_filter_pattern(self.openmetadata_schema_filter_pattern)
+        return self._get_filter_pattern(self.umetadata_schema_filter_pattern)
 
     @property
     def table_filter(self) -> FilterPattern:
         """Get table filter pattern as FilterPattern model"""
-        return self._get_filter_pattern(self.openmetadata_table_filter_pattern)
+        return self._get_filter_pattern(self.umetadata_table_filter_pattern)
 
     def log_configuration(self):
         config = {
-            "update_descriptions": self.openmetadata_dbt_update_descriptions,
-            "update_owners": self.openmetadata_dbt_update_owners,
-            "include_tags": self.openmetadata_include_tags,
-            "search_across_databases": self.openmetadata_search_across_databases,
-            "classification_name": self.openmetadata_dbt_classification_name,
+            "update_descriptions": self.umetadata_dbt_update_descriptions,
+            "update_owners": self.umetadata_dbt_update_owners,
+            "include_tags": self.umetadata_include_tags,
+            "search_across_databases": self.umetadata_search_across_databases,
+            "classification_name": self.umetadata_dbt_classification_name,
             "database_filter": self.database_filter.model_dump(exclude_none=True),
             "schema_filter": self.schema_filter.model_dump(exclude_none=True),
             "table_filter": self.table_filter.model_dump(exclude_none=True),
         }
-        logger.info("OpenMetadata DBT Config:\n%s", json.dumps(config, indent=2))
+        logger.info("UMetadata DBT Config:\n%s", json.dumps(config, indent=2))
 
 
 def substitute_env_vars(content: str) -> str:
@@ -211,17 +211,17 @@ def find_dbt_project_config(dbt_project_path: Path) -> Dict:
         raise ValueError(f"Failed to parse dbt_project.yml: {exc}")
 
 
-def extract_openmetadata_config(dbt_config: Dict) -> OpenMetadataDBTConfig:
+def extract_umetadata_config(dbt_config: Dict) -> UMetadataDBTConfig:
     """
-    Extract and validate OpenMetadata configuration from dbt project config using Pydantic
+    Extract and validate UMetadata configuration from dbt project config using Pydantic
 
     :param dbt_config: Parsed dbt project configuration
-    :return: Validated OpenMetadata configuration model
+    :return: Validated UMetadata configuration model
     """
     vars_config = dbt_config.get("vars", {})
     try:
         # Create and validate the configuration using Pydantic
-        om_config = OpenMetadataDBTConfig(**vars_config)
+        om_config = UMetadataDBTConfig(**vars_config)
         om_config.log_configuration()
         return om_config
 
@@ -230,25 +230,25 @@ def extract_openmetadata_config(dbt_config: Dict) -> OpenMetadataDBTConfig:
         error_msg = str(exc)
         if "Field required" in error_msg:
             raise ValueError(
-                f"Required OpenMetadata configuration not found in dbt_project.yml vars.\n"
+                f"Required UMetadata configuration not found in dbt_project.yml vars.\n"
                 f"Error: {error_msg}\n"
                 f"Please add the following to your dbt_project.yml:\n"
                 f"vars:\n"
-                f"  openmetadata_jwt_token: 'your-jwt-token'\n"
-                f"  openmetadata_host_port: 'your-host-port (e.g. http://openmetadata-server:8585/api)'\n"
-                f"  openmetadata_service_name: 'your-service-name'"
+                f"  umetadata_jwt_token: 'your-jwt-token'\n"
+                f"  umetadata_host_port: 'your-host-port (e.g. http://umetadata-server:8585/api)'\n"
+                f"  umetadata_service_name: 'your-service-name'"
             )
-        raise ValueError(f"Invalid OpenMetadata configuration: {error_msg}")
+        raise ValueError(f"Invalid UMetadata configuration: {error_msg}")
 
 
 def create_dbt_workflow_config(
-    dbt_project_path: Path, om_config: OpenMetadataDBTConfig
+    dbt_project_path: Path, om_config: UMetadataDBTConfig
 ) -> Dict:
     """
-    Create OpenMetadata workflow configuration for dbt artifacts ingestion
+    Create UMetadata workflow configuration for dbt artifacts ingestion
 
     :param dbt_project_path: Path to the dbt project directory
-    :param om_config: Validated OpenMetadata configuration model
+    :param om_config: Validated UMetadata configuration model
     :return: Workflow configuration
     """
     target_dir = dbt_project_path / "target"
@@ -279,10 +279,10 @@ def create_dbt_workflow_config(
     source_config = {
         "type": "DBT",
         "dbtConfigSource": dbt_config_source,
-        "dbtUpdateDescriptions": om_config.openmetadata_dbt_update_descriptions,
-        "dbtUpdateOwners": om_config.openmetadata_dbt_update_owners,
-        "includeTags": om_config.openmetadata_include_tags,
-        "searchAcrossDatabases": om_config.openmetadata_search_across_databases,
+        "dbtUpdateDescriptions": om_config.umetadata_dbt_update_descriptions,
+        "dbtUpdateOwners": om_config.umetadata_dbt_update_owners,
+        "includeTags": om_config.umetadata_include_tags,
+        "searchAcrossDatabases": om_config.umetadata_search_across_databases,
         "databaseFilterPattern": om_config.database_filter.model_dump(
             exclude_none=True
         ),
@@ -291,25 +291,25 @@ def create_dbt_workflow_config(
     }
 
     # Add optional classification name if provided
-    if om_config.openmetadata_dbt_classification_name:
+    if om_config.umetadata_dbt_classification_name:
         source_config[
             "dbtClassificationName"
-        ] = om_config.openmetadata_dbt_classification_name
+        ] = om_config.umetadata_dbt_classification_name
 
     # Create workflow configuration
     config = {
         "source": {
             "type": "dbt",
-            "serviceName": om_config.openmetadata_service_name,
+            "serviceName": om_config.umetadata_service_name,
             "sourceConfig": {"config": source_config},
         },
         "sink": {"type": "metadata-rest", "config": {}},
         "workflowConfig": {
             "loggerLevel": "INFO",
-            "openMetadataServerConfig": {
-                "hostPort": om_config.openmetadata_host_port,
-                "authProvider": "openmetadata",
-                "securityConfig": {"jwtToken": om_config.openmetadata_jwt_token},
+            "uMetadataServerConfig": {
+                "hostPort": om_config.umetadata_host_port,
+                "authProvider": "umetadata",
+                "securityConfig": {"jwtToken": om_config.umetadata_jwt_token},
             },
         },
     }
@@ -342,17 +342,17 @@ def run_ingest_dbt(dbt_project_path: Path) -> None:
         logger.info("Loading dbt project configuration...")
         dbt_config = find_dbt_project_config(dbt_project_path)
 
-        logger.info("Extracting OpenMetadata configuration...")
-        om_config = extract_openmetadata_config(dbt_config)
+        logger.info("Extracting UMetadata configuration...")
+        om_config = extract_umetadata_config(dbt_config)
 
-        logger.info(f"Publishing to OpenMetadata: {om_config.openmetadata_host_port}")
-        logger.info(f"Service name: {om_config.openmetadata_service_name}")
+        logger.info(f"Publishing to UMetadata: {om_config.umetadata_host_port}")
+        logger.info(f"Service name: {om_config.umetadata_service_name}")
 
         logger.info("Creating workflow configuration...")
         workflow_config = create_dbt_workflow_config(dbt_project_path, om_config)
 
         # Create and execute the MetadataWorkflow (reusing existing infrastructure)
-        logger.info("Starting OpenMetadata ingestion workflow...")
+        logger.info("Starting UMetadata ingestion workflow...")
         workflow = MetadataWorkflow.create(workflow_config)
         workflow.execute()
         workflow.raise_from_status()

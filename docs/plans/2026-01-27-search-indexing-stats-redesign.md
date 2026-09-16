@@ -344,7 +344,7 @@ public class IndexingFailureRecorder {
 
 ### Files to Modify
 
-**OpenMetadata Submodule:**
+**UMetadata Submodule:**
 
 | File | Changes |
 |------|---------|

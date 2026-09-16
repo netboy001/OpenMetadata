@@ -1,0 +1,79 @@
+package org.umetadata.service.resources.events.subscription;
+
+import static org.umetadata.common.utils.CommonUtil.nullOrEmpty;
+import static org.umetadata.service.events.subscription.AlertUtil.validateAndBuildFilteringConditions;
+import static org.umetadata.service.fernet.Fernet.encryptWebhookSecretKey;
+
+import jakarta.ws.rs.BadRequestException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+import org.umetadata.schema.api.events.CreateEventSubscription;
+import org.umetadata.schema.entity.events.EventSubscription;
+import org.umetadata.schema.entity.events.SubscriptionDestination;
+import org.umetadata.service.apps.bundles.changeEvent.AbstractEventConsumer;
+import org.umetadata.service.apps.bundles.changeEvent.AlertPublisher;
+import org.umetadata.service.mapper.EntityMapper;
+
+public class EventSubscriptionMapper
+    implements EntityMapper<EventSubscription, CreateEventSubscription> {
+  @Override
+  public EventSubscription createToEntity(CreateEventSubscription create, String user) {
+    return copy(new EventSubscription(), create, user)
+        .withAlertType(create.getAlertType())
+        .withTrigger(create.getTrigger())
+        .withEnabled(create.getEnabled())
+        .withBatchSize(create.getBatchSize())
+        .withFilteringRules(
+            validateAndBuildFilteringConditions(
+                create.getResources(), create.getAlertType(), create.getInput()))
+        .withDestinations(encryptWebhookSecretKey(getSubscriptions(create.getDestinations())))
+        .withProvider(create.getProvider())
+        .withRetries(create.getRetries())
+        .withPollInterval(create.getPollInterval())
+        .withInput(create.getInput())
+        .withNotificationTemplate(create.getNotificationTemplate())
+        .withClassName(
+            validateConsumerClass(
+                Optional.ofNullable(create.getClassName())
+                    .orElse(AlertPublisher.class.getCanonicalName())))
+        .withConfig(create.getConfig());
+  }
+
+  private String validateConsumerClass(String className) {
+    // Validate that the class belongs to our application package
+    if (!className.startsWith("org.umetadata.") && !className.contains("io.collate.")) {
+      throw new BadRequestException(
+          "Only classes from org.umetadata or io.collate packages are allowed: " + className);
+    }
+
+    try {
+      // Check if the class exists and is a subclass of AbstractEventConsumer
+      Class<?> clazz = Class.forName(className);
+      if (!AbstractEventConsumer.class.isAssignableFrom(clazz)) {
+        throw new BadRequestException(
+            "Class must be a subclass of AbstractEventConsumer: " + className);
+      }
+      return className;
+    } catch (ClassNotFoundException e) {
+      throw new BadRequestException("Consumer class not found: " + className);
+    }
+  }
+
+  private List<SubscriptionDestination> getSubscriptions(
+      List<SubscriptionDestination> subscriptions) {
+    if (subscriptions == null) {
+      return new ArrayList<>();
+    }
+    List<SubscriptionDestination> result = new ArrayList<>();
+    subscriptions.forEach(
+        subscription -> {
+          if (nullOrEmpty(subscription.getId())) {
+            subscription.withId(UUID.randomUUID());
+          }
+          result.add(subscription);
+        });
+    return result;
+  }
+}

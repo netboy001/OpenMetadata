@@ -23,10 +23,10 @@ class TestGlossaryEntity(unittest.TestCase):
 
     def setUp(self):
         """Set up test fixtures"""
-        self.mock_ometa = MagicMock()
+        self.mock_umeta = MagicMock()
 
         # Set default client directly
-        Glossaries.set_default_client(self.mock_ometa)
+        Glossaries.set_default_client(self.mock_umeta)
 
         # Test data
         self.glossary_id = "150e8400-e29b-41d4-a716-446655440000"
@@ -46,7 +46,7 @@ class TestGlossaryEntity(unittest.TestCase):
         expected_glossary.name = "BusinessGlossary"
         expected_glossary.displayName = "Business Glossary"
 
-        self.mock_ometa.create_or_update.return_value = expected_glossary
+        self.mock_umeta.create_or_update.return_value = expected_glossary
 
         # Act
         result = Glossaries.create(create_request)
@@ -55,7 +55,7 @@ class TestGlossaryEntity(unittest.TestCase):
         self.assertEqual(str(result.id), self.glossary_id)
         self.assertEqual(result.name, "BusinessGlossary")
         self.assertEqual(result.displayName, "Business Glossary")
-        self.mock_ometa.create_or_update.assert_called_once_with(create_request)
+        self.mock_umeta.create_or_update.assert_called_once_with(create_request)
 
     def test_retrieve_glossary_by_id(self):
         """Test retrieving a glossary by ID"""
@@ -65,7 +65,7 @@ class TestGlossaryEntity(unittest.TestCase):
         expected_glossary.name = "BusinessGlossary"
         expected_glossary.description = "Business terms and definitions"
 
-        self.mock_ometa.get_by_id.return_value = expected_glossary
+        self.mock_umeta.get_by_id.return_value = expected_glossary
 
         # Act
         result = Glossaries.retrieve(self.glossary_id)
@@ -73,7 +73,7 @@ class TestGlossaryEntity(unittest.TestCase):
         # Assert
         self.assertEqual(str(result.id), self.glossary_id)
         self.assertEqual(result.name, "BusinessGlossary")
-        self.mock_ometa.get_by_id.assert_called_once_with(
+        self.mock_umeta.get_by_id.assert_called_once_with(
             entity=GlossaryEntity, entity_id=self.glossary_id, fields=None
         )
 
@@ -85,14 +85,14 @@ class TestGlossaryEntity(unittest.TestCase):
         expected_glossary.name = "BusinessGlossary"
         expected_glossary.fullyQualifiedName = self.glossary_fqn
 
-        self.mock_ometa.get_by_name.return_value = expected_glossary
+        self.mock_umeta.get_by_name.return_value = expected_glossary
 
         # Act
         result = Glossaries.retrieve_by_name(self.glossary_fqn)
 
         # Assert
         self.assertEqual(result.fullyQualifiedName, self.glossary_fqn)
-        self.mock_ometa.get_by_name.assert_called_once_with(
+        self.mock_umeta.get_by_name.assert_called_once_with(
             entity=GlossaryEntity, fqn=self.glossary_fqn, fields=None
         )
 
@@ -107,10 +107,10 @@ class TestGlossaryEntity(unittest.TestCase):
         # Mock the get_by_id to return the current state
         current_glossary = MagicMock(spec=GlossaryEntity)
         current_glossary.id = UUID(self.glossary_id)
-        self.mock_ometa.get_by_id.return_value = current_glossary
+        self.mock_umeta.get_by_id.return_value = current_glossary
 
         # Mock the patch to return the updated glossary
-        self.mock_ometa.patch.return_value = glossary_to_update
+        self.mock_umeta.patch.return_value = glossary_to_update
 
         # Act
         result = Glossaries.update(glossary_to_update)
@@ -118,9 +118,9 @@ class TestGlossaryEntity(unittest.TestCase):
         # Assert
         self.assertEqual(result.description, "Updated business glossary")
         # Verify get_by_id was called to fetch current state
-        self.mock_ometa.get_by_id.assert_called_once()
+        self.mock_umeta.get_by_id.assert_called_once()
         # Verify patch was called with source and destination
-        self.mock_ometa.patch.assert_called_once()
+        self.mock_umeta.patch.assert_called_once()
 
     def test_delete_glossary(self):
         """Test deleting a glossary"""
@@ -128,7 +128,7 @@ class TestGlossaryEntity(unittest.TestCase):
         Glossaries.delete(self.glossary_id, recursive=True, hard_delete=False)
 
         # Assert
-        self.mock_ometa.delete.assert_called_once_with(
+        self.mock_umeta.delete.assert_called_once_with(
             entity=GlossaryEntity,
             entity_id=self.glossary_id,
             recursive=True,
@@ -146,7 +146,7 @@ class TestGlossaryEntity(unittest.TestCase):
         mock_response = MagicMock()
         mock_response.entities = [mock_glossary1, mock_glossary2]
 
-        self.mock_ometa.list_entities.return_value = mock_response
+        self.mock_umeta.list_entities.return_value = mock_response
 
         # Act
         result = Glossaries.list()
@@ -154,7 +154,7 @@ class TestGlossaryEntity(unittest.TestCase):
         # Assert
         self.assertEqual(len(result.entities), 2)
         self.assertEqual(result.entities[0].name, "glossary1")
-        self.mock_ometa.list_entities.assert_called_once()
+        self.mock_umeta.list_entities.assert_called_once()
 
 
 class TestGlossaryTermEntity(unittest.TestCase):
@@ -162,10 +162,10 @@ class TestGlossaryTermEntity(unittest.TestCase):
 
     def setUp(self):
         """Set up test fixtures"""
-        self.mock_ometa = MagicMock()
+        self.mock_umeta = MagicMock()
 
         # Set default client directly
-        GlossaryTerms.set_default_client(self.mock_ometa)
+        GlossaryTerms.set_default_client(self.mock_umeta)
 
         # Test data
         self.term_id = "250e8400-e29b-41d4-a716-446655440000"
@@ -186,7 +186,7 @@ class TestGlossaryTermEntity(unittest.TestCase):
         expected_term.name = "Customer"
         expected_term.displayName = "Customer"
 
-        self.mock_ometa.create_or_update.return_value = expected_term
+        self.mock_umeta.create_or_update.return_value = expected_term
 
         # Act
         result = GlossaryTerms.create(create_request)
@@ -194,7 +194,7 @@ class TestGlossaryTermEntity(unittest.TestCase):
         # Assert
         self.assertEqual(str(result.id), self.term_id)
         self.assertEqual(result.name, "Customer")
-        self.mock_ometa.create_or_update.assert_called_once_with(create_request)
+        self.mock_umeta.create_or_update.assert_called_once_with(create_request)
 
     def test_retrieve_term_by_id(self):
         """Test retrieving a glossary term by ID"""
@@ -204,7 +204,7 @@ class TestGlossaryTermEntity(unittest.TestCase):
         expected_term.name = "Customer"
         expected_term.description = "Customer definition"
 
-        self.mock_ometa.get_by_id.return_value = expected_term
+        self.mock_umeta.get_by_id.return_value = expected_term
 
         # Act
         result = GlossaryTerms.retrieve(self.term_id)
@@ -212,7 +212,7 @@ class TestGlossaryTermEntity(unittest.TestCase):
         # Assert
         self.assertEqual(str(result.id), self.term_id)
         self.assertEqual(result.name, "Customer")
-        self.mock_ometa.get_by_id.assert_called_once_with(
+        self.mock_umeta.get_by_id.assert_called_once_with(
             entity=GlossaryTermEntity, entity_id=self.term_id, fields=None
         )
 
@@ -224,7 +224,7 @@ class TestGlossaryTermEntity(unittest.TestCase):
         expected_term.name = "Customer"
         expected_term.synonyms = ["Client", "Buyer", "Purchaser"]
 
-        self.mock_ometa.get_by_id.return_value = expected_term
+        self.mock_umeta.get_by_id.return_value = expected_term
 
         # Act
         result = GlossaryTerms.retrieve(self.term_id)
@@ -249,7 +249,7 @@ class TestGlossaryTermEntity(unittest.TestCase):
         expected_term.name = "Customer"
         expected_term.relatedTerms = [related_term]
 
-        self.mock_ometa.get_by_id.return_value = expected_term
+        self.mock_umeta.get_by_id.return_value = expected_term
 
         # Act
         result = GlossaryTerms.retrieve(self.term_id, fields=["relatedTerms"])
@@ -278,7 +278,7 @@ class TestGlossaryTermEntity(unittest.TestCase):
         expected_term.parent = parent_term
         expected_term.children = [child_term]
 
-        self.mock_ometa.get_by_id.return_value = expected_term
+        self.mock_umeta.get_by_id.return_value = expected_term
 
         # Act
         result = GlossaryTerms.retrieve(self.term_id, fields=["parent", "children"])
@@ -295,7 +295,7 @@ class TestGlossaryTermEntity(unittest.TestCase):
         GlossaryTerms.delete(self.term_id, recursive=False, hard_delete=True)
 
         # Assert
-        self.mock_ometa.delete.assert_called_once_with(
+        self.mock_umeta.delete.assert_called_once_with(
             entity=GlossaryTermEntity,
             entity_id=self.term_id,
             recursive=False,

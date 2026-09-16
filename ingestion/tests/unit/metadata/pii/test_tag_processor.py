@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,20 +16,20 @@ from unittest.mock import Mock
 import pytest
 from dirty_equals import Contains, HasAttributes, IsFloat, IsInstance, IsUUID
 
-from _openmetadata_testutils.factories.metadata.generated.schema.entity.classification.tag import (
+from _umetadata_testutils.factories.metadata.generated.schema.entity.classification.tag import (
     TagFactory,
 )
-from _openmetadata_testutils.factories.metadata.generated.schema.type.basic import (
+from _umetadata_testutils.factories.metadata.generated.schema.type.basic import (
     UuidFactory,
 )
-from _openmetadata_testutils.factories.metadata.generated.schema.type.recognizer import (
+from _umetadata_testutils.factories.metadata.generated.schema.type.recognizer import (
     PatternFactory,
     PatternRecognizerFactory,
     PredefinedRecognizerFactory,
     RecognizerFactory,
 )
-from _openmetadata_testutils.factories.metadata.pii.models import ScoredTagFactory
-from _openmetadata_testutils.pii.fake_classification_manager import (
+from _umetadata_testutils.factories.metadata.pii.models import ScoredTagFactory
+from _umetadata_testutils.pii.fake_classification_manager import (
     FakeClassificationManager,
 )
 from metadata.generated.schema.entity.classification.classification import (
@@ -37,20 +37,20 @@ from metadata.generated.schema.entity.classification.classification import (
 )
 from metadata.generated.schema.entity.classification.tag import Tag
 from metadata.generated.schema.entity.data.table import Column, ColumnName, DataType
-from metadata.generated.schema.entity.services.connections.metadata.openMetadataConnection import (
-    OpenMetadataConnection,
+from metadata.generated.schema.entity.services.connections.metadata.uMetadataConnection import (
+    UMetadataConnection,
 )
 from metadata.generated.schema.metadataIngestion.databaseServiceAutoClassificationPipeline import (
     DatabaseServiceAutoClassificationPipeline,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
     Source,
     SourceConfig,
     WorkflowConfig,
 )
-from metadata.generated.schema.security.client.openMetadataJWTClientConfig import (
-    OpenMetadataJWTClientConfig,
+from metadata.generated.schema.security.client.uMetadataJWTClientConfig import (
+    UMetadataJWTClientConfig,
 )
 from metadata.generated.schema.type import recognizer, tagLabelRecognizerMetadata
 from metadata.generated.schema.type.basic import Uuid
@@ -71,7 +71,7 @@ from metadata.generated.schema.type.tagLabelRecognizerMetadata import (
     PatternMatch,
     TagLabelRecognizerMetadata,
 )
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.pii.algorithms.tag_scoring import ScoreTagsForColumnService
 from metadata.pii.models import ScoredTag
 from metadata.pii.tag_processor import TagProcessor
@@ -81,15 +81,15 @@ class TestTagProcessor:
     """Test the TagProcessor class"""
 
     @pytest.fixture
-    def workflow_config(self) -> OpenMetadataWorkflowConfig:
+    def workflow_config(self) -> UMetadataWorkflowConfig:
         """Create workflow configuration"""
-        server_config = OpenMetadataConnection(
+        server_config = UMetadataConnection(
             hostPort="http://localhost:8585/api",
-            authProvider="openmetadata",
-            securityConfig=OpenMetadataJWTClientConfig(jwtToken="test_token"),
+            authProvider="umetadata",
+            securityConfig=UMetadataJWTClientConfig(jwtToken="test_token"),
         )
 
-        return OpenMetadataWorkflowConfig(
+        return UMetadataWorkflowConfig(
             source=Source(
                 type="mysql",
                 serviceName="test",
@@ -100,7 +100,7 @@ class TestTagProcessor:
                     )
                 ),
             ),
-            workflowConfig=WorkflowConfig(openMetadataServerConfig=server_config),
+            workflowConfig=WorkflowConfig(uMetadataServerConfig=server_config),
         )
 
     @pytest.fixture
@@ -162,7 +162,7 @@ class TestTagProcessor:
     @pytest.fixture
     def mock_metadata(self) -> Mock:
         """Create mock metadata client"""
-        return Mock(spec=OpenMetadata)
+        return Mock(spec=UMetadata)
 
     @pytest.fixture
     def score_tags_for_column(self) -> ScoreTagsForColumnService:
@@ -172,7 +172,7 @@ class TestTagProcessor:
     @pytest.fixture
     def processor(
         self,
-        workflow_config: OpenMetadataWorkflowConfig,
+        workflow_config: UMetadataWorkflowConfig,
         mock_metadata: Mock,
         classification_manager: FakeClassificationManager,
         score_tags_for_column: ScoreTagsForColumnService,
@@ -314,7 +314,7 @@ class TestTagProcessor:
     def test_mixed_pii_data_chooses_highest_confidence(
         self,
         processor: TagProcessor,
-        workflow_config: OpenMetadataWorkflowConfig,
+        workflow_config: UMetadataWorkflowConfig,
         mock_metadata: Mock,
         score_tags_for_column: ScoreTagsForColumnService,
         pii_classification: Classification,
@@ -414,7 +414,7 @@ class TestTagProcessor:
 
     def test_ssn_classification_with_custom_analyzer(
         self,
-        workflow_config: OpenMetadataWorkflowConfig,
+        workflow_config: UMetadataWorkflowConfig,
         mock_metadata: Mock,
         score_tags_for_column: ScoreTagsForColumnService,
         pii_classification: Classification,
@@ -481,7 +481,7 @@ class TestTagProcessor:
     )
     def test_confidence_threshold_initialization(
         self,
-        workflow_config: OpenMetadataWorkflowConfig,
+        workflow_config: UMetadataWorkflowConfig,
         mock_metadata: Mock,
         confidence: float,
         expected_threshold: float,
@@ -525,7 +525,7 @@ class TestTagProcessor:
 
     def test_it_skips_recognizers_with_exception_lists(
         self,
-        workflow_config: OpenMetadataWorkflowConfig,
+        workflow_config: UMetadataWorkflowConfig,
         mock_metadata: Mock,
         score_tags_for_column: ScoreTagsForColumnService,
         pii_classification: Classification,

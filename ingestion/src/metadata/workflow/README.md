@@ -12,7 +12,7 @@ Each `Workflow` can be built by using `Steps` as lego pieces. Each of these piec
 on which operations we can expect to happen inside. Currently, the `BaseWorkflow` accepts any number of sequential `Steps`,
 each of them taking care of a specific part of the business logic.
 
-![base-workflow.steps.drawio.png](https://raw.githubusercontent.com/open-metadata/docs-v1/refs/heads/main/public/images/readme/ingestion/base-workflow.steps.drawio.png)
+![base-workflow.steps.drawio.png](https://raw.githubusercontent.com/u-metadata/docs-v1/refs/heads/main/public/images/readme/ingestion/base-workflow.steps.drawio.png)
 
 We mainly have four types of steps, iterative steps and return steps:
 
@@ -51,9 +51,9 @@ A couple of examples:
 ### Metadata Ingestion
 
 Here we have two steps:
-- `Source`: that will list the metadata of the origin (Dashboards, Tables, Pipelines,...), and translate them to the OpenMetadata
+- `Source`: that will list the metadata of the origin (Dashboards, Tables, Pipelines,...), and translate them to the UMetadata
   standard.
-- `REST Sink`: that will pick up the Create Requests of the above entities and send them to the OpenMetadata server.
+- `REST Sink`: that will pick up the Create Requests of the above entities and send them to the UMetadata server.
 
 What does the workflow do here? Group together the steps and streamline the execution. The workflow itself is the one
 that will know how to get each of the elements produced on the `Source` and pass them to the `Sink`.
@@ -61,10 +61,10 @@ that will know how to get each of the elements produced on the `Source` and pass
 ### Profiler Ingestion
 
 In this case we have 4 steps:
-- `Source`: that will pick up the tables from the OpenMetadata API that need to be profiled.
+- `Source`: that will pick up the tables from the UMetadata API that need to be profiled.
 - `Profiler Processor`: to execute the metrics and gather the results for each table.
 - `PII Processor`: that will get the result of the profiler, and add any classification that needs to be applied to the tables using NLP models.
-- `REST Sink`: to send the results to the OpenMetadata API.
+- `REST Sink`: to send the results to the UMetadata API.
 
 Here again, the `Workflow` class will move the elements from `Source` -> `Profiler Processor` -> `PII processor` -> `REST Sink`.
 
@@ -130,6 +130,6 @@ the actual `right` response.
 
 > OBS: We can think of this `Workflow` execution as a `flatMap` implementation.
 
-![base-workflow.workflow.drawio.png](https://raw.githubusercontent.com/open-metadata/docs-v1/refs/heads/main/public/images/readme/ingestion/base-workflow.workflow.drawio.png)
+![base-workflow.workflow.drawio.png](https://raw.githubusercontent.com/u-metadata/docs-v1/refs/heads/main/public/images/readme/ingestion/base-workflow.workflow.drawio.png)
 
 Note how in theory, we can keep building the steps together.

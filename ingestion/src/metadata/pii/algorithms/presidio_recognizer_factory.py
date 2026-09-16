@@ -2,14 +2,14 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 """
-Factory for creating Presidio recognizers from OpenMetadata recognizer configurations.
+Factory for creating Presidio recognizers from UMetadata recognizer configurations.
 """
 import re
 from typing import Any, Callable, Dict, List, Optional, cast
@@ -39,17 +39,17 @@ logger = pii_logger()
 
 
 class PresidioRecognizerFactory:
-    """Factory for creating Presidio recognizers from OpenMetadata configurations."""
+    """Factory for creating Presidio recognizers from UMetadata configurations."""
 
     @staticmethod
     def create_recognizer(
         recognizer_config: Recognizer, tag_fqn: str = "Unknown"
     ) -> Optional[EntityRecognizer]:
         """
-        Create a Presidio recognizer from an OpenMetadata recognizer configuration.
+        Create a Presidio recognizer from an UMetadata recognizer configuration.
 
         Args:
-            recognizer_config: The recognizer configuration from OpenMetadata
+            recognizer_config: The recognizer configuration from UMetadata
             tag_fqn: The fully qualified name of the tag this recognizer belongs to
 
         Returns:
@@ -275,7 +275,7 @@ class PresidioRecognizerFactory:
 
 
 class RecognizerRegistry:
-    """Registry for managing custom recognizers from OpenMetadata."""
+    """Registry for managing custom recognizers from UMetadata."""
 
     def __init__(self):
         self.recognizers: Dict[str, List[EntityRecognizer]] = {}

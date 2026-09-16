@@ -1,4 +1,4 @@
-# Apache Jena Fuseki Docker Image for OpenMetadata RDF Store
+# Apache Jena Fuseki Docker Image for UMetadata RDF Store
 FROM openjdk:17-jdk-slim
 
 ENV FUSEKI_VERSION=4.10.0
@@ -33,5 +33,5 @@ VOLUME ["/fuseki-data"]
 HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 \
   CMD wget -q --spider http://localhost:3030/$/ping || exit 1
 
-# Run Fuseki with OpenMetadata dataset
-CMD ["./fuseki-server", "--loc=/fuseki-data", "--update", "/openmetadata"]
+# Run Fuseki with UMetadata dataset
+CMD ["./fuseki-server", "--loc=/fuseki-data", "--update", "/umetadata"]

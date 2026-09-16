@@ -1,13 +1,13 @@
-## OpenMetadata ORM Profiler
+## UMetadata ORM Profiler
 
 This Profiler is based on SQLAlchemy ORM module. As we have the source tables' metadata already ingested,
-we can dynamically convert OpenMetadata Tables to SQLAlchemy Tables.
+we can dynamically convert UMetadata Tables to SQLAlchemy Tables.
 
 ### 1. Profiler workflow
 The whole process is structured as follows:
 1. A Profiling workflows runs specifying which `Entities` to analyze. The main arguments here are the
     entities to get from the API + the SQL Config.
-2. Each OpenMetadata table gets mapped to its equivalent SQLAlchemy Table.
+2. Each UMetadata table gets mapped to its equivalent SQLAlchemy Table.
 3. We pick up the required SQLAlchemy `Engine` based on the SQL Config from the JSON.
 4. We define a set of queries to run based on the SQLAlchemy Table.
 5. If some expressions are not universal, we can `compile` specific expressions for the required `DatabaseServiceType`.
@@ -23,7 +23,7 @@ If you want to limit the size of the data the profiler runs against, you can use
 2. Define you sampling at the table level `processor -> config -> tableConfig -> profileSample`
 
 ### 3. Specifying number of threads
-OpenMetadata profiler leverage multithreading to speed up computation of metrics. You can specify the number of threads to use in `source -> sourceConfig -> config -> threadCount`. Setting this number to 1 will result in the profiler running on a single thread.
+UMetadata profiler leverage multithreading to speed up computation of metrics. You can specify the number of threads to use in `source -> sourceConfig -> config -> threadCount`. Setting this number to 1 will result in the profiler running on a single thread.
 
 ### 4. Profiler `yaml` config file example
 ```yaml
@@ -71,7 +71,7 @@ sink:
   type: metadata-rest
   config: {}
 workflowConfig:
-  openMetadataServerConfig:
+  uMetadataServerConfig:
     hostPort: http://localhost:8585/api
     authProvider: no-auth
 ```
@@ -96,4 +96,4 @@ We currently have 2 main categories of interfaces:
 
 These interfaces can easily be extended to support connector specificity (e.g. BigQuery Struct computation, etc.).
 
-<img src="https://raw.githubusercontent.com/open-metadata/docs-v1/refs/heads/main/public/images/connectors/profiler/profilerUMLDiagram.png" width="100%">
+<img src="https://raw.githubusercontent.com/u-metadata/docs-v1/refs/heads/main/public/images/connectors/profiler/profilerUMLDiagram.png" width="100%">

@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -242,7 +242,7 @@ class TableauCliTest(CliCommonDashboard.TestSuite):
 
     def _validate_dashboard_metadata(self) -> None:
         """Validate dashboard metadata completeness"""
-        dashboards = self.openmetadata.list_entities(
+        dashboards = self.umetadata.list_entities(
             entity=Dashboard, params={"service": TableauExpectedValues.SERVICE_NAME}
         ).entities
 
@@ -273,7 +273,7 @@ class TableauCliTest(CliCommonDashboard.TestSuite):
 
     def _validate_chart_metadata(self) -> None:
         """Validate chart metadata completeness"""
-        charts = self.openmetadata.list_entities(
+        charts = self.umetadata.list_entities(
             entity=Chart, params={"service": TableauExpectedValues.SERVICE_NAME}
         ).entities
 
@@ -291,7 +291,7 @@ class TableauCliTest(CliCommonDashboard.TestSuite):
 
     def _validate_datamodel_metadata(self) -> None:
         """Validate data model metadata completeness"""
-        datamodels = self.openmetadata.list_entities(
+        datamodels = self.umetadata.list_entities(
             entity=DashboardDataModel,
             params={"service": TableauExpectedValues.SERVICE_NAME},
         ).entities
@@ -320,14 +320,14 @@ class TableauCliTest(CliCommonDashboard.TestSuite):
         # Get all entities and check for expected tags
         all_entities = []
         all_entities.extend(
-            self.openmetadata.list_entities(
+            self.umetadata.list_entities(
                 entity=Dashboard,
                 params={"service": TableauExpectedValues.SERVICE_NAME},
                 fields=["tags"],
             ).entities
         )
         all_entities.extend(
-            self.openmetadata.list_entities(
+            self.umetadata.list_entities(
                 entity=Chart,
                 params={"service": TableauExpectedValues.SERVICE_NAME},
                 fields=["tags"],
@@ -354,7 +354,7 @@ class TableauCliTest(CliCommonDashboard.TestSuite):
         # Lineage chain: Tables -> TableauPublishedDatasource -> TableauEmbeddedDatasource -> Dashboard
         analytics_dashboard = self.get_entity_by_name(Dashboard, "Analytics Workbook")
         if analytics_dashboard:
-            lineage = self.openmetadata.get_lineage_by_name(
+            lineage = self.umetadata.get_lineage_by_name(
                 entity=Dashboard,
                 fqn=analytics_dashboard.fullyQualifiedName.root,
                 up_depth=5,  # Increased depth to capture full lineage chain
@@ -371,7 +371,7 @@ class TableauCliTest(CliCommonDashboard.TestSuite):
     def _validate_datamodel_lineage_chain(self) -> None:
         """Validate the complete lineage chain"""
         # Get Sales Summary data models
-        datamodels = self.openmetadata.list_entities(
+        datamodels = self.umetadata.list_entities(
             entity=DashboardDataModel,
             params={"service": TableauExpectedValues.SERVICE_NAME},
         ).entities
@@ -380,7 +380,7 @@ class TableauCliTest(CliCommonDashboard.TestSuite):
             dm for dm in datamodels if dm.displayName == "Sales Summary"
         ]
         for datamodel in sales_summary_models:
-            lineage = self.openmetadata.get_lineage_by_name(
+            lineage = self.umetadata.get_lineage_by_name(
                 entity=DashboardDataModel,
                 fqn=datamodel.fullyQualifiedName.root,
                 up_depth=3,
@@ -401,7 +401,7 @@ class TableauCliTest(CliCommonDashboard.TestSuite):
 
     def _validate_datamodel_fields(self) -> None:
         """Validate data model fields/columns"""
-        datamodels = self.openmetadata.list_entities(
+        datamodels = self.umetadata.list_entities(
             entity=DashboardDataModel,
             params={"service": TableauExpectedValues.SERVICE_NAME},
         ).entities
@@ -428,7 +428,7 @@ class TableauCliTest(CliCommonDashboard.TestSuite):
 
     def _validate_datamodel_sql(self) -> None:
         """Validate data model SQL content"""
-        datamodels = self.openmetadata.list_entities(
+        datamodels = self.umetadata.list_entities(
             entity=DashboardDataModel,
             params={"service": TableauExpectedValues.SERVICE_NAME},
         ).entities
@@ -463,7 +463,7 @@ class TableauCliTest(CliCommonDashboard.TestSuite):
 
     def _validate_datamodel_types(self) -> None:
         """Validate data model types"""
-        datamodels = self.openmetadata.list_entities(
+        datamodels = self.umetadata.list_entities(
             entity=DashboardDataModel,
             params={"service": TableauExpectedValues.SERVICE_NAME},
         ).entities
@@ -511,7 +511,7 @@ class TableauCliTest(CliCommonDashboard.TestSuite):
 
     def _validate_chart_types(self) -> None:
         """Validate chart types"""
-        charts = self.openmetadata.list_entities(
+        charts = self.umetadata.list_entities(
             entity=Chart, params={"service": TableauExpectedValues.SERVICE_NAME}
         ).entities
 
@@ -525,7 +525,7 @@ class TableauCliTest(CliCommonDashboard.TestSuite):
 
     def _validate_field_types(self) -> None:
         """Validate field types in data models"""
-        datamodels = self.openmetadata.list_entities(
+        datamodels = self.umetadata.list_entities(
             entity=DashboardDataModel,
             params={"service": TableauExpectedValues.SERVICE_NAME},
         ).entities
@@ -599,7 +599,7 @@ class TableauCliTest(CliCommonDashboard.TestSuite):
         fields: List = ["tags", "charts"],
     ):
         """Helper to get entity by name or displayName"""
-        entities = self.openmetadata.list_entities(
+        entities = self.umetadata.list_entities(
             entity=entity_type, params={"service": service}, fields=fields
         ).entities
 

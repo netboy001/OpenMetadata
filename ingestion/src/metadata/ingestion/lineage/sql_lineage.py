@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -48,7 +48,7 @@ from metadata.generated.schema.type.entityReference import EntityReference
 from metadata.ingestion.api.models import Either
 from metadata.ingestion.lineage.models import Dialect
 from metadata.ingestion.lineage.parser import LINEAGE_PARSING_TIMEOUT, LineageParser
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.utils import fqn
 from metadata.utils.elasticsearch import get_entity_from_es_result
 from metadata.utils.execution_time_tracker import (
@@ -105,13 +105,13 @@ database_service_type_cache = LRUCache(LRU_CACHE_SIZE)
 
 @calculate_execution_time(context="GetDatabaseServiceType")
 def get_database_service_type(
-    metadata: OpenMetadata, service_name: str
+    metadata: UMetadata, service_name: str
 ) -> Optional[str]:
     """
     Get the database service type (e.g., 'mysql', 'postgres', 'clickhouse').
 
     Args:
-        metadata: OMeta client
+        metadata: UMeta client
         service_name: service name
 
     Returns:
@@ -155,7 +155,7 @@ def get_database_service_type(
 
 
 def normalize_table_params_by_service(
-    metadata: OpenMetadata,
+    metadata: UMetadata,
     service_name: str,
     database: Optional[str],
     database_schema: Optional[str],
@@ -167,7 +167,7 @@ def normalize_table_params_by_service(
     - ClickHouse: Uses database_schema as schema, sets database to None
 
     Args:
-        metadata: OMeta client
+        metadata: UMeta client
         service_name: service name
         database: database name
         database_schema: schema name
@@ -186,7 +186,7 @@ def normalize_table_params_by_service(
 
 @calculate_execution_time(context="SearchTableEntities")
 def search_table_entities(
-    metadata: OpenMetadata,
+    metadata: UMetadata,
     service_names: Union[str, List[str]],
     database: Optional[str],
     database_schema: Optional[str],
@@ -197,7 +197,7 @@ def search_table_entities(
     Now supports searching across multiple services (cross-database lineage).
 
     Args:
-        metadata: OMeta client
+        metadata: UMeta client
         service_names: service name or list of service names (current + cross db)
         database: database name
         database_schema: schema name
@@ -426,7 +426,7 @@ def _replace_target_table(
 
 # pylint: disable=too-many-arguments
 def __process_udf_es_results(
-    metadata: OpenMetadata,
+    metadata: UMetadata,
     dialect: Dialect,
     source_table: Union[DataFunction, LineageTable],
     database_name: Optional[str],
@@ -475,7 +475,7 @@ def __process_udf_es_results(
 
 
 def __process_udf_table_names(
-    metadata: OpenMetadata,
+    metadata: UMetadata,
     dialect: Dialect,
     source_table: Union[DataFunction, LineageTable],
     database_name: Optional[str],
@@ -518,7 +518,7 @@ def __process_udf_table_names(
 
 @calculate_execution_time_generator(context="GetSourceTableNames")
 def get_source_table_names(
-    metadata: OpenMetadata,
+    metadata: UMetadata,
     dialect: Dialect,
     source_table: Union[DataFunction, LineageTable],
     database_name: Optional[str],
@@ -562,7 +562,7 @@ def get_source_table_names(
 
 
 def get_table_entities_from_query(
-    metadata: OpenMetadata,
+    metadata: UMetadata,
     service_names: Union[str, List[str]],
     database_name: str,
     database_schema: str,
@@ -719,7 +719,7 @@ def _build_table_lineage(
 
 # pylint: disable=too-many-arguments,too-many-locals
 def _create_lineage_by_table_name(
-    metadata: OpenMetadata,
+    metadata: UMetadata,
     from_table: str,
     to_table: str,
     service_names: Union[str, List[str]],
@@ -763,7 +763,7 @@ def _create_lineage_by_table_name(
         ):
             if entity is None:
                 logger.debug(
-                    f"WARNING: Table entity [{table_name}] not found in OpenMetadata"
+                    f"WARNING: Table entity [{table_name}] not found in UMetadata"
                 )
         if graph is not None and (not from_table_entities or not to_table_entities):
             # Add nodes and edges with minimal data
@@ -845,7 +845,7 @@ def populate_column_lineage_map(raw_column_lineage):
 # pylint: disable=too-many-locals
 @calculate_execution_time_generator(context="GetLineageByQuery")
 def get_lineage_by_query(
-    metadata: OpenMetadata,
+    metadata: UMetadata,
     service_names: Union[str, List[str]],
     database_name: Optional[str],
     schema_name: Optional[str],
@@ -967,7 +967,7 @@ def get_lineage_by_query(
 
 @calculate_execution_time_generator(context="GetLineageViaTableEntity")
 def get_lineage_via_table_entity(
-    metadata: OpenMetadata,
+    metadata: UMetadata,
     table_entity: Table,
     database_name: str,
     schema_name: str,
@@ -1043,7 +1043,7 @@ def _get_lineage_for_path(
     from_node: Any,
     current_node: Any,
     table_chain: List[str],
-    metadata: OpenMetadata,
+    metadata: UMetadata,
 ) -> Optional[Either[AddLineageRequest]]:
     """
     Get lineage for a pair of FQNs in the path
@@ -1083,7 +1083,7 @@ def _get_lineage_for_path(
 
 @calculate_execution_time_generator(context="ProcessSequence")
 def _process_sequence(
-    sequence: List[Any], graph: DiGraph, metadata: OpenMetadata
+    sequence: List[Any], graph: DiGraph, metadata: UMetadata
 ) -> Iterable[Either[AddLineageRequest]]:
     """
     Process a sequence of nodes to generate lineage information.
@@ -1157,7 +1157,7 @@ def _get_paths_from_subtree(subtree: DiGraph) -> List[List[Any]]:
 @calculate_execution_time_generator(context="GetLineageByGraph")
 def get_lineage_by_graph(
     graph: Optional[DiGraph],
-    metadata: OpenMetadata,
+    metadata: UMetadata,
 ) -> Iterable[Either[AddLineageRequest]]:
     """
     Generate lineage information from a directed graph.
@@ -1166,7 +1166,7 @@ def get_lineage_by_graph(
     It then yields lineage information for each sequence.
     Args:
         graph (DiGraph): A directed graph representing the lineage.
-        metadata (OpenMetadata): OpenMetadata client instance to fetch table entities
+        metadata (UMetadata): UMetadata client instance to fetch table entities
     Raises:
         Exception: If an error occurs during the lineage creation process, it logs the error.
     """
@@ -1189,7 +1189,7 @@ def get_lineage_by_graph(
 @calculate_execution_time_generator(context="GetLineageByProcedureGraph")
 def get_lineage_by_procedure_graph(
     procedure_graph_map: Optional[Dict],
-    metadata: OpenMetadata,
+    metadata: UMetadata,
 ) -> Iterable[Either[AddLineageRequest]]:
     """
     Generate lineage information from a directed graph.

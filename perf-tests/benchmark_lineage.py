@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-Lineage and Impact Analysis performance benchmark for OpenMetadata.
+Lineage and Impact Analysis performance benchmark for UMetadata.
 
 The script is intentionally self-contained so it can be run by anyone with:
-- a reachable OpenMetadata instance
+- a reachable UMetadata instance
 - a JWT or personal access token
 - Python 3 standard library only
 """
@@ -161,7 +161,7 @@ def stringify_param(value: Any) -> str:
     return str(value)
 
 
-class OpenMetadataClient:
+class UMetadataClient:
     def __init__(self, base_url: str, token: str | None, timeout_secs: int) -> None:
         self.api_base = base_url.rstrip("/") + "/api/v1"
         self.token = token
@@ -219,17 +219,17 @@ class OpenMetadataClient:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Benchmark OpenMetadata lineage and Impact Analysis APIs."
+        description="Benchmark UMetadata lineage and Impact Analysis APIs."
     )
     parser.add_argument(
         "--base-url",
         default="http://localhost:8585",
-        help="OpenMetadata server root URL (default: http://localhost:8585)",
+        help="UMetadata server root URL (default: http://localhost:8585)",
     )
     parser.add_argument(
         "--token",
-        default=os.environ.get("OPENMETADATA_JWT_TOKEN") or os.environ.get("OM_TOKEN"),
-        help="JWT or personal access token. Defaults to OPENMETADATA_JWT_TOKEN or OM_TOKEN.",
+        default=os.environ.get("UMETADATA_JWT_TOKEN") or os.environ.get("OM_TOKEN"),
+        help="JWT or personal access token. Defaults to UMETADATA_JWT_TOKEN or OM_TOKEN.",
     )
     parser.add_argument(
         "--entities-file",
@@ -381,7 +381,7 @@ def parse_entities_file(path: str) -> list[Asset]:
 
 
 def discover_assets(
-    client: OpenMetadataClient,
+    client: UMetadataClient,
     search_indexes: list[str],
     page_size: int,
     verbose: bool,
@@ -458,7 +458,7 @@ def apply_asset_limits(
 
 
 def enrich_with_lineage_counts(
-    client: OpenMetadataClient,
+    client: UMetadataClient,
     assets: list[Asset],
     depth: int,
     verbose: bool,
@@ -732,7 +732,7 @@ def build_scenarios(args: argparse.Namespace) -> list[Scenario]:
 
 
 def run_scenario(
-    client: OpenMetadataClient,
+    client: UMetadataClient,
     asset: Asset,
     scenario: Scenario,
     args: argparse.Namespace,
@@ -1049,7 +1049,7 @@ def write_summary_md(
         handle.write("\n".join(lines))
 
 
-def check_connectivity(client: OpenMetadataClient) -> None:
+def check_connectivity(client: UMetadataClient) -> None:
     client.get_json("/system/version")
 
 
@@ -1063,7 +1063,7 @@ def main() -> int:
         if container.strip()
     ]
 
-    client = OpenMetadataClient(args.base_url, args.token, args.request_timeout_secs)
+    client = UMetadataClient(args.base_url, args.token, args.request_timeout_secs)
 
     log(f"[setup] output_dir={output_dir}")
     check_connectivity(client)

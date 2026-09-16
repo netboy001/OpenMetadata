@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -11,16 +11,16 @@
 
 """
 Test the NoSQL profiler using a MongoDB container
-To run this we need OpenMetadata server up and running.
+To run this we need UMetadata server up and running.
 No sample data is required beforehand
 
 Test Steps:
 
 1. Start a MongoDB container
-2. Ingest data into OpenMetadata
+2. Ingest data into UMetadata
 3. Run the profiler workflow
 4. Verify the profiler output
-5. Tear down the MongoDB container and delete the service from OpenMetadata
+5. Tear down the MongoDB container and delete the service from UMetadata
 """
 
 from copy import deepcopy
@@ -33,11 +33,11 @@ from unittest import TestCase
 from pymongo import MongoClient, database
 from testcontainers.mongodb import MongoDbContainer
 
-from _openmetadata_testutils.ometa import int_admin_ometa
+from _umetadata_testutils.umeta import int_admin_umeta
 from metadata.generated.schema.entity.data.table import ColumnProfile, Table
 from metadata.generated.schema.entity.services.databaseService import DatabaseService
 from metadata.generated.schema.type.basic import Timestamp
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.profiler.api.models import TableConfig
 from metadata.utils.constants import SAMPLE_DATA_DEFAULT_COUNT
 from metadata.utils.helpers import datetime_to_ts
@@ -76,9 +76,9 @@ def get_ingestion_config(mongo_port: str, mongo_user: str, mongo_pass: str):
         "sink": {"type": "metadata-rest", "config": {}},
         "workflowConfig": {
             "loggerLevel": "DEBUG",
-            "openMetadataServerConfig": {
+            "uMetadataServerConfig": {
                 "hostPort": "http://localhost:8585/api",
-                "authProvider": "openmetadata",
+                "authProvider": "umetadata",
                 "securityConfig": {
                     "jwtToken": "eyJraWQiOiJHYjM4OWEtOWY3Ni1nZGpzLWE5MmotMDI0MmJrOTQzNTYiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlzQm90IjpmYWxzZSwiaXNzIjoib3Blbi1tZXRhZGF0YS5vcmciLCJpYXQiOjE2NjM5Mzg0NjIsImVtYWlsIjoiYWRtaW5Ab3Blbm1ldGFkYXRhLm9yZyJ9.tS8um_5DKu7HgzGBzS1VTA5uUjKWOCU0B_j08WXBiEC0mr0zNREkqVfwFDD-d24HlNEbrqioLsBuFRiwIWKc1m_ZlVQbG7P36RUxhuv2vbSp80FKyNM-Tj93FDzq91jsyNmsQhyNv_fNr3TXfzzSPjHt8Go0FMMP66weoKMgW2PbXlhVKwEuXUHyakLLzewm9UMeQaEiRzhiTMU3UkLXcKbYEJJvfNFcLwSl9W8JCO_l0Yj3ud-qt_nQYEZwqW6u5nfdQllN133iikV4fM5QZsMCnm8Rq1mvLR0y9bmJiD7fwM1tmJ791TUWqmKaTnP49U493VanKpUAfzIiOiIbhg"
                 },
@@ -124,11 +124,11 @@ class NoSQLProfiler(TestCase):
     db: database.Database
     collection: database.Collection
     ingestion_config: dict
-    metadata: OpenMetadata
+    metadata: UMetadata
 
     @classmethod
     def setUpClass(cls) -> None:
-        cls.metadata = int_admin_ometa()
+        cls.metadata = int_admin_umeta()
         cls.mongo_container = MongoDbContainer("mongo:7.0.5-jammy")
         cls.mongo_container.start()
         cls.client = MongoClient(cls.mongo_container.get_connection_url())

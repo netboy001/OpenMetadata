@@ -5,9 +5,9 @@ from pathlib import Path
 import oracledb
 import pytest
 
-from _openmetadata_testutils.ometa import int_admin_ometa
+from _umetadata_testutils.umeta import int_admin_umeta
 from metadata.generated.schema.entity.services.databaseService import DatabaseService
-from metadata.workflow.ingestion import IngestionWorkflow, OpenMetadataWorkflowConfig
+from metadata.workflow.ingestion import IngestionWorkflow, UMetadataWorkflowConfig
 from metadata.workflow.metadata import MetadataWorkflow
 
 ORACLE_LINEAGE_SERVICE_NAME = "oracle-local-lineage-test-service"
@@ -35,9 +35,9 @@ ORACLE_COMMON_CONFIG = {
     },
     "workflowConfig": {
         # "loggerLevel": "DEBUG",
-        "openMetadataServerConfig": {
+        "uMetadataServerConfig": {
             "hostPort": "http://localhost:8585/api",
-            "authProvider": "openmetadata",
+            "authProvider": "umetadata",
             "securityConfig": {
                 "jwtToken": (
                     "eyJraWQiOiJHYjM4OWEtOWY3Ni1nZGpzLWE5MmotMDI0MmJrOTQzNTYiLCJ0eXAiOiJKV1QiLCJhbGc"
@@ -79,7 +79,7 @@ ORACLE_LINEAGE_CONFIG["source"]["sourceConfig"] = {
 
 @pytest.fixture(scope="package")
 def metadata():
-    return int_admin_ometa()
+    return int_admin_umeta()
 
 
 @pytest.fixture(scope="package")
@@ -116,7 +116,7 @@ def oracle_lineage_container():
 @pytest.fixture(scope="package")
 def oracle_lineage_ingestion(oracle_lineage_service_name, metadata):
     print("\n\nRunning metadata ingestion workflow for lineage tests...")
-    metadata_workflow_config = OpenMetadataWorkflowConfig.model_validate(
+    metadata_workflow_config = UMetadataWorkflowConfig.model_validate(
         ORACLE_METADATA_CONFIG
     )
     metadata_workflow: IngestionWorkflow = MetadataWorkflow(metadata_workflow_config)
@@ -124,7 +124,7 @@ def oracle_lineage_ingestion(oracle_lineage_service_name, metadata):
     print("Metadata ingestion workflow completed.")
 
     print("\nRunning lineage ingestion workflow for lineage tests...")
-    lineage_workflow_config = OpenMetadataWorkflowConfig.model_validate(
+    lineage_workflow_config = UMetadataWorkflowConfig.model_validate(
         ORACLE_LINEAGE_CONFIG
     )
     lineage_workflow: IngestionWorkflow = MetadataWorkflow(lineage_workflow_config)

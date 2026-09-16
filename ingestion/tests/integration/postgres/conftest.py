@@ -1,6 +1,6 @@
 import pytest
 
-from _openmetadata_testutils.postgres.conftest import postgres_container
+from _umetadata_testutils.postgres.conftest import postgres_container
 from metadata.generated.schema.api.services.createDatabaseService import (
     CreateDatabaseServiceRequest,
 )

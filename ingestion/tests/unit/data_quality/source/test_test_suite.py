@@ -13,12 +13,12 @@ from metadata.generated.schema.entity.services.databaseService import (
     DatabaseServiceType,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.generated.schema.tests.testCase import TestCase
 from metadata.generated.schema.tests.testSuite import TestSuite
 from metadata.generated.schema.type.entityReference import EntityReference
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 
 MOCK_ENTITY_REFERENCE = EntityReference(
     id=str(UUID(int=0)), type="test_suite", name="test_suite"
@@ -70,7 +70,7 @@ def test_source_config(parameters, expected, monkeypatch):
             },
         },
         "workflowConfig": {
-            "openMetadataServerConfig": {
+            "uMetadataServerConfig": {
                 "hostPort": "localhost:8585",
             }
         },
@@ -90,7 +90,7 @@ def test_source_config(parameters, expected, monkeypatch):
         ),
     )
 
-    mock_metadata = Mock(spec=OpenMetadata)
+    mock_metadata = Mock(spec=UMetadata)
     mock_metadata.get_by_name.return_value = Table(
         id=UUID(int=0),
         name="test_table",
@@ -119,7 +119,7 @@ def test_source_config(parameters, expected, monkeypatch):
     )
 
     source = TestSuiteSource(
-        OpenMetadataWorkflowConfig.model_validate(workflow_config), mock_metadata
+        UMetadataWorkflowConfig.model_validate(workflow_config), mock_metadata
     )
     test_cases = list(source._iter())[0].right.test_cases
     assert [t.name.root for t in test_cases] == expected

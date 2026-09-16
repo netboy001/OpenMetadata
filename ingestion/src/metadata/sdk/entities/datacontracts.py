@@ -12,7 +12,7 @@ from metadata.generated.schema.entity.datacontract.odcs.odcsDataContract import 
     ODCSDataContract,
 )
 from metadata.sdk.entities.base import BaseEntity
-from metadata.sdk.types import OMetaClient, UuidLike
+from metadata.sdk.types import UMetaClient, UuidLike
 
 
 @dataclass
@@ -30,7 +30,7 @@ class ODCSExportOperation:
         >>> yaml_str = DataContracts.export_odcs(contract_id).as_yaml().execute()
     """
 
-    client: OMetaClient
+    client: UMetaClient
     identifier: str
     by_name: bool = False
     yaml_format: bool = field(default=False, init=False)
@@ -49,7 +49,7 @@ class ODCSExportOperation:
         """Execute the export and return ODCSDataContract or YAML string."""
         rest_client = getattr(self.client, "client", None)
         if rest_client is None:
-            raise RuntimeError("OpenMetadata client does not expose a REST interface")
+            raise RuntimeError("UMetadata client does not expose a REST interface")
 
         suffix = self.client.get_suffix(DataContract)
         path_segment = f"name/{self.identifier}" if self.by_name else self.identifier
@@ -93,7 +93,7 @@ class ODCSImportOperation:
         ...     .execute())
     """
 
-    client: OMetaClient
+    client: UMetaClient
     entity_id: str
     entity_type: str
     odcs_data: Optional[ODCSDataContract] = None
@@ -129,7 +129,7 @@ class ODCSImportOperation:
 
         rest_client = getattr(self.client, "client", None)
         if rest_client is None:
-            raise RuntimeError("OpenMetadata client does not expose a REST interface")
+            raise RuntimeError("UMetadata client does not expose a REST interface")
 
         suffix = self.client.get_suffix(DataContract)
         query_params = f"entityId={self.entity_id}&entityType={self.entity_type}"

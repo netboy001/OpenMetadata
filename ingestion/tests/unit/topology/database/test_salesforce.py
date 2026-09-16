@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,10 +31,10 @@ from metadata.generated.schema.entity.services.databaseService import (
     DatabaseServiceType,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.generated.schema.type.entityReference import EntityReference
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.database.salesforce.metadata import SalesforceSource
 
 mock_salesforce_config = {
@@ -60,9 +60,9 @@ mock_salesforce_config = {
         "config": {},
     },
     "workflowConfig": {
-        "openMetadataServerConfig": {
+        "uMetadataServerConfig": {
             "hostPort": "http://localhost:8585/api",
-            "authProvider": "openmetadata",
+            "authProvider": "umetadata",
             "securityConfig": {"jwtToken": "salesforce"},
         }
     },
@@ -93,9 +93,9 @@ mock_salesforce_oauth_config = {
         "config": {},
     },
     "workflowConfig": {
-        "openMetadataServerConfig": {
+        "uMetadataServerConfig": {
             "hostPort": "http://localhost:8585/api",
-            "authProvider": "openmetadata",
+            "authProvider": "umetadata",
             "securityConfig": {"jwtToken": "salesforce"},
         }
     },
@@ -125,9 +125,9 @@ mock_salesforce_multi_objects_config = {
         "config": {},
     },
     "workflowConfig": {
-        "openMetadataServerConfig": {
+        "uMetadataServerConfig": {
             "hostPort": "http://localhost:8585/api",
-            "authProvider": "openmetadata",
+            "authProvider": "umetadata",
             "securityConfig": {"jwtToken": "salesforce"},
         }
     },
@@ -501,10 +501,10 @@ class SalesforceUnitTest(TestCase):
     def __init__(self, methodName, salesforce, test_connection) -> None:
         super().__init__(methodName)
         test_connection.return_value = False
-        self.config = OpenMetadataWorkflowConfig.model_validate(mock_salesforce_config)
+        self.config = UMetadataWorkflowConfig.model_validate(mock_salesforce_config)
         self.salesforce_source = SalesforceSource.create(
             mock_salesforce_config["source"],
-            OpenMetadata(config=self.config.workflowConfig.openMetadataServerConfig),
+            UMetadata(config=self.config.workflowConfig.uMetadataServerConfig),
         )
 
         self.salesforce_source.context.get().__dict__[
@@ -540,12 +540,12 @@ class SalesforceUnitTest(TestCase):
     @patch("simple_salesforce.api.Salesforce")
     def test_oauth_connection(self, salesforce, test_connection) -> None:
         test_connection.return_value = False
-        self.config = OpenMetadataWorkflowConfig.model_validate(
+        self.config = UMetadataWorkflowConfig.model_validate(
             mock_salesforce_oauth_config
         )
         self.salesforce_source = SalesforceSource.create(
             mock_salesforce_oauth_config["source"],
-            OpenMetadata(config=self.config.workflowConfig.openMetadataServerConfig),
+            UMetadata(config=self.config.workflowConfig.uMetadataServerConfig),
         )
         self.assertTrue(
             self.salesforce_source.config.serviceConnection.root.config.consumerKey
@@ -583,10 +583,10 @@ class SalesforceUnitTest(TestCase):
         """
 
         test_connection.return_value = False
-        self.config = OpenMetadataWorkflowConfig.model_validate(mock_salesforce_config)
+        self.config = UMetadataWorkflowConfig.model_validate(mock_salesforce_config)
         self.salesforce_source = SalesforceSource.create(
             mock_salesforce_config["source"],
-            OpenMetadata(config=self.config.workflowConfig.openMetadataServerConfig),
+            UMetadata(config=self.config.workflowConfig.uMetadataServerConfig),
         )
         self.assertTrue(self.salesforce_source.ssl_manager.ca_file_path)
         self.assertTrue(self.salesforce_source.ssl_manager.cert_file_path)
@@ -599,12 +599,12 @@ class SalesforceUnitTest(TestCase):
     def test_sobject_names_config(self, salesforce, test_connection) -> None:
         """Test that sobjectNames array is properly parsed from config"""
         test_connection.return_value = False
-        config = OpenMetadataWorkflowConfig.model_validate(
+        config = UMetadataWorkflowConfig.model_validate(
             mock_salesforce_multi_objects_config
         )
         salesforce_source = SalesforceSource.create(
             mock_salesforce_multi_objects_config["source"],
-            OpenMetadata(config=self.config.workflowConfig.openMetadataServerConfig),
+            UMetadata(config=self.config.workflowConfig.uMetadataServerConfig),
         )
         self.assertEqual(
             salesforce_source.service_connection.sobjectNames,
@@ -620,12 +620,12 @@ class SalesforceUnitTest(TestCase):
     ) -> None:
         """Test that sobjectNames list correctly filters which objects to ingest"""
         test_connection.return_value = False
-        config = OpenMetadataWorkflowConfig.model_validate(
+        config = UMetadataWorkflowConfig.model_validate(
             mock_salesforce_multi_objects_config
         )
         salesforce_source = SalesforceSource.create(
             mock_salesforce_multi_objects_config["source"],
-            OpenMetadata(config=config.workflowConfig.openMetadataServerConfig),
+            UMetadata(config=config.workflowConfig.uMetadataServerConfig),
         )
         salesforce_source.context.get().__dict__[
             "database_service"
@@ -683,18 +683,18 @@ class SalesforceUnitTest(TestCase):
             },
             "sink": {"type": "metadata-rest", "config": {}},
             "workflowConfig": {
-                "openMetadataServerConfig": {
+                "uMetadataServerConfig": {
                     "hostPort": "http://localhost:8585/api",
-                    "authProvider": "openmetadata",
+                    "authProvider": "umetadata",
                     "securityConfig": {"jwtToken": "salesforce"},
                 }
             },
         }
 
-        config = OpenMetadataWorkflowConfig.model_validate(config_without_filters)
+        config = UMetadataWorkflowConfig.model_validate(config_without_filters)
         salesforce_source = SalesforceSource.create(
             config_without_filters["source"],
-            OpenMetadata(config=config.workflowConfig.openMetadataServerConfig),
+            UMetadata(config=config.workflowConfig.uMetadataServerConfig),
         )
         salesforce_source.context.get().__dict__[
             "database_service"

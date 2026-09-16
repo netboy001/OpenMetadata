@@ -1,10 +1,10 @@
-# OpenMetadata Server 3 Configuration for Local Development
-# Run with: java -Dconfig=local/server3.yaml -jar openmetadata-service/target/openmetadata-service-*.jar server
+# UMetadata Server 3 Configuration for Local Development
+# Run with: java -Dconfig=local/server3.yaml -jar umetadata-service/target/umetadata-service-*.jar server
 
 clusterName: distributed-test
 
 swagger:
-  resourcePackage: org.openmetadata.service.resources
+  resourcePackage: org.umetadata.service.resources
 
 assets:
   resourcePath: /assets/
@@ -154,10 +154,10 @@ database:
   # the name of the JDBC driver, mysql in our case
   driverClass: ${DB_DRIVER_CLASS:-com.mysql.cj.jdbc.Driver}
   # the username and password
-  user: ${DB_USER:-openmetadata_user}
-  password: ${DB_USER_PASSWORD:-openmetadata_password}
-  # the JDBC URL; the database is called openmetadata_db
-  url: jdbc:${DB_SCHEME:-mysql}://${DB_HOST:-localhost}:${DB_PORT:-3306}/${OM_DATABASE:-openmetadata_db}?${DB_PARAMS:-allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC}
+  user: ${DB_USER:-umetadata_user}
+  password: ${DB_USER_PASSWORD:-umetadata_password}
+  # the JDBC URL; the database is called umetadata_db
+  url: jdbc:${DB_SCHEME:-mysql}://${DB_HOST:-localhost}:${DB_PORT:-3306}/${OM_DATABASE:-umetadata_db}?${DB_PARAMS:-allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC}
 
   # HikariCP Connection Pool Settings - Optimized for Performance
   maxSize: ${DB_CONNECTION_POOL_MAX_SIZE:-100}  # Increased from 50 for better concurrency
@@ -187,7 +187,7 @@ database:
     reWriteBatchedInserts: ${DB_PG_REWRITE_BATCHED_INSERTS:-true}  # Critical for batch performance
     defaultRowFetchSize: ${DB_PG_DEFAULT_ROW_FETCH_SIZE:-1000}  # Fetch more rows at once
     assumeMinServerVersion: ${DB_PG_ASSUME_MIN_SERVER_VERSION:-12}  # Skip version checks
-    ApplicationName: ${DB_PG_APPLICATION_NAME:-OpenMetadata}
+    ApplicationName: ${DB_PG_APPLICATION_NAME:-UMetadata}
     loginTimeout: ${DB_PG_LOGIN_TIMEOUT:-300}  # Login timeout in seconds
     postgresqlConnectTimeout: ${DB_POSTGRESQL_CONNECT_TIMEOUT:-60}  # Connection timeout in seconds
     postgresqlSocketTimeout: ${DB_POSTGRESQL_SOCKET_TIMEOUT:-30000}  # Socket timeout in seconds (0 = infinite)
@@ -226,11 +226,11 @@ migrationConfiguration:
 
 # Authorizer Configuration
 authorizerConfiguration:
-  className: ${AUTHORIZER_CLASS_NAME:-org.openmetadata.service.security.DefaultAuthorizer}
-  containerRequestFilter: ${AUTHORIZER_REQUEST_FILTER:-org.openmetadata.service.security.JwtFilter}
+  className: ${AUTHORIZER_CLASS_NAME:-org.umetadata.service.security.DefaultAuthorizer}
+  containerRequestFilter: ${AUTHORIZER_REQUEST_FILTER:-org.umetadata.service.security.JwtFilter}
   adminPrincipals: ${AUTHORIZER_ADMIN_PRINCIPALS:-[admin]}
   allowedEmailRegistrationDomains: ${AUTHORIZER_ALLOWED_REGISTRATION_DOMAIN:-["all"]}
-  principalDomain: ${AUTHORIZER_PRINCIPAL_DOMAIN:-"open-metadata.org"}
+  principalDomain: ${AUTHORIZER_PRINCIPAL_DOMAIN:-"u-metadata.org"}
   allowedDomains: ${AUTHORIZER_ALLOWED_DOMAINS:-[]}
   enforcePrincipalDomain: ${AUTHORIZER_ENFORCE_PRINCIPAL_DOMAIN:-false}
   enableSecureSocketConnection : ${AUTHORIZER_ENABLE_SECURE_SOCKET:-false}
@@ -341,7 +341,7 @@ authenticationConfiguration:
 jwtTokenConfiguration:
   rsapublicKeyFilePath: ${RSA_PUBLIC_KEY_FILE_PATH:-"./conf/public_key.der"}
   rsaprivateKeyFilePath: ${RSA_PRIVATE_KEY_FILE_PATH:-"./conf/private_key.der"}
-  jwtissuer: ${JWT_ISSUER:-"open-metadata.org"}
+  jwtissuer: ${JWT_ISSUER:-"u-metadata.org"}
   keyId: ${JWT_KEY_ID:-"Gb389a-9f76-gdjs-a92j-0242bk94356"}
 
 elasticsearch:
@@ -365,7 +365,7 @@ elasticsearch:
   batchSize: ${ELASTICSEARCH_BATCH_SIZE:-100}
   payLoadSize: ${ELASTICSEARCH_PAYLOAD_BYTES_SIZE:-10485760}
   searchIndexMappingLanguage : ${ELASTICSEARCH_INDEX_MAPPING_LANG:-EN}
-  searchIndexFactoryClassName : org.openmetadata.service.search.SearchIndexFactory
+  searchIndexFactoryClassName : org.umetadata.service.search.SearchIndexFactory
   # AWS IAM Authentication for OpenSearch (only applicable when searchType is "opensearch")
   # Uses standard AWS environment variables: https://docs.aws.amazon.com/cli/v1/userguide/cli-configure-envvars.html
   # IAM auth is automatically enabled when AWS_DEFAULT_REGION is set
@@ -380,7 +380,7 @@ elasticsearch:
   naturalLanguageSearch:
     enabled: ${NATURAL_LANGUAGE_SEARCH_ENABLED:-false}
     embeddingProvider: ${EMBEDDING_PROVIDER:-bedrock}
-    providerClass: ${NATURAL_LANGUAGE_SEARCH_PROVIDER_CLASS:-org.openmetadata.service.search.nlq.NoOpNLQService}
+    providerClass: ${NATURAL_LANGUAGE_SEARCH_PROVIDER_CLASS:-org.umetadata.service.search.nlq.NoOpNLQService}
     bedrock:
       awsConfig:
         enabled: ${BEDROCK_AWS_IAM_AUTH_ENABLED:-false}
@@ -406,20 +406,20 @@ eventMonitoringConfiguration:
 
 eventHandlerConfiguration:
   eventHandlerClassNames:
-    - "org.openmetadata.service.events.AuditEventHandler"
-    - "org.openmetadata.service.events.ChangeEventHandler"
+    - "org.umetadata.service.events.AuditEventHandler"
+    - "org.umetadata.service.events.ChangeEventHandler"
 
 pipelineServiceClientConfiguration:
   enabled: ${PIPELINE_SERVICE_CLIENT_ENABLED:-true}
-  # If we don't need this, set "org.openmetadata.service.clients.pipeline.noop.NoopClient"
-  className: ${PIPELINE_SERVICE_CLIENT_CLASS_NAME:-"org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"}
+  # If we don't need this, set "org.umetadata.service.clients.pipeline.noop.NoopClient"
+  className: ${PIPELINE_SERVICE_CLIENT_CLASS_NAME:-"org.umetadata.service.clients.pipeline.airflow.AirflowRESTClient"}
   apiEndpoint: ${PIPELINE_SERVICE_CLIENT_ENDPOINT:-http://localhost:8080}
   metadataApiEndpoint: ${SERVER_HOST_API_URL:-http://localhost:8585/api}
   ingestionIpInfoEnabled: ${PIPELINE_SERVICE_IP_INFO_ENABLED:-false}
   hostIp: ${PIPELINE_SERVICE_CLIENT_HOST_IP:-""}
   healthCheckInterval: ${PIPELINE_SERVICE_CLIENT_HEALTH_CHECK_INTERVAL:-300}
-  # This SSL information is about the OpenMetadata server.
-  # It will be picked up from the pipelineServiceClient to use/ignore SSL when connecting to the OpenMetadata server.
+  # This SSL information is about the UMetadata server.
+  # It will be picked up from the pipelineServiceClient to use/ignore SSL when connecting to the UMetadata server.
   verifySSL: ${PIPELINE_SERVICE_CLIENT_VERIFY_SSL:-"no-ssl"} # Possible values are "no-ssl", "ignore", "validate"
   sslConfig:
     certificatePath: ${PIPELINE_SERVICE_CLIENT_SSL_CERT_PATH:-""} # Local path for the Pipeline Service Client
@@ -455,11 +455,11 @@ pipelineServiceClientConfiguration:
     truststorePath: ${AIRFLOW_TRUST_STORE_PATH:-""}
     truststorePassword: ${AIRFLOW_TRUST_STORE_PASSWORD:-""}
     ## Kubernetes client parameters
-    namespace: ${K8S_NAMESPACE:-"openmetadata-pipelines"}
-    ingestionImage: ${K8S_INGESTION_IMAGE:-"docker.getcollate.io/openmetadata/ingestion-base:latest"}
+    namespace: ${K8S_NAMESPACE:-"umetadata-pipelines"}
+    ingestionImage: ${K8S_INGESTION_IMAGE:-"docker.getcollate.io/umetadata/ingestion-base:latest"}
     imagePullPolicy: ${K8S_IMAGE_PULL_POLICY:-"IfNotPresent"}
     imagePullSecrets: ${K8S_IMAGE_PULL_SECRETS:-""}
-    serviceAccountName: ${K8S_SERVICE_ACCOUNT_NAME:-"openmetadata-ingestion"}
+    serviceAccountName: ${K8S_SERVICE_ACCOUNT_NAME:-"umetadata-ingestion"}
     # Resources configuration
     resources:
       limits:
@@ -484,7 +484,7 @@ pipelineServiceClientConfiguration:
 
 
 # no_encryption_at_rest is the default value, and it does what it says. Please read the manual on how
-# to secure your instance of OpenMetadata with TLS and encryption at rest.
+# to secure your instance of UMetadata with TLS and encryption at rest.
 fernetConfiguration:
   fernetKey: ${FERNET_KEY:-jJ/9sz0g0OHxsfxOoSfdFdmk3ysNmPRnH3TUAbz3IHA=}
 
@@ -513,7 +513,7 @@ health:
   delayedShutdownHandlerEnabled: true
   shutdownWaitPeriod: 1s
   healthChecks:
-    - name: OpenMetadataServerHealthCheck
+    - name: UMetadataServerHealthCheck
       critical: true
       schedule:
         checkInterval: 2500ms
@@ -523,7 +523,7 @@ health:
 
 limits:
   enable: ${LIMITS_ENABLED:-false}
-  className: ${LIMITS_CLASS_NAME:-"org.openmetadata.service.limits.DefaultLimits"}
+  className: ${LIMITS_CLASS_NAME:-"org.umetadata.service.limits.DefaultLimits"}
   limitsConfigFile: ${LIMITS_CONFIG_FILE:-""}
 
 # Bulk Operation Configuration
@@ -573,12 +573,12 @@ operationalConfig:
 
 rdf:
   enabled: ${RDF_ENABLED:-false}
-  baseUri: ${RDF_BASE_URI:-"https://open-metadata.org/"}
+  baseUri: ${RDF_BASE_URI:-"https://u-metadata.org/"}
   storageType: ${RDF_STORAGE_TYPE:-"FUSEKI"}
-  remoteEndpoint: ${RDF_ENDPOINT:-"http://localhost:3030/openmetadata"}
+  remoteEndpoint: ${RDF_ENDPOINT:-"http://localhost:3030/umetadata"}
   username: ${RDF_REMOTE_USERNAME:-"admin"}
   password: ${RDF_REMOTE_PASSWORD:-"admin"}
-  dataset: ${RDF_DATASET:-"openmetadata"}
+  dataset: ${RDF_DATASET:-"umetadata"}
 
 # Cache Configuration
 # Caching layer for entity metadata, relationships, and tag usage to reduce database load

@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -57,8 +57,8 @@ from metadata.generated.schema.type.entityReferenceList import EntityReferenceLi
 from metadata.ingestion.api.delete import delete_entity_by_name
 from metadata.ingestion.api.models import Either
 from metadata.ingestion.api.steps import InvalidSourceException
-from metadata.ingestion.models.ometa_classification import OMetaTagAndClassification
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.models.umeta_classification import UMetaTagAndClassification
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.database.column_type_parser import ColumnTypeParser
 from metadata.ingestion.source.database.database_service import DatabaseServiceSource
 from metadata.ingestion.source.database.external_table_lineage_mixin import (
@@ -94,7 +94,7 @@ from metadata.utils import fqn
 from metadata.utils.filters import filter_by_database, filter_by_schema, filter_by_table
 from metadata.utils.helpers import retry_with_docker_host
 from metadata.utils.logger import ingestion_logger
-from metadata.utils.tag_utils import get_ometa_tag_and_classification
+from metadata.utils.tag_utils import get_umeta_tag_and_classification
 
 logger = ingestion_logger()
 
@@ -120,7 +120,7 @@ class UnitycatalogSource(
     def __init__(
         self,
         config: WorkflowSource,
-        metadata: OpenMetadata,
+        metadata: UMetadata,
         incremental_configuration: IncrementalConfig,
     ):
         super().__init__()
@@ -180,7 +180,7 @@ class UnitycatalogSource(
 
     @classmethod
     def create(
-        cls, config_dict, metadata: OpenMetadata, pipeline_name: Optional[str] = None
+        cls, config_dict, metadata: UMetadata, pipeline_name: Optional[str] = None
     ):
         config: WorkflowSource = WorkflowSource.model_validate(config_dict)
         connection: UnityCatalogConnection = config.serviceConnection.root.config
@@ -579,7 +579,7 @@ class UnitycatalogSource(
                 service_name=self.context.get().database_service,
             )
 
-            # Check if the referred table exists in OpenMetadata before adding constraint
+            # Check if the referred table exists in UMetadata before adding constraint
             referred_table = self.metadata.get_by_name(
                 entity=Table, fqn=referred_table_fqn
             )
@@ -713,7 +713,7 @@ class UnitycatalogSource(
             yield parsed_column
 
     @staticmethod
-    def _ometa_tag_call_args(tag_name: str, tag_value: str | None) -> dict:
+    def _umeta_tag_call_args(tag_name: str, tag_value: str | None) -> dict:
         """Map a Unity Catalog (tag_name, tag_value) pair onto OM's
         classification/tag pair, falling back to UNITY_CATALOG_VALUELESS_CLASSIFICATION
         when tag_value is empty or whitespace-only."""
@@ -733,7 +733,7 @@ class UnitycatalogSource(
 
     def yield_database_tag(
         self, database_name: str
-    ) -> Iterable[Either[OMetaTagAndClassification]]:
+    ) -> Iterable[Either[UMetaTagAndClassification]]:
         """Get Unity Catalog database/catalog tags using SQL query"""
         query_tag_fqn_builder_mapping = (
             (
@@ -754,11 +754,11 @@ class UnitycatalogSource(
                 for tag in self.sql_connection.execute(query):
                     if not tag.tag_name:
                         continue
-                    yield from get_ometa_tag_and_classification(
+                    yield from get_umeta_tag_and_classification(
                         tag_fqn=FullyQualifiedEntityName(
                             fqn._build(*tag_fqn_builder(tag))
                         ),
-                        **self._ometa_tag_call_args(tag.tag_name, tag.tag_value),
+                        **self._umeta_tag_call_args(tag.tag_name, tag.tag_value),
                         metadata=self.metadata,
                         system_tags=True,
                     )
@@ -770,7 +770,7 @@ class UnitycatalogSource(
 
     def yield_tag(
         self, schema_name: str
-    ) -> Iterable[Either[OMetaTagAndClassification]]:
+    ) -> Iterable[Either[UMetaTagAndClassification]]:
         """Get Unity Catalog schema tags using SQL query"""
         database = self.context.get().database
         query_tag_fqn_builder_mapping = (
@@ -803,11 +803,11 @@ class UnitycatalogSource(
                 for tag in self.sql_connection.execute(query):
                     if not tag.tag_name:
                         continue
-                    yield from get_ometa_tag_and_classification(
+                    yield from get_umeta_tag_and_classification(
                         tag_fqn=FullyQualifiedEntityName(
                             fqn._build(*tag_fqn_builder(tag))
                         ),
-                        **self._ometa_tag_call_args(tag.tag_name, tag.tag_value),
+                        **self._umeta_tag_call_args(tag.tag_name, tag.tag_value),
                         metadata=self.metadata,
                         system_tags=True,
                     )

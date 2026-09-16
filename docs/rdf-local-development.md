@@ -1,10 +1,10 @@
 # RDF/Apache Jena Local Development Guide
 
-This guide documents how to set up RDF/Knowledge Graph support for local development with OpenMetadata running in IntelliJ IDEA and Apache Jena Fuseki running in Docker.
+This guide documents how to set up RDF/Knowledge Graph support for local development with UMetadata running in IntelliJ IDEA and Apache Jena Fuseki running in Docker.
 
 ## Overview
 
-OpenMetadata supports RDF (Resource Description Framework) for knowledge graph capabilities using Apache Jena Fuseki as the triple store. This enables:
+UMetadata supports RDF (Resource Description Framework) for knowledge graph capabilities using Apache Jena Fuseki as the triple store. This enables:
 - SPARQL queries against metadata
 - JSON-LD serialization of entities
 - Semantic search and graph exploration
@@ -13,7 +13,7 @@ OpenMetadata supports RDF (Resource Description Framework) for knowledge graph c
 
 ```
 ┌─────────────────────┐     ┌─────────────────────┐
-│   OpenMetadata      │     │   Apache Jena       │
+│   UMetadata      │     │   Apache Jena       │
 │   Server (IntelliJ) │────▶│   Fuseki (Docker)   │
 │   Port: 8585        │     │   Port: 3030        │
 └─────────────────────┘     └─────────────────────┘
@@ -23,7 +23,7 @@ OpenMetadata supports RDF (Resource Description Framework) for knowledge graph c
 
 - Docker and Docker Compose installed
 - IntelliJ IDEA with the project imported
-- MySQL or PostgreSQL running (for OpenMetadata backend)
+- MySQL or PostgreSQL running (for UMetadata backend)
 - Elasticsearch running (for search)
 
 ## Quick Start
@@ -33,14 +33,14 @@ OpenMetadata supports RDF (Resource Description Framework) for knowledge graph c
 Start the Fuseki triple store using Docker Compose:
 
 ```bash
-cd /path/to/OpenMetadata
+cd /path/to/UMetadata
 docker compose -f docker/development/docker-compose-fuseki.yml up -d
 ```
 
 This starts Fuseki with:
 - **Port**: 3030
 - **Admin Password**: admin
-- **Dataset**: openmetadata
+- **Dataset**: umetadata
 - **Memory**: 2-4GB allocated
 
 ### Step 2: Verify Fuseki is Running
@@ -59,36 +59,36 @@ The Fuseki web UI is available at `http://localhost:3030` with credentials:
 
 ### Step 3: Configure IntelliJ Run Configuration
 
-Create or modify your IntelliJ run configuration for `OpenMetadataApplication` with these environment variables:
+Create or modify your IntelliJ run configuration for `UMetadataApplication` with these environment variables:
 
 ```
 RDF_ENABLED=true
 RDF_STORAGE_TYPE=FUSEKI
-RDF_BASE_URI=https://open-metadata.org/
-RDF_ENDPOINT=http://localhost:3030/openmetadata
+RDF_BASE_URI=https://u-metadata.org/
+RDF_ENDPOINT=http://localhost:3030/umetadata
 RDF_REMOTE_USERNAME=admin
 RDF_REMOTE_PASSWORD=admin
-RDF_DATASET=openmetadata
+RDF_DATASET=umetadata
 ```
 
 #### Setting Environment Variables in IntelliJ:
 
 1. Open **Run** → **Edit Configurations**
-2. Select your `OpenMetadataApplication` configuration
+2. Select your `UMetadataApplication` configuration
 3. Click on **Modify options** → **Environment variables**
 4. Add the environment variables above (semicolon-separated or using the dialog)
 
 Example environment variables string:
 ```
-RDF_ENABLED=true;RDF_STORAGE_TYPE=FUSEKI;RDF_BASE_URI=https://open-metadata.org/;RDF_ENDPOINT=http://localhost:3030/openmetadata;RDF_REMOTE_USERNAME=admin;RDF_REMOTE_PASSWORD=admin;RDF_DATASET=openmetadata
+RDF_ENABLED=true;RDF_STORAGE_TYPE=FUSEKI;RDF_BASE_URI=https://u-metadata.org/;RDF_ENDPOINT=http://localhost:3030/umetadata;RDF_REMOTE_USERNAME=admin;RDF_REMOTE_PASSWORD=admin;RDF_DATASET=umetadata
 ```
 
-### Step 4: Start OpenMetadata Server
+### Step 4: Start UMetadata Server
 
-Run `OpenMetadataApplication` from IntelliJ. On startup, you should see in the logs:
+Run `UMetadataApplication` from IntelliJ. On startup, you should see in the logs:
 
 ```
-INFO  [main] o.o.s.OpenMetadataApplication - RDF knowledge graph support initialized
+INFO  [main] o.o.s.UMetadataApplication - RDF knowledge graph support initialized
 ```
 
 ### Step 5: Verify RDF is Enabled
@@ -103,19 +103,19 @@ curl http://localhost:8585/api/v1/rdf/status
 
 ## Configuration Reference
 
-### Server Configuration (conf/openmetadata.yaml)
+### Server Configuration (conf/umetadata.yaml)
 
-The RDF configuration section in `openmetadata.yaml`:
+The RDF configuration section in `umetadata.yaml`:
 
 ```yaml
 rdf:
   enabled: ${RDF_ENABLED:-false}
-  baseUri: ${RDF_BASE_URI:-"https://open-metadata.org/"}
+  baseUri: ${RDF_BASE_URI:-"https://u-metadata.org/"}
   storageType: ${RDF_STORAGE_TYPE:-"FUSEKI"}
-  remoteEndpoint: ${RDF_ENDPOINT:-"http://localhost:3030/openmetadata"}
+  remoteEndpoint: ${RDF_ENDPOINT:-"http://localhost:3030/umetadata"}
   username: ${RDF_REMOTE_USERNAME:-"admin"}
   password: ${RDF_REMOTE_PASSWORD:-"admin"}
-  dataset: ${RDF_DATASET:-"openmetadata"}
+  dataset: ${RDF_DATASET:-"umetadata"}
 ```
 
 ### Environment Variables
@@ -124,11 +124,11 @@ rdf:
 |----------|-------------|---------|
 | `RDF_ENABLED` | Enable/disable RDF support | `false` |
 | `RDF_STORAGE_TYPE` | Storage backend type | `FUSEKI` |
-| `RDF_BASE_URI` | Base URI for RDF resources | `https://open-metadata.org/` |
-| `RDF_ENDPOINT` | Fuseki SPARQL endpoint URL | `http://localhost:3030/openmetadata` |
+| `RDF_BASE_URI` | Base URI for RDF resources | `https://u-metadata.org/` |
+| `RDF_ENDPOINT` | Fuseki SPARQL endpoint URL | `http://localhost:3030/umetadata` |
 | `RDF_REMOTE_USERNAME` | Fuseki admin username | `admin` |
 | `RDF_REMOTE_PASSWORD` | Fuseki admin password | `admin` |
-| `RDF_DATASET` | Fuseki dataset name | `openmetadata` |
+| `RDF_DATASET` | Fuseki dataset name | `umetadata` |
 
 ### Docker Compose Configuration
 
@@ -138,7 +138,7 @@ The Fuseki container (`docker/development/docker-compose-fuseki.yml`):
 services:
   fuseki:
     image: stain/jena-fuseki:5.0.0
-    container_name: openmetadata-fuseki
+    container_name: umetadata-fuseki
     ports:
       - "3030:3030"
     environment:
@@ -224,8 +224,8 @@ When RDF is enabled, new entities are automatically indexed to the triple store 
 The Fuseki web interface provides:
 
 - **Dataset Management**: View and manage datasets at `http://localhost:3030/#/manage`
-- **SPARQL Query Interface**: Execute queries at `http://localhost:3030/#/dataset/openmetadata/query`
-- **Data Upload**: Upload RDF data at `http://localhost:3030/#/dataset/openmetadata/upload`
+- **SPARQL Query Interface**: Execute queries at `http://localhost:3030/#/dataset/umetadata/query`
+- **Data Upload**: Upload RDF data at `http://localhost:3030/#/dataset/umetadata/upload`
 
 ## Troubleshooting
 
@@ -239,7 +239,7 @@ The Fuseki web interface provides:
 
 2. Check Fuseki logs:
    ```bash
-   docker logs openmetadata-fuseki
+   docker logs umetadata-fuseki
    ```
 
 3. Ensure the dataset exists:
@@ -251,12 +251,12 @@ The Fuseki web interface provides:
 
 1. Verify environment variables are set correctly in IntelliJ
 2. Check server logs for RDF initialization message
-3. Confirm configuration in `openmetadata.yaml`
+3. Confirm configuration in `umetadata.yaml`
 
 ### SPARQL Query Errors
 
-1. Check Fuseki is accessible from OpenMetadata server
-2. Verify the dataset name matches (`openmetadata`)
+1. Check Fuseki is accessible from UMetadata server
+2. Verify the dataset name matches (`umetadata`)
 3. Check Fuseki logs for query errors
 
 ### Reset Fuseki Data
@@ -268,7 +268,7 @@ To clear all RDF data and start fresh:
 docker compose -f docker/development/docker-compose-fuseki.yml down
 
 # Remove volume
-docker volume rm openmetadata_fuseki-data
+docker volume rm umetadata_fuseki-data
 
 # Restart Fuseki
 docker compose -f docker/development/docker-compose-fuseki.yml up -d
@@ -292,7 +292,7 @@ Options:
 ## Related Files
 
 - **Docker Compose**: `docker/development/docker-compose-fuseki.yml`
-- **Server Config**: `conf/openmetadata.yaml`
-- **RDF Java Code**: `openmetadata-service/src/main/java/org/openmetadata/service/rdf/`
-- **Ontology**: `openmetadata-spec/src/main/resources/rdf/ontology/openmetadata.ttl`
-- **RDF Index App**: `openmetadata-service/src/main/java/org/openmetadata/service/apps/bundles/rdf/RdfIndexApp.java`
+- **Server Config**: `conf/umetadata.yaml`
+- **RDF Java Code**: `umetadata-service/src/main/java/org/umetadata/service/rdf/`
+- **Ontology**: `umetadata-spec/src/main/resources/rdf/ontology/umetadata.ttl`
+- **RDF Index App**: `umetadata-service/src/main/java/org/umetadata/service/apps/bundles/rdf/RdfIndexApp.java`

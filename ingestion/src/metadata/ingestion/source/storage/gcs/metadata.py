@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -47,14 +47,14 @@ from metadata.generated.schema.type.basic import EntityName, FullyQualifiedEntit
 from metadata.generated.schema.type.entityReference import EntityReference
 from metadata.ingestion.api.models import Either
 from metadata.ingestion.api.steps import InvalidSourceException
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.storage.gcs.models import (
     GCSBucketResponse,
     GCSContainerDetails,
 )
 from metadata.ingestion.source.storage.storage_service import (
     KEY_SEPARATOR,
-    OPENMETADATA_TEMPLATE_FILE_NAME,
+    UMETADATA_TEMPLATE_FILE_NAME,
     StorageServiceSource,
 )
 from metadata.readers.file.base import ReadException
@@ -78,7 +78,7 @@ class GcsSource(StorageServiceSource):
     Source implementation to ingest GCS bucket data.
     """
 
-    def __init__(self, config: WorkflowSource, metadata: OpenMetadata):
+    def __init__(self, config: WorkflowSource, metadata: UMetadata):
         super().__init__(config, metadata)
         self.gcs_clients = self.connection
         self.gcs_readers = {
@@ -90,7 +90,7 @@ class GcsSource(StorageServiceSource):
 
     @classmethod
     def create(
-        cls, config_dict, metadata: OpenMetadata, pipeline_name: Optional[str] = None
+        cls, config_dict, metadata: UMetadata, pipeline_name: Optional[str] = None
     ):
         config: WorkflowSource = WorkflowSource.model_validate(config_dict)
         connection: GcsConnection = config.serviceConnection.root.config
@@ -701,11 +701,11 @@ class GcsSource(StorageServiceSource):
         """
         try:
             logger.info(
-                f"Looking for metadata template file at - gs://{bucket.name}/{OPENMETADATA_TEMPLATE_FILE_NAME}"
+                f"Looking for metadata template file at - gs://{bucket.name}/{UMETADATA_TEMPLATE_FILE_NAME}"
             )
             reader = self.gcs_readers.get(bucket.project_id)
             response_object = reader.read(
-                path=OPENMETADATA_TEMPLATE_FILE_NAME,
+                path=UMETADATA_TEMPLATE_FILE_NAME,
                 bucket_name=bucket.name,
                 verbose=False,
             )
@@ -714,11 +714,11 @@ class GcsSource(StorageServiceSource):
             return metadata_config
         except ReadException:
             logger.warning(
-                f"No metadata file found at gs://{bucket.name}/{OPENMETADATA_TEMPLATE_FILE_NAME}"
+                f"No metadata file found at gs://{bucket.name}/{UMETADATA_TEMPLATE_FILE_NAME}"
             )
         except Exception as exc:
             logger.debug(traceback.format_exc())
             logger.warning(
-                f"Failed loading metadata file gs://{bucket.name}/{OPENMETADATA_TEMPLATE_FILE_NAME}-{exc}"
+                f"Failed loading metadata file gs://{bucket.name}/{UMETADATA_TEMPLATE_FILE_NAME}-{exc}"
             )
         return None

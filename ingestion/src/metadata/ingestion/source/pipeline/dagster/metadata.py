@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -46,9 +46,9 @@ from metadata.generated.schema.type.entityReference import EntityReference
 from metadata.ingestion.api.models import Either
 from metadata.ingestion.api.step import WorkflowFatalError
 from metadata.ingestion.api.steps import InvalidSourceException
-from metadata.ingestion.models.ometa_classification import OMetaTagAndClassification
-from metadata.ingestion.models.pipeline_status import OMetaPipelineStatus
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.models.umeta_classification import UMetaTagAndClassification
+from metadata.ingestion.models.pipeline_status import UMetaPipelineStatus
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.pipeline.dagster.models import (
     DagsterAssetNode,
     DagsterPipeline,
@@ -61,7 +61,7 @@ from metadata.utils import fqn
 from metadata.utils.filters import filter_by_pipeline
 from metadata.utils.helpers import clean_uri
 from metadata.utils.logger import ingestion_logger
-from metadata.utils.tag_utils import get_ometa_tag_and_classification, get_tag_labels
+from metadata.utils.tag_utils import get_umeta_tag_and_classification, get_tag_labels
 
 logger = ingestion_logger()
 
@@ -82,7 +82,7 @@ class DagsterSource(PipelineServiceSource):
 
     @classmethod
     def create(
-        cls, config_dict, metadata: OpenMetadata, pipeline_name: Optional[str] = None
+        cls, config_dict, metadata: UMetadata, pipeline_name: Optional[str] = None
     ):
         config: WorkflowSource = WorkflowSource.model_validate(config_dict)
         connection: DagsterConnection = config.serviceConnection.root.config
@@ -92,7 +92,7 @@ class DagsterSource(PipelineServiceSource):
             )
         return cls(config, metadata)
 
-    def __init__(self, config: WorkflowSource, metadata: OpenMetadata):
+    def __init__(self, config: WorkflowSource, metadata: UMetadata):
         super().__init__(config, metadata)
         self.strip_asset_key_prefix_length = (
             self.service_connection.stripAssetKeyPrefixLength or 0
@@ -175,8 +175,8 @@ class DagsterSource(PipelineServiceSource):
 
     def yield_tag(
         self, pipeline_details: DagsterPipeline
-    ) -> Iterable[Either[OMetaTagAndClassification]]:
-        yield from get_ometa_tag_and_classification(
+    ) -> Iterable[Either[UMetaTagAndClassification]]:
+        yield from get_umeta_tag_and_classification(
             tags=[self.context.get().repository_name],
             classification_name=DAGSTER_TAG_CATEGORY,
             tag_description="Dagster Tag",
@@ -186,8 +186,8 @@ class DagsterSource(PipelineServiceSource):
 
     def _get_task_status(
         self, run: RunStepStats, task_name: str
-    ) -> Iterable[Either[OMetaPipelineStatus]]:
-        """Prepare the OMetaPipelineStatus"""
+    ) -> Iterable[Either[UMetaPipelineStatus]]:
+        """Prepare the UMetaPipelineStatus"""
         try:
             # Convert Dagster timestamps from seconds to milliseconds
             task_status = TaskStatus(
@@ -213,7 +213,7 @@ class DagsterSource(PipelineServiceSource):
                 service_name=self.context.get().pipeline_service,
                 pipeline_name=self.context.get().pipeline,
             )
-            pipeline_status_yield = OMetaPipelineStatus(
+            pipeline_status_yield = UMetaPipelineStatus(
                 pipeline_fqn=pipeline_fqn,
                 pipeline_status=pipeline_status,
             )
@@ -229,7 +229,7 @@ class DagsterSource(PipelineServiceSource):
 
     def yield_pipeline_status(
         self, pipeline_details: DagsterPipeline
-    ) -> Iterable[Either[OMetaPipelineStatus]]:
+    ) -> Iterable[Either[UMetaPipelineStatus]]:
         """Yield the pipeline and task status"""
         pipeline_fqn = fqn.build(
             metadata=self.metadata,
@@ -421,7 +421,7 @@ class DagsterSource(PipelineServiceSource):
         self, asset: DagsterAssetNode, db_services: List[str]
     ) -> TableResolutionResult:
         """
-        Resolve Dagster asset to OpenMetadata Table entity.
+        Resolve Dagster asset to UMetadata Table entity.
         Tries multiple strategies to parse asset key into database/schema/table.
 
         Returns: TableResolutionResult with table_fqn and table_entity (or None if not found)

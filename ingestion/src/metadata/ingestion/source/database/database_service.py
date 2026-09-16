@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -58,15 +58,15 @@ from metadata.ingestion.api.delete import delete_entity_from_source
 from metadata.ingestion.api.models import Either
 from metadata.ingestion.api.steps import Source
 from metadata.ingestion.api.topology_runner import TopologyRunnerMixin
-from metadata.ingestion.models.life_cycle import OMetaLifeCycleData
-from metadata.ingestion.models.ometa_classification import OMetaTagAndClassification
+from metadata.ingestion.models.life_cycle import UMetaLifeCycleData
+from metadata.ingestion.models.umeta_classification import UMetaTagAndClassification
 from metadata.ingestion.models.topology import (
     NodeStage,
     ServiceTopology,
     TopologyContextManager,
     TopologyNode,
 )
-from metadata.ingestion.ometa.utils import model_str
+from metadata.ingestion.umeta.utils import model_str
 from metadata.ingestion.source.connections import test_connection_common
 from metadata.utils import fqn
 from metadata.utils.execution_time_tracker import calculate_execution_time
@@ -122,7 +122,7 @@ class DatabaseServiceTopology(ServiceTopology):
         producer="get_database_names",
         stages=[
             NodeStage(
-                type_=OMetaTagAndClassification,
+                type_=UMetaTagAndClassification,
                 context="tags",
                 processor="yield_database_tag_details",
                 nullable=True,
@@ -146,7 +146,7 @@ class DatabaseServiceTopology(ServiceTopology):
         producer="get_database_schema_names",
         stages=[
             NodeStage(
-                type_=OMetaTagAndClassification,
+                type_=UMetaTagAndClassification,
                 context="tags",
                 processor="yield_database_schema_tag_details",
                 nullable=True,
@@ -176,7 +176,7 @@ class DatabaseServiceTopology(ServiceTopology):
         producer="get_tables_name_and_type",
         stages=[
             NodeStage(
-                type_=OMetaTagAndClassification,
+                type_=UMetaTagAndClassification,
                 context="tags",
                 processor="yield_table_tag_details",
                 nullable=True,
@@ -190,7 +190,7 @@ class DatabaseServiceTopology(ServiceTopology):
                 use_cache=True,
             ),
             NodeStage(
-                type_=OMetaLifeCycleData,
+                type_=UMetaLifeCycleData,
                 processor="yield_life_cycle_data",
                 nullable=True,
             ),
@@ -323,28 +323,28 @@ class DatabaseServiceSource(
     @abstractmethod
     def yield_tag(
         self, schema_name: str
-    ) -> Iterable[Either[OMetaTagAndClassification]]:
+    ) -> Iterable[Either[UMetaTagAndClassification]]:
         """
         From topology. To be run for each schema
         """
 
     def yield_database_tag(
         self, database_name: str
-    ) -> Iterable[Either[OMetaTagAndClassification]]:
+    ) -> Iterable[Either[UMetaTagAndClassification]]:
         """
         From topology. To be run for each database
         """
 
     def yield_table_tags(
         self, table_name_and_type: Tuple[str, TableType]
-    ) -> Iterable[Either[OMetaTagAndClassification]]:
+    ) -> Iterable[Either[UMetaTagAndClassification]]:
         """
         From topology. To be run for each table
         """
 
     def yield_table_tag_details(
         self, table_name_and_type: Tuple[str, TableType]
-    ) -> Iterable[Either[OMetaTagAndClassification]]:
+    ) -> Iterable[Either[UMetaTagAndClassification]]:
         """
         From topology. To be run for each table
         """
@@ -353,7 +353,7 @@ class DatabaseServiceSource(
 
     def yield_database_schema_tag_details(
         self, schema_name: str
-    ) -> Iterable[Either[OMetaTagAndClassification]]:
+    ) -> Iterable[Either[UMetaTagAndClassification]]:
         """
         From topology. To be run for each schema
         """
@@ -362,7 +362,7 @@ class DatabaseServiceSource(
 
     def yield_database_tag_details(
         self, database_name: str
-    ) -> Iterable[Either[OMetaTagAndClassification]]:
+    ) -> Iterable[Either[UMetaTagAndClassification]]:
         """
         From topology. To be run for each database
         """
@@ -919,7 +919,7 @@ class DatabaseServiceSource(
                 params={"database": database_fqn},
             )
 
-    def yield_life_cycle_data(self, _) -> Iterable[Either[OMetaLifeCycleData]]:
+    def yield_life_cycle_data(self, _) -> Iterable[Either[UMetaLifeCycleData]]:
         """
         Get the life cycle data of the table
         """

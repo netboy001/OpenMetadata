@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS automations_workflow (
 
 -- Do not store OM server connection, we'll set it dynamically on the resource
 UPDATE ingestion_pipeline_entity
-SET json = json::jsonb #- '{openMetadataServerConnection}';
+SET json = json::jsonb #- '{uMetadataServerConnection}';
 
 CREATE TABLE IF NOT EXISTS query_entity (
     id VARCHAR(36) GENERATED ALWAYS AS (json ->> 'id') STORED NOT NULL,
@@ -110,7 +110,7 @@ DROP TABLE temp_query_migration;
 -- remove the audience if it was wrongfully sent from the UI after editing the OM service
 UPDATE metadata_service_entity
 SET json = json::jsonb #- '{connection,config,securityConfig,audience}'
-WHERE name = 'OpenMetadata'
+WHERE name = 'UMetadata'
     AND json#>'{connection,config,authProvider}' IS NOT NULL
     AND json -> 'connection' -> 'config' ->> 'authProvider' != 'google';
 
@@ -189,11 +189,11 @@ and json#>'{connection,config,personalAccessTokenSecret}' is not null;
 -- Removed property from metadataService.json
 UPDATE metadata_service_entity
 SET json = json::jsonb #- '{allowServiceCreation}'
-WHERE serviceType in ('Amundsen', 'Atlas', 'MetadataES', 'OpenMetadata');
+WHERE serviceType in ('Amundsen', 'Atlas', 'MetadataES', 'UMetadata');
 
 UPDATE metadata_service_entity
 SET json = JSONB_SET(json::jsonb, '{provider}', '"system"')
-WHERE name = 'OpenMetadata';
+WHERE name = 'UMetadata';
 
 -- Fix Glue sample data endpoint URL to be a correct URI
 UPDATE dbservice_entity

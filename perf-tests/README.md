@@ -1,10 +1,10 @@
 # Perf Tests
 
-This directory contains locally runnable performance benchmarks for OpenMetadata.
+This directory contains locally runnable performance benchmarks for UMetadata.
 
 ## Lineage Benchmark
 
-Use [benchmark_lineage.py](/Users/harsha/Code/dev/OpenMetadata/perf-tests/benchmark_lineage.py) to:
+Use [benchmark_lineage.py](/Users/harsha/Code/dev/UMetadata/perf-tests/benchmark_lineage.py) to:
 
 - discover lineaged assets across multiple entity types
 - benchmark graph lineage APIs
@@ -18,7 +18,7 @@ a Markdown summary, and CSV outputs under `perf-tests/results/`.
 ### Prerequisites
 
 - Python 3.9+
-- A running OpenMetadata instance
+- A running UMetadata instance
 - A valid JWT or personal access token
 - Optional: Docker CLI if you want container stats snapshots
 
@@ -26,18 +26,18 @@ a Markdown summary, and CSV outputs under `perf-tests/results/`.
 
 For larger lineage graphs, increase local Docker memory and CPU before running
 the benchmark. The exact values depend on the data volume, but a higher-memory
-setup helps avoid Elasticsearch and OpenMetadata JVM throttling during larger
+setup helps avoid Elasticsearch and UMetadata JVM throttling during larger
 Impact Analysis runs.
 
 For local Docker runs, the development compose now honors both:
 
-- `OPENMETADATA_HEAP_OPTS`
+- `UMETADATA_HEAP_OPTS`
 - `ES_JAVA_OPTS`
 
 Example:
 
 ```bash
-export OPENMETADATA_HEAP_OPTS='-Xmx4G -Xms4G'
+export UMETADATA_HEAP_OPTS='-Xmx4G -Xms4G'
 export ES_JAVA_OPTS='-Xms4g -Xmx4g'
 ./docker/run_local_docker.sh -m ui -d mysql -s false -i false -r true
 ```
@@ -45,7 +45,7 @@ export ES_JAVA_OPTS='-Xms4g -Xmx4g'
 ### Basic Usage
 
 ```bash
-OPENMETADATA_JWT_TOKEN="<token>" \
+UMETADATA_JWT_TOKEN="<token>" \
 ./perf-tests/benchmark_lineage.py \
   --base-url http://localhost:8585 \
   --warmup-runs 1 \
@@ -66,7 +66,7 @@ Common options:
 - `--max-assets-per-type 10`
 - `--entities-file perf-tests/my-assets.json`
 - `--discovery-only`
-- `--docker-containers openmetadata-server,elasticsearch`
+- `--docker-containers umetadata-server,elasticsearch`
 
 ### Example: Benchmark Specific Assets
 
@@ -82,7 +82,7 @@ Create a JSON file with explicit assets:
 Then run:
 
 ```bash
-OPENMETADATA_JWT_TOKEN="<token>" \
+UMETADATA_JWT_TOKEN="<token>" \
 ./perf-tests/benchmark_lineage.py \
   --base-url http://localhost:8585 \
   --entities-file perf-tests/my-assets.json
@@ -108,8 +108,8 @@ Each run creates a timestamped directory under `perf-tests/results/`, including:
 
 ## Synthetic Lineage Seeding For Live Docker
 
-Use [seed_lineage_topology.py](/Users/harsha/Code/dev/OpenMetadata/perf-tests/seed_lineage_topology.py)
-to create a synthetic table-lineage graph directly in a running OpenMetadata
+Use [seed_lineage_topology.py](/Users/harsha/Code/dev/UMetadata/perf-tests/seed_lineage_topology.py)
+to create a synthetic table-lineage graph directly in a running UMetadata
 instance. This is the recommended path when you want to benchmark the branch
 already deployed in local Docker instead of the heavier Testcontainers-based
 integration benchmark.
@@ -125,7 +125,7 @@ The seeder creates:
 ### Example: Seed the 12x120 Topology
 
 ```bash
-OPENMETADATA_JWT_TOKEN="<token>" \
+UMETADATA_JWT_TOKEN="<token>" \
 ./perf-tests/seed_lineage_topology.py \
   --base-url http://localhost:8585 \
   --depth 12 \
@@ -141,7 +141,7 @@ Outputs:
 ### Example: Benchmark the Seeded 12x120 Topology
 
 ```bash
-OPENMETADATA_JWT_TOKEN="<token>" \
+UMETADATA_JWT_TOKEN="<token>" \
 ./perf-tests/benchmark_lineage.py \
   --base-url http://localhost:8585 \
   --entities-file perf-tests/results/seed-depth12-width120/manifest.json \
@@ -149,7 +149,7 @@ OPENMETADATA_JWT_TOKEN="<token>" \
   --impact-page-size 100 \
   --warmup-runs 1 \
   --measured-runs 5 \
-  --docker-containers openmetadata_server,openmetadata_elasticsearch,openmetadata_mysql
+  --docker-containers umetadata_server,umetadata_elasticsearch,umetadata_mysql
 ```
 
 Use `--benchmark-depth depth+1` for these seeded topologies when you want
@@ -167,9 +167,9 @@ For targeted filter runs, reuse the same seeded manifest and pass:
 For controlled deep or wide Impact Analysis topologies, use the manual
 integration benchmark:
 
-[`LineageImpactAnalysisBenchmarkIT.java`](/Users/harsha/Code/dev/OpenMetadata/openmetadata-integration-tests/src/test/java/org/openmetadata/it/tests/LineageImpactAnalysisBenchmarkIT.java)
+[`LineageImpactAnalysisBenchmarkIT.java`](/Users/harsha/Code/dev/UMetadata/umetadata-integration-tests/src/test/java/org/umetadata/it/tests/LineageImpactAnalysisBenchmarkIT.java)
 
-This benchmark provisions its own MySQL, Elasticsearch, and OpenMetadata test
+This benchmark provisions its own MySQL, Elasticsearch, and UMetadata test
 environment with Testcontainers, creates synthetic table lineage, and logs
 latency plus duplicate-count observations for:
 
@@ -184,7 +184,7 @@ latency plus duplicate-count observations for:
 The benchmark supports selecting scenarios with system properties:
 
 ```bash
-mvn -pl openmetadata-integration-tests -P mysql-elasticsearch \
+mvn -pl umetadata-integration-tests -P mysql-elasticsearch \
   -Dit.test=LineageImpactAnalysisBenchmarkIT \
   '-Djunit.jupiter.conditions.deactivate=*' \
   -Dlineage.benchmark.scenarios=depth12-width120 \

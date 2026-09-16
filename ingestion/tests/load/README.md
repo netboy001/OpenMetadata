@@ -44,7 +44,7 @@ class TestCaseResultTasks(TaskSet):
 Notice how we use `self.client.get` to perform the request. This is provided by locust `HttpSession`. If the request needs to be authenticated, you can use `auth=self.bearer`. You will need to first define `self.bearer`, you can achieve this using the `on_start` hook from locust.
 
 ```python
-from _openmetadata_testutils.helpers.login_user import login_user
+from _umetadata_testutils.helpers.login_user import login_user
 
 class TestCaseResultTasks(TaskSet):
     """Test case result resource load test"""

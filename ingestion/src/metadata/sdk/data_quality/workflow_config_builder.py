@@ -2,14 +2,14 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-"""Builder for creating OpenMetadata workflow configurations for test suite execution."""
+"""Builder for creating UMetadata workflow configurations for test suite execution."""
 # pyright: reportOptionalMemberAccess=false
 
 from typing import Any, List, Optional, Type, TypeVar, cast
@@ -34,7 +34,7 @@ from metadata.generated.schema.metadataIngestion.testSuitePipeline import (
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
     LogLevels,
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
     Processor,
     Sink,
     Source,
@@ -48,14 +48,14 @@ from metadata.generated.schema.type.basic import (
 )
 from metadata.generated.schema.type.entityReference import EntityReference
 from metadata.ingestion.models.custom_pydantic import BaseModel
-from metadata.ingestion.ometa.client import APIError
-from metadata.ingestion.ometa.ometa_api import OpenMetadata as OMeta
+from metadata.ingestion.umeta.client import APIError
+from metadata.ingestion.umeta.umeta_api import UMetadata as UMeta
 
 T = TypeVar("T", bound=BaseModel)
 
 
 class WorkflowConfigBuilder:
-    """Builds OpenMetadataWorkflowConfig for test suite execution.
+    """Builds UMetadataWorkflowConfig for test suite execution.
 
     This builder encapsulates the logic for creating a complete workflow configuration
     required to execute data quality tests against a table. It constructs the source,
@@ -65,20 +65,20 @@ class WorkflowConfigBuilder:
     Attributes:
         table: Table entity to run tests against
         service_connection: Database service connection for the table
-        ometa_config: OpenMetadata server configuration
+        umeta_config: UMetadata server configuration
         test_definitions: List of test case definitions to execute
     """
 
     def __init__(
         self,
-        client: OMeta[Any, Any],
+        client: UMeta[Any, Any],
     ):
         """Initialize the workflow config builder.
 
         Args:
-            client: OpenMetadata client
+            client: UMetadata client
         """
-        self.client: OMeta[Any, Any] = client
+        self.client: UMeta[Any, Any] = client
 
         self.table: Optional[Table] = None
         self.service_connection: Optional[DatabaseConnection] = None
@@ -151,8 +151,8 @@ class WorkflowConfigBuilder:
         self.enable_streamable_logs = enable
         return self
 
-    def build(self) -> OpenMetadataWorkflowConfig:
-        """Build the complete OpenMetadata workflow configuration.
+    def build(self) -> UMetadataWorkflowConfig:
+        """Build the complete UMetadata workflow configuration.
 
         This method constructs all components of the workflow configuration:
         - Source: TestSuite source with table FQN and service connection
@@ -161,7 +161,7 @@ class WorkflowConfigBuilder:
         - WorkflowConfig: Logger and server settings
 
         Returns:
-            Complete OpenMetadataWorkflowConfig ready for execution
+            Complete UMetadataWorkflowConfig ready for execution
         """
         assert (
             self.table is not None
@@ -205,12 +205,12 @@ class WorkflowConfigBuilder:
 
         workflow_config = WorkflowConfig(
             loggerLevel=self.log_level,
-            openMetadataServerConfig=self.client.config,
+            uMetadataServerConfig=self.client.config,
             raiseOnError=self.raise_on_error,
             successThreshold=self.success_threshold,
         )
 
-        config = OpenMetadataWorkflowConfig(
+        config = UMetadataWorkflowConfig(
             source=source,
             processor=processor,
             sink=sink,
@@ -224,22 +224,22 @@ class WorkflowConfigBuilder:
         return config
 
     @staticmethod
-    def _convert_ometa_exception(
+    def _convert_umeta_exception(
         entity: Type[T], identifier: str | Uuid, e: Exception
     ) -> Exception:
-        """Handle OpenMetadata exceptions."""
+        """Handle UMetadata exceptions."""
         if not isinstance(e, APIError):
             return e
 
         status_code = cast(int, e.status_code)
         if status_code == 404:
             return ValueError(
-                f"{entity.__name__} '{identifier}' not found in OpenMetadata."
+                f"{entity.__name__} '{identifier}' not found in UMetadata."
             )
 
         if status_code in (401, 403):
             return ValueError(
-                f"Could not fetch {entity.__name__} from OpenMetadata. "
+                f"Could not fetch {entity.__name__} from UMetadata. "
                 + "Request was unauthorized or it couldn't be authenticated."
             )
 
@@ -262,7 +262,7 @@ class WorkflowConfigBuilder:
             ValueError: If entity not found or fetch fails
         """
         try:
-            typed_client = cast(OMeta[T, Any], self.client)
+            typed_client = cast(UMeta[T, Any], self.client)
             entity = typed_client.get_by_name(
                 entity=entity_type,
                 fqn=fqn,
@@ -271,7 +271,7 @@ class WorkflowConfigBuilder:
             )
             return cast(T, entity)
         except Exception as exc:
-            raise self._convert_ometa_exception(entity_type, fqn, exc)
+            raise self._convert_umeta_exception(entity_type, fqn, exc)
 
     def _safe_get_by_id(self, entity_type: Type[T], entity_id: str | Uuid) -> T:
         """Safely fetch entity by ID with exception handling.
@@ -287,8 +287,8 @@ class WorkflowConfigBuilder:
             ValueError: If entity not found or fetch fails
         """
         try:
-            typed_client = cast(OMeta[T, Any], self.client)
+            typed_client = cast(UMeta[T, Any], self.client)
             entity = typed_client.get_by_id(entity_type, entity_id, nullable=False)
             return cast(T, entity)
         except Exception as exc:
-            raise self._convert_ometa_exception(entity_type, entity_id, exc)
+            raise self._convert_umeta_exception(entity_type, entity_id, exc)

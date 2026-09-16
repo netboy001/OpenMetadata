@@ -40,9 +40,9 @@ sink:
 
 workflowConfig:
   loggerLevel: DEBUG  # Use DEBUG for development to see detailed logs
-  openMetadataServerConfig:
+  uMetadataServerConfig:
     hostPort: http://localhost:8585/api
-    authProvider: openmetadata
+    authProvider: umetadata
     securityConfig:
       jwtToken: eyJraWQiOiJHYjM4OWEtOWY3Ni1nZGpzLWE5MmotMDI0MmJrOTQzNTYiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlzQm90IjpmYWxzZSwiaXNzIjoib3Blbi1tZXRhZGF0YS5vcmciLCJpYXQiOjE2NjM5Mzg0NjIsImVtYWlsIjoiYWRtaW5Ab3Blbm1ldGFkYXRhLm9yZyJ9.tS8um_5DKu7HgzGBzS1VTA5uUjKWOCU0B_j08WXBiEC0mr0zNREkqVfwFDD-d24HlNEbrqioLsBuFRiwIWKc1m_ZlVQbG7P36RUxhuv2vbSp80FKyNM-Tj93FDzq91jsyNmsQhyNv_fNr3TXfzzSPjHt8Go0FMMP66weoKMgW2PbXlhVKwEuXUHyakLLzewm9UMeQaEiRzhiTMU3UkLXcKbYEJJvfNFcLwSl9W8JCO_l0Yj3ud-qt_nQYEZwqW6u5nfdQllN133iikV4fM5QZsMCnm8Rq1mvLR0y9bmJiD7fwM1tmJ791TUWqmKaTnP49U493VanKpUAfzIiOiIbhg
 
@@ -53,7 +53,7 @@ workflowConfig:
 # 1. Start local infrastructure:
 #    docker-compose up -d  # Start MySQL, Postgres, Kafka, Kafka Connect
 #
-# 2. Ingest database metadata into OpenMetadata:
+# 2. Ingest database metadata into UMetadata:
 #    # MySQL
 #    metadata ingest -c mysql_local.yaml
 #
@@ -108,7 +108,7 @@ workflowConfig:
 # 4. Run this CDC workflow:
 #    metadata ingest -c confluent_cdc_local.yaml
 #
-# 5. View lineage in OpenMetadata UI:
+# 5. View lineage in UMetadata UI:
 #    http://localhost:8585
 #    Navigate to: Pipeline Services → local_cdc_dev → Pipelines
 #    Click on a pipeline to see column-level lineage

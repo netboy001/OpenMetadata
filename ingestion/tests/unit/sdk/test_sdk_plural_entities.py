@@ -23,7 +23,7 @@ class TestTablesSDK:
 
     def setup_method(self):
         """Set up test fixtures"""
-        self.mock_ometa = MagicMock()
+        self.mock_umeta = MagicMock()
         self.table_id = UUID("550e8400-e29b-41d4-a716-446655440000")
 
     @patch.object(Tables, "_get_client")
@@ -34,20 +34,20 @@ class TestTablesSDK:
     @patch.object(Tables, "_get_client")
     def test_add_tag(self, mock_get_client):
         """Test adding a tag to a table"""
-        mock_ometa = MagicMock()
-        mock_get_client.return_value = mock_ometa
+        mock_umeta = MagicMock()
+        mock_get_client.return_value = mock_umeta
 
         table_id = "table-uuid"
 
         # Mock get_by_id to return a table with tags
         mock_table = MagicMock(spec=Table)
         mock_table.tags = []
-        mock_ometa.get_by_id.return_value = mock_table
+        mock_umeta.get_by_id.return_value = mock_table
 
         # Mock patch to return the updated table
         updated_table = MagicMock(spec=Table)
         updated_table.tags = [MagicMock(tagFQN="PII.Sensitive")]
-        mock_ometa.patch.return_value = updated_table
+        mock_umeta.patch.return_value = updated_table
 
         # Act
         result = Tables.add_tag(table_id, "PII.Sensitive")
@@ -55,14 +55,14 @@ class TestTablesSDK:
         # Assert
         assert result.tags is not None
         assert result.tags[0].tagFQN == "PII.Sensitive"
-        mock_ometa.get_by_id.assert_called_once()
-        mock_ometa.patch.assert_called_once()
+        mock_umeta.get_by_id.assert_called_once()
+        mock_umeta.patch.assert_called_once()
 
     @patch.object(Tables, "_get_client")
     def test_update_column_description(self, mock_get_client):
         """Test updating column description"""
-        mock_ometa = MagicMock()
-        mock_get_client.return_value = mock_ometa
+        mock_umeta = MagicMock()
+        mock_get_client.return_value = mock_umeta
 
         table_id = "table-uuid"
         column_name = "user_id"
@@ -78,7 +78,7 @@ class TestTablesSDK:
         # Mock model_copy to return the same object (simulating a deep copy)
         mock_table.model_copy.return_value = mock_table
 
-        mock_ometa.get_by_id.return_value = mock_table
+        mock_umeta.get_by_id.return_value = mock_table
 
         # Mock patch to return the updated table
         updated_table = MagicMock(spec=Table)
@@ -86,7 +86,7 @@ class TestTablesSDK:
         updated_column.name = column_name  # Set the name property explicitly
         updated_column.description = new_description
         updated_table.columns = [updated_column]
-        mock_ometa.patch.return_value = updated_table
+        mock_umeta.patch.return_value = updated_table
 
         # Act
         result = Tables.update_column_description(
@@ -95,8 +95,8 @@ class TestTablesSDK:
 
         # Assert
         assert result.columns[0].description == new_description
-        mock_ometa.get_by_id.assert_called_once()
-        mock_ometa.patch.assert_called_once()
+        mock_umeta.get_by_id.assert_called_once()
+        mock_umeta.patch.assert_called_once()
 
 
 class TestDatabasesSDK:
@@ -110,8 +110,8 @@ class TestDatabasesSDK:
     @patch.object(Databases, "_get_client")
     def test_create_database(self, mock_get_client):
         """Test creating a database"""
-        mock_ometa = MagicMock()
-        mock_get_client.return_value = mock_ometa
+        mock_umeta = MagicMock()
+        mock_get_client.return_value = mock_umeta
 
         create_request = CreateDatabaseRequest(
             name="test_db",
@@ -120,12 +120,12 @@ class TestDatabasesSDK:
 
         mock_db = MagicMock(spec=Database)
         mock_db.name = "test_db"
-        mock_ometa.create_or_update.return_value = mock_db
+        mock_umeta.create_or_update.return_value = mock_db
 
         result = Databases.create(create_request)
 
         assert result.name == "test_db"
-        mock_ometa.create_or_update.assert_called_once_with(create_request)
+        mock_umeta.create_or_update.assert_called_once_with(create_request)
 
 
 class TestChartsSDK:
@@ -139,19 +139,19 @@ class TestChartsSDK:
     @patch.object(Charts, "_get_client")
     def test_retrieve_by_name(self, mock_get_client):
         """Test retrieving a chart by name"""
-        mock_ometa = MagicMock()
-        mock_get_client.return_value = mock_ometa
+        mock_umeta = MagicMock()
+        mock_get_client.return_value = mock_umeta
 
         mock_chart = MagicMock(spec=Chart)
         mock_chart.id = "chart-123"
         mock_chart.name = "Sales Chart"
         mock_chart.fullyQualifiedName = "service.Sales Chart"
-        mock_ometa.get_by_name.return_value = mock_chart
+        mock_umeta.get_by_name.return_value = mock_chart
 
         result = Charts.retrieve_by_name("service.Sales Chart")
 
         assert result.name == "Sales Chart"
-        mock_ometa.get_by_name.assert_called_once_with(
+        mock_umeta.get_by_name.assert_called_once_with(
             entity=Chart, fqn="service.Sales Chart", fields=None
         )
 
@@ -167,8 +167,8 @@ class TestDashboardsSDK:
     @patch.object(Dashboards, "_get_client")
     def test_list_dashboards(self, mock_get_client):
         """Test listing dashboards"""
-        mock_ometa = MagicMock()
-        mock_get_client.return_value = mock_ometa
+        mock_umeta = MagicMock()
+        mock_get_client.return_value = mock_umeta
 
         mock_dash1 = MagicMock(spec=Dashboard)
         mock_dash1.name = "dashboard1"
@@ -177,7 +177,7 @@ class TestDashboardsSDK:
 
         mock_response = MagicMock()
         mock_response.entities = [mock_dash1, mock_dash2]
-        mock_ometa.list_entities.return_value = mock_response
+        mock_umeta.list_entities.return_value = mock_response
 
         result = Dashboards.list()
 
@@ -197,18 +197,18 @@ class TestPipelinesSDK:
     @patch.object(Pipelines, "_get_client")
     def test_search_pipelines(self, mock_get_client):
         """Test searching pipelines"""
-        mock_ometa = MagicMock()
-        mock_get_client.return_value = mock_ometa
+        mock_umeta = MagicMock()
+        mock_get_client.return_value = mock_umeta
 
         mock_pipeline = MagicMock(spec=Pipeline)
         mock_pipeline.name = "etl_pipeline"
-        mock_ometa.es_search_from_fqn.return_value = [mock_pipeline]
+        mock_umeta.es_search_from_fqn.return_value = [mock_pipeline]
 
         results = Pipelines.search("test")
 
         assert len(results) == 1
         assert results[0].name == "etl_pipeline"
-        mock_ometa.es_search_from_fqn.assert_called_once_with(
+        mock_umeta.es_search_from_fqn.assert_called_once_with(
             entity_type=Pipeline, fqn_search_string="test", size=10
         )
 
@@ -224,13 +224,13 @@ class TestMLModelsSDK:
     @patch.object(MLModels, "_get_client")
     def test_delete_mlmodel(self, mock_get_client):
         """Test deleting an ML model"""
-        mock_ometa = MagicMock()
-        mock_get_client.return_value = mock_ometa
+        mock_umeta = MagicMock()
+        mock_get_client.return_value = mock_umeta
 
         model_id = "model-123"
         MLModels.delete(model_id, hard_delete=False)
 
-        mock_ometa.delete.assert_called_once_with(
+        mock_umeta.delete.assert_called_once_with(
             entity=MlModel, entity_id=model_id, hard_delete=False, recursive=False
         )
 

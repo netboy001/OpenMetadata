@@ -3,7 +3,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -60,12 +60,12 @@ from metadata.generated.schema.type.entityReferenceList import EntityReferenceLi
 from metadata.ingestion.api.models import Either
 from metadata.ingestion.lineage.models import ConnectionTypeDialectMapper
 from metadata.ingestion.lineage.sql_lineage import get_lineage_by_query
-from metadata.ingestion.models.ometa_classification import OMetaTagAndClassification
-from metadata.ingestion.models.ometa_lineage import OMetaLineageRequest
+from metadata.ingestion.models.umeta_classification import UMetaTagAndClassification
+from metadata.ingestion.models.umeta_lineage import UMetaLineageRequest
 from metadata.ingestion.models.patch_request import PatchedEntity, PatchRequest
 from metadata.ingestion.models.table_metadata import ColumnDescription
-from metadata.ingestion.ometa.client import APIError
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.client import APIError
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.database.column_type_parser import ColumnTypeParser
 from metadata.ingestion.source.database.database_service import DataModelLink
 from metadata.ingestion.source.database.dbt.constants import (
@@ -105,7 +105,7 @@ from metadata.utils.elasticsearch import get_entity_from_es_result
 from metadata.utils.entity_link import get_table_fqn
 from metadata.utils.filters import filter_by_tag
 from metadata.utils.logger import ingestion_logger
-from metadata.utils.tag_utils import get_ometa_tag_and_classification, get_tag_labels
+from metadata.utils.tag_utils import get_umeta_tag_and_classification, get_tag_labels
 from metadata.utils.time_utils import datetime_to_timestamp
 
 logger = ingestion_logger()
@@ -122,7 +122,7 @@ class DbtSource(DbtServiceSource):
     Class defines method to extract metadata from DBT
     """
 
-    def __init__(self, config: WorkflowSource, metadata: OpenMetadata):
+    def __init__(self, config: WorkflowSource, metadata: UMetadata):
         super().__init__()
         self.config = config
         self.source_config = self.config.sourceConfig.config
@@ -139,7 +139,7 @@ class DbtSource(DbtServiceSource):
 
     @classmethod
     def create(
-        cls, config_dict, metadata: OpenMetadata, pipeline_name: Optional[str] = None
+        cls, config_dict, metadata: UMetadata, pipeline_name: Optional[str] = None
     ):
         config: WorkflowSource = WorkflowSource.model_validate(config_dict)
         return cls(config, metadata)
@@ -175,7 +175,7 @@ class DbtSource(DbtServiceSource):
 
     def get_dbt_domain(self, manifest_node: Any) -> Optional[EntityReference]:
         """
-        Extracts domain from meta.openmetadata.domain and returns EntityReference
+        Extracts domain from meta.umetadata.domain and returns EntityReference
         """
         try:
             if (
@@ -186,8 +186,8 @@ class DbtSource(DbtServiceSource):
                 return None
 
             dbt_meta_info = DbtMeta(**manifest_node.meta)
-            if dbt_meta_info.openmetadata and dbt_meta_info.openmetadata.domain:
-                domain_name = dbt_meta_info.openmetadata.domain
+            if dbt_meta_info.umetadata and dbt_meta_info.umetadata.domain:
+                domain_name = dbt_meta_info.umetadata.domain
                 domain_entity = find_domain_by_name(self.metadata, domain_name)
 
                 if domain_entity:
@@ -196,7 +196,7 @@ class DbtSource(DbtServiceSource):
                         entity_ref = EntityReference(**domain_ref_data)
                         return entity_ref
                 else:
-                    logger.warning(f"Domain '{domain_name}' not found in OpenMetadata")
+                    logger.warning(f"Domain '{domain_name}' not found in UMetadata")
 
         except Exception as exc:
             logger.debug(traceback.format_exc())
@@ -209,20 +209,20 @@ class DbtSource(DbtServiceSource):
     ) -> Optional[EntityReferenceList]:
         """
         Returns dbt owner with priority:
-        1. manifest_node.meta.openmetadata.owner (OpenMetadata docs format - HIGHEST PRIORITY)
+        1. manifest_node.meta.umetadata.owner (UMetadata docs format - HIGHEST PRIORITY)
         2. manifest_node.meta.owner (old format)
         3. catalog_node.metadata.owner (standard DBT location - LOWEST PRIORITY)
         """
         try:
             dbt_owner = None
 
-            # PRIORITY 1: Check manifest node meta.openmetadata.owner
+            # PRIORITY 1: Check manifest node meta.umetadata.owner
             if manifest_node and manifest_node.meta:
-                openmetadata = manifest_node.meta.get("openmetadata", {})
-                if openmetadata:
-                    openmetadata_owner = openmetadata.get("owner")
-                    if openmetadata_owner:
-                        dbt_owner = openmetadata_owner
+                umetadata = manifest_node.meta.get("umetadata", {})
+                if umetadata:
+                    umetadata_owner = umetadata.get("owner")
+                    if umetadata_owner:
+                        dbt_owner = umetadata_owner
 
             # PRIORITY 2: Check old format meta.owner
             if not dbt_owner:
@@ -385,7 +385,7 @@ class DbtSource(DbtServiceSource):
 
             if not domain_entity:
                 logger.warning(
-                    f"Domain '{domain_name}' not found in OpenMetadata for table {table_fqn}"
+                    f"Domain '{domain_name}' not found in UMetadata for table {table_fqn}"
                 )
                 return
 
@@ -479,7 +479,7 @@ class DbtSource(DbtServiceSource):
         Validates and converts custom properties with comprehensive type checking.
 
         This method performs three-layer validation:
-        1. Property existence check - Is the property defined in OpenMetadata?
+        1. Property existence check - Is the property defined in UMetadata?
         2. Type compatibility check - Does the value type match the expected type?
         3. Format validation - Does the value meet format requirements?
 
@@ -499,11 +499,11 @@ class DbtSource(DbtServiceSource):
         )
 
         for field_name, field_value in custom_properties.items():
-            # Step 1: Check if property exists in OpenMetadata
+            # Step 1: Check if property exists in UMetadata
             if field_name not in self.omd_custom_properties:
                 error_msg = (
-                    f"Custom property '{field_name}' not found in OpenMetadata. "
-                    f"Please create it in the OpenMetadata UI before ingesting."
+                    f"Custom property '{field_name}' not found in UMetadata. "
+                    f"Please create it in the UMetadata UI before ingesting."
                 )
                 logger.warning(f"Table {table_fqn}: {error_msg}")
                 validation_errors.append(f"{field_name}: Property not defined")
@@ -520,7 +520,7 @@ class DbtSource(DbtServiceSource):
             # Step 2: Validate and convert value (single pass)
             # This validates type compatibility, format constraints, and converts to backend format
             # For enum types, validation also filters out invalid values
-            # For entity references, fetches and converts entities from OpenMetadata
+            # For entity references, fetches and converts entities from UMetadata
             is_valid, error_detail, converted_value = validate_custom_property_value(
                 property_name=field_name,
                 property_type=property_type,
@@ -587,7 +587,7 @@ class DbtSource(DbtServiceSource):
 
     def yield_dbt_tags(
         self, dbt_objects: DbtObjects
-    ) -> Iterable[Either[OMetaTagAndClassification]]:
+    ) -> Iterable[Either[UMetaTagAndClassification]]:
         """
         Create and yield tags from DBT
         """
@@ -641,7 +641,7 @@ class DbtSource(DbtServiceSource):
                     )
                     for tag_name in dbt_tags_list
                 ]
-                yield from get_ometa_tag_and_classification(
+                yield from get_umeta_tag_and_classification(
                     tags=[fqn.split(tag_label)[1] for tag_label in dbt_tag_labels],
                     classification_name=self.tag_classification_name,
                     tag_description="dbt Tags",
@@ -662,7 +662,7 @@ class DbtSource(DbtServiceSource):
         When multiple run_results files are present (e.g. split by domain),
         the same unique_id may appear in more than one file.  Return the
         result with the most recent ``execute`` completed_at timestamp so
-        that OpenMetadata always reflects the latest test state.
+        that UMetadata always reflects the latest test state.
         """
         matches = [
             item
@@ -802,15 +802,15 @@ class DbtSource(DbtServiceSource):
                     return table_entity
 
             logger.warning(
-                f"Unable to find the table '{table_fqn}' in OpenMetadata. "
-                "Please check if the table exists and is ingested in OpenMetadata. "
+                f"Unable to find the table '{table_fqn}' in UMetadata. "
+                "Please check if the table exists and is ingested in UMetadata. "
                 "Also, ensure the name, database, and schema of the manifest node"
-                "match the table present in OpenMetadata."
+                "match the table present in UMetadata."
             )
         except Exception as exc:
             logger.debug(traceback.format_exc())
             logger.warning(
-                f"Failed to get table entity '{table_fqn}' from OpenMetadata: {exc}"
+                f"Failed to get table entity '{table_fqn}' from UMetadata: {exc}"
             )
 
         return None
@@ -1090,13 +1090,13 @@ class DbtSource(DbtServiceSource):
                     dbt_column_meta = DbtMeta(**manifest_column.meta)
                     logger.debug(f"Processing DBT column glossary: {key}")
                     if (
-                        dbt_column_meta.openmetadata
-                        and dbt_column_meta.openmetadata.glossary
+                        dbt_column_meta.umetadata
+                        and dbt_column_meta.umetadata.glossary
                     ):
                         dbt_column_tag_list.extend(
                             get_tag_labels(
                                 metadata=self.metadata,
-                                tags=dbt_column_meta.openmetadata.glossary,
+                                tags=dbt_column_meta.umetadata.glossary,
                                 include_tags=self.source_config.includeTags,
                                 tag_type=GlossaryTerm,
                             )
@@ -1105,10 +1105,10 @@ class DbtSource(DbtServiceSource):
 
                     if (
                         self.source_config.includeTags
-                        and dbt_column_meta.openmetadata
-                        and dbt_column_meta.openmetadata.tags
+                        and dbt_column_meta.umetadata
+                        and dbt_column_meta.umetadata.tags
                     ):
-                        for tag_fqn in dbt_column_meta.openmetadata.tags:
+                        for tag_fqn in dbt_column_meta.umetadata.tags:
                             if not tag_fqn:
                                 continue
                             try:
@@ -1162,17 +1162,17 @@ class DbtSource(DbtServiceSource):
     def parse_exposure_node(self, exposure_spec) -> Optional[Any]:
         """
         Parses the exposure node verifying if it's type is supported and if provided label matches FQN of
-        Open Metadata entity. Returns entity object if both conditions are met.
+        U Metadata entity. Returns entity object if both conditions are met.
 
-        The implementation assumes that value of meta.open_metadata_fqn provided in DBT exposures object matches
-        to FQN of OpenMetadata entity.
+        The implementation assumes that value of meta.u_metadata_fqn provided in DBT exposures object matches
+        to FQN of UMetadata entity.
 
         ```yaml
         exposures:
           - name: orders_dashboard
             label: orders
             meta:
-              open_metadata_fqn: sample_looker.orders  # OpenMetadata entity FullyQualifiedName
+              u_metadata_fqn: sample_looker.orders  # UMetadata entity FullyQualifiedName
             type: dashboard
             maturity: high
             url: http://localhost:808/looker/dashboard/8/
@@ -1192,10 +1192,10 @@ class DbtSource(DbtServiceSource):
             return None
 
         try:
-            entity_fqn = exposure_spec.meta["open_metadata_fqn"]
+            entity_fqn = exposure_spec.meta["u_metadata_fqn"]
         except KeyError:
             logger.warning(
-                f"meta.open_metadata_fqn not found in [{exposure_spec.name}] exposure spec."
+                f"meta.u_metadata_fqn not found in [{exposure_spec.name}] exposure spec."
             )
             return None
 
@@ -1203,7 +1203,7 @@ class DbtSource(DbtServiceSource):
 
         if not entity:
             logger.warning(
-                f"Entity [{entity_fqn}] of [{exposure_type}] type not found in Open Metadata."
+                f"Entity [{entity_fqn}] of [{exposure_type}] type not found in U Metadata."
             )
 
             return None
@@ -1245,7 +1245,7 @@ class DbtSource(DbtServiceSource):
                     )
                     if lineage_request is not None:
                         yield Either(
-                            right=OMetaLineageRequest(
+                            right=UMetaLineageRequest(
                                 lineage_request=lineage_request,
                                 override_lineage=self.source_config.overrideLineage,
                             )
@@ -1307,7 +1307,7 @@ class DbtSource(DbtServiceSource):
                 for lineage in lineages or []:
                     if lineage.right is not None:
                         yield Either(
-                            right=OMetaLineageRequest(
+                            right=UMetaLineageRequest(
                                 lineage_request=lineage.right,
                                 override_lineage=self.source_config.overrideLineage,
                             )
@@ -1368,7 +1368,7 @@ class DbtSource(DbtServiceSource):
                     )
                     if lineage_request is not None:
                         yield Either(
-                            right=OMetaLineageRequest(
+                            right=UMetaLineageRequest(
                                 lineage_request=lineage_request,
                                 override_lineage=self.source_config.overrideLineage,
                             )
@@ -1398,19 +1398,19 @@ class DbtSource(DbtServiceSource):
         dbt_table_tags_list = []
         try:
             dbt_meta_info = DbtMeta(**manifest_meta)
-            if dbt_meta_info.openmetadata and dbt_meta_info.openmetadata.glossary:
+            if dbt_meta_info.umetadata and dbt_meta_info.umetadata.glossary:
                 dbt_table_tags_list.extend(
                     get_tag_labels(
                         metadata=self.metadata,
-                        tags=dbt_meta_info.openmetadata.glossary,
+                        tags=dbt_meta_info.umetadata.glossary,
                         include_tags=True,
                         tag_type=GlossaryTerm,
                     )
                     or []
                 )
 
-            if dbt_meta_info.openmetadata and dbt_meta_info.openmetadata.tier:
-                tier_fqn = dbt_meta_info.openmetadata.tier
+            if dbt_meta_info.umetadata and dbt_meta_info.umetadata.tier:
+                tier_fqn = dbt_meta_info.umetadata.tier
                 dbt_table_tags_list.extend(
                     get_tag_labels(
                         metadata=self.metadata,
@@ -1422,23 +1422,23 @@ class DbtSource(DbtServiceSource):
                 )
 
             if (
-                dbt_meta_info.openmetadata
-                and dbt_meta_info.openmetadata.customProperties
+                dbt_meta_info.umetadata
+                and dbt_meta_info.umetadata.customProperties
             ):
                 # Store custom properties mapped to table FQN
                 self.extracted_custom_properties[
                     table_fqn
-                ] = dbt_meta_info.openmetadata.customProperties
+                ] = dbt_meta_info.umetadata.customProperties
 
-            if dbt_meta_info.openmetadata and dbt_meta_info.openmetadata.domain:
-                self.extracted_domains[table_fqn] = dbt_meta_info.openmetadata.domain
+            if dbt_meta_info.umetadata and dbt_meta_info.umetadata.domain:
+                self.extracted_domains[table_fqn] = dbt_meta_info.umetadata.domain
 
             if (
                 self.source_config.includeTags
-                and dbt_meta_info.openmetadata
-                and dbt_meta_info.openmetadata.tags
+                and dbt_meta_info.umetadata
+                and dbt_meta_info.umetadata.tags
             ):
-                for tag_fqn in dbt_meta_info.openmetadata.tags:
+                for tag_fqn in dbt_meta_info.umetadata.tags:
                     if not tag_fqn:
                         continue
                     try:

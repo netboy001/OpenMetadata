@@ -18,7 +18,7 @@ from metadata.generated.schema.type.basic import (
     FullyQualifiedEntityName,
     Markdown,
 )
-from metadata.ingestion.models.ometa_classification import OMetaTagAndClassification
+from metadata.ingestion.models.umeta_classification import UMetaTagAndClassification
 from metadata.ingestion.sink.metadata_rest import (
     MetadataRestSink,
     MetadataRestSinkConfig,
@@ -38,8 +38,8 @@ class TestSinkEmptyTagValidation:
     def _create_tag_record(
         self, tag_name: str, classification_name: str = "TestClassification"
     ):
-        """Helper to create OMetaTagAndClassification record"""
-        return OMetaTagAndClassification(
+        """Helper to create UMetaTagAndClassification record"""
+        return UMetaTagAndClassification(
             fqn=FullyQualifiedEntityName("test.fqn"),
             classification_request=CreateClassificationRequest(
                 name=EntityName(classification_name),
@@ -69,7 +69,7 @@ class TestSinkEmptyTagValidation:
         # Reset mock to track calls from this test only
         self.mock_metadata.reset_mock()
 
-        record = OMetaTagAndClassification(
+        record = UMetaTagAndClassification(
             fqn=FullyQualifiedEntityName("test.fqn"),
             classification_request=CreateClassificationRequest(
                 name=EntityName("TestClassification"),
@@ -95,7 +95,7 @@ class TestSinkEmptyTagValidation:
         # Reset mock to track calls from this test only
         self.mock_metadata.reset_mock()
 
-        record = OMetaTagAndClassification(
+        record = UMetaTagAndClassification(
             fqn=FullyQualifiedEntityName("test.fqn"),
             classification_request=CreateClassificationRequest(
                 name=EntityName("TestClassification"),

@@ -2,7 +2,7 @@
   "name": "mock-oidc-provider",
   "version": "1.0.0",
   "private": true,
-  "description": "Mock OIDC identity provider for OpenMetadata E2E SSO testing",
+  "description": "Mock OIDC identity provider for UMetadata E2E SSO testing",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"

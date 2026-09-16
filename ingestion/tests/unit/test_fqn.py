@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,7 +34,7 @@ from metadata.ingestion.models.custom_basemodel_validation import (
     RESERVED_COLON_KEYWORD,
     RESERVED_QUOTE_KEYWORD,
 )
-from metadata.ingestion.ometa.utils import quote
+from metadata.ingestion.umeta.utils import quote
 from metadata.utils import fqn
 
 
@@ -108,7 +108,7 @@ class TestFqn(TestCase):
         """
         Names with embedded newlines (which Snowflake's ``information_schema``
         occasionally returns when source tables were created from scripts that
-        forgot to strip a trailing ``\\n``) are not valid OpenMetadata FQN
+        forgot to strip a trailing ``\\n``) are not valid UMetadata FQN
         components — the OM server's ``quoteName`` rejects them too. Python's
         ``quote_name`` therefore raises here to keep the client/server
         contract consistent. The defensive try/except added to

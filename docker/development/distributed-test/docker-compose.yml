@@ -75,16 +75,16 @@ services:
       context: ../../../.
       dockerfile: docker/development/Dockerfile
     container_name: distributed_test_migrate
-    command: "./bootstrap/openmetadata-ops.sh -d migrate --force"
+    command: "./bootstrap/umetadata-ops.sh -d migrate --force"
     environment:
       LOG_LEVEL: INFO
       DB_DRIVER_CLASS: com.mysql.cj.jdbc.Driver
       DB_SCHEME: mysql
       DB_HOST: mysql
       DB_PORT: 3306
-      DB_USER: ${DB_USER:-openmetadata_user}
-      DB_USER_PASSWORD: ${DB_USER_PASSWORD:-openmetadata_password}
-      OM_DATABASE: ${OM_DATABASE:-openmetadata_db}
+      DB_USER: ${DB_USER:-umetadata_user}
+      DB_USER_PASSWORD: ${DB_USER_PASSWORD:-umetadata_password}
+      OM_DATABASE: ${OM_DATABASE:-umetadata_db}
       DB_PARAMS: allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
       SEARCH_TYPE: opensearch
       ELASTICSEARCH_HOST: opensearch
@@ -98,8 +98,8 @@ services:
     networks:
       - distributed-test-net
 
-  # OpenMetadata Server 1 (Primary - can trigger reindex)
-  openmetadata-server-1:
+  # UMetadata Server 1 (Primary - can trigger reindex)
+  umetadata-server-1:
     build:
       context: ../../../.
       dockerfile: docker/development/Dockerfile
@@ -110,7 +110,7 @@ services:
       SERVER_PORT: 8585
       SERVER_ADMIN_PORT: 8586
       LOG_LEVEL: ${LOG_LEVEL:-INFO}
-      OPENMETADATA_CLUSTER_NAME: distributed-test
+      UMETADATA_CLUSTER_NAME: distributed-test
 
       # Unique server identifier for distributed indexing
       OM_SERVER_ID: server-1
@@ -120,9 +120,9 @@ services:
       DB_SCHEME: mysql
       DB_HOST: mysql
       DB_PORT: 3306
-      DB_USER: ${DB_USER:-openmetadata_user}
-      DB_USER_PASSWORD: ${DB_USER_PASSWORD:-openmetadata_password}
-      OM_DATABASE: ${OM_DATABASE:-openmetadata_db}
+      DB_USER: ${DB_USER:-umetadata_user}
+      DB_USER_PASSWORD: ${DB_USER_PASSWORD:-umetadata_password}
+      OM_DATABASE: ${OM_DATABASE:-umetadata_db}
       DB_PARAMS: allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
 
       # Search
@@ -140,7 +140,7 @@ services:
       PIPELINE_SERVICE_CLIENT_ENABLED: "false"
 
       # Heap
-      OPENMETADATA_HEAP_OPTS: ${OPENMETADATA_HEAP_OPTS:--Xmx1G -Xms1G}
+      UMETADATA_HEAP_OPTS: ${UMETADATA_HEAP_OPTS:--Xmx1G -Xms1G}
     ports:
       - "8585:8585"
       - "8586:8586"
@@ -155,8 +155,8 @@ services:
       timeout: 10s
       retries: 10
 
-  # OpenMetadata Server 2
-  openmetadata-server-2:
+  # UMetadata Server 2
+  umetadata-server-2:
     build:
       context: ../../../.
       dockerfile: docker/development/Dockerfile
@@ -167,7 +167,7 @@ services:
       SERVER_PORT: 8585
       SERVER_ADMIN_PORT: 8586
       LOG_LEVEL: ${LOG_LEVEL:-INFO}
-      OPENMETADATA_CLUSTER_NAME: distributed-test
+      UMETADATA_CLUSTER_NAME: distributed-test
 
       # Unique server identifier for distributed indexing
       OM_SERVER_ID: server-2
@@ -177,9 +177,9 @@ services:
       DB_SCHEME: mysql
       DB_HOST: mysql
       DB_PORT: 3306
-      DB_USER: ${DB_USER:-openmetadata_user}
-      DB_USER_PASSWORD: ${DB_USER_PASSWORD:-openmetadata_password}
-      OM_DATABASE: ${OM_DATABASE:-openmetadata_db}
+      DB_USER: ${DB_USER:-umetadata_user}
+      DB_USER_PASSWORD: ${DB_USER_PASSWORD:-umetadata_password}
+      OM_DATABASE: ${OM_DATABASE:-umetadata_db}
       DB_PARAMS: allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
 
       # Search
@@ -197,7 +197,7 @@ services:
       PIPELINE_SERVICE_CLIENT_ENABLED: "false"
 
       # Heap
-      OPENMETADATA_HEAP_OPTS: ${OPENMETADATA_HEAP_OPTS:--Xmx1G -Xms1G}
+      UMETADATA_HEAP_OPTS: ${UMETADATA_HEAP_OPTS:--Xmx1G -Xms1G}
     ports:
       - "8587:8585"
       - "8588:8586"
@@ -212,8 +212,8 @@ services:
       timeout: 10s
       retries: 10
 
-  # OpenMetadata Server 3
-  openmetadata-server-3:
+  # UMetadata Server 3
+  umetadata-server-3:
     build:
       context: ../../../.
       dockerfile: docker/development/Dockerfile
@@ -224,7 +224,7 @@ services:
       SERVER_PORT: 8585
       SERVER_ADMIN_PORT: 8586
       LOG_LEVEL: ${LOG_LEVEL:-INFO}
-      OPENMETADATA_CLUSTER_NAME: distributed-test
+      UMETADATA_CLUSTER_NAME: distributed-test
 
       # Unique server identifier for distributed indexing
       OM_SERVER_ID: server-3
@@ -234,9 +234,9 @@ services:
       DB_SCHEME: mysql
       DB_HOST: mysql
       DB_PORT: 3306
-      DB_USER: ${DB_USER:-openmetadata_user}
-      DB_USER_PASSWORD: ${DB_USER_PASSWORD:-openmetadata_password}
-      OM_DATABASE: ${OM_DATABASE:-openmetadata_db}
+      DB_USER: ${DB_USER:-umetadata_user}
+      DB_USER_PASSWORD: ${DB_USER_PASSWORD:-umetadata_password}
+      OM_DATABASE: ${OM_DATABASE:-umetadata_db}
       DB_PARAMS: allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
 
       # Search
@@ -254,7 +254,7 @@ services:
       PIPELINE_SERVICE_CLIENT_ENABLED: "false"
 
       # Heap
-      OPENMETADATA_HEAP_OPTS: ${OPENMETADATA_HEAP_OPTS:--Xmx1G -Xms1G}
+      UMETADATA_HEAP_OPTS: ${UMETADATA_HEAP_OPTS:--Xmx1G -Xms1G}
     ports:
       - "8589:8585"
       - "8590:8586"

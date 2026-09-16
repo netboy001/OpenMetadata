@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -47,7 +47,7 @@ def validate_athena_injected_partitioning(
         "Table profiler config is missing for table with injected partitioning. Please define "
         "the partitioning in the table profiler config for column {column_name}. "
         "For more information, visit "
-        "https://docs.open-metadata.org/v1.3.x/connectors/ingestion/workflows/profiler#profiler-options "
+        "https://docs.u-metadata.org/v1.3.x/connectors/ingestion/workflows/profiler#profiler-options "
     )
 
     column_partitions: Optional[List[PartitionColumnDetails]] = table_partitions.columns
@@ -171,7 +171,7 @@ def _handle_bigquery_partition(
             f"Unknown partition type {partition.intervalType}. Cannot infer partition. Partitionning "
             "will be set to None. If partitionning is required for your table, you can set it "
             "directly in the table config. More information can be found at "
-            "https://docs.open-metadata.org/latest/how-to-guides/data-quality-observability/profiler/"
+            "https://docs.u-metadata.org/latest/how-to-guides/data-quality-observability/profiler/"
             "workflow#4.-updating-profiler-setting-at-the-table-level"
         )
 

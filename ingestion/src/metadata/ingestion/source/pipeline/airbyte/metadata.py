@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -44,8 +44,8 @@ from metadata.generated.schema.type.entityLineage import Source as LineageSource
 from metadata.generated.schema.type.entityReference import EntityReference
 from metadata.ingestion.api.models import Either
 from metadata.ingestion.api.steps import InvalidSourceException
-from metadata.ingestion.models.pipeline_status import OMetaPipelineStatus
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.models.pipeline_status import UMetaPipelineStatus
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.pipeline.airbyte.client import AirbyteCloudClient
 from metadata.ingestion.source.pipeline.openlineage.models import TableDetails
 from metadata.ingestion.source.pipeline.openlineage.utils import FQNNotFoundException
@@ -97,7 +97,7 @@ class AirbyteSource(PipelineServiceSource):
 
     @classmethod
     def create(
-        cls, config_dict, metadata: OpenMetadata, pipeline_name: Optional[str] = None
+        cls, config_dict, metadata: UMetadata, pipeline_name: Optional[str] = None
     ):
         config: WorkflowSource = WorkflowSource.model_validate(config_dict)
         connection: AirbyteConnection = config.serviceConnection.root.config
@@ -146,7 +146,7 @@ class AirbyteSource(PipelineServiceSource):
 
     def yield_pipeline_status(
         self, pipeline_details: AirbytePipelineDetails
-    ) -> Iterable[Either[OMetaPipelineStatus]]:
+    ) -> Iterable[Either[UMetaPipelineStatus]]:
         """
         Method to get task & pipeline status
         """
@@ -201,7 +201,7 @@ class AirbyteSource(PipelineServiceSource):
                     pipeline_name=self.context.get().pipeline,
                 )
                 yield Either(
-                    right=OMetaPipelineStatus(
+                    right=UMetaPipelineStatus(
                         pipeline_fqn=pipeline_fqn,
                         pipeline_status=pipeline_status,
                     )
@@ -209,7 +209,7 @@ class AirbyteSource(PipelineServiceSource):
 
     def _yield_pipeline_status_cloud(
         self, pipeline_details: AirbytePipelineDetails
-    ) -> Iterable[Either[OMetaPipelineStatus]]:
+    ) -> Iterable[Either[UMetaPipelineStatus]]:
         """
         Method to get task & pipeline status for Airbyte Cloud.
         Handles flat job structure with ISO 8601 timestamps.
@@ -274,7 +274,7 @@ class AirbyteSource(PipelineServiceSource):
             )
 
             yield Either(
-                right=OMetaPipelineStatus(
+                right=UMetaPipelineStatus(
                     pipeline_fqn=pipeline_fqn,
                     pipeline_status=pipeline_status,
                 )
@@ -351,7 +351,7 @@ class AirbyteSource(PipelineServiceSource):
                     f"While extracting lineage: [{pipeline_name}],"
                     f" source table: [{source_table_details.database or '*'}]"
                     f".[{source_table_details.schema}].[{source_table_details.name}]"
-                    f" (type: {source_name}) not found in openmetadata"
+                    f" (type: {source_name}) not found in umetadata"
                 )
                 continue
             if not to_fqn:
@@ -359,7 +359,7 @@ class AirbyteSource(PipelineServiceSource):
                     f"While extracting lineage: [{pipeline_name}],"
                     f" destination table: [{destination_table_details.database or '*'}]"
                     f".[{destination_table_details.schema}].[{destination_table_details.name}]"
-                    f" (type: {destination_name}) not found in openmetadata"
+                    f" (type: {destination_name}) not found in umetadata"
                 )
                 continue
 
@@ -370,14 +370,14 @@ class AirbyteSource(PipelineServiceSource):
                 logger.warning(
                     f"While extracting lineage: [{pipeline_name}],"
                     f" source table (fqn: [{from_fqn}], type: {source_name}) not found"
-                    " in openmetadata"
+                    " in umetadata"
                 )
                 continue
             if not to_entity:
                 logger.warning(
                     f"While extracting lineage: [{pipeline_name}],"
                     f" destination table (fqn: [{to_fqn}], type: {destination_name}) not found"
-                    " in openmetadata"
+                    " in umetadata"
                 )
                 continue
 

@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -37,7 +37,7 @@ from metadata.generated.schema.entity.services.connections.testConnectionResult 
     TestConnectionStepResult,
 )
 from metadata.generated.schema.type.basic import Timestamp
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.connections_utils import kill_active_connections
 from metadata.profiler.orm.functions.conn_test import ConnTestFn
 from metadata.utils.constants import THREE_MIN
@@ -90,7 +90,7 @@ class TestConnectionIngestionResult(BaseModel):
 
 
 def _test_connection_steps(
-    metadata: OpenMetadata,
+    metadata: UMetadata,
     steps: List[TestConnectionStep],
     automation_workflow: Optional[AutomationWorkflow] = None,
 ) -> TestConnectionResult:
@@ -107,7 +107,7 @@ def _test_connection_steps(
 
 
 def _test_connection_steps_automation_workflow(
-    metadata: OpenMetadata,
+    metadata: UMetadata,
     steps: List[TestConnectionStep],
     automation_workflow: AutomationWorkflow,
 ) -> TestConnectionResult:
@@ -245,7 +245,7 @@ def raise_test_connection_exception(result: TestConnectionResult) -> None:
 
 
 def test_connection_steps(
-    metadata: OpenMetadata,
+    metadata: UMetadata,
     service_type: str,
     test_fn: dict,
     automation_workflow: Optional[AutomationWorkflow] = None,
@@ -304,7 +304,7 @@ def test_connection_engine_step(connection: Engine) -> None:
 
 
 def test_connection_db_common(
-    metadata: OpenMetadata,
+    metadata: UMetadata,
     engine: Engine,
     service_connection,
     automation_workflow: Optional[AutomationWorkflow] = None,
@@ -356,7 +356,7 @@ def test_connection_db_common(
 
 
 def test_connection_db_schema_sources(
-    metadata: OpenMetadata,
+    metadata: UMetadata,
     engine: Engine,
     service_connection,
     automation_workflow: Optional[AutomationWorkflow] = None,

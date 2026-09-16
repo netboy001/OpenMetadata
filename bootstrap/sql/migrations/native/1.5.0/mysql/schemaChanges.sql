@@ -220,8 +220,8 @@ update entity_extension set json = JSON_SET(
 ALTER TABLE test_case MODIFY COLUMN `name` VARCHAR(512) GENERATED ALWAYS AS (json ->> '$.name') NOT NULL;
 
 -- set templates to fetch emailTemplates
-UPDATE openmetadata_settings
-SET json = JSON_SET(json, '$.templates', 'openmetadata')
+UPDATE umetadata_settings
+SET json = JSON_SET(json, '$.templates', 'umetadata')
 WHERE configType = 'emailConfiguration';
 
 -- remove dangling owner and service from ingestion pipelines. This info is in entity_relationship

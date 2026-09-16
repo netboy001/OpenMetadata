@@ -2,7 +2,7 @@
 ALTER TABLE ACT_RU_EVENT_SUBSCR ALTER COLUMN ACTIVITY_ID_ TYPE varchar(255);
 
 -- Update workflow settings with new job acquisition interval settings
-UPDATE openmetadata_settings
+UPDATE umetadata_settings
 SET json = jsonb_set(
     jsonb_set(
         json,

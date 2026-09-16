@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,7 +23,7 @@ from metadata.generated.schema.entity.data.dashboard import Dashboard
 from metadata.generated.schema.entity.data.table import Table
 from metadata.generated.schema.type.basic import EntityName, FullyQualifiedEntityName
 from metadata.generated.schema.type.entityReference import EntityReference
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.dashboard.hex.metadata import HexSource
 from metadata.ingestion.source.dashboard.hex.models import (
     Category,
@@ -98,9 +98,9 @@ class TestHexIngestionFlow(TestCase):
             },
             "workflowConfig": {
                 "loggerLevel": "DEBUG",
-                "openMetadataServerConfig": {
+                "uMetadataServerConfig": {
                     "hostPort": "http://localhost:8585/api",
-                    "authProvider": "openmetadata",
+                    "authProvider": "umetadata",
                     "securityConfig": {"jwtToken": "test_token"},
                 },
             },
@@ -110,7 +110,7 @@ class TestHexIngestionFlow(TestCase):
         "metadata.ingestion.source.dashboard.dashboard_service.test_connection_common"
     )
     @patch("metadata.ingestion.source.dashboard.hex.metadata.get_connection")
-    @patch.object(OpenMetadata, "__init__", lambda x, y: None)
+    @patch.object(UMetadata, "__init__", lambda x, y: None)
     def test_complete_ingestion_workflow(
         self, mock_get_connection, mock_test_connection
     ):

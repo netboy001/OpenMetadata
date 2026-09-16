@@ -5,7 +5,7 @@ from typing import List
 
 import pytest
 
-from _openmetadata_testutils.pydantic.test_utils import assert_equal_pydantic_objects
+from _umetadata_testutils.pydantic.test_utils import assert_equal_pydantic_objects
 from metadata.data_quality.api.models import TestCaseDefinition
 from metadata.generated.schema.entity.services.databaseService import DatabaseService
 from metadata.generated.schema.metadataIngestion.testSuitePipeline import (
@@ -14,7 +14,7 @@ from metadata.generated.schema.metadataIngestion.testSuitePipeline import (
 )
 from metadata.generated.schema.tests.basic import TestCaseResult, TestCaseStatus
 from metadata.generated.schema.tests.testCase import TestCase
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.workflow.data_quality import TestSuiteWorkflow
 from metadata.workflow.metadata import MetadataWorkflow
 
@@ -206,7 +206,7 @@ def test_column_test_cases(
     run_workflow,
     ingestion_config,
     db_service: DatabaseService,
-    metadata: OpenMetadata,
+    metadata: UMetadata,
     parameters: TestColumnParameter,
     get_test_suite_config,
     cleanup_fqns,

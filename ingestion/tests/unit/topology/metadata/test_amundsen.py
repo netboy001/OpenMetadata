@@ -26,11 +26,11 @@ from metadata.generated.schema.entity.services.databaseService import (
     DatabaseService,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.generated.schema.security.credentials.awsCredentials import AWSCredentials
 from metadata.generated.schema.type.basic import Href
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.metadata.amundsen.metadata import AmundsenSource
 
 mock_amundsen_config = {
@@ -49,9 +49,9 @@ mock_amundsen_config = {
     },
     "sink": {"type": "metadata-rest", "config": {}},
     "workflowConfig": {
-        "openMetadataServerConfig": {
+        "uMetadataServerConfig": {
             "hostPort": "http://localhost:8585/api",
-            "authProvider": "openmetadata",
+            "authProvider": "umetadata",
             "securityConfig": {
                 "jwtToken": "eyJraWQiOiJHYjM4OWEtOWY3Ni1nZGpzLWE5MmotMDI0MmJrOTQzNTYiLCJ0eXAiOiJKV1QiLCJhbGc"
                 "iOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlzQm90IjpmYWxzZSwiaXNzIjoib3Blbi1tZXRhZGF0YS5vcmciLCJpYXQiOjE"
@@ -181,10 +181,10 @@ class AmundsenUnitTest(TestCase):
     def __init__(self, methodName, test_connection) -> None:
         super().__init__(methodName)
         test_connection.return_value = False
-        self.config = OpenMetadataWorkflowConfig.model_validate(mock_amundsen_config)
+        self.config = UMetadataWorkflowConfig.model_validate(mock_amundsen_config)
         self.amundsen = AmundsenSource.create(
             mock_amundsen_config["source"],
-            OpenMetadata(self.config.workflowConfig.openMetadataServerConfig),
+            UMetadata(self.config.workflowConfig.uMetadataServerConfig),
         )
 
     def test_database_service(self):

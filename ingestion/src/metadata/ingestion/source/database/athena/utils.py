@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -78,7 +78,7 @@ def _get_column_type(self, type_):
         )
         col_type = col_map["array"]
         if parsed_type["arrayDataType"].lower().startswith("array"):
-            # as OpenMetadata doesn't store any details on children of array, we put
+            # as UMetadata doesn't store any details on children of array, we put
             # in type as string as default to avoid Array item_type required issue
             # from sqlalchemy types
             args = [types.String]

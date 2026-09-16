@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -35,7 +35,7 @@ from metadata.generated.schema.metadataIngestion.databaseServiceProfilerPipeline
     DatabaseServiceProfilerPipeline,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
     WorkflowConfig,
 )
 from metadata.generated.schema.type.entityReference import EntityReference
@@ -49,7 +49,7 @@ from metadata.profiler.orm.converter import base
 from metadata.profiler.processor.default import DefaultProfiler
 from metadata.profiler.source.database.base.profiler_source import ProfilerSource
 from metadata.profiler.source.fetcher.fetcher_strategy import DatabaseFetcherStrategy
-from metadata.profiler.source.metadata import OpenMetadataSource
+from metadata.profiler.source.metadata import UMetadataSource
 from metadata.workflow.profiler import ProfilerWorkflow
 
 TABLE = Table(
@@ -82,9 +82,9 @@ config = {
     "processor": {"type": "orm-profiler", "config": {}},
     "sink": {"type": "metadata-rest", "config": {}},
     "workflowConfig": {
-        "openMetadataServerConfig": {
+        "uMetadataServerConfig": {
             "hostPort": "http://localhost:8585/api",
-            "authProvider": "openmetadata",
+            "authProvider": "umetadata",
             "securityConfig": {
                 "jwtToken": (
                     "eyJraWQiOiJHYjM4OWEtOWY3Ni1nZGpzLWE5MmotMDI0MmJrOTQzNTYiLCJ0eXAiOiJKV1"
@@ -119,7 +119,7 @@ class User(Base):
     new_callable=lambda: User,
 )
 @patch.object(
-    OpenMetadataSource,
+    UMetadataSource,
     "_validate_service_name",
     return_value=True,
 )
@@ -213,7 +213,7 @@ def test_filter_entities():
     ]
 
     # Simple workflow does not filter
-    fetcher = DatabaseFetcherStrategy(OpenMetadataWorkflowConfig(**config), None, None, Status())  # type: ignore
+    fetcher = DatabaseFetcherStrategy(UMetadataWorkflowConfig(**config), None, None, Status())  # type: ignore
     assert len(fetcher._filter_entities(all_tables)) == 3
 
     fqn_filter_config = deepcopy(config)
@@ -222,7 +222,7 @@ def test_filter_entities():
         "excludes": ["my_service.db.another_schema"]
     }
 
-    fetcher = DatabaseFetcherStrategy(OpenMetadataWorkflowConfig(**fqn_filter_config), None, None, Status())  # type: ignore
+    fetcher = DatabaseFetcherStrategy(UMetadataWorkflowConfig(**fqn_filter_config), None, None, Status())  # type: ignore
     assert len(fetcher._filter_entities(all_tables)) == 2
 
     fqn_filter_config_2 = deepcopy(config)
@@ -230,7 +230,7 @@ def test_filter_entities():
     fqn_filter_config_2["source"]["sourceConfig"]["config"]["schemaFilterPattern"] = {
         "includes": ["my_service.db.one_schema"]
     }
-    fetcher = DatabaseFetcherStrategy(OpenMetadataWorkflowConfig(**fqn_filter_config_2), None, None, Status())  # type: ignore
+    fetcher = DatabaseFetcherStrategy(UMetadataWorkflowConfig(**fqn_filter_config_2), None, None, Status())  # type: ignore
     assert len(fetcher._filter_entities(all_tables)) == 2
 
     fqn_filter_config_3 = deepcopy(config)
@@ -238,7 +238,7 @@ def test_filter_entities():
     fqn_filter_config_3["source"]["sourceConfig"]["config"]["tableFilterPattern"] = {
         "includes": ["my_service.db.one_schema.table1"]
     }
-    fetcher = DatabaseFetcherStrategy(OpenMetadataWorkflowConfig(**fqn_filter_config_3), None, None, Status())  # type: ignore
+    fetcher = DatabaseFetcherStrategy(UMetadataWorkflowConfig(**fqn_filter_config_3), None, None, Status())  # type: ignore
     assert len(fetcher._filter_entities(all_tables)) == 1
 
     fqn_filter_config_4 = deepcopy(config)
@@ -246,7 +246,7 @@ def test_filter_entities():
     fqn_filter_config_4["source"]["sourceConfig"]["config"]["tableFilterPattern"] = {
         "excludes": ["my_service.db.one_schema.table1"]
     }
-    fetcher = DatabaseFetcherStrategy(OpenMetadataWorkflowConfig(**fqn_filter_config_4), None, None, Status())  # type: ignore
+    fetcher = DatabaseFetcherStrategy(UMetadataWorkflowConfig(**fqn_filter_config_4), None, None, Status())  # type: ignore
     assert len(fetcher._filter_entities(all_tables)) == 2
 
     # We can exclude based on the schema name
@@ -255,7 +255,7 @@ def test_filter_entities():
         "excludes": ["another_schema"]
     }
 
-    fetcher = DatabaseFetcherStrategy(OpenMetadataWorkflowConfig(**exclude_config), None, None, Status())  # type: ignore
+    fetcher = DatabaseFetcherStrategy(UMetadataWorkflowConfig(**exclude_config), None, None, Status())  # type: ignore
     assert len(fetcher._filter_entities(all_tables)) == 2
 
     exclude_config = deepcopy(config)
@@ -263,7 +263,7 @@ def test_filter_entities():
         "excludes": ["another*"]
     }
 
-    fetcher = DatabaseFetcherStrategy(OpenMetadataWorkflowConfig(**exclude_config), None, None, Status())  # type: ignore
+    fetcher = DatabaseFetcherStrategy(UMetadataWorkflowConfig(**exclude_config), None, None, Status())  # type: ignore
     assert len(fetcher._filter_entities(all_tables)) == 2
 
     include_config = deepcopy(config)
@@ -271,21 +271,21 @@ def test_filter_entities():
         "includes": ["db*"]
     }
 
-    fetcher = DatabaseFetcherStrategy(OpenMetadataWorkflowConfig(**include_config), None, None, Status())  # type: ignore
+    fetcher = DatabaseFetcherStrategy(UMetadataWorkflowConfig(**include_config), None, None, Status())  # type: ignore
     assert len(fetcher._filter_entities(all_tables)) == 3
 
     include_config = deepcopy(config)
     include_config["source"]["sourceConfig"]["config"][
         "classificationFilterPattern"
     ] = {"includes": ["tag*"]}
-    fetcher = DatabaseFetcherStrategy(OpenMetadataWorkflowConfig(**include_config), None, None, Status())  # type: ignore
+    fetcher = DatabaseFetcherStrategy(UMetadataWorkflowConfig(**include_config), None, None, Status())  # type: ignore
     assert len(fetcher._filter_entities(all_tables)) == 2
 
     include_config = deepcopy(config)
     include_config["source"]["sourceConfig"]["config"][
         "classificationFilterPattern"
     ] = {"excludes": ["tag2"]}
-    fetcher = DatabaseFetcherStrategy(OpenMetadataWorkflowConfig(**include_config), None, None, Status())  # type: ignore
+    fetcher = DatabaseFetcherStrategy(UMetadataWorkflowConfig(**include_config), None, None, Status())  # type: ignore
     assert len(fetcher._filter_entities(all_tables)) == 1
 
     include_config = deepcopy(config)
@@ -295,7 +295,7 @@ def test_filter_entities():
         "excludes": ["tag1"],
         "includes": ["tag2"],
     }
-    fetcher = DatabaseFetcherStrategy(OpenMetadataWorkflowConfig(**include_config), None, None, Status())  # type: ignore
+    fetcher = DatabaseFetcherStrategy(UMetadataWorkflowConfig(**include_config), None, None, Status())  # type: ignore
     assert len(fetcher._filter_entities(all_tables)) == 1
 
 
@@ -315,7 +315,7 @@ def test_filter_entities():
     new_callable=lambda: User,
 )
 @patch.object(
-    OpenMetadataSource,
+    UMetadataSource,
     "_validate_service_name",
     return_value=True,
 )
@@ -375,7 +375,7 @@ def test_profile_def(mocked_method, *_):  # pylint: disable=unused-argument
     new_callable=lambda: User,
 )
 @patch.object(
-    OpenMetadataSource,
+    UMetadataSource,
     "_validate_service_name",
     return_value=True,
 )

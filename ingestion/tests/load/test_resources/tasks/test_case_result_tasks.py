@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 
 from locust import TaskSet, task
 
-from _openmetadata_testutils.helpers.login_user import login_user
+from _umetadata_testutils.helpers.login_user import login_user
 
 TEST_CASE_RESULT_RESOURCE_PATH = "/api/v1/dataQuality/testCases/testCaseResults"
 TEST_CASE_RESOURCE_PATH = "/api/v1/dataQuality/testCases"

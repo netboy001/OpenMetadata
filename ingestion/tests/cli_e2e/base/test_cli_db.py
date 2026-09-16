@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,7 +20,7 @@ from unittest import TestCase
 import pytest
 from pydantic import TypeAdapter
 
-from _openmetadata_testutils.pydantic.test_utils import assert_equal_pydantic_objects
+from _umetadata_testutils.pydantic.test_utils import assert_equal_pydantic_objects
 from metadata.data_quality.api.models import TestCaseDefinition
 from metadata.generated.schema.entity.data.table import SystemProfile, Table
 from metadata.generated.schema.tests.basic import TestCaseResult
@@ -264,7 +264,7 @@ class CliDBBase(TestCase):
             self.build_config_file()
             self.run_command()
             self.add_table_profile_config()
-            table: Table = self.openmetadata.get_by_name(
+            table: Table = self.umetadata.get_by_name(
                 Table, self.get_data_quality_table(), nullable=False
             )
             test_case_definitions = self.get_test_case_definitions()
@@ -282,7 +282,7 @@ class CliDBBase(TestCase):
                 sink_status, source_status = self.retrieve_statuses(result)
                 self.assert_status_for_data_quality(source_status, sink_status)
                 test_case_entities = [
-                    self.openmetadata.get_by_name(
+                    self.umetadata.get_by_name(
                         OMTestCase,
                         ".".join([table.fullyQualifiedName.root, tcd.name]),
                         fields=["*"],
@@ -301,7 +301,7 @@ class CliDBBase(TestCase):
                         )
                 finally:
                     for tc in test_case_entities:
-                        self.openmetadata.delete(
+                        self.umetadata.delete(
                             OMTestCase, tc.id, recursive=True, hard_delete=True
                         )
             except AssertionError:
@@ -309,21 +309,21 @@ class CliDBBase(TestCase):
                 raise
 
         def retrieve_table(self, table_name_fqn: str) -> Table:
-            return self.openmetadata.get_by_name(entity=Table, fqn=table_name_fqn)
+            return self.umetadata.get_by_name(entity=Table, fqn=table_name_fqn)
 
         def retrieve_sample_data(self, table_name_fqn: str) -> Table:
-            table: Table = self.openmetadata.get_by_name(
+            table: Table = self.umetadata.get_by_name(
                 entity=Table, fqn=table_name_fqn
             )
-            return self.openmetadata.get_sample_data(table=table)
+            return self.umetadata.get_sample_data(table=table)
 
         def retrieve_profile(self, table_fqn: str) -> Table:
-            table: Table = self.openmetadata.get_latest_table_profile(fqn=table_fqn)
+            table: Table = self.umetadata.get_latest_table_profile(fqn=table_fqn)
 
             return table
 
         def retrieve_lineage(self, entity_fqn: str) -> dict:
-            return self.openmetadata.client.get(
+            return self.umetadata.client.get(
                 f"/lineage/table/name/{entity_fqn}?upstreamDepth=3&downstreamDepth=3"
             )
 
@@ -474,7 +474,7 @@ class CliDBBase(TestCase):
         def system_profile_assertions(self):
             cases = self.get_system_profile_cases()
             for table_fqn, expected_profile in cases:
-                actual_profiles = self.openmetadata.get_profile_data(
+                actual_profiles = self.umetadata.get_profile_data(
                     table_fqn,
                     start_ts=int((datetime.now().timestamp() - 600) * 1000),
                     end_ts=int(datetime.now().timestamp() * 1000),

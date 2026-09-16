@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,13 +26,13 @@ from metadata.ingestion.source.database.unitycatalog.metadata import (
 )
 
 
-class TestUnitycatalogOmetaTagCallArgs:
-    """_ometa_tag_call_args maps Unity Catalog (tag_name, tag_value) onto the
-    classification/tag arguments passed to get_ometa_tag_and_classification.
+class TestUnitycatalogUmetaTagCallArgs:
+    """_umeta_tag_call_args maps Unity Catalog (tag_name, tag_value) onto the
+    classification/tag arguments passed to get_umeta_tag_and_classification.
     """
 
     def test_valued_tag_uses_tag_name_as_classification(self):
-        args = UnitycatalogSource._ometa_tag_call_args("pii", "ssn")
+        args = UnitycatalogSource._umeta_tag_call_args("pii", "ssn")
 
         assert args == {
             "tags": ["ssn"],
@@ -42,7 +42,7 @@ class TestUnitycatalogOmetaTagCallArgs:
         }
 
     def test_valueless_tag_falls_back_to_valueless_classification(self):
-        args = UnitycatalogSource._ometa_tag_call_args("class.us_ssn", None)
+        args = UnitycatalogSource._umeta_tag_call_args("class.us_ssn", None)
 
         assert args == {
             "tags": ["class.us_ssn"],
@@ -52,19 +52,19 @@ class TestUnitycatalogOmetaTagCallArgs:
         }
 
     def test_empty_string_tag_value_is_treated_as_valueless(self):
-        args = UnitycatalogSource._ometa_tag_call_args("plain_tag", "")
+        args = UnitycatalogSource._umeta_tag_call_args("plain_tag", "")
 
         assert args["classification_name"] == UNITY_CATALOG_VALUELESS_CLASSIFICATION
         assert args["tags"] == ["plain_tag"]
 
     def test_whitespace_only_tag_value_is_treated_as_valueless(self):
-        args = UnitycatalogSource._ometa_tag_call_args("plain_tag", "   ")
+        args = UnitycatalogSource._umeta_tag_call_args("plain_tag", "   ")
 
         assert args["classification_name"] == UNITY_CATALOG_VALUELESS_CLASSIFICATION
         assert args["tags"] == ["plain_tag"]
 
     def test_valueless_tag_without_dot_uses_tag_name_verbatim(self):
-        args = UnitycatalogSource._ometa_tag_call_args("simple_label", None)
+        args = UnitycatalogSource._umeta_tag_call_args("simple_label", None)
 
         assert args["classification_name"] == UNITY_CATALOG_VALUELESS_CLASSIFICATION
         assert args["tags"] == ["simple_label"]

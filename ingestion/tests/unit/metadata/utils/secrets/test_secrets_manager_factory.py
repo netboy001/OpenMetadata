@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,8 +16,8 @@ import os
 from unittest import TestCase
 from unittest.mock import patch
 
-from metadata.generated.schema.entity.services.connections.metadata.openMetadataConnection import (
-    OpenMetadataConnection,
+from metadata.generated.schema.entity.services.connections.metadata.uMetadataConnection import (
+    UMetadataConnection,
 )
 from metadata.generated.schema.security.secrets.secretsManagerClientLoader import (
     SecretsManagerClientLoader,
@@ -37,7 +37,7 @@ class TestSecretsManagerFactory(TestCase):
 
     def test_get_not_implemented_secret_manager(self):
         with self.assertRaises(NotImplementedError) as not_implemented_error:
-            om_connection: OpenMetadataConnection = self.build_open_metadata_connection(
+            om_connection: UMetadataConnection = self.build_u_metadata_connection(
                 SecretsManagerProvider.db,
                 SecretsManagerClientLoader.noop,
             )
@@ -50,7 +50,7 @@ class TestSecretsManagerFactory(TestCase):
             )
 
     def test_get_none_secret_manager(self):
-        om_connection: OpenMetadataConnection = self.build_open_metadata_connection(
+        om_connection: UMetadataConnection = self.build_u_metadata_connection(
             SecretsManagerProvider.db,
             SecretsManagerClientLoader.noop,
         )
@@ -81,25 +81,25 @@ class TestSecretsManagerFactory(TestCase):
             if secret_manager_provider is not SecretsManagerProvider.in_memory
         ]
         for secret_manager_provider in secret_manager_providers:
-            open_metadata_connection: OpenMetadataConnection = OpenMetadataConnection(
+            u_metadata_connection: UMetadataConnection = UMetadataConnection(
                 secretsManagerProvider=secret_manager_provider,
                 secretsManagerLoader=SecretsManagerClientLoader.env,
                 hostPort="http://localhost:8585",
             )
             secrets_manager_factory = SecretsManagerFactory(
-                open_metadata_connection.secretsManagerProvider,
-                open_metadata_connection.secretsManagerLoader,
+                u_metadata_connection.secretsManagerProvider,
+                u_metadata_connection.secretsManagerLoader,
             )
             assert secrets_manager_factory.get_secrets_manager() is not None
             # Clear the instances to continue testing all the Secret Managers
             SecretsManagerFactory.clear_all()
 
     @staticmethod
-    def build_open_metadata_connection(
+    def build_u_metadata_connection(
         secret_manager_provider: SecretsManagerProvider,
         secret_manager_loader: SecretsManagerClientLoader,
-    ) -> OpenMetadataConnection:
-        return OpenMetadataConnection(
+    ) -> UMetadataConnection:
+        return UMetadataConnection(
             secretsManagerProvider=secret_manager_provider,
             secretsManagerLoader=secret_manager_loader,
             hostPort="http://localhost:8585/api",

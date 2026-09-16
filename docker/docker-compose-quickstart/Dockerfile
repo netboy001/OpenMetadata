@@ -12,37 +12,37 @@
 # Build stage
 FROM alpine:3 AS build
 ARG RI_VERSION="1.12.14"
-ENV RELEASE_URL="https://github.com/open-metadata/OpenMetadata/releases/download/${RI_VERSION}-release/openmetadata-${RI_VERSION}.tar.gz"
+ENV RELEASE_URL="https://github.com/u-metadata/UMetadata/releases/download/${RI_VERSION}-release/umetadata-${RI_VERSION}.tar.gz"
 
-RUN mkdir -p /opt/openmetadata && \
+RUN mkdir -p /opt/umetadata && \
     wget ${RELEASE_URL} && \
-    tar zxvf openmetadata-*.tar.gz -C /opt/openmetadata --strip-components 1 && \
-    rm openmetadata-*.tar.gz
+    tar zxvf umetadata-*.tar.gz -C /opt/umetadata --strip-components 1 && \
+    rm umetadata-*.tar.gz
 
 # Final stage
 FROM alpine:3
 ARG RI_VERSION="1.12.14"
 ARG BUILD_DATE
 ARG COMMIT_ID
-LABEL maintainer="OpenMetadata"
-LABEL org.open-metadata.image.authors="support@openmetadata.org"
-LABEL org.open-metadata.vendor="OpenMetadata"
-LABEL org.open-metadata.release-version="$RI_VERSION"
-LABEL org.open-metadata.description="OpenMetadata is an open source platform for metadata management and discovery."
-LABEL org.open-metadata.url="https://open-metadata.org/"
-LABEL org.open-metadata.vcs-url="https://github.com/open-metadata/OpenMetadata"
-LABEL org.open-metadata.build-date=$BUILD_DATE
-LABEL org.open-metadata.commit-id=$COMMIT_ID
+LABEL maintainer="UMetadata"
+LABEL org.u-metadata.image.authors="support@umetadata.org"
+LABEL org.u-metadata.vendor="UMetadata"
+LABEL org.u-metadata.release-version="$RI_VERSION"
+LABEL org.u-metadata.description="UMetadata is an open source platform for metadata management and discovery."
+LABEL org.u-metadata.url="https://u-metadata.org/"
+LABEL org.u-metadata.vcs-url="https://github.com/u-metadata/UMetadata"
+LABEL org.u-metadata.build-date=$BUILD_DATE
+LABEL org.u-metadata.commit-id=$COMMIT_ID
 
 EXPOSE 8585 8586
-RUN adduser -D openmetadata && apk update && \
+RUN adduser -D umetadata && apk update && \
     apk upgrade && \
     apk add --update --no-cache bash openjdk21-jre
 
-COPY --chown=openmetadata:openmetadata --from=build /opt/openmetadata /opt/openmetadata
-COPY --chmod=755 docker/openmetadata-start.sh ./
-USER openmetadata
+COPY --chown=umetadata:umetadata --from=build /opt/umetadata /opt/umetadata
+COPY --chmod=755 docker/umetadata-start.sh ./
+USER umetadata
 
-WORKDIR /opt/openmetadata
+WORKDIR /opt/umetadata
 ENTRYPOINT [ "/bin/bash" ]
-CMD ["/openmetadata-start.sh"]
+CMD ["/umetadata-start.sh"]

@@ -29,5 +29,5 @@ exclude:
   global:
     - examples/**
     - tests/**
-    - src/_openmetadata_testutils/**
+    - src/_umetadata_testutils/**
     - src/metadata/sdk/examples/**

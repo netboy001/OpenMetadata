@@ -47,11 +47,11 @@ admin=$ADMIN_PASSWORD\n\
 EOF\n\
 fi\n\
 \n\
-# Create openmetadata database if it doesn'\''t exist\n\
-mkdir -p ${FUSEKI_HOME}/databases/openmetadata\n\
+# Create umetadata database if it doesn'\''t exist\n\
+mkdir -p ${FUSEKI_HOME}/databases/umetadata\n\
 \n\
 # Start Fuseki\n\
-exec ${FUSEKI_HOME}/fuseki-server --update --loc=${FUSEKI_HOME}/databases/openmetadata /openmetadata\n\
+exec ${FUSEKI_HOME}/fuseki-server --update --loc=${FUSEKI_HOME}/databases/umetadata /umetadata\n\
 ' > /entrypoint.sh && chmod +x /entrypoint.sh
 
 # Volume for persistent data

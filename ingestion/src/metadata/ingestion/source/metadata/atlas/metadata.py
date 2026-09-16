@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -41,8 +41,8 @@ from metadata.generated.schema.type.entityLineage import EntitiesEdge
 from metadata.generated.schema.type.entityReference import EntityReference
 from metadata.ingestion.api.models import Either, Entity, StackTraceError
 from metadata.ingestion.api.steps import InvalidSourceException, Source
-from metadata.ingestion.models.ometa_classification import OMetaTagAndClassification
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.models.umeta_classification import UMetaTagAndClassification
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.connections import get_connection, test_connection_common
 from metadata.ingestion.source.database.column_type_parser import ColumnTypeParser
 from metadata.ingestion.source.metadata.atlas.client import AtlasClient
@@ -50,7 +50,7 @@ from metadata.utils import fqn
 from metadata.utils.helpers import get_database_name_for_lineage, retry_with_docker_host
 from metadata.utils.logger import ingestion_logger
 from metadata.utils.metadata_service_helper import SERVICE_TYPE_MAPPER
-from metadata.utils.tag_utils import get_ometa_tag_and_classification, get_tag_labels
+from metadata.utils.tag_utils import get_umeta_tag_and_classification, get_tag_labels
 
 logger = ingestion_logger()
 
@@ -71,7 +71,7 @@ class AtlasSource(Source):
     def __init__(
         self,
         config: WorkflowSource,
-        metadata: OpenMetadata,
+        metadata: UMetadata,
     ):
         super().__init__()
         self.config = config
@@ -95,7 +95,7 @@ class AtlasSource(Source):
 
     @classmethod
     def create(
-        cls, config_dict, metadata: OpenMetadata, pipeline_name: Optional[str] = None
+        cls, config_dict, metadata: UMetadata, pipeline_name: Optional[str] = None
     ):
         config: WorkflowSource = WorkflowSource.model_validate(config_dict)
         connection: AtlasConnection = config.serviceConnection.root.config
@@ -243,7 +243,7 @@ class AtlasSource(Source):
                             force=True,
                         )
 
-                    yield from get_ometa_tag_and_classification(
+                    yield from get_umeta_tag_and_classification(
                         tags=[ATLAS_TABLE_TAG],
                         classification_name=ATLAS_TAG_CATEGORY,
                         tag_description="Atlas Cluster Tag",
@@ -288,7 +288,7 @@ class AtlasSource(Source):
 
     def apply_table_tags(
         self, table_object: Table, table_entity: dict
-    ) -> Iterable[Either[OMetaTagAndClassification]]:
+    ) -> Iterable[Either[UMetaTagAndClassification]]:
         """
         apply default atlas table tag
         """
@@ -304,7 +304,7 @@ class AtlasSource(Source):
         # apply classification tags
         for tag in table_entity.get("classifications", []):
             if tag and tag.get("typeName"):
-                yield from get_ometa_tag_and_classification(
+                yield from get_umeta_tag_and_classification(
                     tags=[tag.get("typeName", ATLAS_TABLE_TAG)],
                     classification_name=ATLAS_TAG_CATEGORY,
                     tag_description="Atlas Cluster Tag",

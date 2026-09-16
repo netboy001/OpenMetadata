@@ -3,7 +3,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,7 +21,7 @@ from unittest.mock import patch
 from metadata.generated.schema.api.lineage.addLineage import AddLineageRequest
 from metadata.generated.schema.entity.data.table import Column, DataType, Table
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.generated.schema.type.entityLineage import (
     ColumnLineage,
@@ -243,7 +243,7 @@ mock_pgspider_config = {
             "config": {
                 "type": "Postgres",
                 "scheme": "pgspider+psycopg2",
-                "username": "openmetadata_user",
+                "username": "umetadata_user",
                 "hostPort": "localhost:4813",
                 "database": "pgspider",
             }
@@ -258,9 +258,9 @@ mock_pgspider_config = {
     },
     "sink": {"type": "metadata-rest", "config": {}},
     "workflowConfig": {
-        "openMetadataServerConfig": {
+        "uMetadataServerConfig": {
             "hostPort": "http://localhost:8585/api",
-            "authProvider": "openmetadata",
+            "authProvider": "umetadata",
             "securityConfig": {
                 "jwtToken": "eyJraWQiOiJHYjM4OWEtOWY3Ni1nZGpzLWE5MmotMDI0MmJrOTQzNTYiLCJ0eXAiOiJKV1QiLCJhbGc"
                 "iOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlzQm90IjpmYWxzZSwiaXNzIjoib3Blbi1tZXRhZGF0YS5vcmciLCJpYXQiOjE"
@@ -586,13 +586,13 @@ class PGSpiderLineageUnitTests(TestCase):
 
     def __init__(self, methodName) -> None:
         super().__init__(methodName)
-        config = OpenMetadataWorkflowConfig.model_validate(mock_pgspider_config)
+        config = UMetadataWorkflowConfig.model_validate(mock_pgspider_config)
         with patch(
             "metadata.ingestion.source.database.postgres.lineage.PostgresLineageSource.test_connection"
         ):
             self.postgres = PostgresLineageSource.create(
                 mock_pgspider_config["source"],
-                config.workflowConfig.openMetadataServerConfig,
+                config.workflowConfig.uMetadataServerConfig,
             )
         print(type(self.postgres))
 
@@ -800,7 +800,7 @@ class PGSpiderLineageUnitTests(TestCase):
         """
         Verify abnormal case:
         There are multi tenant tables and child foreign tables in remote PGSpider.
-        All multi tenant tables and child foreign tables have not been ingested into open-metadata.
+        All multi tenant tables and child foreign tables have not been ingested into u-metadata.
         """
 
         """

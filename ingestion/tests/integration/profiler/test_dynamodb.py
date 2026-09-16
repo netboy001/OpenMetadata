@@ -7,22 +7,22 @@ from metadata.generated.schema.metadataIngestion.databaseServiceAutoClassificati
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
     LogLevels,
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
     Sink,
     Source,
     SourceConfig,
     WorkflowConfig,
 )
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.workflow.classification import AutoClassificationWorkflow
 from metadata.workflow.metadata import MetadataWorkflow
 
 
 @pytest.fixture(autouse=True, scope="module")
 def ingest_metadata(
-    db_service: DatabaseService, metadata: OpenMetadata, ingest_sample_data
+    db_service: DatabaseService, metadata: UMetadata, ingest_sample_data
 ):
-    workflow_config = OpenMetadataWorkflowConfig(
+    workflow_config = UMetadataWorkflowConfig(
         source=Source(
             type=db_service.serviceType.name.lower(),
             serviceName=db_service.fullyQualifiedName.root,
@@ -33,7 +33,7 @@ def ingest_metadata(
             type="metadata-rest",
             config={},
         ),
-        workflowConfig=WorkflowConfig(openMetadataServerConfig=metadata.config),
+        workflowConfig=WorkflowConfig(uMetadataServerConfig=metadata.config),
     )
     metadata_ingestion = MetadataWorkflow.create(workflow_config)
     metadata_ingestion.execute()
@@ -75,7 +75,7 @@ def test_sample_data(db_service, db_fqn, metadata):
         },
         "workflowConfig": {
             "loggerLevel": LogLevels.DEBUG,
-            "openMetadataServerConfig": metadata.config.model_dump(),
+            "uMetadataServerConfig": metadata.config.model_dump(),
         },
     }
     profiler_workflow = AutoClassificationWorkflow.create(workflow_config)

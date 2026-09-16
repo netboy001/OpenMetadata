@@ -1,8 +1,8 @@
-# OpenMetadata Python SDK - Improved Version
+# UMetadata Python SDK - Improved Version
 
 ## Overview
 
-The improved Python SDK provides a clean, consistent API for interacting with OpenMetadata entities, following the successful patterns from the Java SDK. This redesign addresses key issues:
+The improved Python SDK provides a clean, consistent API for interacting with UMetadata entities, following the successful patterns from the Java SDK. This redesign addresses key issues:
 
 1. **Clean API without Pydantic conflicts** - Static methods instead of instance methods
 2. **Full PATCH support** - Proper JSON Patch operations for partial updates
@@ -87,22 +87,22 @@ tables = await asyncio.gather(
 ## Installation
 
 ```bash
-pip install openmetadata-ingestion
+pip install umetadata-ingestion
 ```
 
 ## Quick Start
 
 ```python
-from metadata.sdk import OpenMetadata, OpenMetadataConfig
+from metadata.sdk import UMetadata, UMetadataConfig
 from metadata.sdk.entities import Table, Database, Dashboard
 from metadata.generated.schema.api.data.createTable import CreateTableRequest
 
 # Initialize the SDK
-config = OpenMetadataConfig(
+config = UMetadataConfig(
     server_url="http://localhost:8585",
     jwt_token="your-jwt-token"
 )
-OpenMetadata.initialize(config)
+UMetadata.initialize(config)
 
 # Create a table
 create_request = CreateTableRequest(
@@ -135,7 +135,7 @@ Table.delete(table.id, recursive=True)
 
 ## Entity Coverage
 
-The SDK provides wrappers for all OpenMetadata entities:
+The SDK provides wrappers for all UMetadata entities:
 
 ### Data Assets
 - `Table` - Database tables
@@ -272,7 +272,7 @@ class TestTableOperations(unittest.TestCase):
     def test_create_table(self):
         # Mock response
         expected_table = TableEntity(id="123", name="test")
-        self.mock_client.ometa.create_or_update.return_value = expected_table
+        self.mock_client.umeta.create_or_update.return_value = expected_table
         
         # Test
         result = Table.create(CreateTableRequest(...))
@@ -283,9 +283,9 @@ class TestTableOperations(unittest.TestCase):
 
 ### Old Pattern
 ```python
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 
-client = OpenMetadata(config)
+client = UMetadata(config)
 table = client.create_or_update(CreateTableRequest(...))
 table = client.get_by_name(Table, "fqn")
 client.patch(Table, table_id, json_patch)
@@ -293,10 +293,10 @@ client.patch(Table, table_id, json_patch)
 
 ### New Pattern
 ```python
-from metadata.sdk import OpenMetadata, OpenMetadataConfig
+from metadata.sdk import UMetadata, UMetadataConfig
 from metadata.sdk.entities import Table
 
-OpenMetadata.initialize(config)
+UMetadata.initialize(config)
 table = Table.create(CreateTableRequest(...))
 table = Table.retrieve_by_name("fqn")
 table = Table.patch(table_id, json_patch)

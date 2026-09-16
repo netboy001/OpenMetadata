@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,7 +17,7 @@ from typing import Any
 from metadata.generated.schema.entity.automations.workflow import (
     Workflow as AutomationWorkflow,
 )
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.utils.logger import ingestion_logger
 
 logger = ingestion_logger()
@@ -41,8 +41,8 @@ def execute(encrypted_automation_workflow: AutomationWorkflow) -> Any:
     import metadata.automations.runner  # pylint: disable=import-outside-toplevel
 
     # This will already instantiate the Secrets Manager
-    metadata = OpenMetadata(
-        config=encrypted_automation_workflow.openMetadataServerConnection
+    metadata = UMetadata(
+        config=encrypted_automation_workflow.uMetadataServerConnection
     )
 
     automation_workflow = metadata.get_by_name(

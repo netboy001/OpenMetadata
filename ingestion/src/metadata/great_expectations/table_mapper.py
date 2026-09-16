@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,7 +20,7 @@ from pydantic import BaseModel, ValidationError
 from metadata.models.base import DictModel
 
 logger = logging.getLogger(
-    "great_expectations.validation_operators.validation_operators.openmetadata"
+    "great_expectations.validation_operators.validation_operators.umetadata"
 )
 
 
@@ -32,7 +32,7 @@ class TablePart(Enum):
 
 class TableConfig(BaseModel):
     """
-    Defines a Mapping for a GX Expectation Suite to be mapped to an OpenMetadata Table.
+    Defines a Mapping for a GX Expectation Suite to be mapped to an UMetadata Table.
     """
 
     database_name: Optional[str]
@@ -68,7 +68,7 @@ class TableConfigMap(DictModel[str, TableConfig]):
 
 class TableMapper:
     """
-    Handles the Table Mapping between GX Expectation Suite and OpenMetadata Table.
+    Handles the Table Mapping between GX Expectation Suite and UMetadata Table.
     """
 
     def __init__(

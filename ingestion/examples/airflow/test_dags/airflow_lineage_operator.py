@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -11,8 +11,8 @@
 """
 You can run this DAG from the default OM installation.
 
-For this DAG to run properly we expected an OpenMetadata
-Airflow connection named `openmetadata_conn_id`.
+For this DAG to run properly we expected an UMetadata
+Airflow connection named `umetadata_conn_id`.
 """
 from datetime import datetime
 from textwrap import dedent
@@ -25,11 +25,11 @@ from airflow import DAG
 # Operators; we need this to operate!
 from airflow.operators.bash import BashOperator
 
-from airflow_provider_openmetadata.hooks.openmetadata import OpenMetadataHook
+from airflow_provider_umetadata.hooks.umetadata import UMetadataHook
 
 # These args will get passed on to each operator
 # You can override them on a per-task basis during operator initialization
-from airflow_provider_openmetadata.lineage.operator import OpenMetadataLineageOperator
+from airflow_provider_umetadata.lineage.operator import UMetadataLineageOperator
 
 # Version detection for Airflow 3.x API compatibility
 try:
@@ -51,7 +51,7 @@ AIRFLOW_HOST_API_ROOT = f"{AIRFLOW_HOST}/api/{AIRFLOW_API_VERSION}/"
 AIRFLOW_USERNAME = "admin"
 AIRFLOW_PASSWORD = "admin"
 
-DEFAULT_OM_AIRFLOW_CONNECTION = "openmetadata_conn_id"
+DEFAULT_OM_AIRFLOW_CONNECTION = "umetadata_conn_id"
 
 
 def get_airflow_jwt_token():
@@ -97,7 +97,7 @@ default_args = {
     "retries": 0,
 }
 
-# Create the default OpenMetadata Airflow Connection (if it does not exist)
+# Create the default UMetadata Airflow Connection (if it does not exist)
 res = requests.get(
     AIRFLOW_HOST_API_ROOT + f"connections/{DEFAULT_OM_AIRFLOW_CONNECTION}",
     headers=DEFAULT_AIRFLOW_HEADERS,
@@ -107,8 +107,8 @@ if res.status_code == 404:  # not found
         AIRFLOW_HOST_API_ROOT + "connections",
         json={
             "connection_id": DEFAULT_OM_AIRFLOW_CONNECTION,
-            "conn_type": "openmetadata",
-            "host": "openmetadata-server",
+            "conn_type": "umetadata",
+            "host": "umetadata-server",
             "schema": "http",
             "port": 8585,
             "password": OM_JWT,
@@ -126,8 +126,8 @@ elif res.status_code == 500:  # Internal server error (e.g., corrupted connectio
         AIRFLOW_HOST_API_ROOT + "connections",
         json={
             "connection_id": DEFAULT_OM_AIRFLOW_CONNECTION,
-            "conn_type": "openmetadata",
-            "host": "openmetadata-server",
+            "conn_type": "umetadata",
+            "host": "umetadata-server",
             "schema": "http",
             "port": 8585,
             "password": OM_JWT,
@@ -201,10 +201,10 @@ with DAG(
 
     t1 >> [t2, t3]
 
-    t4 = OpenMetadataLineageOperator(
+    t4 = UMetadataLineageOperator(
         task_id="lineage_op",
         depends_on_past=False,
-        server_config=OpenMetadataHook(DEFAULT_OM_AIRFLOW_CONNECTION).get_conn(),
+        server_config=UMetadataHook(DEFAULT_OM_AIRFLOW_CONNECTION).get_conn(),
         service_name="airflow_lineage_op_service",
         only_keep_dag_lineage=True,
     )

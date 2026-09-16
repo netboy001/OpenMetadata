@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,8 +32,8 @@ from metadata.ingestion.bulksink.metadata_usage import (
     MetadataUsageBulkSink,
     MetadataUsageSinkConfig,
 )
-from metadata.ingestion.ometa.client import APIError
-from metadata.ingestion.ometa.mixins.query_mixin import OMetaQueryMixin
+from metadata.ingestion.umeta.client import APIError
+from metadata.ingestion.umeta.mixins.query_mixin import UMetaQueryMixin
 
 
 def create_api_error(status_code: int, message: str) -> APIError:
@@ -194,8 +194,8 @@ class TestPublishQueryCostNoneHandling(TestCase):
     """
 
     def _create_mixin_instance(self):
-        """Create a minimal OMetaQueryMixin instance with mocked dependencies"""
-        obj = OMetaQueryMixin()
+        """Create a minimal UMetaQueryMixin instance with mocked dependencies"""
+        obj = UMetaQueryMixin()
         obj.client = MagicMock()
         obj.get_by_name = MagicMock(return_value=None)
         obj.get_suffix = MagicMock(return_value="/api/v1/queries")
@@ -212,7 +212,7 @@ class TestPublishQueryCostNoneHandling(TestCase):
             totalDuration=10.0,
         )
 
-    @patch("metadata.ingestion.ometa.mixins.query_mixin.mask_query")
+    @patch("metadata.ingestion.umeta.mixins.query_mixin.mask_query")
     def test_publish_query_cost_mask_query_returns_none(self, mock_mask_query):
         """
         When mask_query returns None, publish_query_cost should fall back
@@ -229,7 +229,7 @@ class TestPublishQueryCostNoneHandling(TestCase):
         self.assertIsNone(result)
         mock_mask_query.assert_called_once_with(record.query, record.dialect)
 
-    @patch("metadata.ingestion.ometa.mixins.query_mixin.mask_query")
+    @patch("metadata.ingestion.umeta.mixins.query_mixin.mask_query")
     def test_publish_query_cost_mask_query_returns_none_uses_original_query_hash(
         self, mock_mask_query
     ):
@@ -253,7 +253,7 @@ class TestPublishQueryCostNoneHandling(TestCase):
             "Should use hash of original query when mask_query returns None",
         )
 
-    @patch("metadata.ingestion.ometa.mixins.query_mixin.mask_query")
+    @patch("metadata.ingestion.umeta.mixins.query_mixin.mask_query")
     def test_publish_query_cost_mask_query_returns_valid_string(self, mock_mask_query):
         """
         When mask_query returns a valid masked string, it should be used

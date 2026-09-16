@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,8 +16,8 @@ from typing import Any, Callable, Iterable, List, Optional, cast, final
 from pandas import DataFrame
 
 from metadata.generated.schema.tests.testCase import TestCase
-from metadata.ingestion.ometa.ometa_api import OpenMetadata as OMeta
-from metadata.sdk import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata as UMeta
+from metadata.sdk import UMetadata
 from metadata.sdk import client as get_client
 from metadata.sdk.data_quality.dataframes.custom_warnings import WholeTableTestsWarning
 from metadata.sdk.data_quality.dataframes.dataframe_validation_engine import (
@@ -39,7 +39,7 @@ class DataFrameValidator:
     """Facade for DataFrame data quality validation.
 
     Provides a simple interface to configure and execute data quality tests
-    on pandas DataFrames using OpenMetadata test definitions.
+    on pandas DataFrames using UMetadata test definitions.
 
     Examples:
         validator = DataFrameValidator()
@@ -54,14 +54,14 @@ class DataFrameValidator:
     def __init__(
         self,
         client: Optional[  # pyright: ignore[reportRedeclaration]
-            OMeta[Any, Any]
+            UMeta[Any, Any]
         ] = None,
     ):
         self._test_cases: List[TestCase] = []
 
         if client is None:
-            metadata: OpenMetadata = get_client()
-            client: OMeta[Any, Any] = metadata.ometa
+            metadata: UMetadata = get_client()
+            client: UMeta[Any, Any] = metadata.umeta
 
         self._client = client
 
@@ -81,7 +81,7 @@ class DataFrameValidator:
         """
         self._test_cases.extend(create_mock_test_case(t) for t in tests)
 
-    def add_openmetadata_test(self, test_fqn: str) -> None:
+    def add_umetadata_test(self, test_fqn: str) -> None:
         test_case = cast(
             TestCase,
             self._client.get_by_name(
@@ -94,7 +94,7 @@ class DataFrameValidator:
 
         self._test_cases.append(test_case)
 
-    def add_openmetadata_table_tests(self, table_fqn: str) -> None:
+    def add_umetadata_table_tests(self, table_fqn: str) -> None:
         test_suite = self._client.get_executable_test_suite(table_fqn)
 
         if test_suite is None:
@@ -102,7 +102,7 @@ class DataFrameValidator:
 
         for test in test_suite.tests or []:
             assert test.fullyQualifiedName is not None
-            self.add_openmetadata_test(test.fullyQualifiedName)
+            self.add_umetadata_test(test.fullyQualifiedName)
 
     def validate(
         self,

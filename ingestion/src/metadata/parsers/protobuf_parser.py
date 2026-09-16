@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -77,13 +77,13 @@ class ProtobufParserConfig(BaseModel):
     :param schema_text: Protobuf schema definition in text format
     :param base_file_path: A temporary directory will be created under this path for
       generating the files required for protobuf parsing and compiling. By default
-      the directory will be created under "/tmp/protobuf_openmetadata" unless it is
+      the directory will be created under "/tmp/protobuf_umetadata" unless it is
       specified in the parameter.
     """
 
     schema_name: str
     schema_text: str
-    base_file_path: Optional[str] = "/tmp/protobuf_openmetadata"
+    base_file_path: Optional[str] = "/tmp/protobuf_umetadata"
 
 
 class ProtobufParser:

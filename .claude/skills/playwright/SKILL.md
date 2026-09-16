@@ -1,12 +1,12 @@
 ---
 name: playwright-test
-description: Generate robust, zero-flakiness Playwright E2E tests following OpenMetadata patterns. Creates comprehensive test files with proper waits, API validation, multi-role permissions, and complete entity lifecycle management.
+description: Generate robust, zero-flakiness Playwright E2E tests following UMetadata patterns. Creates comprehensive test files with proper waits, API validation, multi-role permissions, and complete entity lifecycle management.
 user-invocable: true
 ---
 
-# Playwright Test Generator - OpenMetadata
+# Playwright Test Generator - UMetadata
 
-Generate production-ready, zero-flakiness Playwright tests following OpenMetadata conventions.
+Generate production-ready, zero-flakiness Playwright tests following UMetadata conventions.
 
 ## Usage
 
@@ -47,7 +47,7 @@ Roles: admin, dataConsumer
 **CRITICAL**: Before generating any tests, read and apply ALL patterns from:
 
 ```
-openmetadata-ui/src/main/resources/ui/playwright/PLAYWRIGHT_DEVELOPER_HANDBOOK.md
+umetadata-ui/src/main/resources/ui/playwright/PLAYWRIGHT_DEVELOPER_HANDBOOK.md
 ```
 
 The handbook contains:

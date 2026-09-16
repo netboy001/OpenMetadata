@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -49,8 +49,8 @@ from metadata.ingestion.api.steps import InvalidSourceException
 from metadata.ingestion.connections.test_connections import (
     raise_test_connection_exception,
 )
-from metadata.ingestion.models.ometa_classification import OMetaTagAndClassification
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.models.umeta_classification import UMetaTagAndClassification
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.connections import get_connection, get_test_connection_fn
 from metadata.ingestion.source.database.database_service import DatabaseServiceSource
 from metadata.ingestion.source.database.stored_procedures_mixin import QueryByProcedure
@@ -71,7 +71,7 @@ class SalesforceSource(DatabaseServiceSource):
     Database metadata from Salesforce Source
     """
 
-    def __init__(self, config, metadata: OpenMetadata):
+    def __init__(self, config, metadata: UMetadata):
         super().__init__()
         self.config = config
         self.source_config: DatabaseServiceMetadataPipeline = (
@@ -92,7 +92,7 @@ class SalesforceSource(DatabaseServiceSource):
 
     @classmethod
     def create(
-        cls, config_dict, metadata: OpenMetadata, pipeline_name: Optional[str] = None
+        cls, config_dict, metadata: UMetadata, pipeline_name: Optional[str] = None
     ):
         config: WorkflowSource = WorkflowSource.model_validate(config_dict)
         connection: SalesforceConnection = config.serviceConnection.root.config
@@ -373,7 +373,7 @@ class SalesforceSource(DatabaseServiceSource):
 
     def yield_tag(
         self, schema_name: str
-    ) -> Iterable[Either[OMetaTagAndClassification]]:
+    ) -> Iterable[Either[UMetaTagAndClassification]]:
         """No tags to pick up"""
 
     def get_stored_procedures(self) -> Iterable[Any]:

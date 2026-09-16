@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -40,8 +40,8 @@ from metadata.generated.schema.type.entityReference import EntityReference
 from metadata.ingestion.api.models import Either
 from metadata.ingestion.api.steps import InvalidSourceException
 from metadata.ingestion.lineage.sql_lineage import get_column_fqn
-from metadata.ingestion.models.pipeline_status import OMetaPipelineStatus
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.models.pipeline_status import UMetaPipelineStatus
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.pipeline.fivetran.client import FivetranClient
 from metadata.ingestion.source.pipeline.fivetran.models import FivetranPipelineDetails
 from metadata.ingestion.source.pipeline.pipeline_service import PipelineServiceSource
@@ -59,7 +59,7 @@ class FivetranSource(PipelineServiceSource):
 
     @classmethod
     def create(
-        cls, config_dict, metadata: OpenMetadata, pipeline_name: Optional[str] = None
+        cls, config_dict, metadata: UMetadata, pipeline_name: Optional[str] = None
     ):
         config: WorkflowSource = WorkflowSource.model_validate(config_dict)
         connection: FivetranConnection = config.serviceConnection.root.config
@@ -110,7 +110,7 @@ class FivetranSource(PipelineServiceSource):
 
     def yield_pipeline_status(
         self, pipeline_details: FivetranPipelineDetails
-    ) -> Optional[Iterable[Either[OMetaPipelineStatus]]]:
+    ) -> Optional[Iterable[Either[UMetaPipelineStatus]]]:
         """Method to get task & pipeline status"""
 
     def fetch_column_lineage(
@@ -133,8 +133,8 @@ class FivetranSource(PipelineServiceSource):
         :param schema_name: Name of the source schema
         :param schema_data: Dictionary containing schema configuration data
         :param table_name: Name of the source table
-        :param from_table_entity: Source Table entity from OpenMetadata
-        :param to_table_entity: Destination Table entity from OpenMetadata
+        :param from_table_entity: Source Table entity from UMetadata
+        :param to_table_entity: Destination Table entity from UMetadata
         :return: List of ColumnLineage objects representing column-to-column mappings, empty list if none found
         """
         pipeline_name = self.get_pipeline_name(pipeline_details)

@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -12,7 +12,7 @@
 """
 Test the SQL profiler using a Postgres and a MySQL container.
 We load a simple user table in each service and run the profiler on it.
-To run this we need OpenMetadata server up and running.
+To run this we need UMetadata server up and running.
 No sample data is required beforehand
 """
 
@@ -21,7 +21,7 @@ import time
 from typing import List
 from unittest import TestCase, TestLoader
 
-from _openmetadata_testutils.ometa import int_admin_ometa
+from _umetadata_testutils.umeta import int_admin_umeta
 from metadata.generated.schema.configuration.profilerConfiguration import (
     MetricConfigurationDefinition,
     MetricType,
@@ -46,7 +46,7 @@ TestLoader.sortTestMethodsUsing = None  # type: ignore
 class TestSQAProfiler(TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.metadata = int_admin_ometa()
+        cls.metadata = int_admin_umeta()
         cls.container_builder = ContainerBuilder()
         try:
             cls.container_builder.run_postgres_container()

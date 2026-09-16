@@ -18,7 +18,7 @@ from metadata.generated.schema.entity.services.dashboardService import (
     DashboardServiceType,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.generated.schema.type.basic import FullyQualifiedEntityName
 from metadata.generated.schema.type.entityReference import EntityReference
@@ -26,7 +26,7 @@ from metadata.generated.schema.type.entityReferenceList import EntityReferenceLi
 from metadata.generated.schema.type.filterPattern import FilterPattern
 from metadata.generated.schema.type.usageDetails import UsageDetails, UsageStats
 from metadata.generated.schema.type.usageRequest import UsageRequest
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.dashboard.dashboard_service import DashboardUsage
 from metadata.ingestion.source.dashboard.tableau.metadata import (
     TableauDashboard,
@@ -72,9 +72,9 @@ mock_tableau_config = {
     },
     "sink": {"type": "metadata-rest", "config": {}},
     "workflowConfig": {
-        "openMetadataServerConfig": {
+        "uMetadataServerConfig": {
             "hostPort": "http://localhost:8585/api",
-            "authProvider": "openmetadata",
+            "authProvider": "umetadata",
             "securityConfig": {
                 "jwtToken": "eyJraWQiOiJHYjM4OWEtOWY3Ni1nZGpzLWE5MmotMDI0MmJrOTQzNTYiLCJ0eXAiOiJKV1QiLCJhbGc"
                 "iOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlzQm90IjpmYWxzZSwiaXNzIjoib3Blbi1tZXRhZGF0YS5vcmciLCJpYXQiOjE"
@@ -190,10 +190,10 @@ class TableauUnitTest(TestCase):
         super().__init__(methodName)
         get_connection.return_value = False
         test_connection.return_value = False
-        self.config = OpenMetadataWorkflowConfig.model_validate(mock_tableau_config)
+        self.config = UMetadataWorkflowConfig.model_validate(mock_tableau_config)
         self.tableau = TableauSource.create(
             mock_tableau_config["source"],
-            OpenMetadata(self.config.workflowConfig.openMetadataServerConfig),
+            UMetadata(self.config.workflowConfig.uMetadataServerConfig),
         )
         self.tableau.client = SimpleNamespace()
         self.tableau.context.get().__dict__[
@@ -230,7 +230,7 @@ class TableauUnitTest(TestCase):
             fullyQualifiedName="dashboard_service.dashboard_name",
             service=EntityReference(id=uuid.uuid4(), type="dashboardService"),
         )
-        with patch.object(OpenMetadata, "get_by_name", return_value=return_value):
+        with patch.object(UMetadata, "get_by_name", return_value=return_value):
             got_usage = next(self.tableau.yield_dashboard_usage(MOCK_DASHBOARD))
             self.assertEqual(
                 got_usage.right,
@@ -250,7 +250,7 @@ class TableauUnitTest(TestCase):
                 dailyStats=UsageStats(count=10), date=self.tableau.today
             ),
         )
-        with patch.object(OpenMetadata, "get_by_name", return_value=return_value):
+        with patch.object(UMetadata, "get_by_name", return_value=return_value):
             # Nothing is returned
             self.assertEqual(
                 len(list(self.tableau.yield_dashboard_usage(MOCK_DASHBOARD))), 0
@@ -266,7 +266,7 @@ class TableauUnitTest(TestCase):
                 dailyStats=UsageStats(count=0), date=self.tableau.today
             ),
         )
-        with patch.object(OpenMetadata, "get_by_name", return_value=return_value):
+        with patch.object(UMetadata, "get_by_name", return_value=return_value):
             self.assertEqual(
                 next(self.tableau.yield_dashboard_usage(MOCK_DASHBOARD)).right,
                 DashboardUsage(
@@ -286,7 +286,7 @@ class TableauUnitTest(TestCase):
                 date=datetime.strftime(datetime.now() - timedelta(1), "%Y-%m-%d"),
             ),
         )
-        with patch.object(OpenMetadata, "get_by_name", return_value=return_value):
+        with patch.object(UMetadata, "get_by_name", return_value=return_value):
             self.assertEqual(
                 next(self.tableau.yield_dashboard_usage(MOCK_DASHBOARD)).right,
                 DashboardUsage(
@@ -307,7 +307,7 @@ class TableauUnitTest(TestCase):
                 date=datetime.strftime(datetime.now() - timedelta(1), "%Y-%m-%d"),
             ),
         )
-        with patch.object(OpenMetadata, "get_by_name", return_value=return_value):
+        with patch.object(UMetadata, "get_by_name", return_value=return_value):
             self.assertEqual(
                 len(list(self.tableau.yield_dashboard_usage(MOCK_DASHBOARD))), 0
             )

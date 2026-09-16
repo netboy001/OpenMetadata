@@ -26,7 +26,7 @@ This skill guides you through validating UI changes and ensuring comprehensive P
 
 2. **Focus on UI component changes:**
    ```bash
-   git diff main -- "openmetadata-ui/src/main/resources/ui/src/components/**" --stat
+   git diff main -- "umetadata-ui/src/main/resources/ui/src/components/**" --stat
    ```
 
 3. **Check for existing Playwright tests:**
@@ -61,7 +61,7 @@ This skill guides you through validating UI changes and ensuring comprehensive P
 
 2. **Authenticate if needed:**
    - Use `mcp__playwright__browser_fill_form` for login
-   - Default admin: `admin@open-metadata.org` / `admin`
+   - Default admin: `admin@u-metadata.org` / `admin`
 
 3. **Navigate to the feature area:**
    - Use `mcp__playwright__browser_click` for navigation

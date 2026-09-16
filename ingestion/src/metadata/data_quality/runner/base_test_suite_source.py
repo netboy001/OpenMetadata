@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,10 +28,10 @@ from metadata.generated.schema.metadataIngestion.testSuitePipeline import (
     TestSuitePipeline,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.generated.schema.type.entityReference import EntityReference
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.sampler.models import SampleConfig
 from metadata.sampler.sampler_interface import SamplerInterface
 from metadata.utils.bigquery_utils import copy_service_config
@@ -47,8 +47,8 @@ class BaseTestSuiteRunner:
 
     def __init__(
         self,
-        config: OpenMetadataWorkflowConfig,
-        ometa_client: OpenMetadata,
+        config: UMetadataWorkflowConfig,
+        umeta_client: UMetadata,
         entity: Table,
     ):
         self.validator_builder_class = ValidatorBuilder
@@ -60,7 +60,7 @@ class BaseTestSuiteRunner:
         self.source_config = TestSuitePipeline.model_validate(
             config.source.sourceConfig.config
         )
-        self.ometa_client = ometa_client
+        self.umeta_client = umeta_client
 
     @property
     def interface(self) -> Optional[TestSuiteInterface]:
@@ -71,7 +71,7 @@ class BaseTestSuiteRunner:
         self._interface = interface
 
     def _copy_service_config(
-        self, config: OpenMetadataWorkflowConfig, database: EntityReference
+        self, config: UMetadataWorkflowConfig, database: EntityReference
     ) -> DatabaseConnection:
         """Make a copy of the service config and update the database name
 
@@ -106,7 +106,7 @@ class BaseTestSuiteRunner:
             TestSuiteInterface: a data quality interface
         """
         schema_entity, database_entity, _ = get_context_entities(
-            entity=self.entity, metadata=self.ometa_client
+            entity=self.entity, metadata=self.umeta_client
         )
         test_suite_class = import_test_suite_class(
             ServiceType.Database,
@@ -121,7 +121,7 @@ class BaseTestSuiteRunner:
         # This is shared between the sampler and DQ interfaces
         sampler_interface: SamplerInterface = sampler_class.create(
             service_connection_config=self.service_conn_config,
-            ometa_client=self.ometa_client,
+            umeta_client=self.umeta_client,
             entity=self.entity,
             schema_entity=schema_entity,
             database_entity=database_entity,
@@ -134,7 +134,7 @@ class BaseTestSuiteRunner:
 
         self.interface: TestSuiteInterface = test_suite_class.create(
             service_connection_config=self.service_conn_config,
-            ometa_client=self.ometa_client,
+            umeta_client=self.umeta_client,
             sampler=sampler_interface,
             table_entity=self.entity,
             validator_builder=self.validator_builder_class,

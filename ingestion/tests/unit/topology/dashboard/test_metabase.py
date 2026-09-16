@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -38,14 +38,14 @@ from metadata.generated.schema.entity.services.databaseService import (
     DatabaseServiceType,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.generated.schema.type.basic import FullyQualifiedEntityName
 from metadata.generated.schema.type.entityLineage import EntitiesEdge, LineageDetails
 from metadata.generated.schema.type.entityLineage import Source as LineageSource
 from metadata.generated.schema.type.entityReference import EntityReference
 from metadata.ingestion.api.models import Either
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.dashboard.metabase.metadata import MetabaseSource
 from metadata.ingestion.source.dashboard.metabase.models import (
     DatasetQuery,
@@ -114,9 +114,9 @@ mock_config = {
     "sink": {"type": "metadata-rest", "config": {}},
     "workflowConfig": {
         "loggerLevel": "DEBUG",
-        "openMetadataServerConfig": {
+        "uMetadataServerConfig": {
             "hostPort": "http://localhost:8585/api",
-            "authProvider": "openmetadata",
+            "authProvider": "umetadata",
             "securityConfig": {
                 "jwtToken": "eyJraWQiOiJHYjM4OWEtOWY3Ni1nZGpzLWE5MmotMDI0MmJrOTQzNTYiLCJ0eXAiOiJKV1QiLCJhbGc"
                 "iOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlzQm90IjpmYWxzZSwiaXNzIjoib3Blbi1tZXRhZGF0YS5vcmciLCJpYXQiOjE"
@@ -234,10 +234,10 @@ class MetabaseUnitTest(TestCase):
         super().__init__(methodName)
         get_connection.return_value = False
         test_connection.return_value = False
-        self.config = OpenMetadataWorkflowConfig.model_validate(mock_config)
+        self.config = UMetadataWorkflowConfig.model_validate(mock_config)
         self.metabase: MetabaseSource = MetabaseSource.create(
             mock_config["source"],
-            OpenMetadata(self.config.workflowConfig.openMetadataServerConfig),
+            UMetadata(self.config.workflowConfig.uMetadataServerConfig),
         )
         self.metabase.client = SimpleNamespace()
         self.metabase.context.get().__dict__[
@@ -281,8 +281,8 @@ class MetabaseUnitTest(TestCase):
         self.assertEqual(EXPECTED_DASHBOARD, [res.right for res in results])
 
     @patch.object(fqn, "build", return_value=None)
-    @patch.object(OpenMetadata, "get_by_name", return_value=EXAMPLE_DASHBOARD)
-    @patch.object(OpenMetadata, "search_in_any_service", return_value=EXAMPLE_TABLE)
+    @patch.object(UMetadata, "get_by_name", return_value=EXAMPLE_DASHBOARD)
+    @patch.object(UMetadata, "search_in_any_service", return_value=EXAMPLE_TABLE)
     @patch.object(
         MetabaseSource, "_get_database_service", return_value=MOCK_DATABASE_SERVICE
     )
@@ -467,7 +467,7 @@ class MetabaseUnitTest(TestCase):
         self.assertIsNotNone(chart_with_empty_stages.dataset_query)
         self.assertIsNone(chart_with_empty_stages.dataset_query.native)
 
-    @patch.object(OpenMetadata, "search_in_any_service", return_value=EXAMPLE_TABLE)
+    @patch.object(UMetadata, "search_in_any_service", return_value=EXAMPLE_TABLE)
     @patch.object(MetabaseSource, "_get_chart_entity", return_value=EXAMPLE_CHART)
     @patch.object(MetabaseSource, "_get_database_service", return_value=MOCK_DATABASE_SERVICE)
     def test_yield_lineage_optional_clause_blocks(self, *_):
@@ -513,7 +513,7 @@ class MetabaseUnitTest(TestCase):
             self.metabase.charts_dict = {"opt_lineage": chart}
             dashboard = MetabaseDashboardDetails(name="test", id="1", card_ids=["opt_lineage"])
 
-            with patch.object(OpenMetadata, "get_by_name", return_value=EXAMPLE_DASHBOARD):
+            with patch.object(UMetadata, "get_by_name", return_value=EXAMPLE_DASHBOARD):
                 result = list(
                     self.metabase.yield_dashboard_lineage_details(dashboard_details=dashboard, db_service_prefix=None)
                 )

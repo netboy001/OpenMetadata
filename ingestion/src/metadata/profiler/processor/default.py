@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,7 +19,7 @@ from sqlalchemy.orm import DeclarativeMeta
 from metadata.generated.schema.entity.data.table import ColumnProfilerConfig
 from metadata.generated.schema.entity.services.databaseService import DatabaseService
 from metadata.generated.schema.settings.settings import Settings
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.profiler.interface.profiler_interface import ProfilerInterface
 from metadata.profiler.metrics.core import Metric, add_props
 from metadata.profiler.processor.core import Profiler
@@ -29,7 +29,7 @@ from metadata.profiler.registry import MetricRegistry
 def get_default_metrics(
     metrics_registry: Type[MetricRegistry],
     table: DeclarativeMeta,
-    ometa_client: Optional[OpenMetadata] = None,
+    umeta_client: Optional[UMetadata] = None,
     db_service: Optional[DatabaseService] = None,
 ) -> List[Metric]:
     return [
@@ -37,8 +37,8 @@ def get_default_metrics(
         metrics_registry.ROW_COUNT.value,
         add_props(table=table)(metrics_registry.COLUMN_COUNT.value),
         add_props(table=table)(metrics_registry.COLUMN_NAMES.value),
-        # We'll use the ometa_client & db_service in case we need to fetch info to ES
-        add_props(table=table, ometa_client=ometa_client, db_service=db_service)(
+        # We'll use the umeta_client & db_service in case we need to fetch info to ES
+        add_props(table=table, umeta_client=umeta_client, db_service=db_service)(
             metrics_registry.SYSTEM.value
         ),
         # Column Metrics
@@ -83,7 +83,7 @@ class DefaultProfiler(Profiler):
         _metrics = get_default_metrics(
             metrics_registry=metrics_registry,
             table=profiler_interface.table,
-            ometa_client=profiler_interface.ometa_client,
+            umeta_client=profiler_interface.umeta_client,
             db_service=db_service,
         )
 

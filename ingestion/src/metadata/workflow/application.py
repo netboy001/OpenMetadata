@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,10 +19,10 @@ from metadata.generated.schema.entity.services.ingestionPipelines.status import 
 )
 from metadata.generated.schema.entity.services.serviceType import ServiceType
 from metadata.generated.schema.metadataIngestion.application import (
-    OpenMetadataApplicationConfig,
+    UMetadataApplicationConfig,
 )
 from metadata.ingestion.api.step import Step
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.utils.importer import import_from_module
 from metadata.utils.logger import ingestion_logger
 from metadata.workflow.base import BaseWorkflow
@@ -42,8 +42,8 @@ class AppRunner(Step, ABC):
 
     def __init__(
         self,
-        config: OpenMetadataApplicationConfig,
-        metadata: OpenMetadata,
+        config: UMetadataApplicationConfig,
+        metadata: UMetadata,
     ):
         self.app_config = config.appConfig.root if config.appConfig else None
         self.private_config = (
@@ -65,24 +65,24 @@ class AppRunner(Step, ABC):
     def create(
         cls,
         config_dict: dict,
-        metadata: OpenMetadata,
+        metadata: UMetadata,
         pipeline_name: Optional[str] = None,
     ) -> "Step":
-        config = OpenMetadataApplicationConfig.model_validate(config_dict)
+        config = UMetadataApplicationConfig.model_validate(config_dict)
         return cls(config=config, metadata=metadata)
 
 
 class ApplicationWorkflow(BaseWorkflow, ABC):
     """Base Application Workflow implementation"""
 
-    config: OpenMetadataApplicationConfig
+    config: UMetadataApplicationConfig
     runner: Optional[AppRunner]
 
-    def __init__(self, config: OpenMetadataApplicationConfig):
+    def __init__(self, config: UMetadataApplicationConfig):
         self.runner = None  # Will be passed in post-init
         self.config = config
 
-        # Applications are associated to the OpenMetadata Service
+        # Applications are associated to the UMetadata Service
         self.service_type: ServiceType = ServiceType.Metadata
 
         super().__init__(
@@ -94,7 +94,7 @@ class ApplicationWorkflow(BaseWorkflow, ABC):
     @classmethod
     def create(cls, config_dict: dict):
         # TODO: Create a parse_gracefully method
-        config = OpenMetadataApplicationConfig.model_validate(config_dict)
+        config = UMetadataApplicationConfig.model_validate(config_dict)
         return cls(config)
 
     def post_init(self) -> None:

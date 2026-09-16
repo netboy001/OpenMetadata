@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,7 +27,7 @@ REDSHIFT_SQL_STATEMENT = textwrap.dedent(
           {filters}
           -- Filter out all automated & cursor queries
           AND label NOT IN ('maintenance', 'metrics', 'health')
-          AND querytxt NOT LIKE '/* {{"app": "OpenMetadata", %%}} */%%'
+          AND querytxt NOT LIKE '/* {{"app": "UMetadata", %%}} */%%'
           AND querytxt NOT LIKE '/* {{"app": "dbt", %%}} */%%'
           AND aborted = 0
           AND starttime >= '{start_time}'
@@ -98,7 +98,7 @@ WITH queries AS (
         {filters}
         -- Filter out all automated & cursor queries
         AND LOWER(query_label) NOT IN ('maintenance', 'metrics', 'health')
-        AND query_text NOT LIKE '/* {{"app": "OpenMetadata", %%}} */%%'
+        AND query_text NOT LIKE '/* {{"app": "UMetadata", %%}} */%%'
         AND query_text NOT LIKE '/* {{"app": "dbt", %%}} */%%'
         AND LOWER(status) = 'success'
         AND start_time >= '{start_time}'
@@ -448,7 +448,7 @@ Q_HISTORY as (
     join pg_catalog.pg_user b
       on b.usesysid = q.userid
     where label not in ('maintenance', 'metrics', 'health')
-      and querytxt not like '/* {{"app": "OpenMetadata", %%}} */%%'
+      and querytxt not like '/* {{"app": "UMetadata", %%}} */%%'
       and querytxt not like '/* {{"app": "dbt", %%}} */%%'
       and starttime >= '{start_date}'
       and userid <> 1
@@ -506,7 +506,7 @@ Q_HISTORY AS (
         JOIN pg_catalog.pg_user b
         ON b.usesysid = q.user_id
     WHERE LOWER(q.query_label) NOT IN ('maintenance', 'metrics', 'health')
-      AND q.query_text NOT LIKE '/* {{"app": "OpenMetadata", %%}} */%%'
+      AND q.query_text NOT LIKE '/* {{"app": "UMetadata", %%}} */%%'
       AND q.query_text NOT LIKE '/* {{"app": "dbt", %%}} */%%'
       AND LOWER(q.status) = 'success'
       AND q.start_time >= '{start_date}'
@@ -641,7 +641,7 @@ ORDER BY data.starttime DESC;
 # both Redshift Serverless and Provisioned since sys views are available
 # in both instances. However, it still needs to be tested in Provisioned
 # clusters.
-# Ref: https://github.com/open-metadata/OpenMetadata/pull/6568/files#diff-65e5e8591345679be6a347ea29c4d283d5ca9aa723ef788c9a2524344de49ff3R17  # noqa: E501
+# Ref: https://github.com/u-metadata/UMetadata/pull/6568/files#diff-65e5e8591345679be6a347ea29c4d283d5ca9aa723ef788c9a2524344de49ff3R17  # noqa: E501
 
 REDSHIFT_TEST_GET_QUERIES_MAP = {
     RedshiftInstanceType.PROVISIONED: REDSHIFT_TEST_GET_QUERIES,

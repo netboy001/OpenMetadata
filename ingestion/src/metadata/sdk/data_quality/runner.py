@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,10 +28,10 @@ from metadata.generated.schema.metadataIngestion.testSuitePipeline import (
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
     LogLevels,
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
-from metadata.ingestion.ometa.ometa_api import OpenMetadata as OMeta
-from metadata.sdk import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata as UMeta
+from metadata.sdk import UMetadata
 from metadata.sdk import client as get_client
 from metadata.sdk.data_quality.result_capturing_processor import (
     ResultCapturingProcessor,
@@ -42,18 +42,18 @@ from metadata.workflow.data_quality import TestSuiteWorkflow
 
 
 class TestRunner:
-    """Simplified test runner for executing data quality tests on OpenMetadata tables.
+    """Simplified test runner for executing data quality tests on UMetadata tables.
 
     This class provides a fluent API for defining and executing data quality tests
-    against tables in OpenMetadata. It handles test case creation, workflow configuration,
+    against tables in UMetadata. It handles test case creation, workflow configuration,
     and result collection.
 
-    The runner automatically fetches table metadata and service connections from OpenMetadata,
+    The runner automatically fetches table metadata and service connections from UMetadata,
     builds test cases from test definitions, and executes them using the TestSuiteWorkflow.
 
     Attributes:
         table_fqn: Fully qualified name of the table to test
-        client: OpenMetadata API client
+        client: UMetadata API client
 
     Examples:
         >>> from metadata.sdk.data_quality import TestRunner, TableRowCountToBeBetween
@@ -65,21 +65,21 @@ class TestRunner:
     def __init__(
         self,
         table_fqn: str,
-        client: Optional[OMeta[Any, Any]] = None,
+        client: Optional[UMeta[Any, Any]] = None,
     ) -> None:
-        """Initialize TestRunner with table FQN and optional OpenMetadata client.
+        """Initialize TestRunner with table FQN and optional UMetadata client.
 
         Args:
             table_fqn: Fully qualified name of the table
-            client: Optional OpenMetadata client (will create one if not provided)
+            client: Optional UMetadata client (will create one if not provided)
         """
         self.table_fqn: str = table_fqn
 
         if client is None:
-            metadata: OpenMetadata = get_client()
-            client: OMeta[Any, Any] = metadata.ometa
+            metadata: UMetadata = get_client()
+            client: UMeta[Any, Any] = metadata.umeta
 
-        self.client: OMeta[Any, Any] = client
+        self.client: UMeta[Any, Any] = client
         self.config_builder: WorkflowConfigBuilder = WorkflowConfigBuilder(client)
 
     def setup(
@@ -118,13 +118,13 @@ class TestRunner:
     def for_table(
         cls,
         table_fqn: str,
-        client: Optional[OMeta[Any, Any]] = None,
+        client: Optional[UMeta[Any, Any]] = None,
     ) -> Self:
         """Initialize runner for a specific table FQN.
 
         Args:
             table_fqn: Fully qualified name of the table (e.g., "MySQL.default.db.table")
-            client: Optional OpenMetadata client (will create one if not provided)
+            client: Optional UMetadata client (will create one if not provided)
 
         Returns:
             TestRunner instance
@@ -146,7 +146,7 @@ class TestRunner:
         yaml_string: Optional[str] = None,
         file_path: Optional[str] = None,
         use_connection_from_yaml: bool = False,
-        client: Optional[OMeta[Any, Any]] = None,
+        client: Optional[UMeta[Any, Any]] = None,
     ) -> Self:
         """Build TestRunner from a YAML workflow string."""
 
@@ -160,7 +160,7 @@ class TestRunner:
 
         data = yaml.safe_load(cast(str, yaml_string))
 
-        config = OpenMetadataWorkflowConfig(**data)
+        config = UMetadataWorkflowConfig(**data)
         source = config.source
 
         assert (
@@ -176,7 +176,7 @@ class TestRunner:
         ), "TestSuitePipeline config must have entity fully qualified name"
 
         if use_connection_from_yaml:
-            client = OMeta(config=config.workflowConfig.openMetadataServerConfig)
+            client = UMeta(config=config.workflowConfig.uMetadataServerConfig)
 
         runner = cls.for_table(
             source_config.entityFullyQualifiedName.root, client=client
@@ -195,10 +195,10 @@ class TestRunner:
         return runner
 
     def _initialize(self) -> None:
-        """Fetch table entity and service connection from OpenMetadata.
+        """Fetch table entity and service connection from UMetadata.
 
         This method retrieves the table entity and associated database service connection
-        from OpenMetadata. It validates that the table exists and has a properly configured
+        from UMetadata. It validates that the table exists and has a properly configured
         service connection.
 
         Raises:

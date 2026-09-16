@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -10,7 +10,7 @@
 #  limitations under the License.
 
 """
-Tests for OpenMetadata._group_entities_by_type bulk-create ordering.
+Tests for UMetadata._group_entities_by_type bulk-create ordering.
 
 A Dashboard references Charts and DashboardDataModels by FQN. The backend rejects
 a Dashboard bulk-create with HTTP 400 ("chart instance ... not found") when those
@@ -27,7 +27,7 @@ from metadata.generated.schema.api.data.createDashboardDataModel import (
 from metadata.generated.schema.entity.data.dashboardDataModel import DataModelType
 from metadata.generated.schema.entity.data.table import Column, DataType
 from metadata.generated.schema.type.basic import EntityName, FullyQualifiedEntityName
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 
 SERVICE = FullyQualifiedEntityName("test_service")
 
@@ -52,8 +52,8 @@ def _data_model(name: str) -> CreateDashboardDataModelRequest:
 def _group(entities):
     """_group_entities_by_type only relies on get_entity_from_create + the cached
     hierarchy, so it needs no live connection — bypass __init__."""
-    ometa = OpenMetadata.__new__(OpenMetadata)
-    return list(ometa._group_entities_by_type(entities).keys())
+    umeta = UMetadata.__new__(UMetadata)
+    return list(umeta._group_entities_by_type(entities).keys())
 
 
 class TestGroupEntitiesByTypeOrdering:

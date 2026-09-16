@@ -5,6 +5,6 @@ description: Use when writing new Playwright E2E tests or adding test cases. Pro
 
 # Writing Playwright Tests Skill
 
-This skill guides you through writing Playwright E2E tests following OpenMetadata standards.
+This skill guides you through writing Playwright E2E tests following UMetadata standards.
 
-**Reference**: @openmetadata-ui/src/main/resources/ui/playwright/PLAYWRIGHT_DEVELOPER_HANDBOOK.md
+**Reference**: @umetadata-ui/src/main/resources/ui/playwright/PLAYWRIGHT_DEVELOPER_HANDBOOK.md

@@ -33214,14 +33214,14 @@
       }
     },
     {
-      "name": "openmetadata-table-bench",
+      "name": "umetadata-table-bench",
       "description": "This table serves as a testing playground for askCollate on different tasks. The main content is food-related products.",
       "version": 0.1,
       "updatedAt": 1767784950622,
       "updatedBy": "admin",
       "href": "http://localhost:8585/api/v1/tables/bench-table-uuid-12345",
       "tableType": "Regular",
-      "schemaDefinition": "CREATE TABLE openmetadata_table_bench(product_id VARCHAR(50) PRIMARY KEY, product_name VARCHAR(200), category VARCHAR(100), price DECIMAL(10,2), country VARCHAR(50), description TEXT)",
+      "schemaDefinition": "CREATE TABLE umetadata_table_bench(product_id VARCHAR(50) PRIMARY KEY, product_name VARCHAR(200), category VARCHAR(100), price DECIMAL(10,2), country VARCHAR(50), description TEXT)",
       "retentionPeriod": "30D",
       "columns": [
         {
@@ -33616,14 +33616,14 @@
       "customMetrics": [
         {
           "name": "CountOfOrganicProducts",
-          "expression": "SELECT COUNT(product_id) FROM openmetadata_table_bench WHERE organic = true"
+          "expression": "SELECT COUNT(product_id) FROM umetadata_table_bench WHERE organic = true"
         },
         {
           "name": "AveragePriceByCategory",
-          "expression": "SELECT category, AVG(price) FROM openmetadata_table_bench GROUP BY category"
+          "expression": "SELECT category, AVG(price) FROM umetadata_table_bench GROUP BY category"
         }
       ],
-      "sourceUrl": "http://localhost:8080/openmetadata-table-bench",
+      "sourceUrl": "http://localhost:8080/umetadata-table-bench",
       "certification": {
         "tagLabel": {
           "tagFQN": "Certification.Bronze",

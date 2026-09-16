@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -39,8 +39,8 @@ from metadata.generated.schema.type.entityReference import EntityReference
 from metadata.generated.schema.type.entityReferenceList import EntityReferenceList
 from metadata.ingestion.api.models import Either
 from metadata.ingestion.api.steps import InvalidSourceException
-from metadata.ingestion.models.ometa_classification import OMetaTagAndClassification
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.models.umeta_classification import UMetaTagAndClassification
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.dashboard.dashboard_service import DashboardServiceSource
 from metadata.ingestion.source.dashboard.hex.connection import get_connection
 from metadata.ingestion.source.dashboard.hex.models import Project
@@ -50,7 +50,7 @@ from metadata.ingestion.source.dashboard.hex.query_fetcher import (
 )
 from metadata.utils import fqn
 from metadata.utils.logger import ingestion_logger
-from metadata.utils.tag_utils import get_ometa_tag_and_classification, get_tag_labels
+from metadata.utils.tag_utils import get_umeta_tag_and_classification, get_tag_labels
 
 logger = ingestion_logger()
 
@@ -65,7 +65,7 @@ class HexSource(DashboardServiceSource):
     def __init__(
         self,
         config: WorkflowSource,
-        metadata: OpenMetadata,
+        metadata: UMetadata,
     ):
         super().__init__(config, metadata)
         self.client = get_connection(self.service_connection)
@@ -81,7 +81,7 @@ class HexSource(DashboardServiceSource):
     def create(
         cls,
         config_dict: dict,
-        metadata: OpenMetadata,
+        metadata: UMetadata,
         pipeline_name: Optional[str] = None,
     ):
         config: WorkflowSource = WorkflowSource.model_validate(config_dict)
@@ -184,11 +184,11 @@ class HexSource(DashboardServiceSource):
 
     def yield_tags(
         self, dashboard_details: Project
-    ) -> Iterable[Either[OMetaTagAndClassification]]:
+    ) -> Iterable[Either[UMetaTagAndClassification]]:
         """Create classification and tags for dashboard"""
         tags = self._extract_tags_from_project(dashboard_details)
         if tags and self.source_config.includeTags:
-            yield from get_ometa_tag_and_classification(
+            yield from get_umeta_tag_and_classification(
                 tags=tags,
                 classification_name=HEX_TAG_CATEGORY,
                 tag_description="Hex Tag",
@@ -295,7 +295,7 @@ class HexSource(DashboardServiceSource):
 
             dashboard = self.metadata.get_by_name(entity=Dashboard, fqn=dashboard_fqn)
             if not dashboard:
-                logger.warning(f"Dashboard not found in OpenMetadata: {dashboard_fqn}")
+                logger.warning(f"Dashboard not found in UMetadata: {dashboard_fqn}")
                 return
 
             logger.info(

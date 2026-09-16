@@ -2,13 +2,13 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-"""Best-effort streamable log handler for OpenMetadata ingestion pipelines."""
+"""Best-effort streamable log handler for UMetadata ingestion pipelines."""
 
 import atexit
 import contextlib
@@ -19,9 +19,9 @@ from queue import Empty, Full, Queue
 from typing import Optional
 from uuid import UUID
 
-from metadata.ingestion.ometa.client import REST
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
-from metadata.ingestion.ometa.utils import model_str
+from metadata.ingestion.umeta.client import REST
+from metadata.ingestion.umeta.umeta_api import UMetadata
+from metadata.ingestion.umeta.utils import model_str
 from metadata.utils.logger import BASE_LOGGING_FORMAT, METADATA_LOGGER, ingestion_logger
 
 logger = ingestion_logger()
@@ -49,7 +49,7 @@ class StreamableLogHandler(logging.Handler):
     # pylint: disable=too-many-arguments,too-many-instance-attributes
     def __init__(
         self,
-        metadata: OpenMetadata,
+        metadata: UMetadata,
         pipeline_fqn: str,
         run_id: UUID,
         max_buffer: int = 30_000,
@@ -338,7 +338,7 @@ class StreamableLogHandlerManager:
 
 
 def setup_streamable_logging_for_workflow(
-    metadata: OpenMetadata,
+    metadata: UMetadata,
     pipeline_fqn: Optional[str] = None,  # noqa: UP045
     run_id: Optional[UUID] = None,  # noqa: UP045
     log_level: int = logging.INFO,

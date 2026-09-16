@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,7 +32,7 @@ from metadata.generated.schema.metadataIngestion.databaseServiceProfilerPipeline
 )
 from metadata.generated.schema.tests.customMetric import CustomMetric
 from metadata.ingestion.api.status import Status
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.profiler.metrics.core import MetricTypes
 from metadata.profiler.metrics.registry import Metrics
 from metadata.profiler.metrics.system.system import System
@@ -66,7 +66,7 @@ class ProfilerInterface(Root, ABC):
     def __init__(  # pylint: disable=too-many-arguments
         self,
         service_connection_config: Union[DatabaseConnection, DatalakeConnection],
-        ometa_client: OpenMetadata,
+        umeta_client: UMetadata,
         entity: Table,
         source_config: DatabaseServiceProfilerPipeline,
         sampler: SamplerInterface,
@@ -77,7 +77,7 @@ class ProfilerInterface(Root, ABC):
         """Required attribute for the interface"""
         self._thread_count = thread_count
         self.table_entity = entity
-        self.ometa_client = ometa_client
+        self.umeta_client = umeta_client
         self.source_config = source_config
         self.service_connection_config = service_connection_config
         self.connection = get_ssl_connection(self.service_connection_config)
@@ -102,7 +102,7 @@ class ProfilerInterface(Root, ABC):
 
         super().__init__(
             service_connection_config=service_connection_config,
-            ometa_client=ometa_client,
+            umeta_client=umeta_client,
             entity=entity,
             source_config=source_config,
             sampler=sampler,
@@ -118,7 +118,7 @@ class ProfilerInterface(Root, ABC):
         source_config: DatabaseServiceProfilerPipeline,
         service_connection_config,
         sampler: SamplerInterface,
-        ometa_client: Optional[OpenMetadata],
+        umeta_client: Optional[UMetadata],
         **kwargs,
     ) -> "ProfilerInterface":
         """create class method is used to dispatch the profiler protocol to the
@@ -130,7 +130,7 @@ class ProfilerInterface(Root, ABC):
             entity_config (Optional[TableConfig]): entity config object
             source_config (DatabaseServiceProfilerPipeline): source config object
             service_connection_config (_type_): connection for the service
-            ometa_client (Optional[OpenMetadata]): ometa client object
+            umeta_client (Optional[UMetadata]): umeta client object
 
         Raises:
             NotImplementedError: if the profiler type is not supported
@@ -143,7 +143,7 @@ class ProfilerInterface(Root, ABC):
 
         return cls(
             service_connection_config=service_connection_config,
-            ometa_client=ometa_client,
+            umeta_client=umeta_client,
             entity=entity,
             source_config=source_config,
             sampler=sampler,

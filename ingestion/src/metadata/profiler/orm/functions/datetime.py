@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -186,9 +186,9 @@ def _(elements, compiler, **kwargs):  # pylint: disable=unused-argument
     if interval_unit.lower() in {"year", "month"}:
         raise ValueError(
             "Bigquery does not support `month` or `year` interval for table partitioned on timestamp",
-            "field types. You can set the `interval_unit to day or hour directly from OpenMetadata UI`."
+            "field types. You can set the `interval_unit to day or hour directly from UMetadata UI`."
             # pylint: disable=line-too-long
-            "Visit https://docs.open-metadata.org/how-to-guides/data-quality-observability/profiler/workflow#4-updating-profiler-setting-at-the-table-level for more details.",
+            "Visit https://docs.u-metadata.org/how-to-guides/data-quality-observability/profiler/workflow#4-updating-profiler-setting-at-the-table-level for more details.",
         )
 
     return (

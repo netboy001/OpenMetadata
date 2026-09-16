@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -44,7 +44,7 @@ from metadata.generated.schema.metadataIngestion.databaseServiceProfilerPipeline
 )
 from metadata.generated.schema.tests.customMetric import CustomMetric
 from metadata.ingestion.connections.session import create_and_bind_thread_safe_session
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.mixins.sqalchemy.sqa_mixin import SQAInterfaceMixin
 from metadata.profiler.api.models import ThreadPoolMetrics
 from metadata.profiler.interface.profiler_interface import ProfilerInterface
@@ -90,7 +90,7 @@ class SQAProfilerInterface(ProfilerInterface, SQAInterfaceMixin):
     def __init__(
         self,
         service_connection_config: Union[DatabaseConnection, DatalakeConnection],
-        ometa_client: OpenMetadata,
+        umeta_client: UMetadata,
         entity: Table,
         source_config: DatabaseServiceProfilerPipeline,
         sampler: SamplerInterface,
@@ -104,7 +104,7 @@ class SQAProfilerInterface(ProfilerInterface, SQAInterfaceMixin):
 
         super().__init__(
             service_connection_config=service_connection_config,
-            ometa_client=ometa_client,
+            umeta_client=umeta_client,
             entity=entity,
             source_config=source_config,
             sampler=sampler,
@@ -494,7 +494,7 @@ class SQAProfilerInterface(ProfilerInterface, SQAInterfaceMixin):
         for k, v in row.items():
             if isinstance(v, float) and math.isnan(v):
                 logger.warning(
-                    "NaN data detected and will be cast to null in OpenMetadata to maintain database parity"
+                    "NaN data detected and will be cast to null in UMetadata to maintain database parity"
                 )
                 row[k] = None
         return row

@@ -1,6 +1,6 @@
 # Custom ORM Types
 
-In this module we augment the types from SQLAlchemy to have a valid 1:1 mapping between OpenMetadata supported
+In this module we augment the types from SQLAlchemy to have a valid 1:1 mapping between UMetadata supported
 `DataType` and SQLAlchemy results.
 
 The process of augmenting types is done via the `TypeDecorator` abstract class. On our implementation we need to define

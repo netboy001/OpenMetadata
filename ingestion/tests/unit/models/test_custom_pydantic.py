@@ -857,7 +857,7 @@ class CustomSecretStrExtendedTest(TestCase):
 
 
 class TestExternalSecretReferenceSerialization:
-    """Regression tests for https://github.com/open-metadata/openmetadata-collate/issues/4362.
+    """Regression tests for https://github.com/u-metadata/umetadata-collate/issues/4362.
 
     Values prefixed with ``secret:`` are external secret references: the server
     resolves them against an external secret manager instead of persisting the
@@ -867,9 +867,9 @@ class TestExternalSecretReferenceSerialization:
 
     The SDK serializes create/update payloads with
     ``model_dump_json(context={"mask_secrets": False})`` (see the PUT path in
-    ``metadata.ingestion.ometa.ometa_api``), so these tests exercise that exact
+    ``metadata.ingestion.umeta.umeta_api``), so these tests exercise that exact
     serialization with the default ``DBSecretsManager`` active, as it is once an
-    ometa client has been instantiated.
+    umeta client has been instantiated.
     """
 
     EXTERNAL_SECRET_REFERENCE = "secret:/external/path/to/db/password"

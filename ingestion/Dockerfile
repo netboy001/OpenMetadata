@@ -99,12 +99,12 @@ ARG RI_VERSION="1.12.14.0"
 RUN pip install --upgrade pip "setuptools<81"
 # Pre-install cx-Oracle without build isolation to use the pinned setuptools
 RUN pip install --no-build-isolation "cx_Oracle>=8.3.0,<9"
-RUN pip install "openmetadata-managed-apis~=${RI_VERSION}" --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-3.1.5/constraints-3.10.txt"
-RUN pip install "openmetadata-ingestion[${INGESTION_DEPENDENCY}]~=${RI_VERSION}"
+RUN pip install "umetadata-managed-apis~=${RI_VERSION}" --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-3.1.5/constraints-3.10.txt"
+RUN pip install "umetadata-ingestion[${INGESTION_DEPENDENCY}]~=${RI_VERSION}"
 
-# Temporary workaround for https://github.com/open-metadata/OpenMetadata/issues/9593
+# Temporary workaround for https://github.com/u-metadata/UMetadata/issues/9593
 RUN [ $(uname -m) = "x86_64" ] \
-  && pip install "openmetadata-ingestion[db2]~=${RI_VERSION}" \
+  && pip install "umetadata-ingestion[db2]~=${RI_VERSION}" \
   || echo "DB2 not supported on ARM architectures."
 
 # Ship py-spy so a hung worker can be sampled in place
@@ -122,7 +122,7 @@ RUN pip freeze | grep "apache-airflow-providers" | grep --invert-match -E "docke
 # while authenticating connection with the airflow, psycopg2 solves this error
 RUN pip uninstall psycopg2-binary -y
 RUN pip install psycopg2 mysqlclient==2.1.1
-# Make required folders for openmetadata-airflow-apis
+# Make required folders for umetadata-airflow-apis
 RUN mkdir -p /opt/airflow/dag_generated_configs
 # This is required as it's responsible to create airflow.cfg file
 RUN airflow db migrate && rm -f /opt/airflow/airflow.db

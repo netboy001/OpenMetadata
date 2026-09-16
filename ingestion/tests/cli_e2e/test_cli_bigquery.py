@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -37,21 +37,21 @@ from .common_e2e_sqa_mixins import SQACommonMethods
 
 class BigqueryCliTest(CliCommonDB.TestSuite, SQACommonMethods):
     create_table_query: str = """
-        CREATE TABLE `open-metadata-beta.exclude_me`.orders (
+        CREATE TABLE `u-metadata-beta.exclude_me`.orders (
             id int,
             order_name string
         )
     """
 
     create_view_query: str = """
-       CREATE VIEW `open-metadata-beta.exclude_me.view_orders` AS
+       CREATE VIEW `u-metadata-beta.exclude_me.view_orders` AS
                      SELECT orders.id as id, orders.order_name as order_name
-                       FROM `open-metadata-beta`.exclude_me.orders;
+                       FROM `u-metadata-beta`.exclude_me.orders;
     """
 
     insert_data_queries: List[str] = [
         (
-            "INSERT INTO `open-metadata-beta.exclude_me`.orders (id, order_name) VALUES "
+            "INSERT INTO `u-metadata-beta.exclude_me`.orders (id, order_name) VALUES "
             + ",".join(
                 [
                     "(" + ",".join(values) + ")"
@@ -66,15 +66,15 @@ class BigqueryCliTest(CliCommonDB.TestSuite, SQACommonMethods):
             )
             + ";"
         ),
-        "UPDATE `open-metadata-beta.exclude_me`.orders SET order_name = 'NINTENDO' WHERE id = 2",
+        "UPDATE `u-metadata-beta.exclude_me`.orders SET order_name = 'NINTENDO' WHERE id = 2",
     ]
 
     drop_table_query: str = """
-        DROP TABLE IF EXISTS `open-metadata-beta.exclude_me`.orders;
+        DROP TABLE IF EXISTS `u-metadata-beta.exclude_me`.orders;
     """
 
     drop_view_query: str = """
-        DROP VIEW  IF EXISTS `open-metadata-beta.exclude_me`.view_orders;
+        DROP VIEW  IF EXISTS `u-metadata-beta.exclude_me`.view_orders;
     """
 
     def create_table_and_view(self) -> None:
@@ -104,7 +104,7 @@ class BigqueryCliTest(CliCommonDB.TestSuite, SQACommonMethods):
         return 2
 
     def expected_lineage_node(self) -> str:
-        return "local_bigquery.open-metadata-beta.exclude_me.view_orders"
+        return "local_bigquery.u-metadata-beta.exclude_me.view_orders"
 
     @staticmethod
     def _expected_profiled_tables() -> int:
@@ -112,7 +112,7 @@ class BigqueryCliTest(CliCommonDB.TestSuite, SQACommonMethods):
 
     @staticmethod
     def fqn_created_table() -> str:
-        return "local_bigquery.open-metadata-beta.exclude_me.orders"
+        return "local_bigquery.u-metadata-beta.exclude_me.orders"
 
     @staticmethod
     def get_includes_schemas() -> List[str]:
@@ -150,7 +150,7 @@ class BigqueryCliTest(CliCommonDB.TestSuite, SQACommonMethods):
     def delete_queries() -> List[str]:
         return [
             """
-            DELETE FROM `open-metadata-beta.exclude_me`.orders WHERE id IN (1)
+            DELETE FROM `u-metadata-beta.exclude_me`.orders WHERE id IN (1)
             """,
         ]
 
@@ -158,14 +158,14 @@ class BigqueryCliTest(CliCommonDB.TestSuite, SQACommonMethods):
     def update_queries() -> List[str]:
         return [
             """
-            UPDATE `open-metadata-beta.exclude_me`.orders SET order_name = 'NINTENDO' WHERE id = 2
+            UPDATE `u-metadata-beta.exclude_me`.orders SET order_name = 'NINTENDO' WHERE id = 2
             """,
         ]
 
     def get_system_profile_cases(self) -> List[Tuple[str, List[SystemProfile]]]:
         return [
             (
-                "local_bigquery.open-metadata-beta.exclude_me.orders",
+                "local_bigquery.u-metadata-beta.exclude_me.orders",
                 [
                     SystemProfile(
                         timestamp=Timestamp(root=0),
@@ -182,7 +182,7 @@ class BigqueryCliTest(CliCommonDB.TestSuite, SQACommonMethods):
         ]
 
     def add_table_profile_config(self):
-        self.openmetadata.create_or_update_table_profiler_config(
+        self.umetadata.create_or_update_table_profiler_config(
             self.get_data_quality_table(),
             TableProfilerConfig(
                 profileSampleType=ProfileSampleType.ROWS,
@@ -227,8 +227,8 @@ class BigqueryCliTest(CliCommonDB.TestSuite, SQACommonMethods):
         start_ts = int(datetime.now().timestamp() * 1000)
         self.run_command("profile")
         end_ts = int(datetime.now().timestamp() * 1000)
-        column_profile = self.openmetadata.get_profile_data(
-            "local_bigquery.open-metadata-beta.w_partition.w_time_partition.id",
+        column_profile = self.umetadata.get_profile_data(
+            "local_bigquery.u-metadata-beta.w_partition.w_time_partition.id",
             start_ts,
             end_ts,
             profile_type=ColumnProfile,

@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,7 +23,7 @@ from collate_sqllineage.core.models import Column, Schema, SubQuery, Table
 from testcontainers.core.generic import DockerContainer
 from testcontainers.postgres import PostgresContainer
 
-from _openmetadata_testutils.postgres.conftest import postgres_container
+from _umetadata_testutils.postgres.conftest import postgres_container
 from metadata.generated.schema.api.data.createChart import CreateChartRequest
 from metadata.generated.schema.api.data.createDashboard import CreateDashboardRequest
 from metadata.generated.schema.entity.data.chart import Chart, ChartType
@@ -48,7 +48,7 @@ from metadata.generated.schema.entity.services.databaseService import (
     DatabaseServiceType,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.generated.schema.type.basic import (
     EntityName,
@@ -59,7 +59,7 @@ from metadata.generated.schema.type.entityReference import EntityReference
 from metadata.generated.schema.type.entityReferenceList import EntityReferenceList
 from metadata.ingestion.api.steps import InvalidSourceException
 from metadata.ingestion.lineage.parser import LineageParser
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.dashboard.superset.api_source import SupersetAPISource
 from metadata.ingestion.source.dashboard.superset.db_source import SupersetDBSource
 from metadata.ingestion.source.dashboard.superset.metadata import SupersetSource
@@ -392,9 +392,9 @@ class SupersetUnitTest(TestCase):
             },
             "sink": {"type": "metadata-rest", "config": {}},
             "workflowConfig": {
-                "openMetadataServerConfig": {
+                "uMetadataServerConfig": {
                     "hostPort": "http://localhost:8585/api",
-                    "authProvider": "openmetadata",
+                    "authProvider": "umetadata",
                     "securityConfig": {
                         "jwtToken": "eyJraWQiOiJHYjM4OWEtOWY3Ni1nZGpzLWE5MmotMDI0MmJrOTQzNTYiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlzQm90IjpmYWxzZSwiaXNzIjoib3Blbi1tZXRhZGF0YS5vcmciLCJpYXQiOjE2NjM5Mzg0NjIsImVtYWlsIjoiYWRtaW5Ab3Blbm1ldGFkYXRhLm9yZyJ9.tS8um_5DKu7HgzGBzS1VTA5uUjKWOCU0B_j08WXBiEC0mr0zNREkqVfwFDD-d24HlNEbrqioLsBuFRiwIWKc1m_ZlVQbG7P36RUxhuv2vbSp80FKyNM-Tj93FDzq91jsyNmsQhyNv_fNr3TXfzzSPjHt8Go0FMMP66weoKMgW2PbXlhVKwEuXUHyakLLzewm9UMeQaEiRzhiTMU3UkLXcKbYEJJvfNFcLwSl9W8JCO_l0Yj3ud-qt_nQYEZwqW6u5nfdQllN133iikV4fM5QZsMCnm8Rq1mvLR0y9bmJiD7fwM1tmJ791TUWqmKaTnP49U493VanKpUAfzIiOiIbhg"
                     },
@@ -430,20 +430,20 @@ class SupersetUnitTest(TestCase):
             },
             "sink": {"type": "metadata-rest", "config": {}},
             "workflowConfig": {
-                "openMetadataServerConfig": {
+                "uMetadataServerConfig": {
                     "hostPort": "http://localhost:8585/api",
-                    "authProvider": "openmetadata",
+                    "authProvider": "umetadata",
                     "securityConfig": {"jwtToken": "token"},
                 },
             },
         }
-        self.config = OpenMetadataWorkflowConfig.model_validate(
+        self.config = UMetadataWorkflowConfig.model_validate(
             MOCK_SUPERSET_API_CONFIG
         )
 
         self.superset_api: SupersetSource = SupersetSource.create(
             MOCK_SUPERSET_API_CONFIG["source"],
-            OpenMetadata(self.config.workflowConfig.openMetadataServerConfig),
+            UMetadata(self.config.workflowConfig.uMetadataServerConfig),
         )
         self.assertEqual(type(self.superset_api), SupersetAPISource)
         self.superset_api.context.get().__dict__[
@@ -452,7 +452,7 @@ class SupersetUnitTest(TestCase):
 
         self.superset_db: SupersetSource = SupersetSource.create(
             MOCK_SUPERSET_DB_CONFIG["source"],
-            OpenMetadata(self.config.workflowConfig.openMetadataServerConfig),
+            UMetadata(self.config.workflowConfig.uMetadataServerConfig),
         )
         self.assertEqual(type(self.superset_db), SupersetDBSource)
         self.superset_db.context.get().__dict__[
@@ -469,12 +469,12 @@ class SupersetUnitTest(TestCase):
             "serviceConnection": {
                 "config": {
                     "type": "Mysql",
-                    "username": "openmetadata_user",
+                    "username": "umetadata_user",
                     "authType": {
-                        "password": "openmetadata_password",
+                        "password": "umetadata_password",
                     },
                     "hostPort": "localhost:3306",
-                    "databaseSchema": "openmetadata_db",
+                    "databaseSchema": "umetadata_db",
                 }
             },
             "sourceConfig": {
@@ -488,7 +488,7 @@ class SupersetUnitTest(TestCase):
             InvalidSourceException,
             SupersetSource.create,
             not_superset_source,
-            self.config.workflowConfig.openMetadataServerConfig,
+            self.config.workflowConfig.uMetadataServerConfig,
         )
 
     # disabled due to container being flaky
@@ -585,7 +585,7 @@ class SupersetUnitTest(TestCase):
         Test generated datasource fqn for api source
         """
         with patch.object(
-            OpenMetadata, "get_by_name", return_value=MOCK_DB_POSTGRES_SERVICE
+            UMetadata, "get_by_name", return_value=MOCK_DB_POSTGRES_SERVICE
         ), patch.object(
             self.superset_api.client,
             "fetch_datasource",
@@ -602,7 +602,7 @@ class SupersetUnitTest(TestCase):
 
     def test_db_get_datasource_fqn_for_lineage(self):
         with patch.object(
-            OpenMetadata, "get_by_name", return_value=MOCK_DB_POSTGRES_SERVICE
+            UMetadata, "get_by_name", return_value=MOCK_DB_POSTGRES_SERVICE
         ):
             fqn = self.superset_db._get_datasource_fqn_for_lineage(  # pylint: disable=protected-access
                 MOCK_CHART_DB, MOCK_DB_POSTGRES_SERVICE.name.root
@@ -626,7 +626,7 @@ class SupersetUnitTest(TestCase):
             "database",
         )
 
-        sqa_str3 = "postgres://user:pass@localhost:8888/openmetadata_db"
+        sqa_str3 = "postgres://user:pass@localhost:8888/umetadata_db"
         self.assertEqual(
             self.superset_db._get_database_name(  # pylint: disable=protected-access
                 sqa_str3, MOCK_DB_MYSQL_SERVICE_1
@@ -634,7 +634,7 @@ class SupersetUnitTest(TestCase):
             "default",
         )
 
-        sqa_str4 = "postgres://user:pass@localhost:8888/openmetadata_db"
+        sqa_str4 = "postgres://user:pass@localhost:8888/umetadata_db"
         self.assertEqual(
             self.superset_db._get_database_name(  # pylint: disable=protected-access
                 sqa_str4, MOCK_DB_MYSQL_SERVICE_2

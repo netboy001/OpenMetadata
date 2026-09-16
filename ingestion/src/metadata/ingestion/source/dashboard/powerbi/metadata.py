@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -35,8 +35,8 @@ from metadata.generated.schema.entity.data.table import Column, DataType, Table
 from metadata.generated.schema.entity.services.connections.dashboard.powerBIConnection import (
     PowerBIConnection,
 )
-from metadata.generated.schema.entity.services.connections.metadata.openMetadataConnection import (
-    OpenMetadataConnection,
+from metadata.generated.schema.entity.services.connections.metadata.uMetadataConnection import (
+    UMetadataConnection,
 )
 from metadata.generated.schema.entity.services.dashboardService import (
     DashboardServiceType,
@@ -62,8 +62,8 @@ from metadata.ingestion.lineage.models import Dialect
 from metadata.ingestion.lineage.parser import LineageParser
 from metadata.ingestion.lineage.sql_lineage import get_column_fqn
 from metadata.ingestion.models.barrier import Barrier
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
-from metadata.ingestion.ometa.utils import model_str
+from metadata.ingestion.umeta.umeta_api import UMetadata
+from metadata.ingestion.umeta.utils import model_str
 from metadata.ingestion.source.dashboard.dashboard_service import DashboardServiceSource
 from metadata.ingestion.source.dashboard.powerbi.constants import (
     BIGQUERY_QUERY_EXPRESSION_KW,
@@ -132,12 +132,12 @@ class PowerbiSource(DashboardServiceSource):
     """PowerBi Source Class"""
 
     config: WorkflowSource
-    metadata_config: OpenMetadataConnection
+    metadata_config: UMetadataConnection
 
     def __init__(
         self,
         config: WorkflowSource,
-        metadata: OpenMetadata,
+        metadata: UMetadata,
     ):
         super().__init__(config, metadata)
         self.pagination_entity_per_page = min(100, self.service_connection.pagination_entity_per_page)
@@ -274,7 +274,7 @@ class PowerbiSource(DashboardServiceSource):
                 logger.error("Unable to fetch any PowerBI workspaces")
 
     @classmethod
-    def create(cls, config_dict, metadata: OpenMetadata, pipeline_name: Optional[str] = None):  # noqa: UP045
+    def create(cls, config_dict, metadata: UMetadata, pipeline_name: Optional[str] = None):  # noqa: UP045
         config = WorkflowSource.model_validate(config_dict)
         connection: PowerBIConnection = config.serviceConnection.root.config
         if not isinstance(connection, PowerBIConnection):

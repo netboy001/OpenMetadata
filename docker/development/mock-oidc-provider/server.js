@@ -49,7 +49,7 @@ const TEST_ACCOUNTS = new Map([
   [
     'admin',
     {
-      email: 'admin@open-metadata.org',
+      email: 'admin@u-metadata.org',
       email_verified: true,
       name: 'Test Admin',
       sub: 'admin',
@@ -59,7 +59,7 @@ const TEST_ACCOUNTS = new Map([
   [
     'user1',
     {
-      email: 'user1@open-metadata.org',
+      email: 'user1@u-metadata.org',
       email_verified: true,
       name: 'Test User 1',
       sub: 'user1',
@@ -72,7 +72,7 @@ const TEST_ACCOUNTS = new Map([
   [
     'claim-user',
     {
-      email: 'claim.user.mapped@open-metadata.org',
+      email: 'claim.user.mapped@u-metadata.org',
       email_verified: true,
       name: 'Claim Mapped User',
       sub: 'claim-user',
@@ -94,8 +94,8 @@ const findAccount = (_ctx, id) => {
 
 const clients = [
   {
-    client_id: 'openmetadata-test',
-    client_secret: 'openmetadata-test-secret',
+    client_id: 'umetadata-test',
+    client_secret: 'umetadata-test-secret',
     grant_types: ['authorization_code', 'refresh_token'],
     redirect_uris: [
       'http://localhost:8585/callback',
@@ -111,7 +111,7 @@ const clients = [
     scope: 'openid email profile offline_access',
   },
   {
-    client_id: 'openmetadata-test-public',
+    client_id: 'umetadata-test-public',
     grant_types: ['authorization_code', 'refresh_token'],
     redirect_uris: [
       'http://localhost:8585/callback',

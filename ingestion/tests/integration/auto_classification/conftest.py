@@ -3,16 +3,16 @@ import os
 import pytest
 from testcontainers.postgres import PostgresContainer
 
-from _openmetadata_testutils.factories.metadata.generated.schema.api.classification.create_classification import (
+from _umetadata_testutils.factories.metadata.generated.schema.api.classification.create_classification import (
     CreateClassificationRequestFactory,
 )
-from _openmetadata_testutils.factories.metadata.generated.schema.api.classification.create_tag import (
+from _umetadata_testutils.factories.metadata.generated.schema.api.classification.create_tag import (
     CreateTagRequestFactory,
 )
-from _openmetadata_testutils.factories.metadata.generated.schema.type.recognizer import (
+from _umetadata_testutils.factories.metadata.generated.schema.type.recognizer import (
     RecognizerFactory,
 )
-from _openmetadata_testutils.helpers.docker import try_bind
+from _umetadata_testutils.helpers.docker import try_bind
 from metadata.generated.schema.api.classification.createClassification import (
     CreateClassificationRequest,
 )
@@ -25,7 +25,7 @@ from metadata.generated.schema.entity.classification.tag import Tag
 from metadata.generated.schema.type.piiEntity import PIIEntity
 from metadata.generated.schema.type.predefinedRecognizer import Name
 from metadata.generated.schema.type.recognizer import Recognizer
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 
 
 @pytest.fixture(scope="module")
@@ -412,7 +412,7 @@ def person_column_name_recognizer() -> Recognizer:
 
 @pytest.fixture(scope="session")
 def pii_classification(
-    metadata: OpenMetadata[Classification, CreateClassificationRequest]
+    metadata: UMetadata[Classification, CreateClassificationRequest]
 ) -> Classification:
     create_classification_request = CreateClassificationRequestFactory.create(
         fqn="PII",
@@ -425,7 +425,7 @@ def pii_classification(
 
 @pytest.fixture(scope="session")
 def sensitive_pii_tag(
-    metadata: OpenMetadata[Tag, CreateTagRequest],
+    metadata: UMetadata[Tag, CreateTagRequest],
     pii_classification: Classification,
     credit_card_recognizer: Recognizer,
     aba_routing_recognizer: Recognizer,
@@ -508,7 +508,7 @@ def sensitive_pii_tag(
 
 @pytest.fixture(scope="session")
 def non_sensitive_pii_tag(
-    metadata: OpenMetadata[Tag, CreateTagRequest],
+    metadata: UMetadata[Tag, CreateTagRequest],
     pii_classification: Classification,
     date_recognizer: Recognizer,
     phone_recognizer: Recognizer,

@@ -1,6 +1,6 @@
-# OpenMetadata Data Quality
+# UMetadata Data Quality
 ## Structure
-OpenMetadata data quality is structured around 3 componants:
+UMetadata data quality is structured around 3 componants:
 1. Test Definition: a test definition is a generic definition describing a test (supported data types, platform is was created from (OM, dbt, etc.), parameter definition, etc.)
 2. Test Case: a test case is the implementation of a specific test definition. It specifies the values parameters should respect for the test to pass or fail
 3. Test Suite: a test suite is a logical or an executable container. Executable test suites are automatically created when you add a new test case to an entity. Logical test suite allow users to logically group together tests from different entity to create data contracts.
@@ -8,7 +8,7 @@ OpenMetadata data quality is structured around 3 componants:
 ## Backend implementation
 ### Test Suite
 #### Executable
-Executable test suites are created (`POST`) / update (`PUT`) using the `/v1/dataQuality/testSuites/executable` endpoint. Executable test suite name should match that of an entity inside OpenMetadata. Trying to create an executable entity with an entity name not matching any assets inside the platform will throw an error. When creating a test case for the first time against an entity, an executable test suite will automatically be created.
+Executable test suites are created (`POST`) / update (`PUT`) using the `/v1/dataQuality/testSuites/executable` endpoint. Executable test suite name should match that of an entity inside UMetadata. Trying to create an executable entity with an entity name not matching any assets inside the platform will throw an error. When creating a test case for the first time against an entity, an executable test suite will automatically be created.
 
 #### Logical
 Logical test suites are created (`POST`) / update (`PUT`) using the `/v1/dataQuality/testSuites` endpoint. Logical test suites allow user to group together multiple non-related existing test cases. Trying to create a new test case against a logical test suite will throw an error. Only existing test cases can be added to a logical test suite.

@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,7 +21,7 @@ from metadata.generated.schema.entity.services.pipelineService import (
     PipelineServiceType,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.generated.schema.type.basic import (
     EntityName,
@@ -42,9 +42,9 @@ mock_flink_config = {
     },
     "sink": {"type": "metadata-rest", "config": {}},
     "workflowConfig": {
-        "openMetadataServerConfig": {
+        "uMetadataServerConfig": {
             "hostPort": "http://localhost:8585/api",
-            "authProvider": "openmetadata",
+            "authProvider": "umetadata",
             "securityConfig": {
                 "jwtToken": "eyJraWQiOiJHYjM4OWEtOWY3Ni1nZGpzLWE5MmotMDI0MmJrOTQzNTYiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlzQm90IjpmYWxzZSwiaXNzIjoib3Blbi1tZXRhZGF0YS5vcmciLCJpYXQiOjE2NjM5Mzg0NjIsImVtYWlsIjoiYWRtaW5Ab3Blbm1ldGFkYXRhLm9yZyJ9.tS8um_5DKu7HgzGBzS1VTA5uUjKWOCU0B_j08WXBiEC0mr0zNREkqVfwFDD-d24HlNEbrqioLsBuFRiwIWKc1m_ZlVQbG7P36RUxhuv2vbSp80FKyNM-Tj93FDzq91jsyNmsQhyNv_fNr3TXfzzSPjHt8Go0FMMP66weoKMgW2PbXlhVKwEuXUHyakLLzewm9UMeQaEiRzhiTMU3UkLXcKbYEJJvfNFcLwSl9W8JCO_l0Yj3ud-qt_nQYEZwqW6u5nfdQllN133iikV4fM5QZsMCnm8Rq1mvLR0y9bmJiD7fwM1tmJ791TUWqmKaTnP49U493VanKpUAfzIiOiIbhg"
             },
@@ -133,10 +133,10 @@ class FlinkUnitTest(TestCase):
 
         super().__init__(methodName)
         test_connection.return_value = False
-        config = OpenMetadataWorkflowConfig.model_validate(mock_flink_config)
+        config = UMetadataWorkflowConfig.model_validate(mock_flink_config)
         self.flink = FlinkSource.create(
             mock_flink_config["source"],
-            config.workflowConfig.openMetadataServerConfig,
+            config.workflowConfig.uMetadataServerConfig,
         )
         self.flink.context.get().__dict__["pipeline"] = MOCK_PIPELINE.name
         self.flink.context.get().__dict__[
@@ -165,10 +165,10 @@ class TestFlinkTaskNames:
         with patch(
             "metadata.ingestion.source.pipeline.pipeline_service.PipelineServiceSource.test_connection"
         ), patch("metadata.ingestion.source.pipeline.flink.connection.get_connection"):
-            config = OpenMetadataWorkflowConfig.model_validate(mock_flink_config)
+            config = UMetadataWorkflowConfig.model_validate(mock_flink_config)
             self.flink = FlinkSource.create(
                 mock_flink_config["source"],
-                config.workflowConfig.openMetadataServerConfig,
+                config.workflowConfig.uMetadataServerConfig,
             )
         self.flink.context.get().__dict__["pipeline"] = MOCK_PIPELINE.name
         self.flink.context.get().__dict__[

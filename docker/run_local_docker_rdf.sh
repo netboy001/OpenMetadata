@@ -60,7 +60,7 @@ docker compose -f docker/development/docker-compose-fuseki.yml down --remove-orp
 if [[ $skipMaven == "false" ]]; then
     if [[ $mode == "no-ui" ]]; then
         echo "Maven Build - Skipping Tests and UI"
-        mvn -DskipTests -DonlyBackend clean package -pl !openmetadata-ui
+        mvn -DskipTests -DonlyBackend clean package -pl !umetadata-ui
     else
         echo "Maven Build - Skipping Tests"
         mvn -DskipTests clean package
@@ -76,7 +76,7 @@ if [ $RESULT -ne 0 ]; then
 fi
 
 if [[ $debugOM == "true" ]]; then
- export OPENMETADATA_DEBUG=true
+ export UMETADATA_DEBUG=true
 fi
 
 if [[ $cleanDbVolumes == "true" ]]
@@ -110,11 +110,11 @@ if [[ $startFuseki == "true" ]]; then
     # Set RDF environment variables
     export RDF_ENABLED=true
     export RDF_STORAGE_TYPE=FUSEKI
-    export RDF_BASE_URI="https://open-metadata.org/"
-    export RDF_ENDPOINT="http://localhost:3030/openmetadata"
+    export RDF_BASE_URI="https://u-metadata.org/"
+    export RDF_ENDPOINT="http://localhost:3030/umetadata"
     export RDF_REMOTE_USERNAME="admin"
     export RDF_REMOTE_PASSWORD="admin"
-    export RDF_DATASET="openmetadata"
+    export RDF_DATASET="umetadata"
 fi
 
 echo "Starting Local Docker Containers"
@@ -135,7 +135,7 @@ if [ $RESULT -ne 0 ]; then
   exit 1
 fi
 
-until curl -s -f "http://localhost:9200/_cat/indices/openmetadata_team_search_index"; do
+until curl -s -f "http://localhost:9200/_cat/indices/umetadata_team_search_index"; do
   echo 'Checking if Elastic Search instance is up...'
   sleep 5
 done
@@ -216,10 +216,10 @@ if [[ $startFuseki == "true" ]]; then
 fi
 
 tput setaf 2
-echo "✔ OpenMetadata is up and running"
+echo "✔ UMetadata is up and running"
 if [[ $startFuseki == "true" ]]; then
     echo "✔ RDF/Knowledge Graph support is enabled"
     echo "  - Fuseki UI: http://localhost:3030"
-    echo "  - SPARQL endpoint: http://localhost:3030/openmetadata/sparql"
+    echo "  - SPARQL endpoint: http://localhost:3030/umetadata/sparql"
 fi
 echo ""

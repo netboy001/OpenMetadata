@@ -17,7 +17,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
     <artifactId>platform</artifactId>
-    <groupId>org.open-metadata</groupId>
+    <groupId>org.u-metadata</groupId>
     <version>1.12.14</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
@@ -26,7 +26,7 @@
   </properties>
 
   <artifactId>common</artifactId>
-  <name>OpenMetadata Common</name>
+  <name>UMetadata Common</name>
 
   <dependencies>
     <dependency>
@@ -46,7 +46,7 @@
       <version>${org.junit.jupiter.version}</version>
       <scope>test</scope>
     </dependency>
-    <!-- Build-time only (used by jsonschema2pojo-maven-plugin in openmetadata-spec).
+    <!-- Build-time only (used by jsonschema2pojo-maven-plugin in umetadata-spec).
          <scope>provided</scope> keeps it on compile classpath but excludes it (and all
          transitives — including Jackson 3.x: GHSA-2m67-wjpj-xhg9, CVE-2026-29062,
          GHSA-72hv-8253-57qq) from runtime / dist packaging. -->

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Thread and CPU monitor for OpenMetadata reindexing
+# Thread and CPU monitor for UMetadata reindexing
 # Usage: ./bin/thread-monitor.sh <PID> [interval_seconds]
 #
 # Monitors:
@@ -20,7 +20,7 @@ PREV_COUNTS_FILE="$LOG_DIR/.prev_counts"
 echo "timestamp,total_threads,reindex_threads,om_threads,virtual_threads,pool_threads,fjp_threads" > "$THREAD_LOG"
 echo "" > "$SUMMARY_LOG"
 
-echo "=== OpenMetadata Thread Monitor ==="
+echo "=== UMetadata Thread Monitor ==="
 echo "PID: $PID"
 echo "Interval: ${INTERVAL}s"
 echo "Logs: $LOG_DIR"

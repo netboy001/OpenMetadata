@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,7 +17,7 @@ Holds two concerns:
 * a per-entity-FQN lookup of ``TagLabel`` instances for inheritance
   reads, dropped at scope boundaries.
 
-Dedup is case-sensitive, matching OpenMetadata's tag-identity rule.
+Dedup is case-sensitive, matching UMetadata's tag-identity rule.
 Safe for concurrent use across the topology's parallel schema workers.
 """
 
@@ -42,9 +42,9 @@ from metadata.generated.schema.type.tagLabel import (
     TagLabel,
     TagSource,
 )
-from metadata.ingestion.models.ometa_classification import OMetaTagAndClassification
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
-from metadata.ingestion.ometa.utils import model_str
+from metadata.ingestion.models.umeta_classification import UMetaTagAndClassification
+from metadata.ingestion.umeta.umeta_api import UMetadata
+from metadata.ingestion.umeta.utils import model_str
 from metadata.utils import fqn
 from metadata.utils.logger import ingestion_logger
 
@@ -70,12 +70,12 @@ class ScopeAlreadyClearedError(RuntimeError):
 class TagRegistry:
     """Registry for Tag and Classification ingestion bookkeeping."""
 
-    def __init__(self, metadata: OpenMetadata) -> None:
+    def __init__(self, metadata: UMetadata) -> None:
         self._metadata = metadata
 
         self._known_tag_fqns: set[str] = set()
         self._tag_label_cache: dict[_TagLabelKey, TagLabel] = {}
-        self._pending: list[OMetaTagAndClassification] = []
+        self._pending: list[UMetaTagAndClassification] = []
         self._cleared_scopes: set[str] = set()
         self._labels_by_entity: dict[str, list[TagLabel]] = {}
 
@@ -146,7 +146,7 @@ class TagRegistry:
         with self._lock:
             return list(self._labels_by_entity.get(entity_fqn, []))
 
-    def drain(self) -> Iterable[OMetaTagAndClassification]:
+    def drain(self) -> Iterable[UMetaTagAndClassification]:
         """Yield all queued create payloads and clear the queue."""
         with self._lock:
             pending, self._pending = self._pending, []
@@ -183,7 +183,7 @@ class TagRegistry:
         if self.is_known(tag_fqn):
             return True
 
-        logger.debug("TagRegistry: cache miss for %s; fetching from OpenMetadata.", tag_fqn)
+        logger.debug("TagRegistry: cache miss for %s; fetching from UMetadata.", tag_fqn)
         try:
             entity = self._metadata.get_by_name(entity=Tag, fqn=tag_fqn)
         except Exception:
@@ -192,7 +192,7 @@ class TagRegistry:
 
         if entity is None:
             logger.warning(
-                "TagRegistry: tag %s not found in OpenMetadata; labels referencing it will be skipped.", tag_fqn
+                "TagRegistry: tag %s not found in UMetadata; labels referencing it will be skipped.", tag_fqn
             )
             return False
 
@@ -219,9 +219,9 @@ class TagRegistry:
         classification_description: str,
         tag_name: str,
         tag_description: str,
-    ) -> OMetaTagAndClassification:
+    ) -> UMetaTagAndClassification:
         """Compose the sink-bound create-payload for a classification + tag."""
-        return OMetaTagAndClassification(
+        return UMetaTagAndClassification(
             fqn=None,
             classification_request=CreateClassificationRequest(  # pyright: ignore[reportCallIssue]
                 name=EntityName(classification_name),

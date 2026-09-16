@@ -23,7 +23,7 @@ from metadata.generated.schema.entity.services.databaseService import (
     DatabaseServiceType,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.generated.schema.type.entityReference import EntityReference
 from metadata.ingestion.source.database.cockroach.metadata import CockroachSource
@@ -59,9 +59,9 @@ mock_cockroach_config = {
         "config": {},
     },
     "workflowConfig": {
-        "openMetadataServerConfig": {
+        "uMetadataServerConfig": {
             "hostPort": "http://localhost:8585/api",
-            "authProvider": "openmetadata",
+            "authProvider": "umetadata",
             "securityConfig": {"jwtToken": "cockroach"},
         }
     },
@@ -230,10 +230,10 @@ class cockroachUnitTest(TestCase):
     def __init__(self, methodName, test_connection) -> None:
         super().__init__(methodName)
         test_connection.return_value = False
-        self.config = OpenMetadataWorkflowConfig.model_validate(mock_cockroach_config)
+        self.config = UMetadataWorkflowConfig.model_validate(mock_cockroach_config)
         self.cockroach_source = CockroachSource.create(
             mock_cockroach_config["source"],
-            self.config.workflowConfig.openMetadataServerConfig,
+            self.config.workflowConfig.uMetadataServerConfig,
         )
 
         self.cockroach_source.context.get().__dict__[

@@ -1,0 +1,88 @@
+package org.umetadata.sdk.entities;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import org.umetadata.schema.api.data.CreateChart;
+import org.umetadata.sdk.client.UMetadataClient;
+
+/**
+ * SDK wrapper for Chart operations.
+ * This class provides static methods for Chart CRUD operations.
+ */
+public class Chart {
+  private static UMetadataClient defaultClient;
+
+  public static void setDefaultClient(UMetadataClient client) {
+    defaultClient = client;
+  }
+
+  private static UMetadataClient getClient() {
+    if (defaultClient == null) {
+      throw new IllegalStateException("Default client not set. Call setDefaultClient() first.");
+    }
+    return defaultClient;
+  }
+
+  // Static CRUD methods
+  public static org.umetadata.schema.entity.data.Chart create(CreateChart request) {
+    return getClient().charts().create(request);
+  }
+
+  public static org.umetadata.schema.entity.data.Chart retrieve(String id) {
+    return getClient().charts().get(id);
+  }
+
+  public static org.umetadata.schema.entity.data.Chart retrieve(String id, String fields) {
+    return getClient().charts().get(id, fields);
+  }
+
+  public static org.umetadata.schema.entity.data.Chart retrieveByName(String name) {
+    return getClient().charts().getByName(name);
+  }
+
+  public static org.umetadata.schema.entity.data.Chart retrieveByName(
+      String name, String fields) {
+    return getClient().charts().getByName(name, fields);
+  }
+
+  public static org.umetadata.schema.entity.data.Chart update(
+      String id, org.umetadata.schema.entity.data.Chart entity) {
+    return getClient().charts().update(id, entity);
+  }
+
+  public static org.umetadata.schema.entity.data.Chart update(
+      org.umetadata.schema.entity.data.Chart entity) {
+    if (entity.getId() == null) {
+      throw new IllegalArgumentException("Chart must have an ID for update");
+    }
+    return update(entity.getId().toString(), entity);
+  }
+
+  public static void delete(String id) {
+    delete(id, false, false);
+  }
+
+  public static void delete(String id, boolean recursive, boolean hardDelete) {
+    Map<String, String> params = new HashMap<>();
+    params.put("recursive", String.valueOf(recursive));
+    params.put("hardDelete", String.valueOf(hardDelete));
+    getClient().charts().delete(id, params);
+  }
+
+  // Async operations
+  public static CompletableFuture<org.umetadata.schema.entity.data.Chart> createAsync(
+      CreateChart request) {
+    return CompletableFuture.supplyAsync(() -> create(request));
+  }
+
+  public static CompletableFuture<org.umetadata.schema.entity.data.Chart> retrieveAsync(
+      String id) {
+    return CompletableFuture.supplyAsync(() -> retrieve(id));
+  }
+
+  public static CompletableFuture<Void> deleteAsync(
+      String id, boolean recursive, boolean hardDelete) {
+    return CompletableFuture.runAsync(() -> delete(id, recursive, hardDelete));
+  }
+}

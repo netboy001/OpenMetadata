@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -44,7 +44,7 @@ from metadata.ingestion.connections.test_connections import (
     test_connection_steps,
     test_query,
 )
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.database.snowflake.queries import (
     SNOWFLAKE_ACCESS_HISTORY_PROBE,
     SNOWFLAKE_GET_DATABASES,
@@ -265,7 +265,7 @@ class SnowflakeConnection(BaseConnection[SnowflakeConnectionConfig, Engine]):
 
     def test_connection(
         self,
-        metadata: OpenMetadata,
+        metadata: UMetadata,
         automation_workflow: Optional[AutomationWorkflow] = None,
         timeout_seconds: Optional[int] = THREE_MIN,
     ) -> TestConnectionResult:
@@ -277,7 +277,7 @@ class SnowflakeConnection(BaseConnection[SnowflakeConnectionConfig, Engine]):
 
             The default inspector `get_table_names` runs a SHOW which
             has a limit on 10000 rows in the result set:
-            https://github.com/open-metadata/OpenMetadata/issues/12798
+            https://github.com/u-metadata/UMetadata/issues/12798
 
             This can cause errors if we are running tests against schemas
             with more tables than that. There is no issues during the metadata

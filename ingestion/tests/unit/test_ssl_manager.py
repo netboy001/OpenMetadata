@@ -8,16 +8,16 @@ from unittest.mock import patch
 
 from pydantic import SecretStr
 
-from metadata.generated.schema.entity.services.connections.metadata.openMetadataConnection import (
-    OpenMetadataConnection,
+from metadata.generated.schema.entity.services.connections.metadata.uMetadataConnection import (
+    UMetadataConnection,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
     Source as WorkflowSource,
 )
-from metadata.generated.schema.security.client.openMetadataJWTClientConfig import (
-    OpenMetadataJWTClientConfig,
+from metadata.generated.schema.security.client.uMetadataJWTClientConfig import (
+    UMetadataJWTClientConfig,
 )
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.database.cassandra.metadata import CassandraSource
 from metadata.ingestion.source.messaging.kafka.metadata import KafkaSource
 from metadata.utils.ssl_manager import SSLManager
@@ -80,11 +80,11 @@ class KafkaSourceSSLTest(TestCase):
                 "sourceConfig": {"config": {"type": "MessagingMetadata"}},
             }
         )
-        metadata = OpenMetadata(
-            OpenMetadataConnection(
+        metadata = UMetadata(
+            UMetadataConnection(
                 hostPort="http://localhost:8585/api",
-                authProvider="openmetadata",
-                securityConfig=OpenMetadataJWTClientConfig(jwtToken="token"),
+                authProvider="umetadata",
+                securityConfig=UMetadataJWTClientConfig(jwtToken="token"),
             )
         )
         kafka_source = KafkaSource(config, metadata)
@@ -166,11 +166,11 @@ class CassandraSourceSSLTest(TestCase):
                 "sourceConfig": {"config": {"type": "DatabaseMetadata"}},
             }
         )
-        metadata = OpenMetadata(
-            OpenMetadataConnection(
+        metadata = UMetadata(
+            UMetadataConnection(
                 hostPort="http://localhost:8585/api",
-                authProvider="openmetadata",
-                securityConfig=OpenMetadataJWTClientConfig(jwtToken="token"),
+                authProvider="umetadata",
+                securityConfig=UMetadataJWTClientConfig(jwtToken="token"),
             )
         )
         cassandra_source = CassandraSource(config, metadata)

@@ -225,7 +225,7 @@ class SnowflakeTableResovler:
                 [database_identifier or context_database, PUBLIC_SCHEMA, table_name]
             ),
         )
-        # If the schema is not explicitly provided in the query, we'll need to resolve it from OpenMetadata
+        # If the schema is not explicitly provided in the query, we'll need to resolve it from UMetadata
         # by cascading the search from the context to the public schema.
         result = self.resolve_implicit_fqn(
             context_database=context_database,

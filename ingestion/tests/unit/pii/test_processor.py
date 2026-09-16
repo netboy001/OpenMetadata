@@ -14,25 +14,25 @@ from metadata.generated.schema.metadataIngestion.databaseServiceAutoClassificati
     DatabaseServiceAutoClassificationPipeline,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
     Source,
     SourceConfig,
     WorkflowConfig,
 )
 from metadata.ingestion.models.table_metadata import ColumnTag
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.pii.processor import PIIProcessor
 from metadata.sampler.models import SamplerResponse
 
 
 @pytest.fixture
-def openmetadata() -> OpenMetadata:
-    return create_autospec(OpenMetadata, spec_set=True, instance=True)
+def umetadata() -> UMetadata:
+    return create_autospec(UMetadata, spec_set=True, instance=True)
 
 
 @pytest.fixture
-def workflow_config() -> OpenMetadataWorkflowConfig:
-    return OpenMetadataWorkflowConfig(
+def workflow_config() -> UMetadataWorkflowConfig:
+    return UMetadataWorkflowConfig(
         source=Source(
             type="Postgres",
             sourceConfig=SourceConfig(
@@ -97,11 +97,11 @@ def generate_test_cases(
 def test_it_returns_the_expected_column_tags(
     test_case: str,
     sampler_record: SamplerResponse,
-    openmetadata: Mock,
-    workflow_config: OpenMetadataWorkflowConfig,
+    umetadata: Mock,
+    workflow_config: UMetadataWorkflowConfig,
     expected_column_tags: List[ColumnTag],
 ):
-    processor = PIIProcessor(workflow_config, openmetadata)
+    processor = PIIProcessor(workflow_config, umetadata)
 
     result: SamplerResponse = processor.run(sampler_record)
 

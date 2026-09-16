@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,14 +23,14 @@ from metadata.generated.schema.metadataIngestion.databaseServiceAutoClassificati
     DatabaseServiceAutoClassificationPipeline,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.generated.schema.type.tagLabel import TagLabel
 from metadata.ingestion.api.models import Either
 from metadata.ingestion.api.parser import parse_workflow_config_gracefully
 from metadata.ingestion.api.steps import Processor
 from metadata.ingestion.models.table_metadata import ColumnTag
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.sampler.models import SamplerResponse
 
 C = TypeVar("C", bound="AutoClassificationProcessor")
@@ -49,8 +49,8 @@ class AutoClassificationProcessor(Processor, ABC):
     # with the responsibility of *only* implementing the logic for creating tags.
     def __init__(
         self,
-        config: OpenMetadataWorkflowConfig,
-        metadata: OpenMetadata,
+        config: UMetadataWorkflowConfig,
+        metadata: UMetadata,
     ):
         super().__init__()
         self.config = config
@@ -82,7 +82,7 @@ class AutoClassificationProcessor(Processor, ABC):
     def create(
         cls: Type[C],
         config_dict: dict,
-        metadata: OpenMetadata,
+        metadata: UMetadata,
         pipeline_name: Optional[str] = None,
     ) -> C:
         config = parse_workflow_config_gracefully(config_dict)

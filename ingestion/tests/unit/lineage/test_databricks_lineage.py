@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,7 +19,7 @@ from unittest import TestCase
 from unittest.mock import patch
 
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.generated.schema.type.basic import DateTime
 from metadata.generated.schema.type.tableQuery import TableQuery
@@ -35,7 +35,7 @@ with open(mock_file_path, encoding="utf-8") as file:
 EXPECTED_DATABRICKS_DETAILS = [
     TableQuery(
         dialect="databricks",
-        query=' /* {"app": "OpenMetadata", "version": "0.13.0.dev0"} */\nSHOW TABLES IN `test`',
+        query=' /* {"app": "UMetadata", "version": "0.13.0.dev0"} */\nSHOW TABLES IN `test`',
         userName="vijay@getcollate.io",
         startTime="1665566128192",
         endTime="1665566128329",
@@ -46,7 +46,7 @@ EXPECTED_DATABRICKS_DETAILS = [
     ),
     TableQuery(
         dialect="databricks",
-        query=' /* {"app": "OpenMetadata", "version": "0.13.0.dev0"} */\nSHOW TABLES IN `test`',
+        query=' /* {"app": "UMetadata", "version": "0.13.0.dev0"} */\nSHOW TABLES IN `test`',
         userName="vijay@getcollate.io",
         startTime="1665566127416",
         endTime="1665566127568",
@@ -57,7 +57,7 @@ EXPECTED_DATABRICKS_DETAILS = [
     ),
     TableQuery(
         dialect="databricks",
-        query=' /* {"app": "OpenMetadata", "version": "0.13.0.dev0"} */\nSHOW TABLES IN `default`',
+        query=' /* {"app": "UMetadata", "version": "0.13.0.dev0"} */\nSHOW TABLES IN `default`',
         userName="vijay@getcollate.io",
         startTime="1665566125414",
         endTime="1665566125579",
@@ -68,7 +68,7 @@ EXPECTED_DATABRICKS_DETAILS = [
     ),
     TableQuery(
         dialect="databricks",
-        query=' /* {"app": "OpenMetadata", "version": "0.13.0.dev0"} */\nDESCRIBE default.view3',
+        query=' /* {"app": "UMetadata", "version": "0.13.0.dev0"} */\nDESCRIBE default.view3',
         userName="vijay@getcollate.io",
         startTime="1665566124428",
         endTime="1665566124730",
@@ -103,9 +103,9 @@ mock_databricks_config = {
     },
     "sink": {"type": "metadata-rest", "config": {}},
     "workflowConfig": {
-        "openMetadataServerConfig": {
+        "uMetadataServerConfig": {
             "hostPort": "http://localhost:8585/api",
-            "authProvider": "openmetadata",
+            "authProvider": "umetadata",
             "securityConfig": {
                 "jwtToken": "eyJraWQiOiJHYjM4OWEtOWY3Ni1nZGpzLWE5MmotMDI0MmJrOTQzNTYiLCJ0eXAiOiJKV1QiLCJhbGc"
                 "iOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlzQm90IjpmYWxzZSwiaXNzIjoib3Blbi1tZXRhZGF0YS5vcmciLCJpYXQiOjE"
@@ -127,12 +127,12 @@ class DatabricksLineageTests(TestCase):
 
     def __init__(self, methodName) -> None:
         super().__init__(methodName)
-        config = OpenMetadataWorkflowConfig.model_validate(mock_databricks_config)
+        config = UMetadataWorkflowConfig.model_validate(mock_databricks_config)
 
         with patch(
             "metadata.ingestion.source.database.databricks.lineage.DatabricksLineageSource.test_connection"
         ):
             self.databricks = DatabricksLineageSource.create(
                 mock_databricks_config["source"],
-                config.workflowConfig.openMetadataServerConfig,
+                config.workflowConfig.uMetadataServerConfig,
             )

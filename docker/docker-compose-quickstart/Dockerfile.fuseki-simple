@@ -31,4 +31,4 @@ EXPOSE 3030
 ENV JVM_ARGS="-Xmx4g -Xms2g"
 
 # Simple entrypoint
-CMD ["sh", "-c", "mkdir -p ${FUSEKI_HOME}/databases/openmetadata && exec ${FUSEKI_HOME}/fuseki-server --update --loc=${FUSEKI_HOME}/databases/openmetadata /openmetadata"]
+CMD ["sh", "-c", "mkdir -p ${FUSEKI_HOME}/databases/umetadata && exec ${FUSEKI_HOME}/fuseki-server --update --loc=${FUSEKI_HOME}/databases/umetadata /umetadata"]

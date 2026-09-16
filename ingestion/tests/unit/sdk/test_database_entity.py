@@ -17,10 +17,10 @@ class TestDatabaseEntity(unittest.TestCase):
 
     def setUp(self):
         """Set up test fixtures"""
-        self.mock_ometa = MagicMock()
+        self.mock_umeta = MagicMock()
 
         # Set default client directly
-        Databases.set_default_client(self.mock_ometa)
+        Databases.set_default_client(self.mock_umeta)
 
         # Test data
         self.database_id = "450e8400-e29b-41d4-a716-446655440000"
@@ -43,7 +43,7 @@ class TestDatabaseEntity(unittest.TestCase):
         expected_database.description = "Analytics database"
         expected_database.default = True
 
-        self.mock_ometa.create_or_update.return_value = expected_database
+        self.mock_umeta.create_or_update.return_value = expected_database
 
         # Act
         result = Databases.create(create_request)
@@ -53,7 +53,7 @@ class TestDatabaseEntity(unittest.TestCase):
         self.assertEqual(result.name, "analytics")
         self.assertEqual(result.fullyQualifiedName, self.database_fqn)
         self.assertTrue(result.default)
-        self.mock_ometa.create_or_update.assert_called_once_with(create_request)
+        self.mock_umeta.create_or_update.assert_called_once_with(create_request)
 
     def test_retrieve_database_by_id(self):
         """Test retrieving a database by ID"""
@@ -63,7 +63,7 @@ class TestDatabaseEntity(unittest.TestCase):
         expected_database.name = "analytics"
         expected_database.description = "Analytics database"
 
-        self.mock_ometa.get_by_id.return_value = expected_database
+        self.mock_umeta.get_by_id.return_value = expected_database
 
         # Act
         result = Databases.retrieve(self.database_id)
@@ -71,7 +71,7 @@ class TestDatabaseEntity(unittest.TestCase):
         # Assert
         self.assertEqual(str(result.id), self.database_id)
         self.assertEqual(result.name, "analytics")
-        self.mock_ometa.get_by_id.assert_called_once_with(
+        self.mock_umeta.get_by_id.assert_called_once_with(
             entity=DatabaseEntity, entity_id=self.database_id, fields=None
         )
 
@@ -94,7 +94,7 @@ class TestDatabaseEntity(unittest.TestCase):
         expected_database.owner = owner
         expected_database.tags = tags
 
-        self.mock_ometa.get_by_id.return_value = expected_database
+        self.mock_umeta.get_by_id.return_value = expected_database
 
         # Act
         result = Databases.retrieve(self.database_id, fields=fields)
@@ -103,7 +103,7 @@ class TestDatabaseEntity(unittest.TestCase):
         self.assertIsNotNone(result.owner)
         self.assertEqual(result.owner.name, "data-team")
         self.assertEqual(len(result.tags), 1)
-        self.mock_ometa.get_by_id.assert_called_once_with(
+        self.mock_umeta.get_by_id.assert_called_once_with(
             entity=DatabaseEntity, entity_id=self.database_id, fields=fields
         )
 
@@ -115,14 +115,14 @@ class TestDatabaseEntity(unittest.TestCase):
         expected_database.name = "analytics"
         expected_database.fullyQualifiedName = self.database_fqn
 
-        self.mock_ometa.get_by_name.return_value = expected_database
+        self.mock_umeta.get_by_name.return_value = expected_database
 
         # Act
         result = Databases.retrieve_by_name(self.database_fqn)
 
         # Assert
         self.assertEqual(result.fullyQualifiedName, self.database_fqn)
-        self.mock_ometa.get_by_name.assert_called_once_with(
+        self.mock_umeta.get_by_name.assert_called_once_with(
             entity=DatabaseEntity, fqn=self.database_fqn, fields=None
         )
 
@@ -141,10 +141,10 @@ class TestDatabaseEntity(unittest.TestCase):
             if hasattr(database_to_update, "id")
             else UUID(self.entity_id)
         )
-        self.mock_ometa.get_by_id.return_value = current_entity
+        self.mock_umeta.get_by_id.return_value = current_entity
 
         # Mock the patch to return the updated entity
-        self.mock_ometa.patch.return_value = database_to_update
+        self.mock_umeta.patch.return_value = database_to_update
 
         # Act
         result = Databases.update(database_to_update)
@@ -152,9 +152,9 @@ class TestDatabaseEntity(unittest.TestCase):
         # Assert
         self.assertEqual(result.description, "Updated analytics database")
         # Verify get_by_id was called to fetch current state
-        self.mock_ometa.get_by_id.assert_called_once()
+        self.mock_umeta.get_by_id.assert_called_once()
         # Verify patch was called with source and destination
-        self.mock_ometa.patch.assert_called_once()
+        self.mock_umeta.patch.assert_called_once()
 
     def test_delete_database(self):
         """Test deleting a database"""
@@ -162,7 +162,7 @@ class TestDatabaseEntity(unittest.TestCase):
         Databases.delete(self.database_id, recursive=True, hard_delete=False)
 
         # Assert
-        self.mock_ometa.delete.assert_called_once_with(
+        self.mock_umeta.delete.assert_called_once_with(
             entity=DatabaseEntity,
             entity_id=self.database_id,
             recursive=True,
@@ -182,7 +182,7 @@ class TestDatabaseEntity(unittest.TestCase):
         mock_response = MagicMock()
         mock_response.entities = [mock_db1, mock_db2, mock_db3]
 
-        self.mock_ometa.list_entities.return_value = mock_response
+        self.mock_umeta.list_entities.return_value = mock_response
 
         # Act
         result = Databases.list(limit=10)
@@ -190,7 +190,7 @@ class TestDatabaseEntity(unittest.TestCase):
         # Assert
         self.assertEqual(len(result.entities), 3)
         self.assertEqual(result.entities[0].name, "db1")
-        self.mock_ometa.list_entities.assert_called_once()
+        self.mock_umeta.list_entities.assert_called_once()
 
     def _skip_test_database_with_location(self):
         """Test database with location information"""
@@ -205,7 +205,7 @@ class TestDatabaseEntity(unittest.TestCase):
         expected_database.name = "geo_database"
         expected_database.location = "s3://bucket/path/to/database"
 
-        self.mock_ometa.create_or_update.return_value = expected_database
+        self.mock_umeta.create_or_update.return_value = expected_database
 
         # Act
         result = Databases.create(create_request)
@@ -226,7 +226,7 @@ class TestDatabaseEntity(unittest.TestCase):
         expected_database.id = UUID(self.database_id)
         expected_database.service = service_ref
 
-        self.mock_ometa.get_by_id.return_value = expected_database
+        self.mock_umeta.get_by_id.return_value = expected_database
 
         # Act
         result = Databases.retrieve(self.database_id, fields=["service"])
@@ -237,7 +237,7 @@ class TestDatabaseEntity(unittest.TestCase):
 
     def test_export_database_csv(self):
         # Mock CSV export
-        self.mock_ometa.export_csv.return_value = "CSV export data for test_export"
+        self.mock_umeta.export_csv.return_value = "CSV export data for test_export"
         """Test exporting database metadata to CSV"""
         # Act
         exporter = Databases.export_csv("database_export")
@@ -248,7 +248,7 @@ class TestDatabaseEntity(unittest.TestCase):
 
     def test_import_database_csv(self):
         # Mock CSV import
-        self.mock_ometa.import_csv.return_value = {
+        self.mock_umeta.import_csv.return_value = {
             "created": 1,
             "updated": 0,
             "errors": [],

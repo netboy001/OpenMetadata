@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -39,7 +39,7 @@ from metadata.generated.schema.metadataIngestion.testSuitePipeline import (
     TestSuitePipeline,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.generated.schema.tests.testCase import TestCase
 from metadata.generated.schema.tests.testSuite import TestSuite
@@ -47,7 +47,7 @@ from metadata.ingestion.api.models import Either
 from metadata.ingestion.api.parser import parse_workflow_config_gracefully
 from metadata.ingestion.api.step import Step
 from metadata.ingestion.api.steps import Source
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.utils import entity_link, fqn
 from metadata.utils.constants import CUSTOM_CONNECTOR_PREFIX
 from metadata.utils.logger import test_suite_logger
@@ -63,8 +63,8 @@ class TestSuiteSource(Source):
 
     def __init__(
         self,
-        config: OpenMetadataWorkflowConfig,
-        metadata: OpenMetadata,
+        config: UMetadataWorkflowConfig,
+        metadata: UMetadata,
     ):
         super().__init__()
 
@@ -82,7 +82,7 @@ class TestSuiteSource(Source):
 
     @property
     def name(self) -> str:
-        return "OpenMetadata"
+        return "UMetadata"
 
     def _load_yaml_service_connections(self) -> Dict[str, DatabaseConnection]:
         """Load the service connections from the YAML file"""
@@ -117,7 +117,7 @@ class TestSuiteSource(Source):
             logger.warning(
                 f"Table not found for FQN: {self.source_config.entityFullyQualifiedName.root}. "
                 "Please double check the entityFullyQualifiedName"
-                "by copying it directly from the entity URL in the OpenMetadata UI. "
+                "by copying it directly from the entity URL in the UMetadata UI. "
                 "The FQN should be in the format: service_name.database_name.schema_name.table_name"
             )
         return table
@@ -134,16 +134,16 @@ class TestSuiteSource(Source):
                 if not service:
                     raise ConnectionError(
                         f"Could not retrieve service with name `{service_name}`. "
-                        "Typically caused by the `entityFullyQualifiedName` does not exists in OpenMetadata "
+                        "Typically caused by the `entityFullyQualifiedName` does not exists in UMetadata "
                         "or the JWT Token is invalid."
                     )
                 if not service.connection:
                     raise ConnectionError(
                         f"Service with name `{service_name}` does not have a connection. "
-                        "If the connection is not stored in OpenMetadata, please provide it in the YAML file."
+                        "If the connection is not stored in UMetadata, please provide it in the YAML file."
                     )
 
-                # TODO: Clean after https://github.com/open-metadata/OpenMetadata/issues/21259
+                # TODO: Clean after https://github.com/u-metadata/UMetadata/issues/21259
                 # We are forcing the secret evaluation to "ignore" null secrets down the line
                 # Remove this when the issue above is fixed and empty secrets migrated
                 source_config_class = type(service.connection)
@@ -365,7 +365,7 @@ class TestSuiteSource(Source):
     def create(
         cls,
         config_dict: dict,
-        metadata: OpenMetadata,
+        metadata: UMetadata,
         pipeline_name: Optional[str] = None,
     ) -> "Step":
         config = parse_workflow_config_gracefully(config_dict)

@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -30,7 +30,7 @@ from metadata.generated.schema.type.queryParserData import ParsedData, QueryPars
 from metadata.generated.schema.type.tableUsageCount import TableUsageCount
 from metadata.ingestion.api.models import Either
 from metadata.ingestion.api.steps import Stage
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.utils.constants import UTF_8
 from metadata.utils.helpers import get_query_hash, init_staging_dir
 from metadata.utils.logger import ingestion_logger
@@ -55,7 +55,7 @@ class TableUsageStage(Stage):
     def __init__(
         self,
         config: TableStageConfig,
-        metadata: OpenMetadata,
+        metadata: UMetadata,
     ):
         super().__init__()
         self.config = config
@@ -75,7 +75,7 @@ class TableUsageStage(Stage):
     def create(
         cls,
         config_dict: dict,
-        metadata: OpenMetadata,
+        metadata: UMetadata,
         pipeline_name: Optional[str] = None,
     ):
         config = TableStageConfig.model_validate(config_dict)

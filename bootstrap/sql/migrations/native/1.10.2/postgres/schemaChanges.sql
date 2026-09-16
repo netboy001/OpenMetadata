@@ -1,2 +1,2 @@
 -- DO NOT RENAME OR DELETE THIS FILE
--- Migrations are applied from Java code based on the version in the file name inside folder openmetadata-service/src/main/java/org/openmetadata/service/migration/postgres/v1102
+-- Migrations are applied from Java code based on the version in the file name inside folder umetadata-service/src/main/java/org/umetadata/service/migration/postgres/v1102

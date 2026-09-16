@@ -1166,7 +1166,7 @@ END;"""
 
     # -----------------------------------------------------------------------
     # collate-sqllineage 2.1.1 regression tests
-    # Release: https://github.com/open-metadata/collate-sqllineage/releases/tag/2.1.1-release
+    # Release: https://github.com/u-metadata/collate-sqllineage/releases/tag/2.1.1-release
     # -----------------------------------------------------------------------
 
     def test_ctas_union_all_inside_cte_column_lineage(self):
@@ -1224,7 +1224,7 @@ SELECT order_id, amount, status FROM combined_data"""
     def test_clickhouse_ctas_engine_union_all_not_in(self):
         """Test ClickHouse CTAS with ENGINE clause, UNION ALL, and NOT IN subquery.
 
-        Regression for https://github.com/open-metadata/OpenMetadata/issues/21953.
+        Regression for https://github.com/u-metadata/UMetadata/issues/21953.
         Verifies that CTAS queries combining ENGINE = ..., CTEs, UNION ALL and a NOT IN
         subfilter produce correct source/target table lineage and column lineage.
         SqlFluff graph structure differs from SqlGlot/SqlParse (24n/33e vs 26n/35e),
@@ -1305,7 +1305,7 @@ SELECT entity_id, entity_name, source_system FROM source_b"""
     def test_bigquery_clone_table_with_digit_starting_name(self):
         """Test BigQuery CREATE OR REPLACE TABLE ... CLONE where source name starts with digit.
 
-        Regression for https://github.com/open-metadata/OpenMetadata/issues/23338.
+        Regression for https://github.com/u-metadata/UMetadata/issues/23338.
         BigQuery allows identifiers that start with digits (e.g. 1st_layer___name).
         SqlParse returns empty sources for CLONE statements so it is excluded.
         SqlGlot and SqlFluff produce isomorphic graphs (3n/2e).
@@ -1330,7 +1330,7 @@ SELECT entity_id, entity_name, source_system FROM source_b"""
     def test_snowflake_copy_into_table_with_column_list_from_stage_subquery(self):
         """Test COPY INTO table (col1, col2) FROM (SELECT ... FROM @stage) with explicit column list.
 
-        Regression for https://github.com/open-metadata/OpenMetadata/issues/27380.
+        Regression for https://github.com/u-metadata/UMetadata/issues/27380.
         Verifies that the stage reference is resolved as a Location source even when the
         COPY INTO target specifies an explicit column list and the subquery uses Snowflake
         positional column syntax ($1:field). Internal graph structures differ across parsers.
@@ -1357,7 +1357,7 @@ FILE_FORMAT = (TYPE = PARQUET)"""
     def test_snowflake_copy_into_stage_subpath_with_external_file_format(self):
         """Test COPY INTO from @stage/subpath/file.csv with an external named FILE_FORMAT.
 
-        Regression for https://github.com/open-metadata/OpenMetadata/issues/27380.
+        Regression for https://github.com/u-metadata/UMetadata/issues/27380.
         Verifies that the stage subpath (CDL/delivery_data/file.csv) is stripped so the
         source resolves to the stage root (@stage), and that a fully-qualified external
         FILE_FORMAT reference (db.schema.format) does not interfere with lineage.
@@ -1387,7 +1387,7 @@ ON_ERROR = CONTINUE"""
     def test_snowflake_copy_into_stage_subpath_date_partitioned(self):
         """Test COPY INTO from @stage/YYYY/MM/DD/file.csv date-partitioned path.
 
-        Regression for https://github.com/open-metadata/OpenMetadata/issues/27380.
+        Regression for https://github.com/u-metadata/UMetadata/issues/27380.
         Verifies that date-partitioned stage subpaths (e.g. /2026/04/11/events.csv) are
         stripped so the source resolves to the stage root rather than the full path.
         Internal graph structures differ across parsers.
@@ -1413,7 +1413,7 @@ FILE_FORMAT = (TYPE = CSV)"""
 
     # -----------------------------------------------------------------------
     # StarRocks dialect tests
-    # Regression for https://github.com/open-metadata/OpenMetadata/issues/28934
+    # Regression for https://github.com/u-metadata/UMetadata/issues/28934
     # StarRocks queries (e.g. from Metabase) use StarRocks-specific functions
     # and optimizer hints and must be parsed with the StarRocks dialect, not
     # MySQL, for lineage extraction to succeed.

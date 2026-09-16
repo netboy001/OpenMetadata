@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,12 +27,12 @@ from metadata.generated.schema.entity.services.dashboardService import (
     DashboardServiceType,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.generated.schema.type.basic import FullyQualifiedEntityName
 from metadata.generated.schema.type.entityLineage import Source as LineageSource
 from metadata.generated.schema.type.entityReference import EntityReference
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.dashboard.looker.metadata import (
     LookerSource,
     build_datamodel_name,
@@ -58,9 +58,9 @@ MOCK_LOOKER_CONFIG = {
     },
     "sink": {"type": "metadata-rest", "config": {}},
     "workflowConfig": {
-        "openMetadataServerConfig": {
+        "uMetadataServerConfig": {
             "hostPort": "http://localhost:8585/api",
-            "authProvider": "openmetadata",
+            "authProvider": "umetadata",
             "securityConfig": {"jwtToken": "token"},
         },
     },
@@ -123,10 +123,10 @@ def looker_source():
     with patch(
         "metadata.ingestion.source.dashboard.dashboard_service.DashboardServiceSource.test_connection"
     ):
-        config = OpenMetadataWorkflowConfig.model_validate(MOCK_LOOKER_CONFIG)
+        config = UMetadataWorkflowConfig.model_validate(MOCK_LOOKER_CONFIG)
         source = LookerSource.create(
             MOCK_LOOKER_CONFIG["source"],
-            OpenMetadata(config.workflowConfig.openMetadataServerConfig),
+            UMetadata(config.workflowConfig.uMetadataServerConfig),
         )
         source.context.get().__dict__[
             "dashboard_service"
@@ -210,7 +210,7 @@ class TestYieldDashboardLineageDetails:
     def test_explore_to_dashboard_lineage_is_created(self, looker_source):
         with (
             patch.object(
-                OpenMetadata,
+                UMetadata,
                 "get_by_name",
                 side_effect=lambda entity, fqn: (
                     MOCK_DASHBOARD_ENTITY
@@ -250,7 +250,7 @@ class TestYieldDashboardLineageDetails:
             return None
 
         with patch.object(
-            OpenMetadata, "get_by_name", side_effect=get_by_name_side_effect
+            UMetadata, "get_by_name", side_effect=get_by_name_side_effect
         ):
             results = list(
                 looker_source.yield_dashboard_lineage_details(MOCK_LOOKER_DASHBOARD)
@@ -279,7 +279,7 @@ class TestYieldDashboardLineageDetails:
             return None
 
         with patch.object(
-            OpenMetadata, "get_by_name", side_effect=get_by_name_side_effect
+            UMetadata, "get_by_name", side_effect=get_by_name_side_effect
         ):
             results = list(
                 looker_source.yield_dashboard_lineage_details(MOCK_LOOKER_DASHBOARD)
@@ -298,7 +298,7 @@ class TestYieldDashboardLineageDetails:
             return None  # explore and chart not found
 
         with patch.object(
-            OpenMetadata, "get_by_name", side_effect=get_by_name_side_effect
+            UMetadata, "get_by_name", side_effect=get_by_name_side_effect
         ):
             results = list(
                 looker_source.yield_dashboard_lineage_details(MOCK_LOOKER_DASHBOARD)
@@ -318,7 +318,7 @@ class TestYieldDashboardLineageDetails:
             return None
 
         with patch.object(
-            OpenMetadata, "get_by_name", side_effect=get_by_name_side_effect
+            UMetadata, "get_by_name", side_effect=get_by_name_side_effect
         ):
             results = list(
                 looker_source.yield_dashboard_lineage_details(MOCK_LOOKER_DASHBOARD)
@@ -356,7 +356,7 @@ class TestYieldDashboardLineageDetails:
             return None
 
         with patch.object(
-            OpenMetadata, "get_by_name", side_effect=get_by_name_side_effect
+            UMetadata, "get_by_name", side_effect=get_by_name_side_effect
         ):
             results = list(
                 looker_source.yield_dashboard_lineage_details(MOCK_LOOKER_DASHBOARD)
@@ -398,7 +398,7 @@ class TestYieldDashboardLineageDetails:
             return None
 
         with patch.object(
-            OpenMetadata, "get_by_name", side_effect=get_by_name_side_effect
+            UMetadata, "get_by_name", side_effect=get_by_name_side_effect
         ):
             results = list(looker_source.yield_dashboard_lineage_details(dashboard))
 
@@ -421,7 +421,7 @@ class TestYieldDashboardLineageDetails:
             return None
 
         with patch.object(
-            OpenMetadata, "get_by_name", side_effect=get_by_name_side_effect
+            UMetadata, "get_by_name", side_effect=get_by_name_side_effect
         ):
             results = list(
                 looker_source.yield_dashboard_lineage_details(MOCK_LOOKER_DASHBOARD)

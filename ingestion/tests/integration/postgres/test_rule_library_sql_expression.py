@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -36,7 +36,7 @@ from metadata.generated.schema.tests.testDefinition import (
     TestPlatform,
 )
 from metadata.generated.schema.type.basic import Markdown, SqlQuery, TestCaseEntityName
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.workflow.data_quality import TestSuiteWorkflow
 from metadata.workflow.metadata import MetadataWorkflow
 
@@ -59,7 +59,7 @@ NUMERIC_DATA_TYPES = [
 
 @pytest.fixture(scope="module")
 def rule_library_test_definition(
-    metadata: OpenMetadata,
+    metadata: UMetadata,
 ) -> TestDefinition:
     """Create a rule library test definition for SQL expression validation.
 
@@ -73,7 +73,7 @@ def rule_library_test_definition(
                 root="Rule library test definition for custom SQL expression validation"
             ),
             entityType=EntityType.COLUMN,
-            testPlatforms=[TestPlatform.OpenMetadata],
+            testPlatforms=[TestPlatform.UMetadata],
             supportedDataTypes=NUMERIC_DATA_TYPES,
             parameterDefinition=[
                 TestCaseParameterDefinition(
@@ -172,7 +172,7 @@ def test_rule_library_sql_expression_validator(
     run_workflow,
     ingestion_config,
     db_service: DatabaseService,
-    metadata: OpenMetadata,
+    metadata: UMetadata,
     rule_library_parameters: RuleLibraryTestParameter,
     get_rule_library_test_suite_config,
     cleanup_fqns,

@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,9 +31,9 @@ from metadata.generated.schema.type.basic import Timestamp
 from metadata.generated.schema.type.lifeCycle import AccessDetails, LifeCycle
 from metadata.ingestion.api.models import Either, Entity
 from metadata.ingestion.api.status import Status
-from metadata.ingestion.models.life_cycle import OMetaLifeCycleData
+from metadata.ingestion.models.life_cycle import UMetaLifeCycleData
 from metadata.ingestion.models.topology import TopologyContextManager
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.utils import fqn
 from metadata.utils.logger import ingestion_logger
 from metadata.utils.time_utils import datetime_to_timestamp
@@ -61,7 +61,7 @@ class LifeCycleQueryMixin:
     status: Status
     source_config: DatabaseServiceMetadataPipeline
     engine: Engine
-    metadata: OpenMetadata
+    metadata: UMetadata
 
     @lru_cache(
         maxsize=1
@@ -115,7 +115,7 @@ class LifeCycleQueryMixin:
                 )
 
                 yield Either(
-                    right=OMetaLifeCycleData(
+                    right=UMetaLifeCycleData(
                         entity=entity, entity_fqn=entity_fqn, life_cycle=life_cycle
                     )
                 )
@@ -137,7 +137,7 @@ class LifeCycleQueryMixin:
             schema_name=self.context.get().database_schema,
         )
 
-    def yield_life_cycle_data(self, _) -> Iterable[Either[OMetaLifeCycleData]]:
+    def yield_life_cycle_data(self, _) -> Iterable[Either[UMetaLifeCycleData]]:
         """
         Get the life cycle data of the table
         """

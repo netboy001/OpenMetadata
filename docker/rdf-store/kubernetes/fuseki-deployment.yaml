@@ -1,16 +1,16 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: openmetadata-fuseki
+  name: umetadata-fuseki
   labels:
-    app: openmetadata-fuseki
+    app: umetadata-fuseki
 spec:
   ports:
     - port: 3030
       targetPort: 3030
       name: fuseki
   selector:
-    app: openmetadata-fuseki
+    app: umetadata-fuseki
   type: ClusterIP
 ---
 apiVersion: v1
@@ -28,22 +28,22 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: openmetadata-fuseki
+  name: umetadata-fuseki
   labels:
-    app: openmetadata-fuseki
+    app: umetadata-fuseki
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: openmetadata-fuseki
+      app: umetadata-fuseki
   template:
     metadata:
       labels:
-        app: openmetadata-fuseki
+        app: umetadata-fuseki
     spec:
       containers:
         - name: fuseki
-          image: openmetadata/fuseki-rdf:latest
+          image: umetadata/fuseki-rdf:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 3030
@@ -54,11 +54,11 @@ spec:
                 secretKeyRef:
                   name: fuseki-secrets
                   key: admin-password
-            - name: FUSEKI_OPENMETADATA_PASSWORD
+            - name: FUSEKI_UMETADATA_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: fuseki-secrets
-                  key: openmetadata-password
+                  key: umetadata-password
             - name: JAVA_OPTIONS
               value: "-Xmx2g -Xms1g"
           volumeMounts:
@@ -95,4 +95,4 @@ metadata:
 type: Opaque
 stringData:
   admin-password: "your-secure-admin-password"
-  openmetadata-password: "your-secure-service-password"
+  umetadata-password: "your-secure-service-password"

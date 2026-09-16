@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -40,7 +40,7 @@ def _repo_root() -> Path:
 
 
 def _schema_root() -> Path:
-    return _repo_root() / "openmetadata-spec/src/main/resources/json/schema"
+    return _repo_root() / "umetadata-spec/src/main/resources/json/schema"
 
 
 def _generated_schema_root() -> Path:

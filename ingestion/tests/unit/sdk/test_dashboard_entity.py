@@ -17,10 +17,10 @@ class TestDashboardEntity(unittest.TestCase):
 
     def setUp(self):
         """Set up test fixtures"""
-        self.mock_ometa = MagicMock()
+        self.mock_umeta = MagicMock()
 
         # Set default client directly
-        Dashboards.set_default_client(self.mock_ometa)
+        Dashboards.set_default_client(self.mock_umeta)
 
         # Test data
         self.dashboard_id = "750e8400-e29b-41d4-a716-446655440000"
@@ -42,7 +42,7 @@ class TestDashboardEntity(unittest.TestCase):
         expected_dashboard.fullyQualifiedName = self.dashboard_fqn
         expected_dashboard.displayName = "Sales Dashboard"
 
-        self.mock_ometa.create_or_update.return_value = expected_dashboard
+        self.mock_umeta.create_or_update.return_value = expected_dashboard
 
         # Act
         result = Dashboards.create(create_request)
@@ -51,7 +51,7 @@ class TestDashboardEntity(unittest.TestCase):
         self.assertEqual(str(result.id), self.dashboard_id)
         self.assertEqual(result.name, "sales-dashboard")
         self.assertEqual(result.displayName, "Sales Dashboard")
-        self.mock_ometa.create_or_update.assert_called_once_with(create_request)
+        self.mock_umeta.create_or_update.assert_called_once_with(create_request)
 
     def test_retrieve_dashboard_by_id(self):
         """Test retrieving a dashboard by ID"""
@@ -61,7 +61,7 @@ class TestDashboardEntity(unittest.TestCase):
         expected_dashboard.name = "sales-dashboard"
         expected_dashboard.description = "Sales metrics"
 
-        self.mock_ometa.get_by_id.return_value = expected_dashboard
+        self.mock_umeta.get_by_id.return_value = expected_dashboard
 
         # Act
         result = Dashboards.retrieve(self.dashboard_id)
@@ -69,7 +69,7 @@ class TestDashboardEntity(unittest.TestCase):
         # Assert
         self.assertEqual(str(result.id), self.dashboard_id)
         self.assertEqual(result.name, "sales-dashboard")
-        self.mock_ometa.get_by_id.assert_called_once_with(
+        self.mock_umeta.get_by_id.assert_called_once_with(
             entity=DashboardEntity, entity_id=self.dashboard_id, fields=None
         )
 
@@ -95,7 +95,7 @@ class TestDashboardEntity(unittest.TestCase):
         expected_dashboard.name = "sales-dashboard"
         expected_dashboard.charts = [chart1, chart2]
 
-        self.mock_ometa.get_by_id.return_value = expected_dashboard
+        self.mock_umeta.get_by_id.return_value = expected_dashboard
 
         # Act
         result = Dashboards.retrieve(self.dashboard_id, fields=fields)
@@ -104,7 +104,7 @@ class TestDashboardEntity(unittest.TestCase):
         self.assertIsNotNone(result.charts)
         self.assertEqual(len(result.charts), 2)
         self.assertEqual(result.charts[0].name, "revenue-chart")
-        self.mock_ometa.get_by_id.assert_called_once_with(
+        self.mock_umeta.get_by_id.assert_called_once_with(
             entity=DashboardEntity, entity_id=self.dashboard_id, fields=fields
         )
 
@@ -116,14 +116,14 @@ class TestDashboardEntity(unittest.TestCase):
         expected_dashboard.name = "sales-dashboard"
         expected_dashboard.fullyQualifiedName = self.dashboard_fqn
 
-        self.mock_ometa.get_by_name.return_value = expected_dashboard
+        self.mock_umeta.get_by_name.return_value = expected_dashboard
 
         # Act
         result = Dashboards.retrieve_by_name(self.dashboard_fqn)
 
         # Assert
         self.assertEqual(result.fullyQualifiedName, self.dashboard_fqn)
-        self.mock_ometa.get_by_name.assert_called_once_with(
+        self.mock_umeta.get_by_name.assert_called_once_with(
             entity=DashboardEntity, fqn=self.dashboard_fqn, fields=None
         )
 
@@ -142,10 +142,10 @@ class TestDashboardEntity(unittest.TestCase):
             if hasattr(dashboard_to_update, "id")
             else UUID(self.entity_id)
         )
-        self.mock_ometa.get_by_id.return_value = current_entity
+        self.mock_umeta.get_by_id.return_value = current_entity
 
         # Mock the patch to return the updated entity
-        self.mock_ometa.patch.return_value = dashboard_to_update
+        self.mock_umeta.patch.return_value = dashboard_to_update
 
         # Act
         result = Dashboards.update(dashboard_to_update)
@@ -153,9 +153,9 @@ class TestDashboardEntity(unittest.TestCase):
         # Assert
         self.assertEqual(result.description, "Updated sales dashboard")
         # Verify get_by_id was called to fetch current state
-        self.mock_ometa.get_by_id.assert_called_once()
+        self.mock_umeta.get_by_id.assert_called_once()
         # Verify patch was called with source and destination
-        self.mock_ometa.patch.assert_called_once()
+        self.mock_umeta.patch.assert_called_once()
 
     def test_delete_dashboard(self):
         """Test deleting a dashboard"""
@@ -163,7 +163,7 @@ class TestDashboardEntity(unittest.TestCase):
         Dashboards.delete(self.dashboard_id, recursive=False, hard_delete=True)
 
         # Assert
-        self.mock_ometa.delete.assert_called_once_with(
+        self.mock_umeta.delete.assert_called_once_with(
             entity=DashboardEntity,
             entity_id=self.dashboard_id,
             recursive=False,
@@ -183,7 +183,7 @@ class TestDashboardEntity(unittest.TestCase):
         expected_dashboard.id = UUID(self.dashboard_id)
         expected_dashboard.usageDetails = usage
 
-        self.mock_ometa.get_by_id.return_value = expected_dashboard
+        self.mock_umeta.get_by_id.return_value = expected_dashboard
 
         # Act
         result = Dashboards.retrieve(self.dashboard_id, fields=["usageDetails"])
@@ -206,7 +206,7 @@ class TestDashboardEntity(unittest.TestCase):
         expected_dashboard.id = UUID(self.dashboard_id)
         expected_dashboard.owner = owner
 
-        self.mock_ometa.get_by_id.return_value = expected_dashboard
+        self.mock_umeta.get_by_id.return_value = expected_dashboard
 
         # Act
         result = Dashboards.retrieve(self.dashboard_id, fields=["owner"])
@@ -229,7 +229,7 @@ class TestDashboardEntity(unittest.TestCase):
         expected_dashboard.id = UUID(self.dashboard_id)
         expected_dashboard.dataModels = [data_model]
 
-        self.mock_ometa.get_by_id.return_value = expected_dashboard
+        self.mock_umeta.get_by_id.return_value = expected_dashboard
 
         # Act
         result = Dashboards.retrieve(self.dashboard_id, fields=["dataModels"])
@@ -248,7 +248,7 @@ class TestDashboardEntity(unittest.TestCase):
             MagicMock(spec=DashboardEntity, name="dashboard2"),
         ]
 
-        self.mock_ometa.list_entities.return_value = mock_response
+        self.mock_umeta.list_entities.return_value = mock_response
 
         # Act
         result = Dashboards.list(limit=20, fields=["owner", "charts"])
@@ -256,7 +256,7 @@ class TestDashboardEntity(unittest.TestCase):
         # Assert
         self.assertEqual(len(result.entities), 2)
         self.assertEqual(result.entities[0].name, "dashboard1")
-        self.mock_ometa.list_entities.assert_called_once()
+        self.mock_umeta.list_entities.assert_called_once()
 
     def _skip_test_error_handling_invalid_url(self):
         """Test error handling for invalid dashboard URL"""
@@ -265,7 +265,7 @@ class TestDashboardEntity(unittest.TestCase):
             name="bad-dashboard", service="tableau", dashboardUrl="not-a-valid-url"
         )
 
-        self.mock_ometa.create_or_update.side_effect = ValueError("Invalid URL format")
+        self.mock_umeta.create_or_update.side_effect = ValueError("Invalid URL format")
 
         # Act & Assert
         with self.assertRaises(ValueError) as context:

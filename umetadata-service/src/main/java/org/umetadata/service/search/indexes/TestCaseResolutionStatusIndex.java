@@ -1,0 +1,79 @@
+package org.umetadata.service.search.indexes;
+
+import static org.umetadata.common.utils.CommonUtil.nullOrEmpty;
+
+import java.util.HashMap;
+import java.util.Map;
+import org.umetadata.schema.entity.data.Table;
+import org.umetadata.schema.tests.TestCase;
+import org.umetadata.schema.tests.TestSuite;
+import org.umetadata.schema.tests.type.TestCaseResolutionStatus;
+import org.umetadata.schema.type.EntityReference;
+import org.umetadata.schema.type.Include;
+import org.umetadata.service.Entity;
+
+public record TestCaseResolutionStatusIndex(TestCaseResolutionStatus testCaseResolutionStatus)
+    implements SearchIndex {
+  @Override
+  public Map<String, Object> buildSearchIndexDocInternal(Map<String, Object> doc) {
+    doc.put(
+        "fqnParts",
+        getFQNParts(testCaseResolutionStatus.getTestCaseReference().getFullyQualifiedName()));
+    doc.put("@timestamp", testCaseResolutionStatus.getTimestamp());
+    setParentRelationships(doc);
+    return doc;
+  }
+
+  @Override
+  public Object getEntity() {
+    return testCaseResolutionStatus;
+  }
+
+  private void setParentRelationships(Map<String, Object> doc) {
+    // denormalize the parent relationships for search
+    EntityReference testCaseReference = testCaseResolutionStatus.getTestCaseReference();
+    TestCase testCase =
+        Entity.getEntityOrNull(testCaseReference, "testSuite,domains,tags,owners", Include.ALL);
+    if (testCase == null) return;
+    testCase =
+        new TestCase()
+            .withId(testCase.getId())
+            .withName(testCase.getName())
+            .withFullyQualifiedName(testCase.getFullyQualifiedName())
+            .withDescription(testCase.getDescription())
+            .withDisplayName(testCase.getDisplayName())
+            .withDeleted(testCase.getDeleted())
+            .withDomains(testCase.getDomains())
+            .withTags(testCase.getTags())
+            .withEntityFQN(testCase.getEntityFQN())
+            .withOwners(testCase.getOwners());
+    doc.put("testCase", testCase);
+
+    // Promote inherited domains to top level for standard domain filtering
+    if (!nullOrEmpty(testCase.getDomains())) {
+      doc.put("domains", getEntitiesWithDisplayName(testCase.getDomains()));
+    }
+
+    TestSuite testSuite = Entity.getEntityOrNull(testCase.getTestSuite(), "", Include.ALL);
+    if (testSuite == null) return;
+    doc.put("testSuite", testSuite.getEntityReference());
+    if (testSuite.getBasicEntityReference() != null) {
+      Table linkedTable =
+          TestSuiteIndex.addTestSuiteParentEntityRelations(
+              testSuite.getBasicEntityReference(), doc);
+      if (linkedTable != null && linkedTable.getCertification() != null) {
+        doc.put("certification", linkedTable.getCertification());
+      }
+    }
+  }
+
+  public static Map<String, Float> getFields() {
+    Map<String, Float> fields = new HashMap<>();
+    fields.put("testCaseResolutionStatusType", 1.0f);
+    fields.put("testCaseReference.displayName", 15.0f);
+    fields.put("testCaseReference.name", 10.0f);
+    fields.put("testCaseReference.description", 1.0f);
+    fields.put("testCaseResolutionStatusDetails.resolved.testCaseFailureComment", 10.0f);
+    return fields;
+  }
+}

@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,25 +18,25 @@ from unittest.mock import Mock, create_autospec
 import pytest
 from presidio_analyzer.nlp_engine import NlpEngine
 
-from _openmetadata_testutils.factories.metadata.generated.schema.entity.classification.classification import (
+from _umetadata_testutils.factories.metadata.generated.schema.entity.classification.classification import (
     ClassificationFactory,
 )
-from _openmetadata_testutils.factories.metadata.generated.schema.entity.classification.tag import (
+from _umetadata_testutils.factories.metadata.generated.schema.entity.classification.tag import (
     TagFactory,
 )
-from _openmetadata_testutils.factories.metadata.generated.schema.entity.data.table import (
+from _umetadata_testutils.factories.metadata.generated.schema.entity.data.table import (
     ColumnFactory,
 )
-from _openmetadata_testutils.factories.metadata.generated.schema.type.recognizer import (
+from _umetadata_testutils.factories.metadata.generated.schema.type.recognizer import (
     PatternFactory,
     PatternRecognizerFactory,
     PredefinedRecognizerFactory,
     RecognizerFactory,
 )
-from _openmetadata_testutils.factories.metadata.generated.schema.type.tag_label import (
+from _umetadata_testutils.factories.metadata.generated.schema.type.tag_label import (
     TagLabelFactory,
 )
-from _openmetadata_testutils.pii.fake_classification_manager import (
+from _umetadata_testutils.pii.fake_classification_manager import (
     FakeClassificationManager,
 )
 from metadata.generated.schema.entity.classification.classification import (
@@ -46,13 +46,13 @@ from metadata.generated.schema.entity.classification.classification import (
 from metadata.generated.schema.entity.classification.tag import Tag
 from metadata.generated.schema.entity.data.table import Column, DataType
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
     SourceConfig,
 )
 from metadata.generated.schema.type.predefinedRecognizer import Name
 from metadata.generated.schema.type.recognizer import Target
 from metadata.generated.schema.type.tagLabel import LabelType, State, TagSource
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.pii.models import ScoredTag
 from metadata.pii.tag_processor import TagProcessor
 
@@ -75,7 +75,7 @@ class TestTagProcessorMultiClassification:
     @pytest.fixture
     def workflow_config(self):
         """Mock workflow configuration."""
-        config = Mock(spec=OpenMetadataWorkflowConfig)
+        config = Mock(spec=UMetadataWorkflowConfig)
         config.source = Mock(spec=SourceConfig)
         config.source.sourceConfig = Mock()
         config.source.sourceConfig.config = Mock()
@@ -84,7 +84,7 @@ class TestTagProcessorMultiClassification:
 
     @pytest.fixture
     def metadata(self) -> Mock:
-        return create_autospec(OpenMetadata, spec_set=True, instance=True)
+        return create_autospec(UMetadata, spec_set=True, instance=True)
 
     @pytest.fixture
     def nlp_engine(self) -> Mock:

@@ -1,8 +1,8 @@
 # Data Quality as Code examples
 
-Hi! Here you will find a couple of Jupyter notebook examples describing how to use OpenMetadata's Python SDK to run the data quality tests you already know directly from your ETLs.
+Hi! Here you will find a couple of Jupyter notebook examples describing how to use UMetadata's Python SDK to run the data quality tests you already know directly from your ETLs.
 
-We're using Docker to run OpenMetadata's stack locally. The jupyter notebooks in `notebooks` will be injected in the jupyter server so you can run the examples in that self-contained environment.
+We're using Docker to run UMetadata's stack locally. The jupyter notebooks in `notebooks` will be injected in the jupyter server so you can run the examples in that self-contained environment.
 
 We're going to use the [NYC Yellow Taxi Ride Data](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page) dataset for these examples. Using docker we will work on a Postgres database where we will load the initial data and run our ETL against it. 
 
@@ -12,17 +12,17 @@ We will be working with these two files:
 
 ## Table of Contents
 1. [Setup](#setup)
-2. [Running Data Quality tests for tables in OpenMetadata](#running-data-quality-tests-for-tables-in-openmetadata)
+2. [Running Data Quality tests for tables in UMetadata](#running-data-quality-tests-for-tables-in-umetadata)
 3. [Running Data Quality tests for pandas DataFrames](#running-data-quality-tests-for-pandas-dataframes)
 
 ## Setup
 
-The initial setup will require that you run `./start [-v <version>]`. It will fetch OpenMetadata's docker compose for the `<version>` release and will boot the full stack plus instances of `jupyter` and `postgres` for this tutorial.
+The initial setup will require that you run `./start [-v <version>]`. It will fetch UMetadata's docker compose for the `<version>` release and will boot the full stack plus instances of `jupyter` and `postgres` for this tutorial.
 
 Once the whole system is running, you can start following these instructions:
 
-1. Go to your [OpenMetadata](http://localhost:8585/) instance and login
-   - Email: admin@open-metadata.org
+1. Go to your [UMetadata](http://localhost:8585/) instance and login
+   - Email: admin@u-metadata.org
    - Password: admin
 2. Create a database service to our Postgres Database
    1. Navigate to [Databases](http://localhost:8585/settings/services/databases) (Settings -> Services -> Databases)
@@ -43,11 +43,11 @@ Once the whole system is running, you can start following these instructions:
 
 Now go back to the console where you ran `./start` and check the logs. You should find a line saying "You can access `jupyter` instance at http://localhost:8888/?token=9e3bba6aba264fa8d4d476730f5fa1c03292598499d72513". Follow the link, and you'll be ready to move on to the next steps.
 
-## Running Data Quality tests for tables in OpenMetadata
+## Running Data Quality tests for tables in UMetadata
 
 In this example, we're going to run data quality tests against our `taxi_yellow` table from an ETL that simply takes the data from a parquet file in an S3 bucket and loads it into our `raw` database.
 
-For this we will be working on the `notebooks/test_workflows.ipynb` notebook, which will be using the `metadata.sdk.data_quality` to showcase how we leverage OpenMetadata and the Python SDK to trigger test case workflows directly from the ETL.
+For this we will be working on the `notebooks/test_workflows.ipynb` notebook, which will be using the `metadata.sdk.data_quality` to showcase how we leverage UMetadata and the Python SDK to trigger test case workflows directly from the ETL.
 
 The ultimate goal is to make every stakeholder an owner of the data quality. So while engineers just need to make sure their ETLs work, data stewards can update their Data Quality tests on the fly and have the ETL pick them up in the next run.
 
@@ -76,7 +76,7 @@ Check it out in [Jupyter](http://localhost:8888/lab/tree/notebooks/test_workflow
 By the end of the notebook, you should have the following results:
 
 ### Results
-#### OpenMetadata page of the `taxi_yellow` data quality
+#### UMetadata page of the `taxi_yellow` data quality
 
 ![Taxi Yellow Data Quality pt1](public/test_workflow/taxi-yellow-data-quality.png)
 
@@ -88,7 +88,7 @@ By the end of the notebook, you should have the following results:
 
 In this example we're going to use `pandas` to transform the data from the `taxi_yellow` table we prepared in the previous step.
 
-For this we will be working on the `notebooks/test_dataframe.ipynb` notebook, which will be using the `metadata.sdk.data_quality.dataframes` package to showcase how we leverage OpenMetadata and the Python SDK to run validations right between transforming and loading data in our ETLs.
+For this we will be working on the `notebooks/test_dataframe.ipynb` notebook, which will be using the `metadata.sdk.data_quality.dataframes` package to showcase how we leverage UMetadata and the Python SDK to run validations right between transforming and loading data in our ETLs.
 
 But first, let's make sure we have some tests in place. Follow these steps:
 
@@ -119,7 +119,7 @@ Check it out in [Jupyter](http://localhost:8888/lab/tree/notebooks/test_datafram
 By the end of the notebook, you should have the following results:
 
 ### Results
-#### OpenMetadata page of the `dw_taxi_trips` data quality
+#### UMetadata page of the `dw_taxi_trips` data quality
 
 ![Taxi Yellow Data Quality pt2](public/test_dataframe/taxi-yellow-data-quality.png)
 

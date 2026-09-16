@@ -24,8 +24,8 @@ sink:
   type: metadata-rest
   config: {}
 workflowConfig:
-  openMetadataServerConfig:
+  uMetadataServerConfig:
     hostPort: <http://host:post/api> # example: http://localhost:8585/api
-    authProvider: openmetadata
+    authProvider: umetadata
     securityConfig:
       jwtToken: <jwtToken>

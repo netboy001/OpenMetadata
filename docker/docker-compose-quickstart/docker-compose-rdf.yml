@@ -9,7 +9,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-# OpenMetadata Quickstart with RDF/Knowledge Graph support
+# UMetadata Quickstart with RDF/Knowledge Graph support
 # Usage: docker-compose -f docker-compose-rdf.yml up
 
 version: "3.9"
@@ -22,8 +22,8 @@ volumes:
 
 services:
   mysql:
-    container_name: openmetadata_mysql
-    image: docker.getcollate.io/openmetadata/db:1.8.0-SNAPSHOT
+    container_name: umetadata_mysql
+    image: docker.getcollate.io/umetadata/db:1.8.0-SNAPSHOT
     command: "--sort_buffer_size=10M"
     restart: always
     environment:
@@ -37,13 +37,13 @@ services:
     networks:
       - app_net
     healthcheck:
-      test: mysql --user=root --password=$$MYSQL_ROOT_PASSWORD --silent --execute "use openmetadata_db"
+      test: mysql --user=root --password=$$MYSQL_ROOT_PASSWORD --silent --execute "use umetadata_db"
       interval: 15s
       timeout: 10s
       retries: 10
 
   elasticsearch:
-    container_name: openmetadata_elasticsearch
+    container_name: umetadata_elasticsearch
     image: docker.elastic.co/elasticsearch/elasticsearch:9.3.0
     environment:
       - discovery.type=single-node
@@ -72,12 +72,12 @@ services:
 
   # Apache Jena Fuseki for RDF/Knowledge Graph storage
   fuseki:
-    container_name: openmetadata_fuseki
+    container_name: umetadata_fuseki
     image: stain/jena-fuseki:4.10.0
     restart: always
     environment:
       - ADMIN_PASSWORD=${FUSEKI_ADMIN_PASSWORD:-admin}
-      - FUSEKI_DATASET_1=openmetadata
+      - FUSEKI_DATASET_1=umetadata
       - JVM_ARGS=-Xmx4g -Xms2g
       - FUSEKI_BASE=/fuseki
     ports:
@@ -101,10 +101,10 @@ services:
 
   execute-migrate-all:
     container_name: execute_migrate_all
-    image: docker.getcollate.io/openmetadata/server:1.8.0-SNAPSHOT
-    command: "./bootstrap/openmetadata-ops.sh migrate"
+    image: docker.getcollate.io/umetadata/server:1.8.0-SNAPSHOT
+    command: "./bootstrap/umetadata-ops.sh migrate"
     environment:
-      OPENMETADATA_CLUSTER_NAME: ${OPENMETADATA_CLUSTER_NAME:-openmetadata}
+      UMETADATA_CLUSTER_NAME: ${UMETADATA_CLUSTER_NAME:-umetadata}
       SERVER_PORT: ${SERVER_PORT:-8585}
       SERVER_ADMIN_PORT: ${SERVER_ADMIN_PORT:-8586}
       LOG_LEVEL: ${LOG_LEVEL:-INFO}
@@ -112,13 +112,13 @@ services:
       # Migration 
       MIGRATION_LIMIT_PARAM: ${MIGRATION_LIMIT_PARAM:-1200}
 
-      # OpenMetadata Server Authentication Configuration
-      AUTHORIZER_CLASS_NAME: ${AUTHORIZER_CLASS_NAME:-org.openmetadata.service.security.DefaultAuthorizer}
-      AUTHORIZER_REQUEST_FILTER: ${AUTHORIZER_REQUEST_FILTER:-org.openmetadata.service.security.JwtFilter}
+      # UMetadata Server Authentication Configuration
+      AUTHORIZER_CLASS_NAME: ${AUTHORIZER_CLASS_NAME:-org.umetadata.service.security.DefaultAuthorizer}
+      AUTHORIZER_REQUEST_FILTER: ${AUTHORIZER_REQUEST_FILTER:-org.umetadata.service.security.JwtFilter}
       AUTHORIZER_ADMIN_PRINCIPALS: ${AUTHORIZER_ADMIN_PRINCIPALS:-[admin]}
       AUTHORIZER_ALLOWED_REGISTRATION_DOMAIN: ${AUTHORIZER_ALLOWED_REGISTRATION_DOMAIN:-["all"]}
       AUTHORIZER_INGESTION_PRINCIPALS: ${AUTHORIZER_INGESTION_PRINCIPALS:-[ingestion-bot]}
-      AUTHORIZER_PRINCIPAL_DOMAIN: ${AUTHORIZER_PRINCIPAL_DOMAIN:-"open-metadata.org"}
+      AUTHORIZER_PRINCIPAL_DOMAIN: ${AUTHORIZER_PRINCIPAL_DOMAIN:-"u-metadata.org"}
       AUTHORIZER_ALLOWED_DOMAINS: ${AUTHORIZER_ALLOWED_DOMAINS:-[]}
       AUTHORIZER_ENFORCE_PRINCIPAL_DOMAIN: ${AUTHORIZER_ENFORCE_PRINCIPAL_DOMAIN:-false}
       AUTHORIZER_ENABLE_SECURE_SOCKET: ${AUTHORIZER_ENABLE_SECURE_SOCKET:-false}
@@ -154,11 +154,11 @@ services:
       DB_DRIVER_CLASS: ${DB_DRIVER_CLASS:-com.mysql.cj.jdbc.Driver}
       DB_SCHEME: ${DB_SCHEME:-mysql}
       DB_USE_SSL: ${DB_USE_SSL:-false}
-      DB_USER: ${DB_USER:-openmetadata_user}
-      DB_USER_PASSWORD: ${DB_USER_PASSWORD:-openmetadata_password}
+      DB_USER: ${DB_USER:-umetadata_user}
+      DB_USER_PASSWORD: ${DB_USER_PASSWORD:-umetadata_password}
       DB_HOST: ${DB_HOST:-mysql}
       DB_PORT: ${DB_PORT:-3306}
-      OM_DATABASE: ${OM_DATABASE:-openmetadata_db}
+      OM_DATABASE: ${OM_DATABASE:-umetadata_db}
 
       # Elasticsearch configuration
       ELASTICSEARCH_SOCKET_TIMEOUT_SECS: ${ELASTICSEARCH_SOCKET_TIMEOUT_SECS:-60}
@@ -175,15 +175,15 @@ services:
       ELASTICSEARCH_CA_CERT_PATH: ${ELASTICSEARCH_CA_CERT_PATH:-""}
       ELASTICSEARCH_BATCH_SIZE: ${ELASTICSEARCH_BATCH_SIZE:-10}
       ELASTICSEARCH_PAYLOAD_SIZE_IN_BYTES: ${ELASTICSEARCH_PAYLOAD_SIZE_IN_BYTES:-10485760}
-      ELASTICSEARCH_INDEX_FACTORY: ${ELASTICSEARCH_INDEX_FACTORY:-"org.openmetadata.service.search.elasticsearch.ElasticSearchIndexFactory"}
+      ELASTICSEARCH_INDEX_FACTORY: ${ELASTICSEARCH_INDEX_FACTORY:-"org.umetadata.service.search.elasticsearch.ElasticSearchIndexFactory"}
 
       # RDF Configuration
       RDF_ENABLED: ${RDF_ENABLED:-true}
       RDF_STORAGE_TYPE: ${RDF_STORAGE_TYPE:-FUSEKI}
-      RDF_REMOTE_ENDPOINT: ${RDF_REMOTE_ENDPOINT:-http://fuseki:3030/openmetadata}
+      RDF_REMOTE_ENDPOINT: ${RDF_REMOTE_ENDPOINT:-http://fuseki:3030/umetadata}
       RDF_REMOTE_USERNAME: ${RDF_REMOTE_USERNAME:-admin}
       RDF_REMOTE_PASSWORD: ${RDF_REMOTE_PASSWORD:-${FUSEKI_ADMIN_PASSWORD:-admin}}
-      RDF_BASE_URI: ${RDF_BASE_URI:-https://open-metadata.org/}
+      RDF_BASE_URI: ${RDF_BASE_URI:-https://u-metadata.org/}
       RDF_JSONLD_ENABLED: ${RDF_JSONLD_ENABLED:-true}
       RDF_SPARQL_ENABLED: ${RDF_SPARQL_ENABLED:-true}
       RDF_AUTO_GENERATE: ${RDF_AUTO_GENERATE:-true}
@@ -191,7 +191,7 @@ services:
 
       # Pipeline Service Client Configuration
       PIPELINE_SERVICE_CLIENT_ENDPOINT: ${PIPELINE_SERVICE_CLIENT_ENDPOINT:-http://ingestion:8080}
-      PIPELINE_SERVICE_CLIENT_CLASS_NAME: ${PIPELINE_SERVICE_CLIENT_CLASS_NAME:-"org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"}
+      PIPELINE_SERVICE_CLIENT_CLASS_NAME: ${PIPELINE_SERVICE_CLIENT_CLASS_NAME:-"org.umetadata.service.clients.pipeline.airflow.AirflowRESTClient"}
       PIPELINE_SERVICE_IP_INFO_ENABLED: ${PIPELINE_SERVICE_IP_INFO_ENABLED:-false}
       PIPELINE_SERVICE_CLIENT_HOST_IP: ${PIPELINE_SERVICE_CLIENT_HOST_IP:-""}
       PIPELINE_SERVICE_CLIENT_SECRETS_MANAGER_LOADER: ${PIPELINE_SERVICE_CLIENT_SECRETS_MANAGER_LOADER:-"noop"}
@@ -216,11 +216,11 @@ services:
       OM_SM_TENANT_ID: ${OM_SM_TENANT_ID:-""}
 
       #email configuration:
-      OM_EMAIL_ENTITY: ${OM_EMAIL_ENTITY:-"OpenMetadata"}
-      OM_SUPPORT_URL: ${OM_SUPPORT_URL:-"https://slack.open-metadata.org"}
+      OM_EMAIL_ENTITY: ${OM_EMAIL_ENTITY:-"UMetadata"}
+      OM_SUPPORT_URL: ${OM_SUPPORT_URL:-"https://slack.u-metadata.org"}
       AUTHORIZER_ENABLE_SMTP : ${AUTHORIZER_ENABLE_SMTP:-false}
-      OPENMETADATA_SERVER_URL: ${OPENMETADATA_SERVER_URL:-""}
-      OPENMETADATA_SMTP_SENDER_MAIL: ${OPENMETADATA_SMTP_SENDER_MAIL:-""}
+      UMETADATA_SERVER_URL: ${UMETADATA_SERVER_URL:-""}
+      UMETADATA_SMTP_SENDER_MAIL: ${UMETADATA_SMTP_SENDER_MAIL:-""}
       SMTP_SERVER_ENDPOINT: ${SMTP_SERVER_ENDPOINT:-""}
       SMTP_SERVER_PORT: ${SMTP_SERVER_PORT:-""}
       SMTP_SERVER_USERNAME: ${SMTP_SERVER_USERNAME:-""}
@@ -228,11 +228,11 @@ services:
       SMTP_SERVER_STRATEGY: ${SMTP_SERVER_STRATEGY:-"SMTP_TLS"}
 
       # Heap OPTS Configurations
-      OPENMETADATA_HEAP_OPTS: ${OPENMETADATA_HEAP_OPTS:--Xmx2G -Xms1G}
+      UMETADATA_HEAP_OPTS: ${UMETADATA_HEAP_OPTS:--Xmx2G -Xms1G}
       # Mask passwords values in UI
       MASK_PASSWORDS_API: ${MASK_PASSWORDS_API:-false}
 
-      #OpenMetadata Web Configuration
+      #UMetadata Web Configuration
       WEB_CONF_URI_PATH: ${WEB_CONF_URI_PATH:-"/api"}
       #HSTS
       WEB_CONF_HSTS_ENABLED: ${WEB_CONF_HSTS_ENABLED:-false}
@@ -272,23 +272,23 @@ services:
     networks:
       - app_net
 
-  openmetadata-server:
-    container_name: openmetadata_server
+  umetadata-server:
+    container_name: umetadata_server
     restart: always
-    image: docker.getcollate.io/openmetadata/server:1.8.0-SNAPSHOT
+    image: docker.getcollate.io/umetadata/server:1.8.0-SNAPSHOT
     environment:
-      OPENMETADATA_CLUSTER_NAME: ${OPENMETADATA_CLUSTER_NAME:-openmetadata}
+      UMETADATA_CLUSTER_NAME: ${UMETADATA_CLUSTER_NAME:-umetadata}
       SERVER_PORT: ${SERVER_PORT:-8585}
       SERVER_ADMIN_PORT: ${SERVER_ADMIN_PORT:-8586}
       LOG_LEVEL: ${LOG_LEVEL:-INFO}
 
-      # OpenMetadata Server Authentication Configuration
-      AUTHORIZER_CLASS_NAME: ${AUTHORIZER_CLASS_NAME:-org.openmetadata.service.security.DefaultAuthorizer}
-      AUTHORIZER_REQUEST_FILTER: ${AUTHORIZER_REQUEST_FILTER:-org.openmetadata.service.security.JwtFilter}
+      # UMetadata Server Authentication Configuration
+      AUTHORIZER_CLASS_NAME: ${AUTHORIZER_CLASS_NAME:-org.umetadata.service.security.DefaultAuthorizer}
+      AUTHORIZER_REQUEST_FILTER: ${AUTHORIZER_REQUEST_FILTER:-org.umetadata.service.security.JwtFilter}
       AUTHORIZER_ADMIN_PRINCIPALS: ${AUTHORIZER_ADMIN_PRINCIPALS:-[admin]}
       AUTHORIZER_ALLOWED_REGISTRATION_DOMAIN: ${AUTHORIZER_ALLOWED_REGISTRATION_DOMAIN:-["all"]}
       AUTHORIZER_INGESTION_PRINCIPALS: ${AUTHORIZER_INGESTION_PRINCIPALS:-[ingestion-bot]}
-      AUTHORIZER_PRINCIPAL_DOMAIN: ${AUTHORIZER_PRINCIPAL_DOMAIN:-"open-metadata.org"}
+      AUTHORIZER_PRINCIPAL_DOMAIN: ${AUTHORIZER_PRINCIPAL_DOMAIN:-"u-metadata.org"}
       AUTHORIZER_ALLOWED_DOMAINS: ${AUTHORIZER_ALLOWED_DOMAINS:-[]}
       AUTHORIZER_ENFORCE_PRINCIPAL_DOMAIN: ${AUTHORIZER_ENFORCE_PRINCIPAL_DOMAIN:-false}
       AUTHORIZER_ENABLE_SECURE_SOCKET: ${AUTHORIZER_ENABLE_SECURE_SOCKET:-false}
@@ -324,11 +324,11 @@ services:
       DB_DRIVER_CLASS: ${DB_DRIVER_CLASS:-com.mysql.cj.jdbc.Driver}
       DB_SCHEME: ${DB_SCHEME:-mysql}
       DB_USE_SSL: ${DB_USE_SSL:-false}
-      DB_USER: ${DB_USER:-openmetadata_user}
-      DB_USER_PASSWORD: ${DB_USER_PASSWORD:-openmetadata_password}
+      DB_USER: ${DB_USER:-umetadata_user}
+      DB_USER_PASSWORD: ${DB_USER_PASSWORD:-umetadata_password}
       DB_HOST: ${DB_HOST:-mysql}
       DB_PORT: ${DB_PORT:-3306}
-      OM_DATABASE: ${OM_DATABASE:-openmetadata_db}
+      OM_DATABASE: ${OM_DATABASE:-umetadata_db}
 
       # Elasticsearch configuration
       ELASTICSEARCH_SOCKET_TIMEOUT_SECS: ${ELASTICSEARCH_SOCKET_TIMEOUT_SECS:-60}
@@ -345,15 +345,15 @@ services:
       ELASTICSEARCH_CA_CERT_PATH: ${ELASTICSEARCH_CA_CERT_PATH:-""}
       ELASTICSEARCH_BATCH_SIZE: ${ELASTICSEARCH_BATCH_SIZE:-10}
       ELASTICSEARCH_PAYLOAD_SIZE_IN_BYTES: ${ELASTICSEARCH_PAYLOAD_SIZE_IN_BYTES:-10485760}
-      ELASTICSEARCH_INDEX_FACTORY: ${ELASTICSEARCH_INDEX_FACTORY:-"org.openmetadata.service.search.elasticsearch.ElasticSearchIndexFactory"}
+      ELASTICSEARCH_INDEX_FACTORY: ${ELASTICSEARCH_INDEX_FACTORY:-"org.umetadata.service.search.elasticsearch.ElasticSearchIndexFactory"}
 
       # RDF Configuration
       RDF_ENABLED: ${RDF_ENABLED:-true}
       RDF_STORAGE_TYPE: ${RDF_STORAGE_TYPE:-FUSEKI}
-      RDF_REMOTE_ENDPOINT: ${RDF_REMOTE_ENDPOINT:-http://fuseki:3030/openmetadata}
+      RDF_REMOTE_ENDPOINT: ${RDF_REMOTE_ENDPOINT:-http://fuseki:3030/umetadata}
       RDF_REMOTE_USERNAME: ${RDF_REMOTE_USERNAME:-admin}
       RDF_REMOTE_PASSWORD: ${RDF_REMOTE_PASSWORD:-${FUSEKI_ADMIN_PASSWORD:-admin}}
-      RDF_BASE_URI: ${RDF_BASE_URI:-https://open-metadata.org/}
+      RDF_BASE_URI: ${RDF_BASE_URI:-https://u-metadata.org/}
       RDF_JSONLD_ENABLED: ${RDF_JSONLD_ENABLED:-true}
       RDF_SPARQL_ENABLED: ${RDF_SPARQL_ENABLED:-true}
       RDF_AUTO_GENERATE: ${RDF_AUTO_GENERATE:-true}
@@ -361,7 +361,7 @@ services:
 
       # Pipeline Service Client Configuration
       PIPELINE_SERVICE_CLIENT_ENDPOINT: ${PIPELINE_SERVICE_CLIENT_ENDPOINT:-http://ingestion:8080}
-      PIPELINE_SERVICE_CLIENT_CLASS_NAME: ${PIPELINE_SERVICE_CLIENT_CLASS_NAME:-"org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"}
+      PIPELINE_SERVICE_CLIENT_CLASS_NAME: ${PIPELINE_SERVICE_CLIENT_CLASS_NAME:-"org.umetadata.service.clients.pipeline.airflow.AirflowRESTClient"}
       PIPELINE_SERVICE_IP_INFO_ENABLED: ${PIPELINE_SERVICE_IP_INFO_ENABLED:-false}
       PIPELINE_SERVICE_CLIENT_HOST_IP: ${PIPELINE_SERVICE_CLIENT_HOST_IP:-""}
       PIPELINE_SERVICE_CLIENT_SECRETS_MANAGER_LOADER: ${PIPELINE_SERVICE_CLIENT_SECRETS_MANAGER_LOADER:-"noop"}
@@ -386,11 +386,11 @@ services:
       OM_SM_TENANT_ID: ${OM_SM_TENANT_ID:-""}
 
       #email configuration:
-      OM_EMAIL_ENTITY: ${OM_EMAIL_ENTITY:-"OpenMetadata"}
-      OM_SUPPORT_URL: ${OM_SUPPORT_URL:-"https://slack.open-metadata.org"}
+      OM_EMAIL_ENTITY: ${OM_EMAIL_ENTITY:-"UMetadata"}
+      OM_SUPPORT_URL: ${OM_SUPPORT_URL:-"https://slack.u-metadata.org"}
       AUTHORIZER_ENABLE_SMTP : ${AUTHORIZER_ENABLE_SMTP:-false}
-      OPENMETADATA_SERVER_URL: ${OPENMETADATA_SERVER_URL:-""}
-      OPENMETADATA_SMTP_SENDER_MAIL: ${OPENMETADATA_SMTP_SENDER_MAIL:-""}
+      UMETADATA_SERVER_URL: ${UMETADATA_SERVER_URL:-""}
+      UMETADATA_SMTP_SENDER_MAIL: ${UMETADATA_SMTP_SENDER_MAIL:-""}
       SMTP_SERVER_ENDPOINT: ${SMTP_SERVER_ENDPOINT:-""}
       SMTP_SERVER_PORT: ${SMTP_SERVER_PORT:-""}
       SMTP_SERVER_USERNAME: ${SMTP_SERVER_USERNAME:-""}
@@ -398,11 +398,11 @@ services:
       SMTP_SERVER_STRATEGY: ${SMTP_SERVER_STRATEGY:-"SMTP_TLS"}
 
       # Heap OPTS Configurations
-      OPENMETADATA_HEAP_OPTS: ${OPENMETADATA_HEAP_OPTS:--Xmx2G -Xms1G}
+      UMETADATA_HEAP_OPTS: ${UMETADATA_HEAP_OPTS:--Xmx2G -Xms1G}
       # Mask passwords values in UI
       MASK_PASSWORDS_API: ${MASK_PASSWORDS_API:-false}
 
-      #OpenMetadata Web Configuration
+      #UMetadata Web Configuration
       WEB_CONF_URI_PATH: ${WEB_CONF_URI_PATH:-"/api"}
       #HSTS
       WEB_CONF_HSTS_ENABLED: ${WEB_CONF_HSTS_ENABLED:-false}
@@ -449,24 +449,24 @@ services:
       test: [ "CMD", "wget", "-q", "--spider",  "http://localhost:8586/healthcheck" ]
 
   ingestion:
-    container_name: openmetadata_ingestion
+    container_name: umetadata_ingestion
     build:
       context: ../
       dockerfile: docker/development/Dockerfile
-    image: docker.getcollate.io/openmetadata/ingestion:1.8.0-SNAPSHOT
+    image: docker.getcollate.io/umetadata/ingestion:1.8.0-SNAPSHOT
     depends_on:
       elasticsearch:
         condition: service_healthy
       mysql:
         condition: service_healthy
-      openmetadata-server:
+      umetadata-server:
         condition: service_healthy
       fuseki:
         condition: service_healthy
     environment:
       AIRFLOW__API__AUTH_BACKENDS: "airflow.api.auth.backend.basic_auth,airflow.api.auth.backend.session"
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
-      AIRFLOW__OPENMETADATA_AIRFLOW_APIS__DAG_GENERATED_CONFIGS: "/opt/airflow/dag_generated_configs"
+      AIRFLOW__UMETADATA_AIRFLOW_APIS__DAG_GENERATED_CONFIGS: "/opt/airflow/dag_generated_configs"
       DB_SCHEME: ${AIRFLOW_DB_SCHEME:-mysql+pymysql}
       DB_HOST: ${AIRFLOW_DB_HOST:-mysql}
       DB_PORT: ${AIRFLOW_DB_PORT:-3306}
@@ -477,7 +477,7 @@ services:
       # RDF Configuration (for any RDF-aware ingestion pipelines)
       RDF_ENABLED: ${RDF_ENABLED:-true}
       RDF_STORAGE_TYPE: ${RDF_STORAGE_TYPE:-FUSEKI}
-      RDF_REMOTE_ENDPOINT: ${RDF_REMOTE_ENDPOINT:-http://fuseki:3030/openmetadata}
+      RDF_REMOTE_ENDPOINT: ${RDF_REMOTE_ENDPOINT:-http://fuseki:3030/umetadata}
       RDF_REMOTE_USERNAME: ${RDF_REMOTE_USERNAME:-admin}
       RDF_REMOTE_PASSWORD: ${RDF_REMOTE_PASSWORD:-${FUSEKI_ADMIN_PASSWORD:-admin}}
     entrypoint: /bin/bash

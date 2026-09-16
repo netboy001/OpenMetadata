@@ -1,7 +1,7 @@
 import pytest
 
 from metadata.generated.schema.entity.data.table import Table
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.workflow.metadata import MetadataWorkflow
 
 
@@ -23,7 +23,7 @@ def run_workflow(run_workflow, ingestion_config, create_test_data):
     ],
     ids=lambda x: x.split(".")[-1],
 )
-def test_metadata(run_workflow, db_service, metadata: OpenMetadata, table_name):
+def test_metadata(run_workflow, db_service, metadata: UMetadata, table_name):
     metadata.get_by_name(
         Table, table_name.format(database_service=db_service.fullyQualifiedName.root)
     )

@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -44,15 +44,15 @@ from metadata.generated.schema.type.basic import (
 from metadata.generated.schema.type.entityReferenceList import EntityReferenceList
 from metadata.ingestion.api.models import Either
 from metadata.ingestion.api.steps import InvalidSourceException
-from metadata.ingestion.models.ometa_classification import OMetaTagAndClassification
-from metadata.ingestion.models.pipeline_status import OMetaPipelineStatus
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.models.umeta_classification import UMetaTagAndClassification
+from metadata.ingestion.models.pipeline_status import UMetaPipelineStatus
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.pipeline.airflow.api.models import AirflowApiDagDetails
 from metadata.ingestion.source.pipeline.pipeline_service import PipelineServiceSource
 from metadata.utils import fqn
 from metadata.utils.helpers import clean_uri, datetime_to_ts
 from metadata.utils.logger import ingestion_logger
-from metadata.utils.tag_utils import get_ometa_tag_and_classification, get_tag_labels
+from metadata.utils.tag_utils import get_umeta_tag_and_classification, get_tag_labels
 
 logger = ingestion_logger()
 
@@ -76,7 +76,7 @@ class AirflowApiSource(PipelineServiceSource):
 
     @classmethod
     def create(
-        cls, config_dict, metadata: OpenMetadata, pipeline_name: Optional[str] = None
+        cls, config_dict, metadata: UMetadata, pipeline_name: Optional[str] = None
     ) -> "AirflowApiSource":
         config: WorkflowSource = WorkflowSource.model_validate(config_dict)
         connection: AirflowConnection = config.serviceConnection.root.config
@@ -203,7 +203,7 @@ class AirflowApiSource(PipelineServiceSource):
 
     def yield_pipeline_status(
         self, pipeline_details: AirflowApiDagDetails
-    ) -> Iterable[Either[OMetaPipelineStatus]]:
+    ) -> Iterable[Either[UMetaPipelineStatus]]:
         try:
             num_status = self.service_connection.numberOfStatus or 10
             dag_runs = self.connection.get_dag_runs(
@@ -259,7 +259,7 @@ class AirflowApiSource(PipelineServiceSource):
                     pipeline_name=self.context.get().pipeline,
                 )
                 yield Either(
-                    right=OMetaPipelineStatus(
+                    right=UMetaPipelineStatus(
                         pipeline_fqn=pipeline_fqn,
                         pipeline_status=pipeline_status,
                     )
@@ -280,8 +280,8 @@ class AirflowApiSource(PipelineServiceSource):
 
     def yield_tag(
         self, pipeline_details: AirflowApiDagDetails
-    ) -> Iterable[Either[OMetaTagAndClassification]]:
-        yield from get_ometa_tag_and_classification(
+    ) -> Iterable[Either[UMetaTagAndClassification]]:
+        yield from get_umeta_tag_and_classification(
             tags=pipeline_details.tags or [],
             classification_name=AIRFLOW_TAG_CATEGORY,
             tag_description="Airflow Tag",

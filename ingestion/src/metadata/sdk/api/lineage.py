@@ -12,8 +12,8 @@ from metadata.generated.schema.api.lineage.addLineage import AddLineageRequest
 from metadata.generated.schema.type import basic
 from metadata.generated.schema.type.entityLineage import EntitiesEdge, EntityLineage
 from metadata.generated.schema.type.entityReference import EntityReference
-from metadata.sdk.client import OpenMetadata
-from metadata.sdk.types import JsonDict, OMetaClient, UuidLike
+from metadata.sdk.client import UMetadata
+from metadata.sdk.types import JsonDict, UMetaClient, UuidLike
 
 T = TypeVar("T")
 
@@ -36,20 +36,20 @@ async def _run_async(callable_: Callable[[], T]) -> T:
 class Lineage:
     """Static fluent API for lineage operations."""
 
-    _default_client: ClassVar[Optional[OMetaClient]] = None
+    _default_client: ClassVar[Optional[UMetaClient]] = None
 
     @classmethod
-    def set_default_client(cls, client: Union[OpenMetadata, OMetaClient]) -> None:
+    def set_default_client(cls, client: Union[UMetadata, UMetaClient]) -> None:
         """Set the default client for static methods."""
         cls._default_client = (
-            client.ometa if isinstance(client, OpenMetadata) else client
+            client.umeta if isinstance(client, UMetadata) else client
         )
 
     @classmethod
-    def _get_client(cls) -> OMetaClient:
-        """Return the active OpenMetadata client."""
+    def _get_client(cls) -> UMetaClient:
+        """Return the active UMetadata client."""
         if cls._default_client is None:
-            cls._default_client = OpenMetadata.get_default_client()
+            cls._default_client = UMetadata.get_default_client()
         return cls._default_client
 
     @classmethod

@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -43,16 +43,16 @@ from metadata.ingestion.api.models import Either
 from metadata.ingestion.api.steps import Source
 from metadata.ingestion.api.topology_runner import TopologyRunnerMixin
 from metadata.ingestion.models.delete_entity import DeleteEntity
-from metadata.ingestion.models.ometa_classification import OMetaTagAndClassification
-from metadata.ingestion.models.ometa_lineage import OMetaLineageRequest
-from metadata.ingestion.models.pipeline_status import OMetaPipelineStatus
+from metadata.ingestion.models.umeta_classification import UMetaTagAndClassification
+from metadata.ingestion.models.umeta_lineage import UMetaLineageRequest
+from metadata.ingestion.models.pipeline_status import UMetaPipelineStatus
 from metadata.ingestion.models.topology import (
     NodeStage,
     ServiceTopology,
     TopologyContextManager,
     TopologyNode,
 )
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.connections import get_connection, test_connection_common
 from metadata.ingestion.source.pipeline.openlineage.models import TableDetails
 from metadata.ingestion.source.pipeline.openlineage.utils import FQNNotFoundException
@@ -113,7 +113,7 @@ class PipelineServiceTopology(ServiceTopology):
         producer="get_pipeline",
         stages=[
             NodeStage(
-                type_=OMetaTagAndClassification,
+                type_=UMetaTagAndClassification,
                 context="tags",
                 processor="yield_tag",
                 nullable=True,
@@ -126,7 +126,7 @@ class PipelineServiceTopology(ServiceTopology):
                 use_cache=True,
             ),
             NodeStage(
-                type_=OMetaPipelineStatus,
+                type_=UMetaPipelineStatus,
                 processor="yield_pipeline_status",
                 consumer=["pipeline_service"],
                 nullable=True,
@@ -173,7 +173,7 @@ class PipelineServiceSource(TopologyRunnerMixin, Source, ABC):
     def __init__(
         self,
         config: WorkflowSource,
-        metadata: OpenMetadata,
+        metadata: UMetadata,
     ):
         super().__init__()
         self.config = config
@@ -217,7 +217,7 @@ class PipelineServiceSource(TopologyRunnerMixin, Source, ABC):
     @abstractmethod
     def yield_pipeline_status(
         self, pipeline_details: Any
-    ) -> Iterable[Either[OMetaPipelineStatus]]:
+    ) -> Iterable[Either[UMetaPipelineStatus]]:
         """Get Pipeline Status"""
 
     def get_pipeline_state(self, pipeline_details: Any) -> Optional[PipelineState]:
@@ -318,13 +318,13 @@ class PipelineServiceSource(TopologyRunnerMixin, Source, ABC):
 
     def yield_pipeline_lineage(
         self, pipeline_details: Any
-    ) -> Iterable[Either[OMetaLineageRequest]]:
+    ) -> Iterable[Either[UMetaLineageRequest]]:
         """Yields lineage if config is enabled"""
         if self.source_config.includeLineage:
             for lineage in self.yield_pipeline_lineage_details(pipeline_details) or []:
                 if lineage.right is not None:
                     yield Either(
-                        right=OMetaLineageRequest(
+                        right=UMetaLineageRequest(
                             lineage_request=lineage.right,
                             override_lineage=self.source_config.overrideLineage,
                         )
@@ -341,7 +341,7 @@ class PipelineServiceSource(TopologyRunnerMixin, Source, ABC):
             for lineage in self.yield_pipeline_bulk_lineage_details() or []:
                 if lineage.right is not None:
                     yield Either(
-                        right=OMetaLineageRequest(
+                        right=UMetaLineageRequest(
                             lineage_request=lineage.right,
                             override_lineage=self.source_config.overrideLineage,
                         )
@@ -351,9 +351,9 @@ class PipelineServiceSource(TopologyRunnerMixin, Source, ABC):
 
     def _get_table_fqn_from_om(self, table_details: TableDetails) -> Optional[str]:
         """
-        Based on partial schema and table names look for matching table object in open metadata.
+        Based on partial schema and table names look for matching table object in u metadata.
         :param table_details: TableDetails object containing table name, schema, database information
-        :return: fully qualified name of a Table in Open Metadata
+        :return: fully qualified name of a Table in U Metadata
         """
         result = None
         services = self.get_db_service_names()
@@ -374,7 +374,7 @@ class PipelineServiceSource(TopologyRunnerMixin, Source, ABC):
 
     def yield_tag(
         self, pipeline_details: Any
-    ) -> Iterable[Either[OMetaTagAndClassification]]:
+    ) -> Iterable[Either[UMetaTagAndClassification]]:
         """Method to fetch pipeline tags"""
 
     def close(self):

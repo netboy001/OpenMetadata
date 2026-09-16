@@ -22,7 +22,7 @@ from metadata.generated.schema.entity.data.mlmodel import MlModel
 from metadata.generated.schema.entity.data.table import Column, DataModel, Table
 from metadata.generated.schema.entity.domains.domain import Domain
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.generated.schema.type import entityReference
 from metadata.generated.schema.type.entityReference import EntityReference
@@ -34,7 +34,7 @@ from metadata.generated.schema.type.tagLabel import (
     TagSource,
 )
 from metadata.ingestion.api.models import Either
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.database.dbt.dbt_utils import (
     convert_java_to_python_format,
     find_domain_by_name,
@@ -82,9 +82,9 @@ mock_dbt_config = {
     "sink": {"type": "metadata-rest", "config": {}},
     "workflowConfig": {
         "loggerLevel": "DEBUG",
-        "openMetadataServerConfig": {
+        "uMetadataServerConfig": {
             "hostPort": "http://localhost:8585/api",
-            "authProvider": "openmetadata",
+            "authProvider": "umetadata",
             "enableVersionValidation": False,
             "securityConfig": {
                 "jwtToken": "eyJraWQiOiJHYjM4OWEtOWY3Ni1nZGpzLWE5MmotMDI0MmJrOTQzNTYiLCJ0eXAiOiJKV1QiLCJhbGc"
@@ -435,15 +435,15 @@ class DbtUnitTest(TestCase):
     def __init__(self, methodName, test_connection) -> None:
         super().__init__(methodName)
         test_connection.return_value = False
-        self.config = OpenMetadataWorkflowConfig.model_validate(mock_dbt_config)
+        self.config = UMetadataWorkflowConfig.model_validate(mock_dbt_config)
         self.dbt_source_obj = DbtSource.create(
             mock_dbt_config["source"],
-            OpenMetadata(self.config.workflowConfig.openMetadataServerConfig),
+            UMetadata(self.config.workflowConfig.uMetadataServerConfig),
         )
         set_loggers_level("DEBUG")
 
     @patch("metadata.ingestion.source.database.dbt.metadata.DbtSource.get_dbt_owner")
-    @patch("metadata.ingestion.ometa.mixins.es_mixin.ESMixin.es_search_from_fqn")
+    @patch("metadata.ingestion.umeta.mixins.es_mixin.ESMixin.es_search_from_fqn")
     def test_dbt_manifest_v4_v5_v6(self, es_search_from_fqn, get_dbt_owner):
         get_dbt_owner.return_value = MOCK_OWNER
         es_search_from_fqn.side_effect = MOCK_TABLE_ENTITIES
@@ -454,7 +454,7 @@ class DbtUnitTest(TestCase):
         )
 
     @patch("metadata.ingestion.source.database.dbt.metadata.DbtSource.get_dbt_owner")
-    @patch("metadata.ingestion.ometa.mixins.es_mixin.ESMixin.es_search_from_fqn")
+    @patch("metadata.ingestion.umeta.mixins.es_mixin.ESMixin.es_search_from_fqn")
     def test_dbt_manifest_v7(self, es_search_from_fqn, get_dbt_owner):
         get_dbt_owner.return_value = MOCK_OWNER
         es_search_from_fqn.side_effect = MOCK_TABLE_ENTITIES
@@ -465,7 +465,7 @@ class DbtUnitTest(TestCase):
         )
 
     @patch("metadata.ingestion.source.database.dbt.metadata.DbtSource.get_dbt_owner")
-    @patch("metadata.ingestion.ometa.mixins.es_mixin.ESMixin.es_search_from_fqn")
+    @patch("metadata.ingestion.umeta.mixins.es_mixin.ESMixin.es_search_from_fqn")
     @patch("metadata.utils.tag_utils.get_tag_label")
     def test_dbt_manifest_v8(self, get_tag_label, es_search_from_fqn, get_dbt_owner):
         get_dbt_owner.return_value = MOCK_OWNER
@@ -497,7 +497,7 @@ class DbtUnitTest(TestCase):
         )
 
     @patch("metadata.ingestion.source.database.dbt.metadata.DbtSource.get_dbt_owner")
-    @patch("metadata.ingestion.ometa.mixins.es_mixin.ESMixin.es_search_from_fqn")
+    @patch("metadata.ingestion.umeta.mixins.es_mixin.ESMixin.es_search_from_fqn")
     @patch("metadata.utils.tag_utils.get_tag_label")
     def test_dbt_manifest_versionless(
         self, get_tag_label, es_search_from_fqn, get_dbt_owner
@@ -525,7 +525,7 @@ class DbtUnitTest(TestCase):
         )
 
     @patch("metadata.ingestion.source.database.dbt.metadata.DbtSource.get_dbt_owner")
-    @patch("metadata.ingestion.ometa.mixins.es_mixin.ESMixin.es_search_from_fqn")
+    @patch("metadata.ingestion.umeta.mixins.es_mixin.ESMixin.es_search_from_fqn")
     def test_dbt_manifest_null_db(self, es_search_from_fqn, get_dbt_owner):
         get_dbt_owner.return_value = MOCK_OWNER
         es_search_from_fqn.return_value = MOCK_NULL_DB_TABLE
@@ -697,7 +697,7 @@ class DbtUnitTest(TestCase):
         self.assertEqual(expected_query, result)
 
     @patch(
-        "metadata.ingestion.ometa.mixins.user_mixin.OMetaUserMixin.get_reference_by_name"
+        "metadata.ingestion.umeta.mixins.user_mixin.UMetaUserMixin.get_reference_by_name"
     )
     def test_dbt_owner(self, get_reference_by_name):
         """
@@ -718,17 +718,17 @@ class DbtUnitTest(TestCase):
         )
 
     @patch(
-        "metadata.ingestion.ometa.mixins.user_mixin.OMetaUserMixin.get_reference_by_name"
+        "metadata.ingestion.umeta.mixins.user_mixin.UMetaUserMixin.get_reference_by_name"
     )
-    def test_get_dbt_owner_priority_1_openmetadata_owner(self, get_reference_by_name):
+    def test_get_dbt_owner_priority_1_umetadata_owner(self, get_reference_by_name):
         """
-        Test Priority 1: meta.openmetadata.owner (new format)
+        Test Priority 1: meta.umetadata.owner (new format)
         """
         get_reference_by_name.return_value = MOCK_USER
 
-        # Create a mock manifest node with openmetadata.owner
+        # Create a mock manifest node with umetadata.owner
         mock_manifest_node = MagicMock()
-        mock_manifest_node.meta = {"openmetadata": {"owner": "test_owner"}}
+        mock_manifest_node.meta = {"umetadata": {"owner": "test_owner"}}
 
         result = self.dbt_source_obj.get_dbt_owner(
             manifest_node=mock_manifest_node, catalog_node=None
@@ -738,11 +738,11 @@ class DbtUnitTest(TestCase):
         get_reference_by_name.assert_called_once_with(name="test_owner", is_owner=True)
 
     @patch(
-        "metadata.ingestion.ometa.mixins.user_mixin.OMetaUserMixin.get_reference_by_name"
+        "metadata.ingestion.umeta.mixins.user_mixin.UMetaUserMixin.get_reference_by_name"
     )
     def test_get_dbt_owner_priority_2_old_format_owner(self, get_reference_by_name):
         """
-        Test Priority 2: meta.owner (old format) when openmetadata.owner is not present
+        Test Priority 2: meta.owner (old format) when umetadata.owner is not present
         """
         get_reference_by_name.return_value = MOCK_USER
 
@@ -760,7 +760,7 @@ class DbtUnitTest(TestCase):
         )
 
     @patch(
-        "metadata.ingestion.ometa.mixins.user_mixin.OMetaUserMixin.get_reference_by_name"
+        "metadata.ingestion.umeta.mixins.user_mixin.UMetaUserMixin.get_reference_by_name"
     )
     def test_get_dbt_owner_priority_3_catalog_node_owner(self, get_reference_by_name):
         """
@@ -786,18 +786,18 @@ class DbtUnitTest(TestCase):
         )
 
     @patch(
-        "metadata.ingestion.ometa.mixins.user_mixin.OMetaUserMixin.get_reference_by_name"
+        "metadata.ingestion.umeta.mixins.user_mixin.UMetaUserMixin.get_reference_by_name"
     )
     def test_get_dbt_owner_priority_order(self, get_reference_by_name):
         """
-        Test that priorities are respected in order: openmetadata.owner > meta.owner > catalog.owner
+        Test that priorities are respected in order: umetadata.owner > meta.owner > catalog.owner
         """
         get_reference_by_name.return_value = MOCK_USER
 
-        # Create mock manifest node with both openmetadata.owner and meta.owner
+        # Create mock manifest node with both umetadata.owner and meta.owner
         mock_manifest_node = MagicMock()
         mock_manifest_node.meta = {
-            "openmetadata": {"owner": "priority_1_owner"},
+            "umetadata": {"owner": "priority_1_owner"},
             "owner": "priority_2_owner",
         }
 
@@ -809,14 +809,14 @@ class DbtUnitTest(TestCase):
             manifest_node=mock_manifest_node, catalog_node=mock_catalog_node
         )
 
-        # Should use priority 1 (openmetadata.owner)
+        # Should use priority 1 (umetadata.owner)
         self.assertEqual(result, MOCK_USER)
         get_reference_by_name.assert_called_once_with(
             name="priority_1_owner", is_owner=True
         )
 
     @patch(
-        "metadata.ingestion.ometa.mixins.user_mixin.OMetaUserMixin.get_reference_by_name"
+        "metadata.ingestion.umeta.mixins.user_mixin.UMetaUserMixin.get_reference_by_name"
     )
     def test_get_dbt_owner_list_owners(self, get_reference_by_name):
         """
@@ -827,7 +827,7 @@ class DbtUnitTest(TestCase):
         # Create a mock manifest node with list of owners
         mock_manifest_node = MagicMock()
         mock_manifest_node.meta = {
-            "openmetadata": {"owner": ["owner1", "owner2", "owner3"]}
+            "umetadata": {"owner": ["owner1", "owner2", "owner3"]}
         }
 
         result = self.dbt_source_obj.get_dbt_owner(
@@ -838,7 +838,7 @@ class DbtUnitTest(TestCase):
         self.assertEqual(get_reference_by_name.call_count, 1)
 
     @patch(
-        "metadata.ingestion.ometa.mixins.user_mixin.OMetaUserMixin.get_reference_by_name"
+        "metadata.ingestion.umeta.mixins.user_mixin.UMetaUserMixin.get_reference_by_name"
     )
     def test_get_dbt_owner_list_owners_partial_failure(self, get_reference_by_name):
         """
@@ -850,7 +850,7 @@ class DbtUnitTest(TestCase):
         # Create a mock manifest node with list of owners
         mock_manifest_node = MagicMock()
         mock_manifest_node.meta = {
-            "openmetadata": {"owner": ["owner1", "owner2", "owner3"]}
+            "umetadata": {"owner": ["owner1", "owner2", "owner3"]}
         }
 
         result = self.dbt_source_obj.get_dbt_owner(
@@ -861,7 +861,7 @@ class DbtUnitTest(TestCase):
         self.assertEqual(get_reference_by_name.call_count, 1)
 
     @patch(
-        "metadata.ingestion.ometa.mixins.user_mixin.OMetaUserMixin.get_reference_by_name"
+        "metadata.ingestion.umeta.mixins.user_mixin.UMetaUserMixin.get_reference_by_name"
     )
     def test_get_dbt_owner_catalog_node_exception(self, get_reference_by_name):
         """
@@ -887,7 +887,7 @@ class DbtUnitTest(TestCase):
         self.assertIsNone(result)
 
     @patch(
-        "metadata.ingestion.ometa.mixins.user_mixin.OMetaUserMixin.get_reference_by_name"
+        "metadata.ingestion.umeta.mixins.user_mixin.UMetaUserMixin.get_reference_by_name"
     )
     def test_get_dbt_owner_no_owner_found(self, get_reference_by_name):
         """
@@ -907,7 +907,7 @@ class DbtUnitTest(TestCase):
         self.assertIsNone(result)
 
     @patch(
-        "metadata.ingestion.ometa.mixins.user_mixin.OMetaUserMixin.get_reference_by_name"
+        "metadata.ingestion.umeta.mixins.user_mixin.UMetaUserMixin.get_reference_by_name"
     )
     def test_get_dbt_owner_email_lookup(self, get_reference_by_name):
         """
@@ -923,7 +923,7 @@ class DbtUnitTest(TestCase):
             return_value=MOCK_USER,
         ):
             mock_manifest_node = MagicMock()
-            mock_manifest_node.meta = {"openmetadata": {"owner": "test@example.com"}}
+            mock_manifest_node.meta = {"umetadata": {"owner": "test@example.com"}}
 
             result = self.dbt_source_obj.get_dbt_owner(
                 manifest_node=mock_manifest_node, catalog_node=None
@@ -932,7 +932,7 @@ class DbtUnitTest(TestCase):
             self.assertEqual(result, MOCK_USER)
 
     @patch(
-        "metadata.ingestion.ometa.mixins.user_mixin.OMetaUserMixin.get_reference_by_name"
+        "metadata.ingestion.umeta.mixins.user_mixin.UMetaUserMixin.get_reference_by_name"
     )
     def test_get_dbt_owner_general_exception(self, get_reference_by_name):
         """
@@ -941,7 +941,7 @@ class DbtUnitTest(TestCase):
         get_reference_by_name.side_effect = Exception("General error")
 
         mock_manifest_node = MagicMock()
-        mock_manifest_node.meta = {"openmetadata": {"owner": "test_owner"}}
+        mock_manifest_node.meta = {"umetadata": {"owner": "test_owner"}}
 
         result = self.dbt_source_obj.get_dbt_owner(
             manifest_node=mock_manifest_node, catalog_node=None
@@ -951,7 +951,7 @@ class DbtUnitTest(TestCase):
         self.assertIsNone(result)
 
     @patch(
-        "metadata.ingestion.ometa.mixins.user_mixin.OMetaUserMixin.get_reference_by_name"
+        "metadata.ingestion.umeta.mixins.user_mixin.UMetaUserMixin.get_reference_by_name"
     )
     def test_get_dbt_owner_none_manifest_node(self, get_reference_by_name):
         """
@@ -967,7 +967,7 @@ class DbtUnitTest(TestCase):
         get_reference_by_name.assert_not_called()
 
     @patch(
-        "metadata.ingestion.ometa.mixins.user_mixin.OMetaUserMixin.get_reference_by_name"
+        "metadata.ingestion.umeta.mixins.user_mixin.UMetaUserMixin.get_reference_by_name"
     )
     def test_get_dbt_owner_empty_meta(self, get_reference_by_name):
         """
@@ -1053,7 +1053,7 @@ class DbtUnitTest(TestCase):
             entity_owner = entity.right.new_entity.owners
             self.assertEqual(entity_owner, MOCK_OWNER)
 
-    @patch("metadata.ingestion.ometa.mixins.es_mixin.ESMixin.es_search_from_fqn")
+    @patch("metadata.ingestion.umeta.mixins.es_mixin.ESMixin.es_search_from_fqn")
     def test_upstream_nodes_for_lineage(self, es_search_from_fqn):
         expected_upstream_nodes = [
             "model.jaffle_shop.stg_customers",
@@ -1121,7 +1121,7 @@ class DbtUnitTest(TestCase):
 
     @patch("metadata.utils.tag_utils.get_tag_label")
     def test_dbt_classification_tags(self, get_tag_label):
-        """Test processing classification tags from dbt meta.openmetadata.tags"""
+        """Test processing classification tags from dbt meta.umetadata.tags"""
         get_tag_label.side_effect = [
             TagLabel(
                 tagFQN="PII.Sensitive",
@@ -1139,7 +1139,7 @@ class DbtUnitTest(TestCase):
 
         # Create mock manifest meta with classification tags
         manifest_meta = {
-            "openmetadata": {"tags": ["PII.Sensitive", "PersonalData.Email"]}
+            "umetadata": {"tags": ["PII.Sensitive", "PersonalData.Email"]}
         }
 
         dbt_meta_tags = self.dbt_source_obj.process_dbt_meta(
@@ -1175,7 +1175,7 @@ class DbtUnitTest(TestCase):
         )
         get_tag_label.return_value = expected_tag
 
-        manifest_meta = {"openmetadata": {"tags": ['PII."22.8.5.1"']}}
+        manifest_meta = {"umetadata": {"tags": ['PII."22.8.5.1"']}}
         dbt_meta_tags = self.dbt_source_obj.process_dbt_meta(
             manifest_meta=manifest_meta,
             table_fqn="test_service.test_db.test_schema.test_table",
@@ -1215,7 +1215,7 @@ class DbtUnitTest(TestCase):
 
         # Create mock manifest meta with all types of tags
         manifest_meta = {
-            "openmetadata": {
+            "umetadata": {
                 "glossary": ["Test_Glossary.term_one"],
                 "tier": "Tier.Tier1",
                 "tags": ["PII.Sensitive"],
@@ -1235,7 +1235,7 @@ class DbtUnitTest(TestCase):
         self, get_tag_label
     ):
         """Glossary and tier must be ingested even when includeTags=False; only
-        classification tags from openmetadata.tags should be suppressed."""
+        classification tags from umetadata.tags should be suppressed."""
         from unittest.mock import patch as _patch
 
         glossary_label = TagLabel(
@@ -1253,7 +1253,7 @@ class DbtUnitTest(TestCase):
         get_tag_label.side_effect = [glossary_label, tier_label]
 
         manifest_meta = {
-            "openmetadata": {
+            "umetadata": {
                 "glossary": ["Test_Glossary.term_one"],
                 "tier": "Tier.Tier1",
                 "tags": ["PII.Sensitive"],
@@ -1274,7 +1274,7 @@ class DbtUnitTest(TestCase):
         """Test edge cases for classification tags processing"""
 
         # Test with empty tags list
-        manifest_meta = {"openmetadata": {"tags": []}}
+        manifest_meta = {"umetadata": {"tags": []}}
         dbt_meta_tags = self.dbt_source_obj.process_dbt_meta(
             manifest_meta=manifest_meta,
             table_fqn="test_service.test_db.test_schema.test_table",
@@ -1284,7 +1284,7 @@ class DbtUnitTest(TestCase):
         # Test with invalid tag format (no dot separator)
         # These should be silently skipped
         manifest_meta = {
-            "openmetadata": {"tags": ["InvalidTag"]}  # Missing classification part
+            "umetadata": {"tags": ["InvalidTag"]}  # Missing classification part
         }
         dbt_meta_tags = self.dbt_source_obj.process_dbt_meta(
             manifest_meta=manifest_meta,
@@ -1294,7 +1294,7 @@ class DbtUnitTest(TestCase):
         self.assertEqual(dbt_meta_tags, [])
 
         # Test with None tags
-        manifest_meta = {"openmetadata": {"tags": None}}
+        manifest_meta = {"umetadata": {"tags": None}}
         dbt_meta_tags = self.dbt_source_obj.process_dbt_meta(
             manifest_meta=manifest_meta,
             table_fqn="test_service.test_db.test_schema.test_table",
@@ -1303,7 +1303,7 @@ class DbtUnitTest(TestCase):
 
     @patch("metadata.utils.tag_utils.get_tag_label")
     def test_dbt_column_meta_classification_tags(self, get_tag_label):
-        """Test that meta.openmetadata.tags on dbt columns are resolved and applied"""
+        """Test that meta.umetadata.tags on dbt columns are resolved and applied"""
         expected_tag = TagLabel(
             tagFQN="PII.Sensitive",
             labelType=LabelType.Automated.value,
@@ -1315,7 +1315,7 @@ class DbtUnitTest(TestCase):
         manifest_column = SimpleNamespace(
             name="email_address",
             tags=[],
-            meta={"openmetadata": {"tags": ["PII.Sensitive"]}},
+            meta={"umetadata": {"tags": ["PII.Sensitive"]}},
             description="User email",
             data_type="varchar",
         )
@@ -1336,7 +1336,7 @@ class DbtUnitTest(TestCase):
         manifest_column = SimpleNamespace(
             name="col",
             tags=[],
-            meta={"openmetadata": {"tags": ["InvalidTagNoSeparator"]}},
+            meta={"umetadata": {"tags": ["InvalidTagNoSeparator"]}},
             description=None,
             data_type="varchar",
         )
@@ -1363,7 +1363,7 @@ class DbtUnitTest(TestCase):
         manifest_column = SimpleNamespace(
             name="ip_col",
             tags=[],
-            meta={"openmetadata": {"tags": ['PII."22.8.5.1"']}},
+            meta={"umetadata": {"tags": ['PII."22.8.5.1"']}},
             description=None,
             data_type="varchar",
         )
@@ -1399,7 +1399,7 @@ class DbtUnitTest(TestCase):
         get_tag_label.return_value = expected_glossary
 
         manifest_meta = {
-            "openmetadata": {
+            "umetadata": {
                 "glossary": ["Glossary.Term1"],
                 "tags": ['malformed."unclosed'],
             }
@@ -1421,7 +1421,7 @@ class DbtUnitTest(TestCase):
         manifest_column = SimpleNamespace(
             name="col",
             tags=[],
-            meta={"openmetadata": {"tags": ['malformed."unclosed']}},
+            meta={"umetadata": {"tags": ['malformed."unclosed']}},
             description=None,
             data_type="varchar",
         )
@@ -1437,7 +1437,7 @@ class DbtUnitTest(TestCase):
     def test_parse_data_model_columns_skips_split_when_include_tags_false(
         self, mock_fqn
     ):
-        """fqn.split must not be called for meta.openmetadata.tags when includeTags=False"""
+        """fqn.split must not be called for meta.umetadata.tags when includeTags=False"""
         from unittest.mock import patch as _patch
 
         mock_fqn.FQN_SEPARATOR = "."
@@ -1445,7 +1445,7 @@ class DbtUnitTest(TestCase):
         manifest_column = SimpleNamespace(
             name="col",
             tags=[],
-            meta={"openmetadata": {"tags": ["PII.Sensitive"]}},
+            meta={"umetadata": {"tags": ["PII.Sensitive"]}},
             description=None,
             data_type="varchar",
         )
@@ -1468,7 +1468,7 @@ class DbtUnitTest(TestCase):
 
         assert len(list(filter(lambda x: x is not None, parsed_exposures))) == 0
 
-    @patch("metadata.ingestion.ometa.ometa_api.OpenMetadata.get_by_name")
+    @patch("metadata.ingestion.umeta.umeta_api.UMetadata.get_by_name")
     def test_parse_exposure_node_exposure_happy_path(self, get_by_name):
         get_by_name.side_effect = EXPECTED_EXPOSURE_ENTITIES
         _, dbt_objects = self.get_dbt_object_files(MOCK_SAMPLE_MANIFEST_VERSIONLESS)
@@ -1480,10 +1480,10 @@ class DbtUnitTest(TestCase):
 
         assert len(list(filter(lambda x: x is not None, parsed_exposures))) == 3
 
-    @patch("metadata.ingestion.ometa.ometa_api.OpenMetadata.get_by_name")
+    @patch("metadata.ingestion.umeta.umeta_api.UMetadata.get_by_name")
     def test_parse_exposure_node_exposure_broken_exposures(self, get_by_name):
         """
-        Test on data where there is one exposure with missing open_metadata_fqn and one with unsupported type.
+        Test on data where there is one exposure with missing u_metadata_fqn and one with unsupported type.
         """
         get_by_name.side_effect = EXPECTED_EXPOSURE_ENTITIES
         _, dbt_objects = self.get_dbt_object_files(
@@ -1503,7 +1503,7 @@ class DbtUnitTest(TestCase):
     @patch("metadata.ingestion.source.database.dbt.metadata.find_domain_by_name")
     def test_get_dbt_domain_success(self, mock_find_domain, mock_format_domain):
         """
-        Test successful domain extraction from meta.openmetadata.domain
+        Test successful domain extraction from meta.umetadata.domain
         """
         test_uuid = str(uuid.uuid4())
 
@@ -1518,7 +1518,7 @@ class DbtUnitTest(TestCase):
         }
 
         manifest_node = MagicMock()
-        manifest_node.meta = {"openmetadata": {"domain": "Finance"}}
+        manifest_node.meta = {"umetadata": {"domain": "Finance"}}
 
         result = self.dbt_source_obj.get_dbt_domain(manifest_node=manifest_node)
 
@@ -1534,12 +1534,12 @@ class DbtUnitTest(TestCase):
     @patch("metadata.ingestion.source.database.dbt.dbt_utils.find_domain_by_name")
     def test_get_dbt_domain_not_found(self, mock_find_domain):
         """
-        Test when domain is specified but not found in OpenMetadata
+        Test when domain is specified but not found in UMetadata
         """
         mock_find_domain.return_value = None
 
         manifest_node = MagicMock()
-        manifest_node.meta = {"openmetadata": {"domain": "NonExistentDomain"}}
+        manifest_node.meta = {"umetadata": {"domain": "NonExistentDomain"}}
 
         result = self.dbt_source_obj.get_dbt_domain(manifest_node=manifest_node)
 
@@ -1556,9 +1556,9 @@ class DbtUnitTest(TestCase):
 
         self.assertIsNone(result)
 
-    def test_get_dbt_domain_no_openmetadata_section(self):
+    def test_get_dbt_domain_no_umetadata_section(self):
         """
-        Test when meta exists but no openmetadata section
+        Test when meta exists but no umetadata section
         """
         manifest_node = MagicMock()
         manifest_node.meta = {"some_field": "value"}
@@ -1569,7 +1569,7 @@ class DbtUnitTest(TestCase):
 
     # Test custom_properties validation utilities
 
-    @patch("metadata.ingestion.ometa.ometa_api.OpenMetadata.get_by_name")
+    @patch("metadata.ingestion.umeta.umeta_api.UMetadata.get_by_name")
     def test_find_domain_by_name(self, mock_get_by_name):
         """
         Test domain lookup by name
@@ -1677,7 +1677,7 @@ class DbtUnitTest(TestCase):
     # Test Domain processing functionality
 
     @patch("metadata.ingestion.source.database.dbt.metadata.find_domain_by_name")
-    @patch("metadata.ingestion.ometa.ometa_api.OpenMetadata.patch_domain")
+    @patch("metadata.ingestion.umeta.umeta_api.UMetadata.patch_domain")
     def test_process_dbt_domain_success(self, mock_patch_domain, mock_find_domain):
         """
         Test successful processing of DBT domain with new implementation
@@ -1740,7 +1740,7 @@ class DbtUnitTest(TestCase):
 
     # Test Custom Properties processing functionality
 
-    @patch("metadata.ingestion.ometa.ometa_api.OpenMetadata.patch_custom_properties")
+    @patch("metadata.ingestion.umeta.umeta_api.UMetadata.patch_custom_properties")
     def test_process_dbt_custom_properties_success(self, mock_patch_custom_properties):
         """
         Test successful processing of custom properties with new implementation
@@ -2116,7 +2116,7 @@ class DbtUnitTest(TestCase):
         mock_entity.id.root = "entity-123"
         mock_entity.name.root = "test_table"
 
-        # Test directly with OpenMetadata client
+        # Test directly with UMetadata client
         with patch.object(
             self.dbt_source_obj.metadata, "get_by_name", return_value=mock_entity
         ):
@@ -2270,10 +2270,10 @@ class DbtUnitTest(TestCase):
             "overrideLineage"
         ] = True
 
-        config = OpenMetadataWorkflowConfig.model_validate(config_with_override)
+        config = UMetadataWorkflowConfig.model_validate(config_with_override)
         dbt_source = DbtSource.create(
             config_with_override["source"],
-            OpenMetadata(config.workflowConfig.openMetadataServerConfig),
+            UMetadata(config.workflowConfig.uMetadataServerConfig),
         )
 
         self.assertTrue(dbt_source.source_config.overrideLineage)
@@ -2436,16 +2436,16 @@ class DbtUnitTest(TestCase):
                                     break
                             self.assertEqual(schema_name_used, "actual_schema")
 
-    @patch("metadata.utils.tag_utils.get_ometa_tag_and_classification")
+    @patch("metadata.utils.tag_utils.get_umeta_tag_and_classification")
     @patch("metadata.utils.fqn.build")
     def test_yield_dbt_tags_deduplication(
-        self, mock_fqn_build, mock_get_ometa_tag_and_classification
+        self, mock_fqn_build, mock_get_umeta_tag_and_classification
     ):
         """Test that duplicate tags are deduplicated before FQN building"""
         mock_fqn_build.side_effect = lambda _, __, classification_name, tag_name: (
             f"{classification_name}.{tag_name}"
         )
-        mock_get_ometa_tag_and_classification.return_value = []
+        mock_get_umeta_tag_and_classification.return_value = []
 
         mock_node_1 = MagicMock()
         mock_node_1.resource_type = "model"
@@ -2472,16 +2472,16 @@ class DbtUnitTest(TestCase):
         self.assertEqual(len(tag_names_used), 4)
         self.assertEqual(set(tag_names_used), {"tag1", "tag2", "tag3", "tag4"})
 
-    @patch("metadata.utils.tag_utils.get_ometa_tag_and_classification")
+    @patch("metadata.utils.tag_utils.get_umeta_tag_and_classification")
     @patch("metadata.utils.fqn.build")
     def test_yield_dbt_tags_column_deduplication(
-        self, mock_fqn_build, mock_get_ometa_tag_and_classification
+        self, mock_fqn_build, mock_get_umeta_tag_and_classification
     ):
         """Test that duplicate tags from columns are deduplicated"""
         mock_fqn_build.side_effect = lambda _, __, classification_name, tag_name: (
             f"{classification_name}.{tag_name}"
         )
-        mock_get_ometa_tag_and_classification.return_value = []
+        mock_get_umeta_tag_and_classification.return_value = []
 
         mock_column_1 = MagicMock()
         mock_column_1.tags = ["col_tag1", "col_tag2"]
@@ -2508,13 +2508,13 @@ class DbtUnitTest(TestCase):
             set(tag_names_used), {"model_tag", "col_tag1", "col_tag2", "col_tag3"}
         )
 
-    @patch("metadata.utils.tag_utils.get_ometa_tag_and_classification")
+    @patch("metadata.utils.tag_utils.get_umeta_tag_and_classification")
     @patch("metadata.utils.fqn.build")
     def test_yield_dbt_tags_empty_list(
-        self, mock_fqn_build, mock_get_ometa_tag_and_classification
+        self, mock_fqn_build, mock_get_umeta_tag_and_classification
     ):
         """Test that empty tag list is handled correctly"""
-        mock_get_ometa_tag_and_classification.return_value = []
+        mock_get_umeta_tag_and_classification.return_value = []
 
         mock_node = MagicMock()
         mock_node.resource_type = "model"
@@ -2529,10 +2529,10 @@ class DbtUnitTest(TestCase):
 
         mock_fqn_build.assert_not_called()
 
-    @patch("metadata.utils.tag_utils.get_ometa_tag_and_classification")
+    @patch("metadata.utils.tag_utils.get_umeta_tag_and_classification")
     @patch("metadata.utils.fqn.build")
     def test_yield_dbt_tags_skip_resource_types(
-        self, mock_fqn_build, mock_get_ometa_tag_and_classification
+        self, mock_fqn_build, mock_get_umeta_tag_and_classification
     ):
         """Test that skipped resource types are not processed"""
         from metadata.ingestion.source.database.dbt.constants import (
@@ -2542,7 +2542,7 @@ class DbtUnitTest(TestCase):
         mock_fqn_build.side_effect = lambda _, __, classification_name, tag_name: (
             f"{classification_name}.{tag_name}"
         )
-        mock_get_ometa_tag_and_classification.return_value = []
+        mock_get_umeta_tag_and_classification.return_value = []
 
         mock_node_skip = MagicMock()
         mock_node_skip.resource_type = SkipResourceTypeEnum.TEST.value

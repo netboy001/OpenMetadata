@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -76,7 +76,7 @@ import attr
 from pydantic import BaseModel, ConfigDict
 
 from metadata.generated.schema.entity.data.table import Table
-from metadata.ingestion.ometa.models import T
+from metadata.ingestion.umeta.models import T
 from metadata.utils.constants import ENTITY_REFERENCE_CLASS_MAP
 from metadata.utils.deprecation import deprecated
 from metadata.utils.importer import import_from_module
@@ -101,7 +101,7 @@ class XLetsAttr(Enum):
 @attr.s(auto_attribs=True, kw_only=True)
 class OMEntity:
     """
-    Identifies one entity in OpenMetadata.
+    Identifies one entity in UMetadata.
     We use attr annotated object similar to https://github.com/apache/airflow/blob/main/airflow/lineage/entities.py
     based on https://airflow.apache.org/docs/apache-airflow/stable/administration-and-deployment/lineage.html
     """
@@ -195,7 +195,7 @@ def _parse_xlets(xlet: Any) -> None:
     Default behavior to handle lineage.
 
     We can use this function to register further inlets/outlets
-    representations, e.g., https://github.com/open-metadata/OpenMetadata/issues/11626
+    representations, e.g., https://github.com/u-metadata/UMetadata/issues/11626
     """
     logger.warning(f"Inlet/Outlet type {type(xlet)} is not supported.")
 
@@ -205,7 +205,7 @@ def _parse_xlets(xlet: Any) -> None:
     message=textwrap.dedent(
         """
     Please update your inlets/outlets to follow 
-    https://docs.open-metadata.org/connectors/pipeline/airflow/configuring-lineage
+    https://docs.u-metadata.org/connectors/pipeline/airflow/configuring-lineage
     """
     ),
     release="1.4.0",

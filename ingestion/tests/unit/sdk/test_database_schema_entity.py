@@ -20,10 +20,10 @@ class TestDatabaseSchemaEntity(unittest.TestCase):
 
     def setUp(self):
         """Set up test fixtures"""
-        self.mock_ometa = MagicMock()
+        self.mock_umeta = MagicMock()
 
         # Set default client directly
-        DatabaseSchemas.set_default_client(self.mock_ometa)
+        DatabaseSchemas.set_default_client(self.mock_umeta)
 
         # Test data
         self.schema_id = "850e8400-e29b-41d4-a716-446655440000"
@@ -43,7 +43,7 @@ class TestDatabaseSchemaEntity(unittest.TestCase):
         expected_schema.name = "public"
         expected_schema.fullyQualifiedName = self.schema_fqn
 
-        self.mock_ometa.create_or_update.return_value = expected_schema
+        self.mock_umeta.create_or_update.return_value = expected_schema
 
         # Act
         result = DatabaseSchemas.create(create_request)
@@ -52,7 +52,7 @@ class TestDatabaseSchemaEntity(unittest.TestCase):
         self.assertEqual(str(result.id), self.schema_id)
         self.assertEqual(result.name, "public")
         self.assertEqual(result.fullyQualifiedName, self.schema_fqn)
-        self.mock_ometa.create_or_update.assert_called_once_with(create_request)
+        self.mock_umeta.create_or_update.assert_called_once_with(create_request)
 
     def test_retrieve_schema_by_id(self):
         """Test retrieving a database schema by ID"""
@@ -62,7 +62,7 @@ class TestDatabaseSchemaEntity(unittest.TestCase):
         expected_schema.name = "public"
         expected_schema.description = "Public schema"
 
-        self.mock_ometa.get_by_id.return_value = expected_schema
+        self.mock_umeta.get_by_id.return_value = expected_schema
 
         # Act
         result = DatabaseSchemas.retrieve(self.schema_id)
@@ -70,7 +70,7 @@ class TestDatabaseSchemaEntity(unittest.TestCase):
         # Assert
         self.assertEqual(str(result.id), self.schema_id)
         self.assertEqual(result.name, "public")
-        self.mock_ometa.get_by_id.assert_called_once_with(
+        self.mock_umeta.get_by_id.assert_called_once_with(
             entity=DatabaseSchemaEntity, entity_id=self.schema_id, fields=None
         )
 
@@ -92,7 +92,7 @@ class TestDatabaseSchemaEntity(unittest.TestCase):
         expected_schema.name = "public"
         expected_schema.tables = [table1, table2]
 
-        self.mock_ometa.get_by_id.return_value = expected_schema
+        self.mock_umeta.get_by_id.return_value = expected_schema
 
         # Act
         result = DatabaseSchemas.retrieve(self.schema_id, fields=fields)
@@ -101,7 +101,7 @@ class TestDatabaseSchemaEntity(unittest.TestCase):
         self.assertIsNotNone(result.tables)
         self.assertEqual(len(result.tables), 2)
         self.assertEqual(result.tables[0].name, "users")
-        self.mock_ometa.get_by_id.assert_called_once_with(
+        self.mock_umeta.get_by_id.assert_called_once_with(
             entity=DatabaseSchemaEntity, entity_id=self.schema_id, fields=fields
         )
 
@@ -113,14 +113,14 @@ class TestDatabaseSchemaEntity(unittest.TestCase):
         expected_schema.name = "public"
         expected_schema.fullyQualifiedName = self.schema_fqn
 
-        self.mock_ometa.get_by_name.return_value = expected_schema
+        self.mock_umeta.get_by_name.return_value = expected_schema
 
         # Act
         result = DatabaseSchemas.retrieve_by_name(self.schema_fqn)
 
         # Assert
         self.assertEqual(result.fullyQualifiedName, self.schema_fqn)
-        self.mock_ometa.get_by_name.assert_called_once_with(
+        self.mock_umeta.get_by_name.assert_called_once_with(
             entity=DatabaseSchemaEntity, fqn=self.schema_fqn, fields=None
         )
 
@@ -139,10 +139,10 @@ class TestDatabaseSchemaEntity(unittest.TestCase):
             if hasattr(schema_to_update, "id")
             else UUID(self.entity_id)
         )
-        self.mock_ometa.get_by_id.return_value = current_entity
+        self.mock_umeta.get_by_id.return_value = current_entity
 
         # Mock the patch to return the updated entity
-        self.mock_ometa.patch.return_value = schema_to_update
+        self.mock_umeta.patch.return_value = schema_to_update
 
         # Act
         result = DatabaseSchemas.update(schema_to_update)
@@ -150,9 +150,9 @@ class TestDatabaseSchemaEntity(unittest.TestCase):
         # Assert
         self.assertEqual(result.description, "Updated public schema")
         # Verify get_by_id was called to fetch current state
-        self.mock_ometa.get_by_id.assert_called_once()
+        self.mock_umeta.get_by_id.assert_called_once()
         # Verify patch was called with source and destination
-        self.mock_ometa.patch.assert_called_once()
+        self.mock_umeta.patch.assert_called_once()
 
     def test_delete_database_schema(self):
         """Test deleting a database schema"""
@@ -160,7 +160,7 @@ class TestDatabaseSchemaEntity(unittest.TestCase):
         DatabaseSchemas.delete(self.schema_id, recursive=True, hard_delete=False)
 
         # Assert
-        self.mock_ometa.delete.assert_called_once_with(
+        self.mock_umeta.delete.assert_called_once_with(
             entity=DatabaseSchemaEntity,
             entity_id=self.schema_id,
             recursive=True,
@@ -181,7 +181,7 @@ class TestDatabaseSchemaEntity(unittest.TestCase):
         expected_schema.id = UUID(self.schema_id)
         expected_schema.database = database_ref
 
-        self.mock_ometa.get_by_id.return_value = expected_schema
+        self.mock_umeta.get_by_id.return_value = expected_schema
 
         # Act
         result = DatabaseSchemas.retrieve(self.schema_id, fields=["database"])
@@ -203,7 +203,7 @@ class TestDatabaseSchemaEntity(unittest.TestCase):
         mock_response = MagicMock()
         mock_response.entities = [mock_public, mock_staging, mock_production]
 
-        self.mock_ometa.list_entities.return_value = mock_response
+        self.mock_umeta.list_entities.return_value = mock_response
 
         # Act
         result = DatabaseSchemas.list(limit=10)
@@ -212,7 +212,7 @@ class TestDatabaseSchemaEntity(unittest.TestCase):
         self.assertEqual(len(result.entities), 3)
         self.assertEqual(result.entities[0].name, "public")
         self.assertEqual(result.entities[1].name, "staging")
-        self.mock_ometa.list_entities.assert_called_once()
+        self.mock_umeta.list_entities.assert_called_once()
 
     def test_schema_retention_policy(self):
         """Test schema with retention policy"""
@@ -221,7 +221,7 @@ class TestDatabaseSchemaEntity(unittest.TestCase):
         expected_schema.id = UUID(self.schema_id)
         expected_schema.retentionPeriod = "P30D"  # 30 days
 
-        self.mock_ometa.get_by_id.return_value = expected_schema
+        self.mock_umeta.get_by_id.return_value = expected_schema
 
         # Act
         result = DatabaseSchemas.retrieve(self.schema_id)
@@ -233,7 +233,7 @@ class TestDatabaseSchemaEntity(unittest.TestCase):
     def test_error_handling_schema_not_found(self):
         """Test error handling when schema not found"""
         # Arrange
-        self.mock_ometa.get_by_id.side_effect = Exception("DatabaseSchema not found")
+        self.mock_umeta.get_by_id.side_effect = Exception("DatabaseSchema not found")
 
         # Act & Assert
         with self.assertRaises(Exception) as context:

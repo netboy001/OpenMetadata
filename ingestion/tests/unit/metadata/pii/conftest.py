@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,19 +16,19 @@ from unittest.mock import Mock
 
 import pytest
 
-from _openmetadata_testutils.factories.metadata.generated.schema.entity.classification.classification import (
+from _umetadata_testutils.factories.metadata.generated.schema.entity.classification.classification import (
     ClassificationFactory,
 )
-from _openmetadata_testutils.factories.metadata.generated.schema.entity.classification.tag import (
+from _umetadata_testutils.factories.metadata.generated.schema.entity.classification.tag import (
     TagFactory,
 )
-from _openmetadata_testutils.factories.metadata.generated.schema.type.recognizer import (
+from _umetadata_testutils.factories.metadata.generated.schema.type.recognizer import (
     PatternFactory,
     PatternRecognizerFactory,
     PredefinedRecognizerFactory,
     RecognizerFactory,
 )
-from _openmetadata_testutils.factories.metadata.pii.models import ScoredTagFactory
+from _umetadata_testutils.factories.metadata.pii.models import ScoredTagFactory
 from metadata.generated.schema.entity.classification.classification import (
     Classification,
     ConflictResolution,
@@ -236,7 +236,7 @@ def sample_low_cardinality_data() -> Sequence[Any]:
 
 @pytest.fixture
 def mock_metadata_client(mocker) -> Mock:
-    """Mocked OpenMetadata client."""
+    """Mocked UMetadata client."""
     mock_client = mocker.Mock()
     mock_client.list_all_entities = mocker.Mock(return_value=[])
     return mock_client

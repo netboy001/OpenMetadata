@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -67,8 +67,8 @@ from metadata.generated.schema.type.tagLabel import TagLabel
 from metadata.ingestion.api.delete import delete_entity_by_name
 from metadata.ingestion.api.models import Either
 from metadata.ingestion.api.steps import InvalidSourceException
-from metadata.ingestion.models.ometa_classification import OMetaTagAndClassification
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.models.umeta_classification import UMetaTagAndClassification
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.connections import get_test_connection_fn
 from metadata.ingestion.source.database.bigquery.helper import (
     clear_constraint_cache,
@@ -110,7 +110,7 @@ from metadata.utils.filters import filter_by_database, filter_by_schema
 from metadata.utils.helpers import retry_with_docker_host
 from metadata.utils.logger import ingestion_logger
 from metadata.utils.sqlalchemy_utils import is_complex_type
-from metadata.utils.tag_utils import get_ometa_tag_and_classification, get_tag_label
+from metadata.utils.tag_utils import get_umeta_tag_and_classification, get_tag_label
 from metadata.utils.tag_utils import get_tag_labels as fetch_tag_labels_om
 
 _bigquery_table_types = {
@@ -267,7 +267,7 @@ class BigquerySource(LifeCycleQueryMixin, CommonDbSourceService, MultiDBSource):
 
     @classmethod
     def create(
-        cls, config_dict, metadata: OpenMetadata, pipeline_name: Optional[str] = None
+        cls, config_dict, metadata: UMetadata, pipeline_name: Optional[str] = None
     ):
         config: WorkflowSource = WorkflowSource.model_validate(config_dict)
         connection: BigQueryConnection = config.serviceConnection.root.config
@@ -551,13 +551,13 @@ class BigquerySource(LifeCycleQueryMixin, CommonDbSourceService, MultiDBSource):
 
     def yield_tag(
         self, schema_name: str
-    ) -> Iterable[Either[OMetaTagAndClassification]]:
+    ) -> Iterable[Either[UMetaTagAndClassification]]:
         """Build tag context"""
         try:
             dataset_obj = self.get_dataset_obj(schema_name)
             if dataset_obj.labels:
                 for key, value in dataset_obj.labels.items():
-                    yield from get_ometa_tag_and_classification(
+                    yield from get_umeta_tag_and_classification(
                         tags=[value],
                         classification_name=key,
                         tag_description="Bigquery Dataset Label",
@@ -578,7 +578,7 @@ class BigquerySource(LifeCycleQueryMixin, CommonDbSourceService, MultiDBSource):
             for taxonomy_name, classification_name in self._taxonomy_cache.items():
                 tags = self._taxonomy_to_tags.get(classification_name, [])
                 if tags:
-                    yield from get_ometa_tag_and_classification(
+                    yield from get_umeta_tag_and_classification(
                         tags=tags,
                         classification_name=classification_name,
                         tag_description="Bigquery Policy Tag",
@@ -728,7 +728,7 @@ class BigquerySource(LifeCycleQueryMixin, CommonDbSourceService, MultiDBSource):
         table_obj = self.get_table_obj(table_name=table_name)
         if table_obj.labels:
             for key, value in table_obj.labels.items():
-                yield from get_ometa_tag_and_classification(
+                yield from get_umeta_tag_and_classification(
                     tags=[value],
                     classification_name=key,
                     tag_description="Bigquery Table Label",

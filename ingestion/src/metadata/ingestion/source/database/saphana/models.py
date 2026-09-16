@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,7 +20,7 @@ from typing_extensions import Annotated
 from metadata.generated.schema.entity.data.storedProcedure import StoredProcedureType
 from metadata.generated.schema.entity.data.table import Table
 from metadata.ingestion.models.custom_pydantic import BaseModel
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.utils import fqn
 
 SYS_BIC_SCHEMA_NAME = "_SYS_BIC"
@@ -53,11 +53,11 @@ class SapHanaLineageModel(BaseModel):
     def name(self) -> str:
         """
         Actual name representation of the view in _SYS_BIC.VIEWS.
-        This is the name in OpenMetadata
+        This is the name in UMetadata
         """
         return f"{self.package_id}/{self.object_name}"
 
-    def get_fqn(self, metadata: OpenMetadata, service_name: str) -> str:
+    def get_fqn(self, metadata: UMetadata, service_name: str) -> str:
         """Build OM's FQN with the static schema name from _SYS_BIC"""
         return fqn.build(
             metadata,

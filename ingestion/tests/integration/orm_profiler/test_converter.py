@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -10,7 +10,7 @@
 #  limitations under the License.
 
 """
-Validate conversion between OpenMetadata and SQLAlchemy ORM
+Validate conversion between UMetadata and SQLAlchemy ORM
 """
 from unittest import TestCase
 
@@ -34,19 +34,19 @@ from metadata.generated.schema.entity.services.connections.database.mysqlConnect
 from metadata.generated.schema.entity.services.connections.database.snowflakeConnection import (
     SnowflakeConnection,
 )
-from metadata.generated.schema.entity.services.connections.metadata.openMetadataConnection import (
-    OpenMetadataConnection,
+from metadata.generated.schema.entity.services.connections.metadata.uMetadataConnection import (
+    UMetadataConnection,
 )
 from metadata.generated.schema.entity.services.databaseService import (
     DatabaseConnection,
     DatabaseService,
     DatabaseServiceType,
 )
-from metadata.generated.schema.security.client.openMetadataJWTClientConfig import (
-    OpenMetadataJWTClientConfig,
+from metadata.generated.schema.security.client.uMetadataJWTClientConfig import (
+    UMetadataJWTClientConfig,
 )
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
-from metadata.profiler.orm.converter.base import ometa_to_sqa_orm
+from metadata.ingestion.umeta.umeta_api import UMetadata
+from metadata.profiler.orm.converter.base import umeta_to_sqa_orm
 from metadata.profiler.orm.types.custom_timestamp import CustomTimestamp
 
 
@@ -55,14 +55,14 @@ class ProfilerWorkflowTest(TestCase):
     Run the end to end workflow and validate
     """
 
-    server_config = OpenMetadataConnection(
+    server_config = UMetadataConnection(
         hostPort="http://localhost:8585/api",
-        authProvider="openmetadata",
-        securityConfig=OpenMetadataJWTClientConfig(
+        authProvider="umetadata",
+        securityConfig=UMetadataJWTClientConfig(
             jwtToken="eyJraWQiOiJHYjM4OWEtOWY3Ni1nZGpzLWE5MmotMDI0MmJrOTQzNTYiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlzQm90IjpmYWxzZSwiaXNzIjoib3Blbi1tZXRhZGF0YS5vcmciLCJpYXQiOjE2NjM5Mzg0NjIsImVtYWlsIjoiYWRtaW5Ab3Blbm1ldGFkYXRhLm9yZyJ9.tS8um_5DKu7HgzGBzS1VTA5uUjKWOCU0B_j08WXBiEC0mr0zNREkqVfwFDD-d24HlNEbrqioLsBuFRiwIWKc1m_ZlVQbG7P36RUxhuv2vbSp80FKyNM-Tj93FDzq91jsyNmsQhyNv_fNr3TXfzzSPjHt8Go0FMMP66weoKMgW2PbXlhVKwEuXUHyakLLzewm9UMeQaEiRzhiTMU3UkLXcKbYEJJvfNFcLwSl9W8JCO_l0Yj3ud-qt_nQYEZwqW6u5nfdQllN133iikV4fM5QZsMCnm8Rq1mvLR0y9bmJiD7fwM1tmJ791TUWqmKaTnP49U493VanKpUAfzIiOiIbhg"
         ),
     )
-    metadata = OpenMetadata(server_config)
+    metadata = UMetadata(server_config)
 
     assert metadata.health_check()
 
@@ -119,7 +119,7 @@ class ProfilerWorkflowTest(TestCase):
             )
         )
 
-        orm_table = ometa_to_sqa_orm(table=table, metadata=self.metadata)
+        orm_table = umeta_to_sqa_orm(table=table, metadata=self.metadata)
 
         assert orm_table.__tablename__ == "table1"
         assert orm_table.__table_args__.get("schema") == "one-schema"
@@ -187,7 +187,7 @@ class ProfilerWorkflowTest(TestCase):
             )
         )
 
-        orm_table = ometa_to_sqa_orm(table=table, metadata=self.metadata)
+        orm_table = umeta_to_sqa_orm(table=table, metadata=self.metadata)
 
         assert orm_table.__tablename__ == "table1-snflk"
         assert (

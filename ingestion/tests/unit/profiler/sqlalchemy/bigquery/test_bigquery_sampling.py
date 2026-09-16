@@ -89,7 +89,7 @@ class SampleTest(TestCase):
 
         cls.sampler = SQASampler(
             service_connection_config=cls.bq_conn,
-            ometa_client=None,
+            umeta_client=None,
             entity=None,
         )
         cls.sqa_profiler_interface = SQAProfilerInterface(
@@ -109,7 +109,7 @@ class SampleTest(TestCase):
         """
         sampler = BigQuerySampler(
             service_connection_config=self.bq_conn,
-            ometa_client=None,
+            umeta_client=None,
             entity=self.table_entity,
             sample_config=SampleConfig(
                 profileSampleType=ProfileSampleType.PERCENTAGE, profileSample=50.0
@@ -144,7 +144,7 @@ class SampleTest(TestCase):
 
         sampler = BigQuerySampler(
             service_connection_config=self.bq_conn,
-            ometa_client=None,
+            umeta_client=None,
             entity=view_entity,
             sample_config=SampleConfig(
                 profileSampleType=ProfileSampleType.PERCENTAGE, profileSample=50.0
@@ -180,7 +180,7 @@ class SampleTest(TestCase):
 
         sampler = BigQuerySampler(
             service_connection_config=self.bq_conn,
-            ometa_client=None,
+            umeta_client=None,
             entity=view_entity,
             sample_config=SampleConfig(
                 profileSampleType=ProfileSampleType.PERCENTAGE, profileSample=50.0
@@ -210,7 +210,7 @@ class SampleTest(TestCase):
         """
         sampler = BigQuerySampler(
             service_connection_config=self.bq_conn,
-            ometa_client=None,
+            umeta_client=None,
             entity=self.table_entity,
             sample_config=SampleConfig(
                 profileSampleType=ProfileSampleType.PERCENTAGE, profileSample=50.0

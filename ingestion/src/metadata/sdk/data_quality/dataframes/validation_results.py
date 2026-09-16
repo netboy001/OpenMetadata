@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,7 +20,7 @@ from metadata.generated.schema.entity.data.table import Table
 from metadata.generated.schema.tests.basic import TestCaseResult, TestCaseStatus
 from metadata.generated.schema.tests.testCase import TestCase
 from metadata.generated.schema.type.basic import FullyQualifiedEntityName
-from metadata.sdk import OpenMetadata
+from metadata.sdk import UMetadata
 from metadata.sdk import client as get_client
 from metadata.sdk.data_quality.dataframes.models import MockTestCase
 from metadata.utils.entity_link import (
@@ -85,16 +85,16 @@ class ValidationResult(BaseModel):
         """Get all test results."""
         return [result for _, result in self.test_cases_and_results]
 
-    def publish(self, table_fqn: str, client: Optional[OpenMetadata] = None) -> None:
-        """Publish test results to OpenMetadata.
+    def publish(self, table_fqn: str, client: Optional[UMetadata] = None) -> None:
+        """Publish test results to UMetadata.
         Args:
             table_fqn: Fully qualified table name
-            client: OpenMetadata client
+            client: UMetadata client
         """
         if client is None:
             client = get_client()
 
-        metadata = client.ometa
+        metadata = client.umeta
 
         for test_case, result in self.test_cases_and_results:
             if isinstance(test_case, MockTestCase):

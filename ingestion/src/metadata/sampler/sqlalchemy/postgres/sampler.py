@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,7 +25,7 @@ from metadata.generated.schema.entity.services.connections.database.datalakeConn
     DatalakeConnection,
 )
 from metadata.generated.schema.entity.services.databaseService import DatabaseConnection
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.sampler.models import SampleConfig
 from metadata.sampler.sqlalchemy.sampler import SQASampler
 from metadata.sampler.sqlalchemy.snowflake.sampler import SamplingMethodType
@@ -42,7 +42,7 @@ class PostgresSampler(SQASampler):
     def __init__(
         self,
         service_connection_config: Union[DatabaseConnection, DatalakeConnection],
-        ometa_client: OpenMetadata,
+        umeta_client: UMetadata,
         entity: Table,
         sample_config: Optional[SampleConfig] = None,
         partition_details: Optional[Dict] = None,
@@ -53,7 +53,7 @@ class PostgresSampler(SQASampler):
     ):
         super().__init__(
             service_connection_config=service_connection_config,
-            ometa_client=ometa_client,
+            umeta_client=umeta_client,
             entity=entity,
             sample_config=sample_config,
             partition_details=partition_details,

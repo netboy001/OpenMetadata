@@ -57,7 +57,7 @@ set json = jsonb_set(
   '"db"',
   true
 )
-where name = 'OpenMetadata'
+where name = 'UMetadata'
   and json #>> '{connection,config,secretsManagerProvider}' = 'noop';
 
 -- Clean old test connections
@@ -194,4 +194,4 @@ CREATE TABLE IF NOT EXISTS suggestions (
 );
 
 UPDATE ingestion_pipeline_entity SET json = JSONB_SET(json::jsonb, '{provider}', '"user"', true)
-WHERE json->>'name' = 'OpenMetadata_dataInsight';
+WHERE json->>'name' = 'UMetadata_dataInsight';

@@ -3,7 +3,7 @@
     "job_id": 11223344,
     "creator_user_name": "user.name@databricks.com",
     "settings": {
-      "name": "OpenMetadata Databricks Workflow",
+      "name": "UMetadata Databricks Workflow",
       "description": "This job contain multiple tasks that are required to produce the weekly shark sightings report.",
       "email_notifications": {
         "on_start": [

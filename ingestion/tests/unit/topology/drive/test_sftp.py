@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,7 +22,7 @@ from metadata.generated.schema.entity.services.connections.drive.sftpConnection 
     SftpConnection,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.ingestion.source.drive.sftp.metadata import SftpSource
 from metadata.ingestion.source.drive.sftp.models import SftpDirectoryInfo, SftpFileInfo
@@ -59,9 +59,9 @@ MOCK_SFTP_CONFIG = {
     },
     "sink": {"type": "metadata-rest", "config": {}},
     "workflowConfig": {
-        "openMetadataServerConfig": {
+        "uMetadataServerConfig": {
             "hostPort": "http://localhost:8585/api",
-            "authProvider": "openmetadata",
+            "authProvider": "umetadata",
             "securityConfig": {"jwtToken": "token"},
         }
     },
@@ -91,9 +91,9 @@ MOCK_SFTP_CONFIG_KEY_AUTH = {
     },
     "sink": {"type": "metadata-rest", "config": {}},
     "workflowConfig": {
-        "openMetadataServerConfig": {
+        "uMetadataServerConfig": {
             "hostPort": "http://localhost:8585/api",
-            "authProvider": "openmetadata",
+            "authProvider": "umetadata",
             "securityConfig": {"jwtToken": "token"},
         }
     },
@@ -260,10 +260,10 @@ class TestSftpSource(TestCase):
         self.mock_sftp.listdir_attr = get_mock_listdir_attr
 
         # Create source
-        config = OpenMetadataWorkflowConfig.model_validate(MOCK_SFTP_CONFIG)
+        config = UMetadataWorkflowConfig.model_validate(MOCK_SFTP_CONFIG)
         self.sftp_source = SftpSource.create(
             MOCK_SFTP_CONFIG["source"],
-            config.workflowConfig.openMetadataServerConfig,
+            config.workflowConfig.uMetadataServerConfig,
         )
 
         # Mock context
@@ -475,10 +475,10 @@ class TestCsvExtraction(TestCase):
 
         self.mock_sftp.listdir_attr = get_mock_listdir_attr
 
-        config = OpenMetadataWorkflowConfig.model_validate(MOCK_SFTP_CONFIG)
+        config = UMetadataWorkflowConfig.model_validate(MOCK_SFTP_CONFIG)
         self.sftp_source = SftpSource.create(
             MOCK_SFTP_CONFIG["source"],
-            config.workflowConfig.openMetadataServerConfig,
+            config.workflowConfig.uMetadataServerConfig,
         )
 
     def test_is_csv_file(self):
@@ -661,10 +661,10 @@ class TestSampleDataIngestion(TestCase):
 
         self.mock_sftp.listdir_attr = get_mock_listdir_attr
 
-        config = OpenMetadataWorkflowConfig.model_validate(MOCK_SFTP_CONFIG)
+        config = UMetadataWorkflowConfig.model_validate(MOCK_SFTP_CONFIG)
         self.sftp_source = SftpSource.create(
             MOCK_SFTP_CONFIG["source"],
-            config.workflowConfig.openMetadataServerConfig,
+            config.workflowConfig.uMetadataServerConfig,
         )
 
         mock_context = MagicMock()

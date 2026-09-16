@@ -17,8 +17,8 @@ class TestChartEntity(unittest.TestCase):
 
     def setUp(self):
         """Set up test fixtures"""
-        self.mock_ometa = MagicMock()
-        Charts.set_default_client(self.mock_ometa)
+        self.mock_umeta = MagicMock()
+        Charts.set_default_client(self.mock_umeta)
 
         self.chart_id = "150e8400-e29b-41d4-a716-446655440000"
         self.chart_fqn = "dashboard-service.dashboard.chart1"
@@ -39,14 +39,14 @@ class TestChartEntity(unittest.TestCase):
         expected_chart.displayName = "Revenue Chart"
         expected_chart.chartType = ChartType.Line
 
-        self.mock_ometa.create_or_update.return_value = expected_chart
+        self.mock_umeta.create_or_update.return_value = expected_chart
 
         result = Charts.create(create_request)
 
         self.assertEqual(str(result.id), self.chart_id)
         self.assertEqual(result.name, "revenue_chart")
         self.assertEqual(result.chartType, ChartType.Line)
-        self.mock_ometa.create_or_update.assert_called_once_with(create_request)
+        self.mock_umeta.create_or_update.assert_called_once_with(create_request)
 
     def test_retrieve_chart_by_id(self):
         """Test retrieving a chart by ID"""
@@ -55,13 +55,13 @@ class TestChartEntity(unittest.TestCase):
         expected_chart.name = "revenue_chart"
         expected_chart.description = "Revenue tracking"
 
-        self.mock_ometa.get_by_id.return_value = expected_chart
+        self.mock_umeta.get_by_id.return_value = expected_chart
 
         result = Charts.retrieve(self.chart_id)
 
         self.assertEqual(str(result.id), self.chart_id)
         self.assertEqual(result.name, "revenue_chart")
-        self.mock_ometa.get_by_id.assert_called_once_with(
+        self.mock_umeta.get_by_id.assert_called_once_with(
             entity=ChartEntity, entity_id=self.chart_id, fields=None
         )
 
@@ -85,14 +85,14 @@ class TestChartEntity(unittest.TestCase):
         expected_chart.owner = owner
         expected_chart.tags = tags
 
-        self.mock_ometa.get_by_id.return_value = expected_chart
+        self.mock_umeta.get_by_id.return_value = expected_chart
 
         result = Charts.retrieve(self.chart_id, fields=fields)
 
         self.assertIsNotNone(result.owner)
         self.assertEqual(result.owner.name, "analyst")
         self.assertEqual(len(result.tags), 2)
-        self.mock_ometa.get_by_id.assert_called_once_with(
+        self.mock_umeta.get_by_id.assert_called_once_with(
             entity=ChartEntity, entity_id=self.chart_id, fields=fields
         )
 
@@ -102,12 +102,12 @@ class TestChartEntity(unittest.TestCase):
         expected_chart.id = UUID(self.chart_id)
         expected_chart.fullyQualifiedName = self.chart_fqn
 
-        self.mock_ometa.get_by_name.return_value = expected_chart
+        self.mock_umeta.get_by_name.return_value = expected_chart
 
         result = Charts.retrieve_by_name(self.chart_fqn)
 
         self.assertEqual(result.fullyQualifiedName, self.chart_fqn)
-        self.mock_ometa.get_by_name.assert_called_once_with(
+        self.mock_umeta.get_by_name.assert_called_once_with(
             entity=ChartEntity, fqn=self.chart_fqn, fields=None
         )
 
@@ -124,25 +124,25 @@ class TestChartEntity(unittest.TestCase):
             if hasattr(chart_to_update, "id")
             else UUID(self.entity_id)
         )
-        self.mock_ometa.get_by_id.return_value = current_entity
+        self.mock_umeta.get_by_id.return_value = current_entity
 
         # Mock the patch to return the updated entity
-        self.mock_ometa.patch.return_value = chart_to_update
+        self.mock_umeta.patch.return_value = chart_to_update
 
         result = Charts.update(chart_to_update)
 
         self.assertEqual(result.description, "Updated revenue chart")
         self.assertEqual(str(chart_to_update.id), self.chart_id)
         # Verify get_by_id was called to fetch current state
-        self.mock_ometa.get_by_id.assert_called_once()
+        self.mock_umeta.get_by_id.assert_called_once()
         # Verify patch was called with source and destination
-        self.mock_ometa.patch.assert_called_once()
+        self.mock_umeta.patch.assert_called_once()
 
     def test_delete_chart(self):
         """Test deleting a chart"""
         Charts.delete(self.chart_id, recursive=False, hard_delete=False)
 
-        self.mock_ometa.delete.assert_called_once_with(
+        self.mock_umeta.delete.assert_called_once_with(
             entity=ChartEntity,
             entity_id=self.chart_id,
             recursive=False,
@@ -153,7 +153,7 @@ class TestChartEntity(unittest.TestCase):
         """Test hard deleting a chart"""
         Charts.delete(self.chart_id, recursive=True, hard_delete=True)
 
-        self.mock_ometa.delete.assert_called_once_with(
+        self.mock_umeta.delete.assert_called_once_with(
             entity=ChartEntity,
             entity_id=self.chart_id,
             recursive=True,
@@ -173,14 +173,14 @@ class TestChartEntity(unittest.TestCase):
         mock_response = MagicMock()
         mock_response.entities = [mock_chart1, mock_chart2]
 
-        self.mock_ometa.list_entities.return_value = mock_response
+        self.mock_umeta.list_entities.return_value = mock_response
 
         result = Charts.list(limit=10)
 
         self.assertEqual(len(result.entities), 2)
         self.assertEqual(result.entities[0].name, "chart1")
         self.assertEqual(result.entities[1].chartType, ChartType.Bar)
-        self.mock_ometa.list_entities.assert_called_once()
+        self.mock_umeta.list_entities.assert_called_once()
 
     def test_add_followers(self):
         """Test adding followers to a chart"""
@@ -191,16 +191,16 @@ class TestChartEntity(unittest.TestCase):
         updated_chart.followers = user_ids
 
         # Mock the client.put and get_by_id calls
-        self.mock_ometa.client = MagicMock()
-        self.mock_ometa.client.put = MagicMock()
-        self.mock_ometa.get_suffix = MagicMock(return_value="/api/v1/charts")
-        self.mock_ometa.get_by_id.return_value = updated_chart
+        self.mock_umeta.client = MagicMock()
+        self.mock_umeta.client.put = MagicMock()
+        self.mock_umeta.get_suffix = MagicMock(return_value="/api/v1/charts")
+        self.mock_umeta.get_by_id.return_value = updated_chart
 
         result = Charts.add_followers(self.chart_id, user_ids)
 
         self.assertEqual(result.followers, user_ids)
         # Verify client.put was called for each user
-        assert self.mock_ometa.client.put.call_count == len(user_ids)
+        assert self.mock_umeta.client.put.call_count == len(user_ids)
 
     def test_remove_followers(self):
         """Test removing followers from a chart"""
@@ -211,16 +211,16 @@ class TestChartEntity(unittest.TestCase):
         updated_chart.followers = ["user2-uuid"]
 
         # Mock the client.delete and get_by_id calls
-        self.mock_ometa.client = MagicMock()
-        self.mock_ometa.client.delete = MagicMock()
-        self.mock_ometa.get_suffix = MagicMock(return_value="/api/v1/charts")
-        self.mock_ometa.get_by_id.return_value = updated_chart
+        self.mock_umeta.client = MagicMock()
+        self.mock_umeta.client.delete = MagicMock()
+        self.mock_umeta.get_suffix = MagicMock(return_value="/api/v1/charts")
+        self.mock_umeta.get_by_id.return_value = updated_chart
 
         result = Charts.remove_followers(self.chart_id, user_ids)
 
         self.assertEqual(result.followers, ["user2-uuid"])
         # Verify client.delete was called for each user
-        assert self.mock_ometa.client.delete.call_count == len(user_ids)
+        assert self.mock_umeta.client.delete.call_count == len(user_ids)
 
     def test_get_versions(self):
         """Test getting all versions of a chart"""
@@ -231,13 +231,13 @@ class TestChartEntity(unittest.TestCase):
 
         mock_version_history = MagicMock()
         mock_version_history.versions = [version1, version2]
-        self.mock_ometa.get_list_entity_versions.return_value = mock_version_history
+        self.mock_umeta.get_list_entity_versions.return_value = mock_version_history
 
         result = Charts.get_versions(self.chart_id)
 
         self.assertEqual(len(result), 2)
         self.assertEqual(result[0].version, 0.1)
-        self.mock_ometa.get_list_entity_versions.assert_called_once_with(
+        self.mock_umeta.get_list_entity_versions.assert_called_once_with(
             entity=ChartEntity, entity_id=self.chart_id
         )
 
@@ -247,12 +247,12 @@ class TestChartEntity(unittest.TestCase):
         versioned_chart.id = UUID(self.chart_id)
         versioned_chart.version = 0.2
 
-        self.mock_ometa.get_entity_version.return_value = versioned_chart
+        self.mock_umeta.get_entity_version.return_value = versioned_chart
 
         result = Charts.get_specific_version(self.chart_id, "0.2")
 
         self.assertEqual(result.version, 0.2)
-        self.mock_ometa.get_entity_version.assert_called_once_with(
+        self.mock_umeta.get_entity_version.assert_called_once_with(
             entity=ChartEntity, entity_id=self.chart_id, version="0.2"
         )
 
@@ -265,9 +265,9 @@ class TestChartEntity(unittest.TestCase):
         restored_chart.service = "service1"
 
         # Mock get_suffix to return proper endpoint
-        self.mock_ometa.get_suffix.return_value = "charts"
+        self.mock_umeta.get_suffix.return_value = "charts"
         # Mock the REST client's put method to return a dict with proper service reference
-        self.mock_ometa.client.put.return_value = {
+        self.mock_umeta.client.put.return_value = {
             "id": self.chart_id,
             "name": "chart1",
             "service": {
@@ -284,20 +284,20 @@ class TestChartEntity(unittest.TestCase):
         self.assertIsNotNone(result)
         self.assertEqual(str(result.id.root), self.chart_id)
         self.assertFalse(result.deleted)
-        self.mock_ometa.client.put.assert_called_once_with(
+        self.mock_umeta.client.put.assert_called_once_with(
             "/charts/restore", json={"id": self.chart_id}
         )
 
     def test_export_charts_csv(self):
         """Test exporting charts to CSV"""
         csv_data = "id,name,type,service\n123,chart1,Line,service1"
-        self.mock_ometa.export_csv.return_value = csv_data
+        self.mock_umeta.export_csv.return_value = csv_data
 
         exporter = Charts.export_csv("chart_export")
         result = exporter.execute()
 
         self.assertEqual(result, csv_data)
-        self.mock_ometa.export_csv.assert_called_once_with(
+        self.mock_umeta.export_csv.assert_called_once_with(
             entity=ChartEntity, name="chart_export"
         )
 
@@ -305,7 +305,7 @@ class TestChartEntity(unittest.TestCase):
         """Test importing charts from CSV"""
         csv_data = "id,name,type,service\n123,chart1,Line,service1"
         import_status = "Successfully imported 1 chart"
-        self.mock_ometa.import_csv.return_value = import_status
+        self.mock_umeta.import_csv.return_value = import_status
 
         importer = Charts.import_csv("import_name")
         importer.csv_data = csv_data
@@ -313,7 +313,7 @@ class TestChartEntity(unittest.TestCase):
         result = importer.execute()
 
         self.assertEqual(result, import_status)
-        self.mock_ometa.import_csv.assert_called_once_with(
+        self.mock_umeta.import_csv.assert_called_once_with(
             entity=ChartEntity, name="import_name", csv_data=csv_data, dry_run=False
         )
 
@@ -329,7 +329,7 @@ class TestChartEntity(unittest.TestCase):
         expected_chart.id = UUID(self.chart_id)
         expected_chart.dashboard = dashboard_ref
 
-        self.mock_ometa.get_by_id.return_value = expected_chart
+        self.mock_umeta.get_by_id.return_value = expected_chart
 
         result = Charts.retrieve(self.chart_id, fields=["dashboard"])
 
@@ -338,7 +338,7 @@ class TestChartEntity(unittest.TestCase):
 
     def test_error_handling_not_found(self):
         """Test error handling when chart not found"""
-        self.mock_ometa.get_by_id.side_effect = Exception("Chart not found")
+        self.mock_umeta.get_by_id.side_effect = Exception("Chart not found")
 
         with self.assertRaises(Exception) as context:
             Charts.retrieve("non-existent-id")

@@ -43,13 +43,13 @@ for arg in "$@"; do
 done
 
 # Check if distribution exists, if not build with Maven
-DIST_TAR=$(find "$ROOT_DIR/openmetadata-dist/target" -name "openmetadata-*.tar.gz" 2>/dev/null | head -1)
+DIST_TAR=$(find "$ROOT_DIR/umetadata-dist/target" -name "umetadata-*.tar.gz" 2>/dev/null | head -1)
 if [ -z "$DIST_TAR" ] && [ "$SKIP_MVN" != "true" ]; then
-    echo "OpenMetadata distribution not found. Building with Maven..."
+    echo "UMetadata distribution not found. Building with Maven..."
     echo "This may take several minutes on first run."
     echo ""
     cd "$ROOT_DIR"
-    mvn clean install -DskipTests -Pquickstart -pl '!openmetadata-ui' -am
+    mvn clean install -DskipTests -Pquickstart -pl '!umetadata-ui' -am
     cd "$PROJECT_DIR"
     BUILD_FLAG="--build"
     echo ""

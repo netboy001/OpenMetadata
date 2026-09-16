@@ -2,7 +2,7 @@
   {
     "query_id": "01ed4a0e-69b6-1269-a3b1-481b64aef08d",
     "status": "FINISHED",
-    "query_text": " /* {\"app\": \"OpenMetadata\", \"version\": \"0.13.0.dev0\"} */\nSHOW TABLES IN `test`",
+    "query_text": " /* {\"app\": \"UMetadata\", \"version\": \"0.13.0.dev0\"} */\nSHOW TABLES IN `test`",
     "query_start_time_ms": 1665566128192,
     "execution_end_time_ms": 1665566128329,
     "query_end_time_ms": 1665566129144,
@@ -27,7 +27,7 @@
   {
     "query_id": "01ed4a0e-693f-1f45-a5aa-8a685216b3a7",
     "status": "FINISHED",
-    "query_text": " /* {\"app\": \"OpenMetadata\", \"version\": \"0.13.0.dev0\"} */\nSHOW TABLES IN `test`",
+    "query_text": " /* {\"app\": \"UMetadata\", \"version\": \"0.13.0.dev0\"} */\nSHOW TABLES IN `test`",
     "query_start_time_ms": 1665566127416,
     "execution_end_time_ms": 1665566127568,
     "query_end_time_ms": 1665566128084,
@@ -52,7 +52,7 @@
   {
     "query_id": "01ed4a0e-680e-1481-b1bf-38db979227de",
     "status": "FINISHED",
-    "query_text": " /* {\"app\": \"OpenMetadata\", \"version\": \"0.13.0.dev0\"} */\nSHOW TABLES IN `default`",
+    "query_text": " /* {\"app\": \"UMetadata\", \"version\": \"0.13.0.dev0\"} */\nSHOW TABLES IN `default`",
     "query_start_time_ms": 1665566125414,
     "execution_end_time_ms": 1665566125579,
     "query_end_time_ms": 1665566126326,
@@ -77,7 +77,7 @@
   {
     "query_id": "01ed4a0e-6778-104c-b402-a39e3e6a8cfe",
     "status": "FINISHED",
-    "query_text": " /* {\"app\": \"OpenMetadata\", \"version\": \"0.13.0.dev0\"} */\nDESCRIBE default.view3",
+    "query_text": " /* {\"app\": \"UMetadata\", \"version\": \"0.13.0.dev0\"} */\nDESCRIBE default.view3",
     "query_start_time_ms": 1665566124428,
     "execution_end_time_ms": 1665566124730,
     "query_end_time_ms": 1665566125285,

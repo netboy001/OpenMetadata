@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -58,9 +58,9 @@ from metadata.generated.schema.type.basic import (
 )
 from metadata.ingestion.api.models import Either
 from metadata.ingestion.connections.session import create_and_bind_thread_safe_session
-from metadata.ingestion.models.ometa_classification import OMetaTagAndClassification
+from metadata.ingestion.models.umeta_classification import UMetaTagAndClassification
 from metadata.ingestion.models.patch_request import PatchedEntity, PatchRequest
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.connections import get_connection
 from metadata.ingestion.source.connections_utils import kill_active_connections
 from metadata.ingestion.source.database.database_service import DatabaseServiceSource
@@ -110,7 +110,7 @@ class CommonDbSourceService(
     def __init__(
         self,
         config: WorkflowSource,
-        metadata: OpenMetadata,
+        metadata: UMetadata,
     ):
         self.config = config
         self.source_config: DatabaseServiceMetadataPipeline = (
@@ -521,7 +521,7 @@ class CommonDbSourceService(
 
     def yield_tag(
         self, schema_name: str
-    ) -> Iterable[Either[OMetaTagAndClassification]]:
+    ) -> Iterable[Either[UMetaTagAndClassification]]:
         """
         We don't have a generic source implementation for handling tags.
 

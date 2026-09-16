@@ -1,0 +1,41 @@
+package org.umetadata.service.migration.postgres.v1129;
+
+import static org.umetadata.service.jdbi3.locator.ConnectionType.POSTGRES;
+import static org.umetadata.service.migration.utils.v1129.MigrationUtil.addTriggerOperationToDefaultBotPolicies;
+import static org.umetadata.service.migration.utils.v1129.MigrationUtil.addTriggerRuleToDataStewardPolicy;
+
+import lombok.extern.slf4j.Slf4j;
+import org.umetadata.service.migration.api.MigrationProcessImpl;
+import org.umetadata.service.migration.utils.MigrationFile;
+import org.umetadata.service.migration.utils.v1129.MigrationUtil;
+
+@Slf4j
+public class Migration extends MigrationProcessImpl {
+
+  public Migration(MigrationFile migrationFile) {
+    super(migrationFile);
+  }
+
+  @Override
+  public void runDataMigration() {
+    try {
+      addTriggerOperationToDefaultBotPolicies(collectionDAO);
+      addTriggerRuleToDataStewardPolicy(collectionDAO);
+    } catch (Exception ex) {
+      LOG.error(
+          "Failed to migrate bot/steward trigger policies in v1129 migration. "
+              + "Affected identities may lose trigger access until manually updated.",
+          ex);
+    }
+    try {
+      MigrationUtil migrationUtil = new MigrationUtil(handle, POSTGRES);
+      migrationUtil.migrateTaskDomains();
+    } catch (Exception e) {
+      LOG.error(
+          "Failed to migrate task domains in v1129 migration. "
+              + "Domain-scoped users may not see tasks in the activity feed "
+              + "until a manual domain backfill is performed.",
+          e);
+    }
+  }
+}

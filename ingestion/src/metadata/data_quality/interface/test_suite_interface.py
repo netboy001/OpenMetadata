@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -30,7 +30,7 @@ from metadata.generated.schema.entity.services.databaseService import DatabaseCo
 from metadata.generated.schema.tests.basic import TestCaseResult, TestCaseStatus
 from metadata.generated.schema.tests.testCase import TestCase
 from metadata.generated.schema.tests.testDefinition import TestDefinition
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.sampler.sampler_interface import SamplerInterface
 from metadata.utils.logger import test_suite_logger
 
@@ -45,13 +45,13 @@ class TestSuiteInterface(ABC):
     def __init__(
         self,
         service_connection_config: DatabaseConnection,
-        ometa_client: OpenMetadata,
+        umeta_client: UMetadata,
         sampler: SamplerInterface,
         table_entity: Table,
         validator_builder: Type[ValidatorBuilder],
     ):
         """Required attribute for the interface"""
-        self.ometa_client = ometa_client
+        self.umeta_client = umeta_client
         self.service_connection_config = service_connection_config
         self.table_entity = table_entity
         self.sampler = sampler
@@ -61,7 +61,7 @@ class TestSuiteInterface(ABC):
     def create(
         cls,
         service_connection_config: DatabaseConnection,
-        ometa_client: OpenMetadata,
+        umeta_client: UMetadata,
         sampler: SamplerInterface,
         table_entity: Table,
         *args,
@@ -69,7 +69,7 @@ class TestSuiteInterface(ABC):
     ):
         return cls(
             service_connection_config,
-            ometa_client,
+            umeta_client,
             sampler,
             table_entity,
             *args,
@@ -117,14 +117,14 @@ class TestSuiteInterface(ABC):
             RuntimeParameterSetter
         ] = runtime_params_setter_fact.get_runtime_param_setters(
             test_case.testDefinition.fullyQualifiedName,  # type: ignore
-            self.ometa_client,
+            self.umeta_client,
             self.service_connection_config,
             self.table_entity,
             self.sampler,
         )
 
         # get `column` or `table` type for validator import
-        entity_type: str = self.ometa_client.get_by_id(
+        entity_type: str = self.umeta_client.get_by_id(
             TestDefinition, test_case.testDefinition.id
         ).entityType.value
 

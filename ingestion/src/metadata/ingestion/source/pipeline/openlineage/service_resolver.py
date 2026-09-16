@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,7 +28,7 @@ from metadata.generated.schema.entity.services.pipelineService import (
     PipelineServiceType,
 )
 from metadata.generated.schema.type.basic import EntityName
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.pipeline.openlineage.models import OpenLineageEvent
 from metadata.utils.logger import ingestion_logger
 
@@ -63,7 +63,7 @@ def extract_integration_type(event: OpenLineageEvent) -> Optional[str]:
 
 
 def find_pipeline_by_namespace(
-    metadata: OpenMetadata,
+    metadata: UMetadata,
     event: OpenLineageEvent,
 ) -> Optional[Tuple[str, Pipeline]]:
     """
@@ -116,7 +116,7 @@ def build_service_name(integration: Optional[str], fallback_service: str) -> str
 
 
 def get_or_create_pipeline_service(
-    metadata: OpenMetadata,
+    metadata: UMetadata,
     service_name: str,
     service_type: PipelineServiceType,
     _cache: Optional[Dict[str, str]] = None,

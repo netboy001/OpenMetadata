@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,13 +33,13 @@ from metadata.generated.schema.entity.services.ingestionPipelines.status import 
 )
 from metadata.generated.schema.entity.services.serviceType import ServiceType
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.ingestion.api.parser import parse_workflow_config_gracefully
 from metadata.ingestion.api.step import Step
 from metadata.ingestion.api.steps import BulkSink, Processor, Sink, Source, Stage
 from metadata.ingestion.models.custom_types import ServiceWithConnectionType
-from metadata.ingestion.ometa.utils import sanitize_user_agent
+from metadata.ingestion.umeta.utils import sanitize_user_agent
 from metadata.profiler.api.models import ProfilerProcessorConfig
 from metadata.utils.class_helper import (
     get_pipeline_type_from_source_config,
@@ -71,14 +71,14 @@ class IngestionWorkflow(BaseWorkflow, ABC):
     BaseWorkflow.
     """
 
-    config: OpenMetadataWorkflowConfig
+    config: UMetadataWorkflowConfig
 
     # All workflows require a source as a first step
     source: Source
     # All workflows execute a series of steps, aside from the source
     steps: Tuple[Step]
 
-    def __init__(self, config: OpenMetadataWorkflowConfig):
+    def __init__(self, config: UMetadataWorkflowConfig):
         self.config = config
 
         self.service_type: ServiceType = get_service_type_from_source_type(
@@ -94,7 +94,7 @@ class IngestionWorkflow(BaseWorkflow, ABC):
     def _build_user_agent(self) -> Optional[str]:  # noqa: UP045
         """
         HTTP User-Agent identifying the connector, workflow type and service to the
-        OpenMetadata server, e.g. ``snowflake_metadata (service: prod-snowflake; v1.10.0.0)``.
+        UMetadata server, e.g. ``snowflake_metadata (service: prod-snowflake; v1.10.0.0)``.
         Every part is best-effort: anything that cannot be resolved is left out, and on
         any unexpected error we return ``None`` so the client keeps its default agent.
         """
@@ -216,7 +216,7 @@ class IngestionWorkflow(BaseWorkflow, ABC):
                     )
                 else:
                     raise InvalidWorkflowJSONException(
-                        f"Error getting the service [{service_name}] from the API. If it exists in OpenMetadata,"
+                        f"Error getting the service [{service_name}] from the API. If it exists in UMetadata,"
                         " make sure the ingestion-bot JWT token is valid and that the Workflow is deployed"
                         " with the latest one. If this error persists, recreate the JWT token and"
                         " redeploy the Workflow."

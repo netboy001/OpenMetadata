@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,7 +33,7 @@ from metadata.ingestion.connections.builders import (
     get_connection_options_dict,
 )
 from metadata.ingestion.connections.test_connections import test_connection_db_common
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.database.teradata.queries import TERADATA_GET_DATABASE
 from metadata.utils.constants import THREE_MIN
 
@@ -82,7 +82,7 @@ def get_connection(connection: TeradataConnection) -> Engine:
 
 
 def test_connection(
-    metadata: OpenMetadata,
+    metadata: UMetadata,
     engine: Engine,
     service_connection: TeradataConnection,
     automation_workflow: Optional[AutomationWorkflow] = None,

@@ -41,7 +41,7 @@ AND JSON_EXTRACT(json, '$.connection.config.connection.type') = 'Mssql';
 -- Rename NOOP Secret Manager to DB
 update metadata_service_entity
 set json = JSON_REPLACE(json, '$.connection.config.secretsManagerProvider', 'db')
-where name = 'OpenMetadata'
+where name = 'UMetadata'
   and JSON_EXTRACT(json, '$.connection.config.secretsManagerProvider') = 'noop';
 
 -- Clean old test connections
@@ -182,4 +182,4 @@ CREATE TABLE IF NOT EXISTS suggestions (
 );
 
 UPDATE ingestion_pipeline_entity SET json = JSON_SET(json, '$.provider', 'user')
-WHERE JSON_EXTRACT(json, '$.name') = 'OpenMetadata_dataInsight';
+WHERE JSON_EXTRACT(json, '$.name') = 'UMetadata_dataInsight';

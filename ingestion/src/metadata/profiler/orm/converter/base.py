@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -10,7 +10,7 @@
 #  limitations under the License.
 
 """
-Converter logic to transform an OpenMetadata Table Entity
+Converter logic to transform an UMetadata Table Entity
 to an SQLAlchemy ORM class.
 """
 from typing import Optional, cast
@@ -22,7 +22,7 @@ from sqlalchemy.orm import DeclarativeMeta, declarative_base
 from metadata.generated.schema.entity.data.database import Database, databaseService
 from metadata.generated.schema.entity.data.databaseSchema import DatabaseSchema
 from metadata.generated.schema.entity.data.table import Column, Table
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.profiler.orm.converter.converter_registry import converter_registry
 
 Base = declarative_base()
@@ -98,11 +98,11 @@ def build_orm_col(
     )
 
 
-def ometa_to_sqa_orm(
-    table: Table, metadata: OpenMetadata, sqa_metadata_obj: Optional[MetaData] = None
+def umeta_to_sqa_orm(
+    table: Table, metadata: UMetadata, sqa_metadata_obj: Optional[MetaData] = None
 ) -> DeclarativeMeta:
     """
-    Given an OpenMetadata instance, prepare
+    Given an UMetadata instance, prepare
     the SQLAlchemy DeclarativeMeta class
     to run queries on top of it.
 
@@ -111,8 +111,8 @@ def ometa_to_sqa_orm(
     as the bases tuple for inheritance.
 
     Args:
-        table (Table): OpenMetadata Table instance
-        metadata (OpenMetadata): OpenMetadata connection
+        table (Table): UMetadata Table instance
+        metadata (UMetadata): UMetadata connection
         sqa_metadata_obj (MetaData): For advanced use cases, you can pass a custom MetaData object. For most cases, this
         can be left as None so that the global_metadata object is used.
     """
@@ -161,11 +161,11 @@ def ometa_to_sqa_orm(
     )
 
     if not isinstance(orm, DeclarativeMeta):
-        raise ValueError("OMeta to ORM did not create a DeclarativeMeta")
+        raise ValueError("UMeta to ORM did not create a DeclarativeMeta")
     return orm
 
 
-def get_orm_schema(table: Table, metadata: OpenMetadata) -> str:
+def get_orm_schema(table: Table, metadata: UMetadata) -> str:
     """
     Build a fully qualified schema name depending on the
     service type. For example:
@@ -176,7 +176,7 @@ def get_orm_schema(table: Table, metadata: OpenMetadata) -> str:
     The logic depends on if the service supports databases
     or not.
     :param table: Table being profiled
-    :param metadata: OMeta client
+    :param metadata: UMeta client
     :return: qualified schema name
     """
 
@@ -187,12 +187,12 @@ def get_orm_schema(table: Table, metadata: OpenMetadata) -> str:
     return str(schema.name.root)
 
 
-def get_orm_database(table: Table, metadata: OpenMetadata) -> str:
+def get_orm_database(table: Table, metadata: UMetadata) -> str:
     """get database name from database service
 
     Args:
         table (Table): table entity
-        metadata (OpenMetadata): metadata connection to OM server instance
+        metadata (UMetadata): metadata connection to OM server instance
 
     Returns:
         str

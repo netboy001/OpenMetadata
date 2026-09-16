@@ -21,10 +21,10 @@ from metadata.generated.schema.entity.services.pipelineService import (
     PipelineServiceType,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.generated.schema.type.entityReference import EntityReference
-from metadata.ingestion.models.pipeline_status import OMetaPipelineStatus
+from metadata.ingestion.models.pipeline_status import UMetaPipelineStatus
 from metadata.ingestion.source.pipeline.domopipeline.metadata import DomopipelineSource
 
 mock_file_path = (
@@ -76,9 +76,9 @@ mock_domopipeline_config = {
     },
     "sink": {"type": "metadata-rest", "config": {}},
     "workflowConfig": {
-        "openMetadataServerConfig": {
+        "uMetadataServerConfig": {
             "hostPort": "http://localhost:8585/api",
-            "authProvider": "openmetadata",
+            "authProvider": "umetadata",
             "securityConfig": {
                 "jwtToken": "eyJraWQiOiJHYjM4OWEtOWY3Ni1nZGpzLWE5MmotMDI0MmJrOTQzNTYiLCJ0eXAiOiJKV1QiLCJhbGc"
                 "iOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlzQm90IjpmYWxzZSwiaXNzIjoib3Blbi1tZXRhZGF0YS5vcmciLCJpYXQiOjE"
@@ -93,7 +93,7 @@ mock_domopipeline_config = {
 
 
 EXPECTED_PIPELINE_STATUS = [
-    OMetaPipelineStatus(
+    UMetaPipelineStatus(
         pipeline_fqn="domopipeline_source_test.do_it_all_with_default_config",
         pipeline_status=PipelineStatus(
             timestamp=1665476792000,
@@ -109,7 +109,7 @@ EXPECTED_PIPELINE_STATUS = [
             ],
         ),
     ),
-    OMetaPipelineStatus(
+    UMetaPipelineStatus(
         pipeline_fqn="domopipeline_source_test.do_it_all_with_default_config",
         pipeline_status=PipelineStatus(
             timestamp=1665470252000,
@@ -125,7 +125,7 @@ EXPECTED_PIPELINE_STATUS = [
             ],
         ),
     ),
-    OMetaPipelineStatus(
+    UMetaPipelineStatus(
         pipeline_fqn="domopipeline_source_test.do_it_all_with_default_config",
         pipeline_status=PipelineStatus(
             timestamp=1665148827000,
@@ -247,12 +247,12 @@ class DomoPipelineUnitTest(TestCase):
         super().__init__(methodName)
         test_connection.return_value = False
         domo_client.return_value = False
-        self.config = OpenMetadataWorkflowConfig.model_validate(
+        self.config = UMetadataWorkflowConfig.model_validate(
             mock_domopipeline_config
         )
         self.domopipeline = DomopipelineSource.create(
             mock_domopipeline_config["source"],
-            self.config.workflowConfig.openMetadataServerConfig,
+            self.config.workflowConfig.uMetadataServerConfig,
         )
         self.domopipeline.context.get().__dict__["pipeline"] = MOCK_PIPELINE.name.root
         self.domopipeline.context.get().__dict__[
@@ -276,7 +276,7 @@ class DomoPipelineUnitTest(TestCase):
         pipeline_status_list = []
         results = self.domopipeline.yield_pipeline_status(MOCK_PIPELINE_DETAILS)
         for result in results:
-            if isinstance(result.right, OMetaPipelineStatus):
+            if isinstance(result.right, UMetaPipelineStatus):
                 pipeline_status_list.append(result.right)
 
         for _, (expected, original) in enumerate(

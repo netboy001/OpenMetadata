@@ -1,5 +1,5 @@
 """
-Integration tests for DQ as Code SDK with a running OpenMetadata server.
+Integration tests for DQ as Code SDK with a running UMetadata server.
 Tests that data quality validators are actually executed against real PostgreSQL data.
 """
 import sys

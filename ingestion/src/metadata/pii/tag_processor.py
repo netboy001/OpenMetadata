@@ -3,7 +3,7 @@ from typing import Any, Callable, List, Optional, Sequence
 from metadata.generated.schema.entity.classification.tag import Tag
 from metadata.generated.schema.entity.data.table import Column
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.generated.schema.type.classificationLanguages import (
     ClassificationLanguage,
@@ -15,7 +15,7 @@ from metadata.generated.schema.type.tagLabel import (
     TagSource,
 )
 from metadata.generated.schema.type.tagLabelMetadata import TagLabelMetadata
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.pii.algorithms.presidio_utils import load_nlp_engine
 from metadata.pii.algorithms.tag_scoring import ScoreTagsForColumnService
 from metadata.pii.base_processor import AutoClassificationProcessor
@@ -42,8 +42,8 @@ class TagProcessor(AutoClassificationProcessor):
 
     def __init__(
         self,
-        config: OpenMetadataWorkflowConfig,
-        metadata: OpenMetadata,
+        config: UMetadataWorkflowConfig,
+        metadata: UMetadata,
         classification_manager: Optional[ClassificationManagerInterface] = None,
         score_tags_for_column: Optional[ScoreTagsForColumn] = None,
         classification_filter: Optional[List[str]] = None,

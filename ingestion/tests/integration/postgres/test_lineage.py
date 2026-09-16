@@ -9,7 +9,7 @@ from metadata.generated.schema.metadataIngestion.databaseServiceQueryLineagePipe
     DatabaseLineageConfigType,
 )
 from metadata.ingestion.lineage.sql_lineage import search_cache
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.workflow.metadata import MetadataWorkflow
 
 if not sys.version_info >= (3, 9):
@@ -123,7 +123,7 @@ def test_log_lineage(
     assert edge is not None
 
 
-def reindex_search(metadata: OpenMetadata, entities=None, timeout=180):
+def reindex_search(metadata: UMetadata, entities=None, timeout=180):
     if entities is None:
         entities = ["table", "query"]
 

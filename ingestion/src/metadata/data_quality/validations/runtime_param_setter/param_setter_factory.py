@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -42,7 +42,7 @@ from metadata.data_quality.validations.table.sqlalchemy.tableDiff import (
 )
 from metadata.generated.schema.entity.data.table import Table
 from metadata.generated.schema.tests.testDefinition import TestDefinition
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.sampler.sampler_interface import SamplerInterface
 from metadata.utils.logger import test_suite_logger
 
@@ -97,7 +97,7 @@ class RuntimeParameterSetterFactory:
     def get_runtime_param_setters(
         self,
         name: str,
-        ometa: OpenMetadata,
+        umeta: UMetadata,
         service_connection_config,
         table_entity: Table,
         sampler: SamplerInterface,
@@ -114,7 +114,7 @@ class RuntimeParameterSetterFactory:
         # If not found, check if it's a rule library validator by validatorClass
         if not setter_classes:
             try:
-                test_definition = ometa.get_by_name(
+                test_definition = umeta.get_by_name(
                     entity=TestDefinition,
                     fqn=name,
                 )
@@ -127,7 +127,7 @@ class RuntimeParameterSetterFactory:
 
         return {
             setter(
-                ometa,
+                umeta,
                 service_connection_config,
                 table_entity,
                 sampler,

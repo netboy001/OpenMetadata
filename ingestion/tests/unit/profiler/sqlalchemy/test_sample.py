@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -102,7 +102,7 @@ class SampleTest(TestCase):
         with patch.object(SQASampler, "build_table_orm", return_value=User):
             cls.sampler = SQASampler(
                 service_connection_config=cls.sqlite_conn,
-                ometa_client=None,
+                umeta_client=None,
                 entity=None,
                 sample_config=SampleConfig(profileSample=50.0),
             )
@@ -122,7 +122,7 @@ class SampleTest(TestCase):
         with patch.object(SQASampler, "build_table_orm", return_value=User):
             cls.full_sampler = SQASampler(
                 service_connection_config=cls.sqlite_conn,
-                ometa_client=None,
+                umeta_client=None,
                 entity=None,
             )
         cls.full_sqa_profiler_interface = SQAProfilerInterface(
@@ -316,7 +316,7 @@ class SampleTest(TestCase):
         with patch.object(SQASampler, "build_table_orm", return_value=UserBinary):
             sampler = SQASampler(
                 service_connection_config=self.sqlite_conn,
-                ometa_client=None,
+                umeta_client=None,
                 entity=None,
             )
 
@@ -348,7 +348,7 @@ class SampleTest(TestCase):
         with patch.object(SQASampler, "build_table_orm", return_value=User):
             sampler = SQASampler(
                 service_connection_config=self.sqlite_conn,
-                ometa_client=None,
+                umeta_client=None,
                 entity=None,
                 sample_config=SampleConfig(profileSample=50.0),
                 sample_query=stmt,

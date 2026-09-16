@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,7 +21,7 @@ from metadata.generated.schema.metadataIngestion.storage.containerMetadataConfig
     MetadataEntry,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.generated.schema.type.entityReference import EntityReference
 from metadata.ingestion.source.storage.gcs.metadata import GcsSource
@@ -64,9 +64,9 @@ MOCK_GCS_CONFIG = {
     },
     "sink": {"type": "metadata-rest", "config": {}},
     "workflowConfig": {
-        "openMetadataServerConfig": {
+        "uMetadataServerConfig": {
             "hostPort": "http://localhost:8585/api",
-            "authProvider": "openmetadata",
+            "authProvider": "umetadata",
             "securityConfig": {"jwtToken": "token"},
         }
     },
@@ -83,10 +83,10 @@ class TestGCSUnstructuredFormats(TestCase):
     )
     def setUp(self, test_connection):
         test_connection.return_value = False
-        self.config = OpenMetadataWorkflowConfig.model_validate(MOCK_GCS_CONFIG)
+        self.config = UMetadataWorkflowConfig.model_validate(MOCK_GCS_CONFIG)
         self.gcs_source = GcsSource.create(
             MOCK_GCS_CONFIG["source"],
-            self.config.workflowConfig.openMetadataServerConfig,
+            self.config.workflowConfig.uMetadataServerConfig,
         )
         # Mock the context
         mock_context = MagicMock()

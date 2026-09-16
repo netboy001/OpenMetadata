@@ -1,0 +1,16 @@
+{
+  "$id": "https://u-metadata.org/schema/entity/applications/scheduledExecutionContext.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "JobRun",
+  "javaType": "org.umetadata.schema.entity.app.ScheduledExecutionContext",
+  "javaInterfaces": ["org.umetadata.schema.AppRuntime"],
+  "description": "Scheduled Execution Context Configuration.",
+  "type": "object",
+  "properties": {
+    "enabled": {
+      "description": "If Live Execution is Enabled.",
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

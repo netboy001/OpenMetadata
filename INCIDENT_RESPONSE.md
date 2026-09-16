@@ -1,12 +1,12 @@
-# OpenMetadata Incident Response Plan
+# UMetadata Incident Response Plan
 
-This document outlines the incident response procedures for security issues in the OpenMetadata project.
+This document outlines the incident response procedures for security issues in the UMetadata project.
 
 ## Scope
 
 This incident response plan covers:
-- All code within the OpenMetadata organization repositories
-- Security vulnerabilities in OpenMetadata services
+- All code within the UMetadata organization repositories
+- Security vulnerabilities in UMetadata services
 - Metadata exposure incidents
 - Supply chain security issues
 - Infrastructure compromises
@@ -27,11 +27,11 @@ This incident response plan covers:
 All security issues must be reported privately through one of these channels:
 
 1. **GitHub Security Advisories** (Preferred)
-   - Navigate to: https://github.com/open-metadata/OpenMetadata/security/advisories
+   - Navigate to: https://github.com/u-metadata/UMetadata/security/advisories
    - Click "Report a vulnerability"
    - Provide detailed information
 
-2. **Email**: security@open-metadata.org
+2. **Email**: security@u-metadata.org
    - Encrypt sensitive details using our PGP key (available on our website)
 
 ### What to Include
@@ -174,11 +174,11 @@ All security issues must be reported privately through one of these channels:
 - Difficult to exploit issues
 - **Response Time**: Next regular release
 
-## Special Considerations for OpenMetadata
+## Special Considerations for UMetadata
 
 ### Metadata-Specific Incidents
 
-Since OpenMetadata handles only metadata, not actual data:
+Since UMetadata handles only metadata, not actual data:
 
 1. **Metadata Exposure**
    - Assess what metadata was exposed
@@ -210,14 +210,14 @@ Since OpenMetadata handles only metadata, not actual data:
 ## Contact Information
 
 ### Security Team
-- **Email**: security@open-metadata.org
-- **GitHub Security**: https://github.com/open-metadata/OpenMetadata/security
+- **Email**: security@u-metadata.org
+- **GitHub Security**: https://github.com/u-metadata/UMetadata/security
 - **Incident Lead**: @harshach
 
 ### Escalation Path
 1. Security Team
 2. Incident Lead (@harshach)
-3. OpenMetadata Maintainers
+3. UMetadata Maintainers
 4. Collate (parent organization) if required
 
 ## Communication Templates
@@ -236,14 +236,14 @@ Expected timeline:
 
 We will keep you updated on our progress. Please keep this issue confidential until we coordinate disclosure.
 
-Thank you for helping keep OpenMetadata secure.
+Thank you for helping keep UMetadata secure.
 ```
 
 ### Security Advisory Template
 ```
 # Security Advisory: [CVE-ID]
 
-**Affected Component**: OpenMetadata [Component]
+**Affected Component**: UMetadata [Component]
 **Severity**: [Critical/High/Medium/Low]
 **CVSS Score**: [Score]
 **Affected Versions**: [Versions]

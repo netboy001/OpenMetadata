@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -171,13 +171,13 @@ class DatalakeSampleTest(TestCase):
         ):
             sampler = DatalakeSampler(
                 service_connection_config=DatalakeConnection(configSource={}),
-                ometa_client=None,
+                umeta_client=None,
                 entity=cls.table_entity,
                 sample_config=SampleConfig(profileSample=50.0),
             )
             cls.datalake_profiler_interface = PandasProfilerInterface(
                 service_connection_config=DatalakeConnection(configSource={}),
-                ometa_client=None,
+                umeta_client=None,
                 entity=cls.table_entity,
                 source_config=None,
                 sampler=sampler,
@@ -207,7 +207,7 @@ class DatalakeSampleTest(TestCase):
         ):
             sampler = DatalakeSampler(
                 service_connection_config=DatalakeConnection(configSource={}),
-                ometa_client=None,
+                umeta_client=None,
                 entity=self.table_entity,
                 sample_config=SampleConfig(profileSample=50.0),
             )
@@ -241,13 +241,13 @@ class DatalakeSampleTest(TestCase):
         ):
             sampler = DatalakeSampler(
                 service_connection_config=DatalakeConnection(configSource={}),
-                ometa_client=None,
+                umeta_client=None,
                 entity=self.table_entity,
                 sample_config=SampleConfig(profileSample=50.0),
             )
             datalake_profiler_interface = PandasProfilerInterface(
                 service_connection_config=DatalakeConnection(configSource={}),
-                ometa_client=None,
+                umeta_client=None,
                 entity=self.table_entity,
                 source_config=None,
                 sampler=sampler,
@@ -322,7 +322,7 @@ class DatalakeSampleTest(TestCase):
         ):
             sampler = DatalakeSampler(
                 service_connection_config=DatalakeConnection(configSource={}),
-                ometa_client=None,
+                umeta_client=None,
                 entity=self.table_entity,
                 sample_config=SampleConfig(profileSample=50.0),
             )
@@ -354,7 +354,7 @@ class DatalakeSampleTest(TestCase):
         ):
             sampler = DatalakeSampler(
                 service_connection_config=DatalakeConnection(configSource={}),
-                ometa_client=None,
+                umeta_client=None,
                 entity=self.table_entity,
                 default_sample_config=SampleConfig(profileSample=50.0),
                 sample_query="`age` > 30",

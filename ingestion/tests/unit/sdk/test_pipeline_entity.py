@@ -22,10 +22,10 @@ class TestPipelineEntity(unittest.TestCase):
 
     def setUp(self):
         """Set up test fixtures"""
-        self.mock_ometa = MagicMock()
+        self.mock_umeta = MagicMock()
 
         # Set default client directly
-        Pipelines.set_default_client(self.mock_ometa)
+        Pipelines.set_default_client(self.mock_umeta)
 
         # Test data
         self.pipeline_id = "450e8400-e29b-41d4-a716-446655440000"
@@ -48,7 +48,7 @@ class TestPipelineEntity(unittest.TestCase):
         expected_pipeline.fullyQualifiedName = self.pipeline_fqn
         expected_pipeline.displayName = "Daily Sales ETL"
 
-        self.mock_ometa.create_or_update.return_value = expected_pipeline
+        self.mock_umeta.create_or_update.return_value = expected_pipeline
 
         # Act
         result = Pipelines.create(create_request)
@@ -57,7 +57,7 @@ class TestPipelineEntity(unittest.TestCase):
         self.assertEqual(str(result.id), self.pipeline_id)
         self.assertEqual(result.name, "etl-daily-sales")
         self.assertEqual(result.displayName, "Daily Sales ETL")
-        self.mock_ometa.create_or_update.assert_called_once_with(create_request)
+        self.mock_umeta.create_or_update.assert_called_once_with(create_request)
 
     def test_retrieve_pipeline_by_id(self):
         """Test retrieving a pipeline by ID"""
@@ -67,7 +67,7 @@ class TestPipelineEntity(unittest.TestCase):
         expected_pipeline.name = "etl-daily-sales"
         expected_pipeline.description = "Daily ETL pipeline"
 
-        self.mock_ometa.get_by_id.return_value = expected_pipeline
+        self.mock_umeta.get_by_id.return_value = expected_pipeline
 
         # Act
         result = Pipelines.retrieve(self.pipeline_id)
@@ -75,7 +75,7 @@ class TestPipelineEntity(unittest.TestCase):
         # Assert
         self.assertEqual(str(result.id), self.pipeline_id)
         self.assertEqual(result.name, "etl-daily-sales")
-        self.mock_ometa.get_by_id.assert_called_once_with(
+        self.mock_umeta.get_by_id.assert_called_once_with(
             entity=PipelineEntity, entity_id=self.pipeline_id, fields=None
         )
 
@@ -102,7 +102,7 @@ class TestPipelineEntity(unittest.TestCase):
         expected_pipeline.name = "etl-daily-sales"
         expected_pipeline.tasks = [task1, task2]
 
-        self.mock_ometa.get_by_id.return_value = expected_pipeline
+        self.mock_umeta.get_by_id.return_value = expected_pipeline
 
         # Act
         result = Pipelines.retrieve(self.pipeline_id, fields=fields)
@@ -112,7 +112,7 @@ class TestPipelineEntity(unittest.TestCase):
         self.assertEqual(len(result.tasks), 2)
         self.assertEqual(result.tasks[0].name, "extract-data")
         self.assertEqual(result.tasks[1].name, "transform-data")
-        self.mock_ometa.get_by_id.assert_called_once_with(
+        self.mock_umeta.get_by_id.assert_called_once_with(
             entity=PipelineEntity, entity_id=self.pipeline_id, fields=fields
         )
 
@@ -124,14 +124,14 @@ class TestPipelineEntity(unittest.TestCase):
         expected_pipeline.name = "etl-daily-sales"
         expected_pipeline.fullyQualifiedName = self.pipeline_fqn
 
-        self.mock_ometa.get_by_name.return_value = expected_pipeline
+        self.mock_umeta.get_by_name.return_value = expected_pipeline
 
         # Act
         result = Pipelines.retrieve_by_name(self.pipeline_fqn)
 
         # Assert
         self.assertEqual(result.fullyQualifiedName, self.pipeline_fqn)
-        self.mock_ometa.get_by_name.assert_called_once_with(
+        self.mock_umeta.get_by_name.assert_called_once_with(
             entity=PipelineEntity, fqn=self.pipeline_fqn, fields=None
         )
 
@@ -150,10 +150,10 @@ class TestPipelineEntity(unittest.TestCase):
             if hasattr(pipeline_to_update, "id")
             else UUID(self.entity_id)
         )
-        self.mock_ometa.get_by_id.return_value = current_entity
+        self.mock_umeta.get_by_id.return_value = current_entity
 
         # Mock the patch to return the updated entity
-        self.mock_ometa.patch.return_value = pipeline_to_update
+        self.mock_umeta.patch.return_value = pipeline_to_update
 
         # Act
         result = Pipelines.update(pipeline_to_update)
@@ -161,9 +161,9 @@ class TestPipelineEntity(unittest.TestCase):
         # Assert
         self.assertEqual(result.description, "Updated ETL pipeline")
         # Verify get_by_id was called to fetch current state
-        self.mock_ometa.get_by_id.assert_called_once()
+        self.mock_umeta.get_by_id.assert_called_once()
         # Verify patch was called with source and destination
-        self.mock_ometa.patch.assert_called_once()
+        self.mock_umeta.patch.assert_called_once()
 
     def test_delete_pipeline(self):
         """Test deleting a pipeline"""
@@ -171,7 +171,7 @@ class TestPipelineEntity(unittest.TestCase):
         Pipelines.delete(self.pipeline_id, recursive=True, hard_delete=False)
 
         # Assert
-        self.mock_ometa.delete.assert_called_once_with(
+        self.mock_umeta.delete.assert_called_once_with(
             entity=PipelineEntity,
             entity_id=self.pipeline_id,
             recursive=True,
@@ -191,7 +191,7 @@ class TestPipelineEntity(unittest.TestCase):
         expected_pipeline.id = UUID(self.pipeline_id)
         expected_pipeline.pipelineStatus = status
 
-        self.mock_ometa.get_by_id.return_value = expected_pipeline
+        self.mock_umeta.get_by_id.return_value = expected_pipeline
 
         # Act
         result = Pipelines.retrieve(self.pipeline_id, fields=["pipelineStatus"])
@@ -220,7 +220,7 @@ class TestPipelineEntity(unittest.TestCase):
         expected_pipeline.upstream = [upstream_table]
         expected_pipeline.downstream = [downstream_table]
 
-        self.mock_ometa.get_by_id.return_value = expected_pipeline
+        self.mock_umeta.get_by_id.return_value = expected_pipeline
 
         # Act
         result = Pipelines.retrieve(self.pipeline_id, fields=["lineage"])
@@ -241,7 +241,7 @@ class TestPipelineEntity(unittest.TestCase):
             MagicMock(spec=PipelineEntity, name="pipeline3"),
         ]
 
-        self.mock_ometa.list_entities.return_value = mock_response
+        self.mock_umeta.list_entities.return_value = mock_response
 
         # Act
         result = Pipelines.list(limit=20, after="cursor123")
@@ -249,7 +249,7 @@ class TestPipelineEntity(unittest.TestCase):
         # Assert
         self.assertEqual(len(result.entities), 3)
         self.assertEqual(result.entities[0].name, "pipeline1")
-        self.mock_ometa.list_entities.assert_called_once()
+        self.mock_umeta.list_entities.assert_called_once()
 
     def test_pipeline_with_schedule(self):
         """Test pipeline with schedule information"""
@@ -265,7 +265,7 @@ class TestPipelineEntity(unittest.TestCase):
         expected_pipeline.name = "scheduled-pipeline"
         expected_pipeline.scheduleInterval = "0 0 * * *"
 
-        self.mock_ometa.create_or_update.return_value = expected_pipeline
+        self.mock_umeta.create_or_update.return_value = expected_pipeline
 
         # Act
         result = Pipelines.create(create_request)
@@ -276,7 +276,7 @@ class TestPipelineEntity(unittest.TestCase):
     def test_error_handling_pipeline_not_found(self):
         """Test error handling when pipeline not found"""
         # Arrange
-        self.mock_ometa.get_by_id.side_effect = Exception("Pipeline not found")
+        self.mock_umeta.get_by_id.side_effect = Exception("Pipeline not found")
 
         # Act & Assert
         with self.assertRaises(Exception) as context:

@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,11 +32,11 @@ from metadata.generated.schema.type.queryParserData import QueryParserData
 from metadata.generated.schema.type.tableQuery import TableQueries
 from metadata.ingestion.api.models import Entity
 from metadata.ingestion.models.delete_entity import DeleteEntity
-from metadata.ingestion.models.life_cycle import OMetaLifeCycleData
-from metadata.ingestion.models.ometa_classification import OMetaTagAndClassification
+from metadata.ingestion.models.life_cycle import UMetaLifeCycleData
+from metadata.ingestion.models.umeta_classification import UMetaTagAndClassification
 from metadata.ingestion.models.patch_request import PatchRequest
-from metadata.ingestion.models.pipeline_status import OMetaPipelineStatus
-from metadata.ingestion.models.user import OMetaUserProfile
+from metadata.ingestion.models.pipeline_status import UMetaPipelineStatus
+from metadata.ingestion.models.user import UMetaUserProfile
 
 METADATA_LOGGER = "metadata"
 BASE_LOGGING_FORMAT = (
@@ -52,7 +52,7 @@ class Loggers(Enum):
     Enum for loggers
     """
 
-    OMETA = "OMetaAPI"
+    UMETA = "UMetaAPI"
     CLI = "Metadata"
     PROFILER = "Profiler"
     SAMPLER = "Sampler"
@@ -84,12 +84,12 @@ class ANSI(Enum):
     MAGENTA = "\u001b[35;1m"
 
 
-def ometa_logger():
+def umeta_logger():
     """
-    Method to get the OMETA logger
+    Method to get the UMETA logger
     """
 
-    return logging.getLogger(Loggers.OMETA.value)
+    return logging.getLogger(Loggers.UMETA.value)
 
 
 def cli_logger():
@@ -221,7 +221,7 @@ def get_log_name(record: Entity) -> Optional[str]:
 
 
 @get_log_name.register
-def _(record: OMetaTagAndClassification) -> str:
+def _(record: UMetaTagAndClassification) -> str:
     """
     Given a LineageRequest, parse its contents to return
     a string that we can log
@@ -258,7 +258,7 @@ def _(record: DeleteEntity) -> str:
 
 
 @get_log_name.register
-def _(record: OMetaLifeCycleData) -> str:
+def _(record: UMetaLifeCycleData) -> str:
     """
     Capture the lifecycle changes of an Entity
     """
@@ -285,7 +285,7 @@ def _(record: TestCaseResultResponse) -> str:
 
 
 @get_log_name.register
-def _(record: OMetaPipelineStatus) -> str:
+def _(record: UMetaPipelineStatus) -> str:
     return f"Pipeline Status [{record.pipeline_fqn}]"
 
 
@@ -314,7 +314,7 @@ def _(record: DataContractResult) -> str:
 
 
 @get_log_name.register
-def _(record: OMetaUserProfile) -> str:
+def _(record: UMetaUserProfile) -> str:
     """Get the log of the new entity"""
     return (
         f"User Profile: {get_log_name(record.user)},"

@@ -10,7 +10,7 @@ import traceback
 from typing import Dict, List, Optional, Union
 
 from metadata.generated.schema.type.entityReferenceList import EntityReferenceList
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.utils.logger import ingestion_logger
 
 logger = ingestion_logger()
@@ -37,12 +37,12 @@ class OwnerResolver:
     4. Default configuration
     """
 
-    def __init__(self, metadata: OpenMetadata, owner_config: Optional[Dict] = None):
+    def __init__(self, metadata: UMetadata, owner_config: Optional[Dict] = None):
         """
         Initialize the owner resolver
 
         Args:
-            metadata: OpenMetadata client for owner lookups
+            metadata: UMetadata client for owner lookups
             owner_config: Owner configuration dict
         """
         self.metadata = metadata
@@ -238,7 +238,7 @@ class OwnerResolver:
         self, owner_names: Union[str, List[str]]
     ) -> Optional[EntityReferenceList]:
         """
-        Get owner references from OpenMetadata (supports single or multiple owners)
+        Get owner references from UMetadata (supports single or multiple owners)
 
         Business Rules:
         - Multiple users are allowed
@@ -271,7 +271,7 @@ class OwnerResolver:
 
 
 def get_owner_from_config(
-    metadata: OpenMetadata,
+    metadata: UMetadata,
     owner_config: Optional[Union[str, Dict]],
     entity_type: str,
     entity_name: str,
@@ -281,7 +281,7 @@ def get_owner_from_config(
     Convenience function to resolve owner from configuration
 
     Args:
-        metadata: OpenMetadata client
+        metadata: UMetadata client
         owner_config: Owner configuration (string for simple mode, dict for hierarchical mode)
         entity_type: Type of entity ("database", "databaseSchema", "table")
         entity_name: Name or FQN of the entity

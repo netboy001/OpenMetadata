@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -37,7 +37,7 @@ from metadata.generated.schema.metadataIngestion.workflow import (
 )
 from metadata.generated.schema.metadataIngestion.workflow import SourceConfig
 from metadata.generated.schema.type.filterPattern import FilterPattern
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.database.saphana.cdata_parser import (
     ColumnMapping,
     DataSource,
@@ -837,7 +837,7 @@ def test_sap_hana_lineage_filter_pattern() -> None:
     Test that SAP HANA lineage source filters views based on
     the full package_id/object_name format.
     """
-    mock_metadata = create_autospec(OpenMetadata)
+    mock_metadata = create_autospec(UMetadata)
     mock_metadata.get_by_name = Mock(return_value=None)
     mock_config = WorkflowSource(
         type="saphana-lineage",
@@ -1254,7 +1254,7 @@ def test_get_table_function_entity_encodes_fqn_and_searches_es() -> None:
     """Test _get_table_function_entity encodes :: separators and searches via ES.
 
     SAP HANA table function names use :: (e.g. my-package::TF_ORDERS),
-    but OpenMetadata FQNs encode :: as __reserved__colon__. This test verifies
+    but UMetadata FQNs encode :: as __reserved__colon__. This test verifies
     the encoding is applied before the ES search.
     """
     ds = DataSource(

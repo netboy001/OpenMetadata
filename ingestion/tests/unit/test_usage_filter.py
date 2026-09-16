@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,11 +22,11 @@ from pydantic import BaseModel
 
 from metadata.generated.schema.entity.data.database import Database
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.generated.schema.type.entityReference import EntityReference
 from metadata.generated.schema.type.entityReferenceList import EntityReferenceList
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.database.clickhouse.usage import ClickhouseUsageSource
 
 T = TypeVar("T", bound=BaseModel)
@@ -49,9 +49,9 @@ mock_clickhouse_config = {
     "stage": {"type": "table-usage", "config": {"filename": "/tmp/mssql_usage"}},
     "bulkSink": {"type": "metadata-usage", "config": {"filename": "/tmp/mssql_usage"}},
     "workflowConfig": {
-        "openMetadataServerConfig": {
+        "uMetadataServerConfig": {
             "hostPort": "http://localhost:8585/api",
-            "authProvider": "openmetadata",
+            "authProvider": "umetadata",
             "securityConfig": {
                 "jwtToken": "eyJraWQiOiJHYjM4OWEtOWY3Ni1nZGpzLWE5MmotMDI0MmJrOTQzNTYiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlzQm90IjpmYWxzZSwiaXNzIjoib3Blbi1tZXRhZGF0YS5vcmciLCJpYXQiOjE2NjM5Mzg0NjIsImVtYWlsIjoiYWRtaW5Ab3Blbm1ldGFkYXRhLm9yZyJ9.tS8um_5DKu7HgzGBzS1VTA5uUjKWOCU0B_j08WXBiEC0mr0zNREkqVfwFDD-d24HlNEbrqioLsBuFRiwIWKc1m_ZlVQbG7P36RUxhuv2vbSp80FKyNM-Tj93FDzq91jsyNmsQhyNv_fNr3TXfzzSPjHt8Go0FMMP66weoKMgW2PbXlhVKwEuXUHyakLLzewm9UMeQaEiRzhiTMU3UkLXcKbYEJJvfNFcLwSl9W8JCO_l0Yj3ud-qt_nQYEZwqW6u5nfdQllN133iikV4fM5QZsMCnm8Rq1mvLR0y9bmJiD7fwM1tmJ791TUWqmKaTnP49U493VanKpUAfzIiOiIbhg"
             },
@@ -144,9 +144,9 @@ class UsageQueryFilterTests(TestCase):
     Usage filter tests for database and schema filters
     """
 
-    @patch.object(OpenMetadata, "list_all_entities", mock_list_entities)
+    @patch.object(UMetadata, "list_all_entities", mock_list_entities)
     def test_prepare_clickhouse(self):
-        config = OpenMetadataWorkflowConfig.model_validate(mock_clickhouse_config)
+        config = UMetadataWorkflowConfig.model_validate(mock_clickhouse_config)
         with patch(
             "metadata.ingestion.source.database.query_parser_source.get_ssl_connection"
         ), patch(
@@ -154,7 +154,7 @@ class UsageQueryFilterTests(TestCase):
         ):
             clickhouse_source = ClickhouseUsageSource.create(
                 mock_clickhouse_config["source"],
-                OpenMetadata(config.workflowConfig.openMetadataServerConfig),
+                UMetadata(config.workflowConfig.uMetadataServerConfig),
             )
         clickhouse_source.prepare()
         assert clickhouse_source.filters == EXPECTED_CLICKHOUSE_FILTER

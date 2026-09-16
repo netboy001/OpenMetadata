@@ -1,29 +1,29 @@
 #!/usr/bin/env python3
-"""Test connection to OpenMetadata."""
+"""Test connection to UMetadata."""
 import sys
 
 # Read token from file
-with open("/Users/harsha/Code/OpenMetadata/scripts/token.txt") as f:
+with open("/Users/harsha/Code/UMetadata/scripts/token.txt") as f:
     token = f.read().strip()
 
 print(f"Token length: {len(token)}")
-print("Connecting to OpenMetadata...")
+print("Connecting to UMetadata...")
 
-from metadata.generated.schema.security.client.openMetadataJWTClientConfig import (
-    OpenMetadataJWTClientConfig,
+from metadata.generated.schema.security.client.uMetadataJWTClientConfig import (
+    UMetadataJWTClientConfig,
 )
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
-from metadata.generated.schema.entity.services.connections.metadata.openMetadataConnection import (
-    OpenMetadataConnection,
+from metadata.ingestion.umeta.umeta_api import UMetadata
+from metadata.generated.schema.entity.services.connections.metadata.uMetadataConnection import (
+    UMetadataConnection,
 )
 
-server_config = OpenMetadataConnection(
+server_config = UMetadataConnection(
     hostPort="http://localhost:8585/api",
-    securityConfig=OpenMetadataJWTClientConfig(jwtToken=token),
+    securityConfig=UMetadataJWTClientConfig(jwtToken=token),
 )
 
 print("Created config, initializing client...")
-metadata = OpenMetadata(server_config)
+metadata = UMetadata(server_config)
 print("Client initialized!")
 
 # Test a simple API call

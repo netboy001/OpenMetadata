@@ -17,30 +17,30 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.open-metadata</groupId>
+  <groupId>org.u-metadata</groupId>
   <artifactId>platform</artifactId>
-  <name>OpenMetadata-Platform</name>
+  <name>UMetadata-Platform</name>
   <description> is an all-in-one platform for data discovery, data lineage, data quality, observability, governance,
     and team collaboration. It is one of the fastest growing open-source projects with a vibrant community and
     adoption by a diverse set of companies in a variety of industry verticals. Powered by a centralized metadata store
-    based on Open Metadata Standards/APIs, supporting connectors to a wide range of data services,
-    OpenMetadata enables end-to-end metadata management, giving you the freedom to unlock the value of your data assets.
+    based on U Metadata Standards/APIs, supporting connectors to a wide range of data services,
+    UMetadata enables end-to-end metadata management, giving you the freedom to unlock the value of your data assets.
   </description>
   <version>1.12.14</version>
-  <url>https://github.com/open-metadata/OpenMetadata</url>
+  <url>https://github.com/u-metadata/UMetadata</url>
   <modules>
-    <module>openmetadata-spec</module>
-    <module>openmetadata-sdk</module>
+    <module>umetadata-spec</module>
+    <module>umetadata-sdk</module>
     <module>common</module>
-    <module>openmetadata-shaded-deps</module>
-    <module>openmetadata-service</module>
-    <module>openmetadata-k8s-operator</module>
-    <module>openmetadata-integration-tests</module>
-    <module>openmetadata-mcp</module>
-    <module>openmetadata-ui-core-components</module>
-    <module>openmetadata-ui</module>
-    <module>openmetadata-dist</module>
-    <module>openmetadata-clients</module>
+    <module>umetadata-shaded-deps</module>
+    <module>umetadata-service</module>
+    <module>umetadata-k8s-operator</module>
+    <module>umetadata-integration-tests</module>
+    <module>umetadata-mcp</module>
+    <module>umetadata-ui-core-components</module>
+    <module>umetadata-ui</module>
+    <module>umetadata-dist</module>
+    <module>umetadata-clients</module>
   </modules>
   <packaging>pom</packaging>
 
@@ -52,15 +52,15 @@
   </licenses>
 
   <scm>
-    <connection>scm:git:git@github.com:Open-Metadata/OpenMetadata</connection>
-    <developerConnection>scm:git:git@github.com:Open-Metadata/OpenMetadata</developerConnection>
-    <url>scm:git:git@github.com:Open-Metadata/OpenMetadata</url>
+    <connection>scm:git:git@github.com:U-Metadata/UMetadata</connection>
+    <developerConnection>scm:git:git@github.com:U-Metadata/UMetadata</developerConnection>
+    <url>scm:git:git@github.com:U-Metadata/UMetadata</url>
   </scm>
 
   <developers>
     <developer>
-      <name>OpenMetadata</name>
-      <email>openmetadata@getcollate.io</email>
+      <name>UMetadata</name>
+      <email>umetadata@getcollate.io</email>
       <organization>Get Collate</organization>
       <organizationUrl>https://getcollate.io/</organizationUrl>
     </developer>
@@ -75,7 +75,7 @@
     <slf4j.version>2.0.4</slf4j.version>
     <jackson.version>2.18.9</jackson.version>
     <!-- Single source for the AWS SDK v2 BOM version, consumed by the root BOM
-         import below and by openmetadata-service's BOM import. -->
+         import below and by umetadata-service's BOM import. -->
     <awssdk.version>2.41.30</awssdk.version>
     <dropwizard.version>5.0.0</dropwizard.version>
     <dropwizard-jdbi3.version>5.0.0</dropwizard-jdbi3.version>
@@ -118,9 +118,9 @@
     <fernet.version>1.5.0</fernet.version>
     <antlr.version>4.13.2</antlr.version>
 
-    <sonar.projectKey>open-metadata_OpenMetadata</sonar.projectKey>
+    <sonar.projectKey>u-metadata_UMetadata</sonar.projectKey>
     <sonar.moduleKey>${project.artifactId}</sonar.moduleKey>
-    <sonar.organization>open-metadata</sonar.organization>
+    <sonar.organization>u-metadata</sonar.organization>
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     <sonar.working.directory>target/sonar</sonar.working.directory>
     <maven.sonar-plugin.version>3.10.0.2594</maven.sonar-plugin.version>
@@ -406,7 +406,7 @@
         <version>${jdbi3.version}</version>
       </dependency>
       <!-- Removed dropwizard-web dependency - not compatible with Dropwizard 5.0 -->
-      <!-- Using local web configuration classes in org.openmetadata.service.config.web -->
+      <!-- Using local web configuration classes in org.umetadata.service.config.web -->
       <dependency>
         <groupId>org.eclipse.jetty.ee10</groupId>
         <artifactId>jetty-ee10-servlets</artifactId>
@@ -777,7 +777,7 @@
         <scope>import</scope>
       </dependency>
       <!-- AWS SDK v2 BOM at root so every module resolves the patched line.
-           openmetadata-dist / -mcp / -k8s-operator are siblings that depend on
+           umetadata-dist / -mcp / -k8s-operator are siblings that depend on
            -service (not children of it), so -service's BOM alone does not reach
            them. Clears cloudfront (SNYK-JAVA-SOFTWAREAMAZONAWSSDK-15810116). -->
       <dependency>
@@ -1077,20 +1077,20 @@
           <version>${maven-surefire.version}</version>
           <configuration>
             <includes>
-              <include>org.openmetadata.service.apps.*.java</include>
-              <include>org.openmetadata.service.cache.*.java</include>
-              <include>org.openmetadata.service.events.*.java</include>
-              <include>org.openmetadata.service.governance.*.java</include>
-              <include>org.openmetadata.service.jdbi3.*.java</include>
-              <include>org.openmetadata.service.monitoring.*.java</include>
-              <include>org.openmetadata.service.pipelineService.*.java</include>
-              <include>org.openmetadata.service.resources.**.*.java</include>
-              <include>org.openmetadata.service.rules.*.java</include>
-              <include>org.openmetadata.service.search.*.java</include>
-              <include>org.openmetadata.service.secrets.*.java</include>
-              <include>org.openmetadata.service.security.*.java</include>
-              <include>org.openmetadata.service.util.*.java</include>
-              <include>org.openmetadata.service.EnumBackwardCompatibilityTest</include>
+              <include>org.umetadata.service.apps.*.java</include>
+              <include>org.umetadata.service.cache.*.java</include>
+              <include>org.umetadata.service.events.*.java</include>
+              <include>org.umetadata.service.governance.*.java</include>
+              <include>org.umetadata.service.jdbi3.*.java</include>
+              <include>org.umetadata.service.monitoring.*.java</include>
+              <include>org.umetadata.service.pipelineService.*.java</include>
+              <include>org.umetadata.service.resources.**.*.java</include>
+              <include>org.umetadata.service.rules.*.java</include>
+              <include>org.umetadata.service.search.*.java</include>
+              <include>org.umetadata.service.secrets.*.java</include>
+              <include>org.umetadata.service.security.*.java</include>
+              <include>org.umetadata.service.util.*.java</include>
+              <include>org.umetadata.service.EnumBackwardCompatibilityTest</include>
             </includes>
           </configuration>
         </plugin>

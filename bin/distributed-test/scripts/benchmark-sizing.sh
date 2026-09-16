@@ -155,7 +155,7 @@ log() {
 # ─── Print Banner ──────────────────────────────────────────────────────────────
 echo ""
 echo -e "${BOLD}══════════════════════════════════════════════════════════════════${NC}"
-echo -e "${BOLD}  OpenMetadata Progressive Cluster Sizing Benchmark${NC}"
+echo -e "${BOLD}  UMetadata Progressive Cluster Sizing Benchmark${NC}"
 echo -e "${BOLD}══════════════════════════════════════════════════════════════════${NC}"
 echo ""
 echo -e "  Server:       ${CYAN}$SERVER${NC}"
@@ -489,7 +489,7 @@ for scale in "${SCALES[@]}"; do
 done
 
 {
-    echo "# OpenMetadata Cluster Sizing Summary"
+    echo "# UMetadata Cluster Sizing Summary"
     echo ""
     echo "Generated: $(date '+%Y-%m-%d %H:%M:%S')"
     echo "Total benchmark time: ${BENCHMARK_DURATION}s ($((BENCHMARK_DURATION / 60))m $((BENCHMARK_DURATION % 60))s)"

@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -45,7 +45,7 @@ class BaseTest:
         """Initialize a test definition.
 
         Args:
-            test_definition_name: Internal name matching the test definition in OpenMetadata
+            test_definition_name: Internal name matching the test definition in UMetadata
             name: Unique identifier for this test case (auto-generated if not provided)
             display_name: Human-readable name for UI display (auto-generated if not provided)
             description: Description of what this test validates (auto-generated if not provided)
@@ -157,7 +157,7 @@ class ColumnTest(BaseTest):
         """Initialize a column test definition.
 
         Args:
-            test_definition_name: Internal name matching the test definition in OpenMetadata
+            test_definition_name: Internal name matching the test definition in UMetadata
             column: Name of the column to test
             name: Unique identifier for this test case (auto-generated if not provided)
             display_name: Human-readable name for UI display (auto-generated if not provided)

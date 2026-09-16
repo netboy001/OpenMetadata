@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -35,8 +35,8 @@ from metadata.generated.schema.metadataIngestion.workflow import (
 from metadata.generated.schema.type.basic import EntityName, FullyQualifiedEntityName
 from metadata.ingestion.api.models import Either
 from metadata.ingestion.api.steps import InvalidSourceException, Source
-from metadata.ingestion.models.search_index_data import OMetaIndexSampleData
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.models.search_index_data import UMetaIndexSampleData
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.search.opensearch.parser import parse_os_index_mapping
 from metadata.ingestion.source.search.search_service import SearchServiceSource
 from metadata.utils import fqn
@@ -54,20 +54,20 @@ class OpensearchSource(SearchServiceSource):
     Excludes system indexes (indexes whose names start with a dot).
     """
 
-    def __init__(self, config: Source, metadata: OpenMetadata):
+    def __init__(self, config: Source, metadata: UMetadata):
         super().__init__(config, metadata)
         self.client: OpenSearch = self.connection
 
     @classmethod
     def create(
-        cls, config_dict, metadata: OpenMetadata, pipeline_name: Optional[str] = None
+        cls, config_dict, metadata: UMetadata, pipeline_name: Optional[str] = None
     ):
         """
         Create an instance of OpensearchSource.
 
         Args:
             config_dict: The configuration dictionary.
-            metadata: An instance of OpenMetadata.
+            metadata: An instance of UMetadata.
             pipeline_name: Optional pipeline name.
 
         Returns:
@@ -153,7 +153,7 @@ class OpensearchSource(SearchServiceSource):
 
     def yield_search_index_sample_data(
         self, search_index_details: Any
-    ) -> Iterable[Either[OMetaIndexSampleData]]:
+    ) -> Iterable[Either[UMetaIndexSampleData]]:
         """
         Yield sample data for the search index entity.
 
@@ -161,7 +161,7 @@ class OpensearchSource(SearchServiceSource):
             search_index_details: The index details used to query sample data.
 
         Yields:
-            Either wrapped OMetaIndexSampleData objects.
+            Either wrapped UMetaIndexSampleData objects.
         """
         if self.source_config.includeSampleData and self.context.get().search_index:
             sample_data = self.client.search(
@@ -182,7 +182,7 @@ class OpensearchSource(SearchServiceSource):
             )
 
             yield Either(
-                right=OMetaIndexSampleData(
+                right=UMetaIndexSampleData(
                     entity=search_index_entity,
                     data=SearchIndexSampleData(
                         messages=[

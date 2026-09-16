@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,7 +25,7 @@ from metadata.generated.schema.entity.data.databaseSchema import DatabaseSchema
 from metadata.generated.schema.entity.data.table import Table
 from metadata.generated.schema.entity.services.databaseService import DatabaseService
 from metadata.generated.schema.type.basic import Uuid
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.utils.logger import profiler_logger
 from metadata.utils.lru_cache import SkipNoneLRUCache
 
@@ -112,7 +112,7 @@ def set_cache(cache: defaultdict, key: str, value):
 
 @database_entities_cache.wrap(lambda id_, metadata: f"DatabaseSchema(id={id_.root!r})")
 def _get_schema_cached(
-    entity_id: Uuid, metadata: OpenMetadata
+    entity_id: Uuid, metadata: UMetadata
 ) -> Optional[DatabaseSchema]:
     """Cache schema lookups by id"""
     return metadata.get_by_id(
@@ -123,7 +123,7 @@ def _get_schema_cached(
 
 
 @database_entities_cache.wrap(lambda id_, metadata: f"Database(id={id_.root!r})")
-def _get_database_cached(entity_id: Uuid, metadata: OpenMetadata) -> Optional[Database]:
+def _get_database_cached(entity_id: Uuid, metadata: UMetadata) -> Optional[Database]:
     """Cache database lookups by id"""
     return metadata.get_by_id(
         entity=Database,
@@ -134,7 +134,7 @@ def _get_database_cached(entity_id: Uuid, metadata: OpenMetadata) -> Optional[Da
 
 @database_entities_cache.wrap(lambda id_, metadata: f"DatabaseService(id={id_.root!r})")
 def _get_service_cached(
-    entity_id: Uuid, metadata: OpenMetadata
+    entity_id: Uuid, metadata: UMetadata
 ) -> Optional[DatabaseService]:
     """Cache database service lookups by id"""
     return metadata.get_by_id(
@@ -144,7 +144,7 @@ def _get_service_cached(
 
 
 def get_context_entities(
-    entity: Table, metadata: OpenMetadata
+    entity: Table, metadata: UMetadata
 ) -> Tuple[Optional[DatabaseSchema], Optional[Database], Optional[DatabaseService]]:
     """Based on the table, get all the parent entities"""
     schema_entity = None

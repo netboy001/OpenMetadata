@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -36,8 +36,8 @@ from metadata.generated.schema.metadataIngestion.workflow import (
 from metadata.generated.schema.type.basic import EntityName, FullyQualifiedEntityName
 from metadata.generated.schema.type.schema import SchemaType, Topic
 from metadata.ingestion.api.models import Either
-from metadata.ingestion.models.ometa_topic_data import OMetaTopicSampleData
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.models.umeta_topic_data import UMetaTopicSampleData
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.messaging.messaging_service import (
     BrokerTopicDetails,
     MessagingServiceSource,
@@ -71,7 +71,7 @@ class CommonBrokerSource(MessagingServiceSource, ABC):
     def __init__(
         self,
         config: WorkflowSource,
-        metadata: OpenMetadata,
+        metadata: UMetadata,
     ):
         super().__init__(config, metadata)
         self.generate_sample_data = self.config.sourceConfig.config.generateSampleData
@@ -321,7 +321,7 @@ class CommonBrokerSource(MessagingServiceSource, ABC):
             if self.consumer_client:
                 self.consumer_client.unsubscribe()
             yield Either(
-                right=OMetaTopicSampleData(
+                right=UMetaTopicSampleData(
                     topic=topic_entity,
                     sample_data=TopicSampleData(messages=sample_data),
                 )

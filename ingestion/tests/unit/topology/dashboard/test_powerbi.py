@@ -10,7 +10,7 @@ from metadata.generated.schema.entity.data.dashboardDataModel import (
 )
 from metadata.generated.schema.entity.data.table import Column, DataType
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.generated.schema.type.entityLineage import ColumnLineage
 from metadata.generated.schema.type.entityReference import EntityReference
@@ -18,7 +18,7 @@ from metadata.generated.schema.type.entityReferenceList import EntityReferenceLi
 from metadata.generated.schema.type.filterPattern import FilterPattern
 from metadata.ingestion.api.models import Either
 from metadata.ingestion.models.barrier import Barrier
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.dashboard.powerbi.metadata import PowerbiSource
 from metadata.ingestion.source.dashboard.powerbi.models import (
     Dataflow,
@@ -542,9 +542,9 @@ mock_config = {
     "sink": {"type": "metadata-rest", "config": {}},
     "workflowConfig": {
         "loggerLevel": "DEBUG",
-        "openMetadataServerConfig": {
+        "uMetadataServerConfig": {
             "hostPort": "http://localhost:8585/api",
-            "authProvider": "openmetadata",
+            "authProvider": "umetadata",
             "enableVersionValidation": "false",
             "securityConfig": {
                 "jwtToken": "eyJraWQiOiJHYjM4OWEtOWY3Ni1nZGpzLWE5MmotMDI0MmJrOTQzNTYiLCJ0eXAiOiJKV1QiLCJhbGc"
@@ -682,10 +682,10 @@ class PowerBIUnitTest(TestCase):
         super().__init__(methodName)
         get_connection.return_value = False
         test_connection.return_value = False
-        self.config = OpenMetadataWorkflowConfig.model_validate(mock_config)
+        self.config = UMetadataWorkflowConfig.model_validate(mock_config)
         self.powerbi: PowerbiSource = PowerbiSource.create(
             mock_config["source"],
-            OpenMetadata(self.config.workflowConfig.openMetadataServerConfig),
+            UMetadata(self.config.workflowConfig.uMetadataServerConfig),
         )
 
     @pytest.mark.order(1)
@@ -811,7 +811,7 @@ class PowerBIUnitTest(TestCase):
         self.assertEqual(result, EXPECTED_BIGQUERY_NATIVE_QUERY_FQN_BACKTICK_RESULT)
 
     @pytest.mark.order(2)
-    @patch("metadata.ingestion.ometa.ometa_api.OpenMetadata.get_reference_by_email")
+    @patch("metadata.ingestion.umeta.umeta_api.UMetadata.get_reference_by_email")
     def test_owner_ingestion(self, get_reference_by_email):
         # Mock responses for dashboard owners
         self.powerbi.metadata.get_reference_by_email.side_effect = [
@@ -931,7 +931,7 @@ class PowerBIUnitTest(TestCase):
         self.assertEqual(result["table"], "CUSTOMER_TABLE")
 
     @pytest.mark.order(5)
-    @patch.object(OpenMetadata, "get_by_name", return_value=MOCK_DATAMODEL_ENTITY)
+    @patch.object(UMetadata, "get_by_name", return_value=MOCK_DATAMODEL_ENTITY)
     @patch.object(fqn, "build", return_value="powerbi.dataflow_a")
     def test_upstream_dataflow_lineage(self, *_):
         MOCK_DATAMODEL_ENTITY_2 = DashboardDataModel(  # noqa: N806

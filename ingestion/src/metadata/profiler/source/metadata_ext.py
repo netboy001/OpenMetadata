@@ -2,20 +2,20 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 """
-OpenMetadataExt source for the profiler
+UMetadataExt source for the profiler
 
 This source is used in cases where the service name
 is not provided for the profiler workflow.
 In such situations, the profiler will perform a thorough scan 
 of the entire data source to locate the 
-corresponding table entity in OpenMetadata.
+corresponding table entity in UMetadata.
 Subsequently, it will proceed to ingest relevant metrics 
 and sample data for that identified entity.
 """
@@ -37,12 +37,12 @@ from metadata.generated.schema.metadataIngestion.databaseServiceProfilerPipeline
     DatabaseServiceProfilerPipeline,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.ingestion.api.models import Either
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.profiler.interface.profiler_interface import ProfilerInterface
-from metadata.profiler.source.metadata import OpenMetadataSource
+from metadata.profiler.source.metadata import UMetadataSource
 from metadata.profiler.source.model import ProfilerSourceAndEntity
 from metadata.utils import fqn
 from metadata.utils.class_helper import get_service_type_from_source_type
@@ -56,7 +56,7 @@ from metadata.utils.ssl_manager import get_ssl_connection
 logger = profiler_logger()
 
 
-class OpenMetadataSourceExt(OpenMetadataSource):
+class UMetadataSourceExt(UMetadataSource):
     """
     This source lists and filters the entities that need
     to be processed by the profiler workflow.
@@ -68,8 +68,8 @@ class OpenMetadataSourceExt(OpenMetadataSource):
 
     def __init__(
         self,
-        config: OpenMetadataWorkflowConfig,
-        metadata: OpenMetadata,
+        config: UMetadataWorkflowConfig,
+        metadata: UMetadata,
     ):
         super().__init__(config, metadata)
 

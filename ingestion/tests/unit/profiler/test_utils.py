@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -145,7 +145,7 @@ def test_get_snowflake_system_queries():
         query_text="INSERT INTO DATABASE.SCHEMA.TABLE1 (col1, col2) VALUES (1, 'a'), (2, 'b')",
     )
 
-    # We don't need the ometa_client nor the db_service if we have all the db.schema.table in the query
+    # We don't need the umeta_client nor the db_service if we have all the db.schema.table in the query
     resolver = SnowflakeTableResovler(Mock())
     query_result = get_snowflake_system_queries(
         query_log_entry=row,

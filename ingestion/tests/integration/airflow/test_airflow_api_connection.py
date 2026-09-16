@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -12,14 +12,14 @@
 Comprehensive mocked integration test for Airflow API connector.
 
 This test validates the complete Airflow integration flow without requiring
-real Airflow or OpenMetadata services, making it suitable for CI/CD environments.
+real Airflow or UMetadata services, making it suitable for CI/CD environments.
 
 Tests covered:
 - Airflow API client functionality with all authentication methods
 - DAG metadata extraction and parsing
 - Task extraction and relationship mapping
 - DAG run status processing
-- Pipeline entity creation in OpenMetadata
+- Pipeline entity creation in UMetadata
 - Error handling and edge cases
 - OpenLineage integration scenarios
 """
@@ -433,8 +433,8 @@ class TestAirflowApiMockedIntegration:
         }
 
     @pytest.fixture
-    def mock_openmetadata_client(self):
-        """Mock OpenMetadata client for testing."""
+    def mock_umetadata_client(self):
+        """Mock UMetadata client for testing."""
         mock_client = MagicMock()
         mock_client.health_check.return_value = True
 
@@ -722,7 +722,7 @@ class TestAirflowApiMockedIntegration:
             assert result["version"] == "3.0.1"
 
     def test_full_workflow_integration(
-        self, mock_airflow_responses, mock_openmetadata_client
+        self, mock_airflow_responses, mock_umetadata_client
     ):
         """Test complete workflow from Airflow ingestion to OM entity creation."""
         workflow_config = {
@@ -745,9 +745,9 @@ class TestAirflowApiMockedIntegration:
             "sink": {"type": "metadata-rest", "config": {}},
             "workflowConfig": {
                 "loggerLevel": "INFO",
-                "openMetadataServerConfig": {
+                "uMetadataServerConfig": {
                     "hostPort": "http://localhost:8585/api",
-                    "authProvider": "openmetadata",
+                    "authProvider": "umetadata",
                     "securityConfig": {"jwtToken": "test-jwt-token"},
                 },
             },
@@ -755,8 +755,8 @@ class TestAirflowApiMockedIntegration:
 
         with (
             patch(
-                "metadata.workflow.base.create_ometa_client",
-                return_value=mock_openmetadata_client,
+                "metadata.workflow.base.create_umeta_client",
+                return_value=mock_umetadata_client,
             ),
             patch(
                 "metadata.ingestion.source.pipeline.pipeline_service.PipelineServiceSource.test_connection"
@@ -781,9 +781,9 @@ class TestAirflowApiMockedIntegration:
             workflow.execute()
             workflow.stop()
 
-            assert mock_openmetadata_client.create_or_update.called
+            assert mock_umetadata_client.create_or_update.called
 
-            create_calls = mock_openmetadata_client.create_or_update.call_args_list
+            create_calls = mock_umetadata_client.create_or_update.call_args_list
             assert len(create_calls) > 0
 
     def test_openlineage_integration_scenarios(self):

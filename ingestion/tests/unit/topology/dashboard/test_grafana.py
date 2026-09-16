@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -36,7 +36,7 @@ from metadata.generated.schema.entity.services.databaseService import (
     DatabaseServiceType,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.generated.schema.type.basic import (
     EntityName,
@@ -114,9 +114,9 @@ mock_config = {
     "sink": {"type": "metadata-rest", "config": {}},
     "workflowConfig": {
         "loggerLevel": "DEBUG",
-        "openMetadataServerConfig": {
+        "uMetadataServerConfig": {
             "hostPort": "http://localhost:8585/api",
-            "authProvider": "openmetadata",
+            "authProvider": "umetadata",
             "securityConfig": {
                 "jwtToken": "eyJraWQiOiJHYjM4OWEtOWY3Ni1nZGpzLWE5MmotMDI0MmJrOTQzNTYiLCJ0eXAiOiJKV1QiLCJhbGc"
                 "iOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlzQm90IjpmYWxzZSwiaXNzIjoib3Blbi1tZXRhZGF0YS5vcmciLCJpYXQiOjE"
@@ -343,9 +343,9 @@ class GrafanaUnitTest(TestCase):
         get_connection.return_value = mock_client
         test_connection.return_value = False
 
-        self.config = OpenMetadataWorkflowConfig.model_validate(mock_config)
-        # Mock OpenMetadata client to avoid connection attempts
-        with patch("metadata.ingestion.ometa.ometa_api.OpenMetadata") as mock_om:
+        self.config = UMetadataWorkflowConfig.model_validate(mock_config)
+        # Mock UMetadata client to avoid connection attempts
+        with patch("metadata.ingestion.umeta.umeta_api.UMetadata") as mock_om:
             mock_metadata = MagicMock()
             mock_metadata.get_by_name.return_value = None
             mock_metadata.get_reference_by_email.return_value = None
@@ -447,7 +447,7 @@ class GrafanaUnitTest(TestCase):
             self.assertEqual(expected.service, actual.service)
 
     def test_panel_type_mapping(self):
-        """Test Grafana panel type to OpenMetadata chart type mapping"""
+        """Test Grafana panel type to UMetadata chart type mapping"""
         test_cases = {
             "graph": "Line",
             "timeseries": "Line",

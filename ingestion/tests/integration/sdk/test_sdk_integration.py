@@ -1,5 +1,5 @@
 """
-Integration tests for SDK entity operations with a running OpenMetadata server.
+Integration tests for SDK entity operations with a running UMetadata server.
 Exercises follower management, restore/version flows, and metadata enrichment
 (tags, glossary terms, owners, domains, data products, CSV helpers) using the
 fluent SDK classes only.
@@ -209,7 +209,7 @@ class TestSDKIntegration(unittest.TestCase):
         except Exception as exc:  # pragma: no cover - environment dependent
             om.reset()
             raise unittest.SkipTest(
-                f"OpenMetadata server not reachable or misconfigured for SDK integration tests: {exc}"
+                f"UMetadata server not reachable or misconfigured for SDK integration tests: {exc}"
             ) from exc
 
     @classmethod
@@ -781,7 +781,7 @@ class TestSDKIntegration(unittest.TestCase):
                 else None
             )
 
-            rest_logger = logging.getLogger("OMetaAPI")
+            rest_logger = logging.getLogger("UMetaAPI")
             rest_logger.addHandler(handler)
             try:
                 exporter = om.DatabaseSchemas.export_csv(schema_fqn)

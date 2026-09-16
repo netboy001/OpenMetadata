@@ -3,7 +3,7 @@ from typing import cast
 import pytest
 from testcontainers.mysql import MySqlContainer
 
-from _openmetadata_testutils.postgres.conftest import postgres_container, try_bind
+from _umetadata_testutils.postgres.conftest import postgres_container, try_bind
 from metadata.generated.schema.api.services.createDatabaseService import (
     CreateDatabaseServiceRequest,
 )
@@ -20,7 +20,7 @@ from metadata.generated.schema.entity.services.databaseService import (
 )
 from metadata.generated.schema.metadataIngestion.workflow import LogLevels
 from metadata.ingestion.models.custom_pydantic import CustomSecretStr
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.workflow.metadata import MetadataWorkflow
 
 __all__ = [
@@ -36,7 +36,7 @@ def mysql_container():
 
 @pytest.fixture(scope="module")
 def ingest_mysql_service(
-    mysql_container: MySqlContainer, metadata: OpenMetadata, tmp_path_factory
+    mysql_container: MySqlContainer, metadata: UMetadata, tmp_path_factory
 ):
     workflow_config = {
         "source": {
@@ -63,7 +63,7 @@ def ingest_mysql_service(
         "sink": {"type": "metadata-rest", "config": {}},
         "workflowConfig": {
             "loggerLevel": LogLevels.DEBUG.value,
-            "openMetadataServerConfig": metadata.config.model_dump(),
+            "uMetadataServerConfig": metadata.config.model_dump(),
         },
     }
     metadata_ingestion = MetadataWorkflow.create(workflow_config)
@@ -104,7 +104,7 @@ def postgres_service(db_service):
 
 @pytest.fixture()
 def ingest_postgres_metadata(
-    postgres_service, metadata: OpenMetadata, sink_config, workflow_config, run_workflow
+    postgres_service, metadata: UMetadata, sink_config, workflow_config, run_workflow
 ):
     workflow_config = {
         "source": {

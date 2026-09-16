@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# Script to start Fuseki and OpenSearch services for OpenMetadata RDF development
+# Script to start Fuseki and OpenSearch services for UMetadata RDF development
 
 set -e
 
-echo "=== Starting RDF Services for OpenMetadata ==="
+echo "=== Starting RDF Services for UMetadata ==="
 
 # Check if running on macOS or Linux
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -58,7 +58,7 @@ echo -n "Checking Fuseki status... "
 if curl -s http://localhost:3030/$/ping > /dev/null; then
     echo "✓ Fuseki is running"
     echo "  - Fuseki UI: http://localhost:3030"
-    echo "  - SPARQL endpoint: http://localhost:3030/openmetadata/sparql"
+    echo "  - SPARQL endpoint: http://localhost:3030/umetadata/sparql"
     echo "  - Login: admin/admin"
 else
     echo "✗ Fuseki is not responding"

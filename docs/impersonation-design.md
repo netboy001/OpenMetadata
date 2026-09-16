@@ -3,7 +3,7 @@
 ## 1. Overview
 
 ### 1.1 Purpose
-Enable bots in OpenMetadata to impersonate users when performing actions, ensuring proper attribution of changes to the actual user while maintaining audit trail of bot involvement.
+Enable bots in UMetadata to impersonate users when performing actions, ensuring proper attribution of changes to the actual user while maintaining audit trail of bot involvement.
 
 ### 1.2 Background
 Currently, when bots perform actions (e.g., ingestion pipelines, automation workflows), the `updatedBy` field shows the bot's name. This obscures who actually initiated the action. With impersonation, we can track:
@@ -274,7 +274,7 @@ public static SubjectContext getSubjectContext(SecurityContext securityContext) 
 
 #### 5.1.1 Base Type Definition
 ```json
-// openmetadata-spec/src/main/resources/json/schema/type/basic.json
+// umetadata-spec/src/main/resources/json/schema/type/basic.json
 {
   "definitions": {
     "impersonatedBy": {
@@ -287,7 +287,7 @@ public static SubjectContext getSubjectContext(SecurityContext securityContext) 
 
 #### 5.1.2 Entity Schema Pattern
 ```json
-// Example: openmetadata-spec/src/main/resources/json/schema/entity/data/table.json
+// Example: umetadata-spec/src/main/resources/json/schema/entity/data/table.json
 {
   "properties": {
     "updatedBy": {
@@ -307,7 +307,7 @@ public static SubjectContext getSubjectContext(SecurityContext securityContext) 
 
 #### 5.1.3 User Schema for Bot Capability
 ```json
-// openmetadata-spec/src/main/resources/json/schema/entity/teams/user.json
+// umetadata-spec/src/main/resources/json/schema/entity/teams/user.json
 {
   "properties": {
     "isBot": {
@@ -327,7 +327,7 @@ public static SubjectContext getSubjectContext(SecurityContext securityContext) 
 ### 5.2 Java Entity Interface
 
 ```java
-// openmetadata-spec/src/main/java/org/openmetadata/schema/EntityInterface.java
+// umetadata-spec/src/main/java/org/umetadata/schema/EntityInterface.java
 public interface EntityInterface {
     // ... existing methods
 
@@ -437,7 +437,7 @@ Response:
 
 **Implementation:**
 ```java
-// openmetadata-service/src/main/java/org/openmetadata/service/resources/teams/UserResource.java
+// umetadata-service/src/main/java/org/umetadata/service/resources/teams/UserResource.java
 
 @POST
 @Path("/impersonate")
@@ -540,14 +540,14 @@ public Response generateImpersonationToken(
 
 **New Request Schema:**
 ```json
-// openmetadata-spec/src/main/resources/json/schema/auth/impersonationRequest.json
+// umetadata-spec/src/main/resources/json/schema/auth/impersonationRequest.json
 {
-  "$id": "https://open-metadata.org/schema/auth/impersonationRequest.json",
+  "$id": "https://u-metadata.org/schema/auth/impersonationRequest.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "ImpersonationRequest",
   "description": "Request to generate an impersonation token",
   "type": "object",
-  "javaType": "org.openmetadata.schema.auth.ImpersonationRequest",
+  "javaType": "org.umetadata.schema.auth.ImpersonationRequest",
   "properties": {
     "targetUser": {
       "description": "Username of the user to impersonate",
@@ -571,7 +571,7 @@ public Response generateImpersonationToken(
 Add new method to generate impersonation tokens:
 
 ```java
-// openmetadata-service/src/main/java/org/openmetadata/service/security/jwt/JWTTokenGenerator.java
+// umetadata-service/src/main/java/org/umetadata/service/security/jwt/JWTTokenGenerator.java
 
 public class JWTTokenGenerator {
     public static final String IMPERSONATED_USER_CLAIM = "impersonatedUser";  // NEW
@@ -625,7 +625,7 @@ public class JWTTokenGenerator {
 ### 6.3 JwtFilter Enhancement
 
 ```java
-// openmetadata-service/src/main/java/org/openmetadata/service/security/JwtFilter.java
+// umetadata-service/src/main/java/org/umetadata/service/security/JwtFilter.java
 
 public class JwtFilter implements ContainerRequestFilter {
     public static final String IMPERSONATED_USER_CLAIM = "impersonatedUser";  // NEW
@@ -699,7 +699,7 @@ public class JwtFilter implements ContainerRequestFilter {
 ### 6.3 DefaultAuthorizer Update
 
 ```java
-// openmetadata-service/src/main/java/org/openmetadata/service/security/DefaultAuthorizer.java
+// umetadata-service/src/main/java/org/umetadata/service/security/DefaultAuthorizer.java
 
 public class DefaultAuthorizer implements Authorizer {
 
@@ -790,7 +790,7 @@ public class DefaultAuthorizer implements Authorizer {
 ### 6.4 EntityRepository Update
 
 ```java
-// openmetadata-service/src/main/java/org/openmetadata/service/jdbi3/EntityRepository.java
+// umetadata-service/src/main/java/org/umetadata/service/jdbi3/EntityRepository.java
 
 public abstract class EntityRepository<T extends EntityInterface> {
 
@@ -933,25 +933,25 @@ const BotSettings = ({ bot }: { bot: User }) => {
 ### 8.1 Python SDK Usage
 
 ```python
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
-from metadata.generated.schema.entity.services.connections.metadata.openMetadataConnection import (
-    OpenMetadataConnection,
+from metadata.ingestion.umeta.umeta_api import UMetadata
+from metadata.generated.schema.entity.services.connections.metadata.uMetadataConnection import (
+    UMetadataConnection,
     AuthProvider
 )
-from metadata.generated.schema.security.client.openMetadataJWTClientConfig import (
-    OpenMetadataJWTClientConfig
+from metadata.generated.schema.security.client.uMetadataJWTClientConfig import (
+    UMetadataJWTClientConfig
 )
 
 # Initialize OM client with bot token
 bot_token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9..."  # Bot's standard JWT token
 
-server_config = OpenMetadataConnection(
+server_config = UMetadataConnection(
     hostPort="http://localhost:8585/api",
-    authProvider=AuthProvider.openmetadata,
-    securityConfig=OpenMetadataJWTClientConfig(jwtToken=bot_token)
+    authProvider=AuthProvider.umetadata,
+    securityConfig=UMetadataJWTClientConfig(jwtToken=bot_token)
 )
 
-metadata = OpenMetadata(server_config)
+metadata = UMetadata(server_config)
 
 # Step 1: Request impersonation token for a specific user
 impersonation_response = metadata.client.post(
@@ -966,13 +966,13 @@ impersonation_token = impersonation_response["accessToken"]
 print(f"Obtained impersonation token for alice: {impersonation_token[:50]}...")
 
 # Step 2: Create new OM client with impersonation token
-impersonation_config = OpenMetadataConnection(
+impersonation_config = UMetadataConnection(
     hostPort="http://localhost:8585/api",
-    authProvider=AuthProvider.openmetadata,
-    securityConfig=OpenMetadataJWTClientConfig(jwtToken=impersonation_token)
+    authProvider=AuthProvider.umetadata,
+    securityConfig=UMetadataJWTClientConfig(jwtToken=impersonation_token)
 )
 
-impersonation_metadata = OpenMetadata(impersonation_config)
+impersonation_metadata = UMetadata(impersonation_config)
 
 # Step 3: Perform operations as alice (via bot)
 from metadata.generated.schema.entity.data.table import Table
@@ -1003,7 +1003,7 @@ print(f"Impersonated by: {updated_table.impersonatedBy}")
 class CustomIngestionSource(Source):
     def __init__(self, config, metadata_config):
         self.config = config
-        self.metadata = OpenMetadata(metadata_config)
+        self.metadata = UMetadata(metadata_config)
         self.impersonation_token = None
         self.impersonation_metadata = None
 
@@ -1020,14 +1020,14 @@ class CustomIngestionSource(Source):
             self.impersonation_token = response["accessToken"]
 
             # Create new metadata client with impersonation
-            impersonation_config = OpenMetadataConnection(
+            impersonation_config = UMetadataConnection(
                 hostPort=self.metadata.config.hostPort,
-                authProvider=AuthProvider.openmetadata,
-                securityConfig=OpenMetadataJWTClientConfig(
+                authProvider=AuthProvider.umetadata,
+                securityConfig=UMetadataJWTClientConfig(
                     jwtToken=self.impersonation_token
                 )
             )
-            self.impersonation_metadata = OpenMetadata(impersonation_config)
+            self.impersonation_metadata = UMetadata(impersonation_config)
 
     def yield_create_request(self, entity_data):
         """Use impersonation client if available"""
@@ -1587,5 +1587,5 @@ components:
 
 **Document Version**: 1.0
 **Last Updated**: 2025-10-01
-**Authors**: OpenMetadata Engineering
+**Authors**: UMetadata Engineering
 **Status**: Draft for Review

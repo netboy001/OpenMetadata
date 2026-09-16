@@ -38,7 +38,7 @@ from metadata.generated.schema.type.basic import (
     FullyQualifiedEntityName,
     Markdown,
 )
-from metadata.sdk import OpenMetadata, OpenMetadataConfig
+from metadata.sdk import UMetadata, UMetadataConfig
 from metadata.sdk.entities.database_services import DatabaseServices
 from metadata.sdk.entities.databases import Databases
 from metadata.sdk.entities.databaseschemas import DatabaseSchemas
@@ -316,12 +316,12 @@ class TableBuilderPy:
 
 def main() -> None:
     """Run the builder-style end-to-end example."""
-    config = OpenMetadataConfig(
+    config = UMetadataConfig(
         server_url="http://localhost:8585",
         jwt_token="YOUR_JWT_OR_API_KEY",
         verify_ssl=False,
     )
-    _ = OpenMetadata.initialize(config)
+    _ = UMetadata.initialize(config)
 
     # 1) Service (builder)
     service = (

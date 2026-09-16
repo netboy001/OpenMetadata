@@ -195,7 +195,7 @@ def test_partitioned_where_clause(input, expected):
     ):
         mock_sampler = SQASampler(
             service_connection_config=SERVICE_CONNECTION_CONFIG,
-            ometa_client=Mock(),
+            umeta_client=Mock(),
             entity=Mock(),
         )
         mock_sampler.partition_details = input

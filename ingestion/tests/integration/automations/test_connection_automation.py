@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -10,7 +10,7 @@
 #  limitations under the License.
 
 """
-OpenMetadata high-level API Workflow test
+UMetadata high-level API Workflow test
 """
 import sys
 
@@ -97,10 +97,10 @@ def test_connection_workflow(metadata, mysql_container):
 def test_connection_workflow_ko(metadata):
     """Test connection that will fail"""
     wrong_service_connection = MysqlConnection(
-        username="openmetadata_user",
-        authType=BasicAuth(password="openmetadata_password"),
+        username="umetadata_user",
+        authType=BasicAuth(password="umetadata_password"),
         hostPort="localhost:8585",  # There's something running there, but it's not MySQL
-        databaseSchema="openmetadata_db",
+        databaseSchema="umetadata_db",
     )
 
     wrong_workflow_request = CreateWorkflowRequest(

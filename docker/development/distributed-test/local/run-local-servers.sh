@@ -1,5 +1,5 @@
 #!/bin/bash
-# Run multiple OpenMetadata servers locally for debugging
+# Run multiple UMetadata servers locally for debugging
 
 set -e
 
@@ -25,17 +25,17 @@ echo "Servers to start: $SERVERS"
 echo ""
 
 # Check if JAR exists
-JAR_PATH=$(find "$PROJECT_DIR/openmetadata-service/target" -name "openmetadata-service-*.jar" -not -name "*sources*" -not -name "*javadoc*" 2>/dev/null | head -1)
+JAR_PATH=$(find "$PROJECT_DIR/umetadata-service/target" -name "umetadata-service-*.jar" -not -name "*sources*" -not -name "*javadoc*" 2>/dev/null | head -1)
 
 if [ -z "$JAR_PATH" ]; then
-    echo "OpenMetadata JAR not found. Building..."
+    echo "UMetadata JAR not found. Building..."
     cd "$PROJECT_DIR"
-    mvn clean package -DskipTests -pl openmetadata-service -am
-    JAR_PATH=$(find "$PROJECT_DIR/openmetadata-service/target" -name "openmetadata-service-*.jar" -not -name "*sources*" -not -name "*javadoc*" 2>/dev/null | head -1)
+    mvn clean package -DskipTests -pl umetadata-service -am
+    JAR_PATH=$(find "$PROJECT_DIR/umetadata-service/target" -name "umetadata-service-*.jar" -not -name "*sources*" -not -name "*javadoc*" 2>/dev/null | head -1)
 fi
 
 if [ -z "$JAR_PATH" ]; then
-    echo "ERROR: Could not find or build openmetadata-service JAR"
+    echo "ERROR: Could not find or build umetadata-service JAR"
     exit 1
 fi
 
@@ -71,7 +71,7 @@ if [ "$RUN_MIGRATE" == "true" ]; then
     echo "Running database migrations..."
     cd "$PROJECT_DIR"
     java -cp "$JAR_PATH" \
-        -Dloader.main=org.openmetadata.service.util.OpenMetadataSetup \
+        -Dloader.main=org.umetadata.service.util.UMetadataSetup \
         org.springframework.boot.loader.launch.PropertiesLauncher \
         migrate --force
     echo "Migrations complete."
@@ -133,7 +133,7 @@ echo ""
 echo "For IDE debugging:"
 echo "  1. Open your IDE"
 echo "  2. Create a new Run Configuration"
-echo "  3. Main class: org.openmetadata.service.OpenMetadataApplication"
+echo "  3. Main class: org.umetadata.service.UMetadataApplication"
 echo "  4. Program arguments: server local/server1.yaml"
 echo "  5. VM options: -Xmx1G -Xms512M"
 echo "  6. Working directory: $PROJECT_DIR"

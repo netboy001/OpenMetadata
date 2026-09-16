@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,8 +34,8 @@ from metadata.generated.schema.entity.data.table import (
     TableConstraint,
     TableType,
 )
-from metadata.generated.schema.entity.services.connections.metadata.openMetadataConnection import (
-    OpenMetadataConnection,
+from metadata.generated.schema.entity.services.connections.metadata.uMetadataConnection import (
+    UMetadataConnection,
 )
 from metadata.generated.schema.entity.services.databaseService import (
     DatabaseConnection,
@@ -43,7 +43,7 @@ from metadata.generated.schema.entity.services.databaseService import (
     DatabaseServiceType,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.generated.schema.type.basic import (
     EntityName,
@@ -53,7 +53,7 @@ from metadata.generated.schema.type.basic import (
 from metadata.generated.schema.type.entityReference import EntityReference
 from metadata.generated.schema.type.filterPattern import FilterPattern
 from metadata.ingestion.api.parser import parse_workflow_config_gracefully
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.database.bigquery.lineage import BigqueryLineageSource
 from metadata.ingestion.source.database.bigquery.metadata import BigquerySource
 
@@ -86,9 +86,9 @@ mock_bq_config = {
     },
     "sink": {"type": "metadata-rest", "config": {}},
     "workflowConfig": {
-        "openMetadataServerConfig": {
+        "uMetadataServerConfig": {
             "hostPort": "http://localhost:8585/api",
-            "authProvider": "openmetadata",
+            "authProvider": "umetadata",
             "securityConfig": {"jwtToken": "bigquery"},
         }
     },
@@ -418,9 +418,9 @@ class BigqueryUnitTest(TestCase):
         test_connection.return_value = False
         set_project_id.return_value = "random-project-id"
         self.config = parse_workflow_config_gracefully(mock_bq_config)
-        self.metadata = OpenMetadata(
-            OpenMetadataConnection.model_validate(
-                mock_bq_config["workflowConfig"]["openMetadataServerConfig"]
+        self.metadata = UMetadata(
+            UMetadataConnection.model_validate(
+                mock_bq_config["workflowConfig"]["uMetadataServerConfig"]
             )
         )
         self.bq_source = BigquerySource.create(mock_bq_config["source"], self.metadata)
@@ -721,11 +721,11 @@ class BigqueryLineageSourceTest(TestCase):
         mock_credentials_path_bq_config["source"]["serviceConnection"]["config"][
             "credentials"
         ]["gcpConfig"] = {"path": "credentials.json", "projectId": "my-gcp-project"}
-        self.config = OpenMetadataWorkflowConfig.model_validate(
+        self.config = UMetadataWorkflowConfig.model_validate(
             mock_credentials_path_bq_config
         )
         self.bq_query_parser = BigqueryLineageSource(
-            self.config.source, self.config.workflowConfig.openMetadataServerConfig
+            self.config.source, self.config.workflowConfig.uMetadataServerConfig
         )
 
     def test_get_engine_without_project_id_specified(self):
@@ -756,9 +756,9 @@ class TestBigqueryRegionAwareQueries:
         for p in self._patchers:
             p.start()
 
-        metadata = OpenMetadata(
-            OpenMetadataConnection.model_validate(
-                mock_bq_config["workflowConfig"]["openMetadataServerConfig"]
+        metadata = UMetadata(
+            UMetadataConnection.model_validate(
+                mock_bq_config["workflowConfig"]["uMetadataServerConfig"]
             )
         )
         self.bq_source = BigquerySource.create(mock_bq_config["source"], metadata)

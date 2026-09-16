@@ -34,15 +34,15 @@ from metadata.generated.schema.entity.services.databaseService import (
 from metadata.generated.schema.tests.testCase import TestCase, TestCaseParameterValue
 from metadata.generated.schema.type.basic import FullyQualifiedEntityName
 from metadata.generated.schema.type.entityReference import EntityReference
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.sampler.sampler_interface import SamplerInterface
 
 
 @pytest.fixture
 def metadata(
     service1: DatabaseService, table1: Table, service2: DatabaseService, table2: Table
-) -> OpenMetadata:
-    mock = create_autospec(OpenMetadata, spec_set=True, instance=True)
+) -> UMetadata:
+    mock = create_autospec(UMetadata, spec_set=True, instance=True)
 
     objects_by_entity_and_id = {
         (DatabaseService, table1.service.id): service1,
@@ -151,13 +151,13 @@ def fake_get_service_url(
 
 @pytest.fixture
 def setter(
-    metadata: OpenMetadata,
+    metadata: UMetadata,
     service_connection_config: DatabaseConnection,
     sampler: SamplerInterface,
     table1: Table,
 ) -> TableDiffParamsSetter:
     return TableDiffParamsSetter(
-        ometa_client=metadata,
+        umeta_client=metadata,
         service_connection_config=service_connection_config,
         sampler=sampler,
         table_entity=table1,
@@ -267,13 +267,13 @@ class TestForSnowflake:
     @pytest.fixture
     def setter(
         self,
-        metadata: OpenMetadata,
+        metadata: UMetadata,
         service_connection_config: DatabaseConnection,
         sampler: SamplerInterface,
         table1: Table,
     ) -> TableDiffParamsSetter:
         return TableDiffParamsSetter(
-            ometa_client=metadata,
+            umeta_client=metadata,
             service_connection_config=service_connection_config,
             sampler=sampler,
             table_entity=table1,

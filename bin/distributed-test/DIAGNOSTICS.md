@@ -1,6 +1,6 @@
 # Server-Side Diagnostics & Load Test Correlation
 
-The diagnostics endpoint (`GET /api/v1/system/diagnostics`) provides a single-call performance snapshot of the OpenMetadata server. Combined with the load test script, it enables pinpointing **where** time is spent during high-load scenarios and produces actionable tuning recommendations.
+The diagnostics endpoint (`GET /api/v1/system/diagnostics`) provides a single-call performance snapshot of the UMetadata server. Combined with the load test script, it enables pinpointing **where** time is spent during high-load scenarios and produces actionable tuning recommendations.
 
 ## The Diagnostics Endpoint
 
@@ -246,7 +246,7 @@ export SERVER_ENABLE_VIRTUAL_THREAD=true
 **Fix:**
 ```bash
 # Increase heap
-export OPENMETADATA_HEAP_OPTS="-Xmx4g -Xms4g"
+export UMETADATA_HEAP_OPTS="-Xmx4g -Xms4g"
 ```
 
 ### Scenario 4: Bulk Executor Queue Filling

@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -56,9 +56,9 @@ from metadata.generated.schema.type.entityReferenceList import EntityReferenceLi
 from metadata.ingestion.api.common import Entity
 from metadata.ingestion.api.models import Either
 from metadata.ingestion.api.steps import InvalidSourceException, Source
-from metadata.ingestion.models.user import OMetaUserProfile
-from metadata.ingestion.ometa.client_utils import get_chart_entities_from_id
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.models.user import UMetaUserProfile
+from metadata.ingestion.umeta.client_utils import get_chart_entities_from_id
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.connections import get_connection, test_connection_common
 from metadata.ingestion.source.database.column_type_parser import ColumnTypeParser
 from metadata.ingestion.source.metadata.amundsen.queries import (
@@ -70,7 +70,7 @@ from metadata.utils import fqn
 from metadata.utils.helpers import get_standard_chart_type, retry_with_docker_host
 from metadata.utils.logger import ingestion_logger
 from metadata.utils.metadata_service_helper import SERVICE_TYPE_MAPPER
-from metadata.utils.tag_utils import get_ometa_tag_and_classification, get_tag_labels
+from metadata.utils.tag_utils import get_umeta_tag_and_classification, get_tag_labels
 
 logger = ingestion_logger()
 
@@ -114,7 +114,7 @@ class AmundsenSource(Source):
     dashboard_service: DashboardService
 
     @retry_with_docker_host()
-    def __init__(self, config: WorkflowSource, metadata: OpenMetadata):
+    def __init__(self, config: WorkflowSource, metadata: UMetadata):
         super().__init__()
         self.config = config
         self.database_schema_object = None
@@ -130,7 +130,7 @@ class AmundsenSource(Source):
 
     @classmethod
     def create(
-        cls, config_dict, metadata: OpenMetadata, pipeline_name: Optional[str] = None
+        cls, config_dict, metadata: UMetadata, pipeline_name: Optional[str] = None
     ):
         """Create class instance"""
         config: WorkflowSource = WorkflowSource.model_validate(config_dict)
@@ -160,7 +160,7 @@ class AmundsenSource(Source):
             yield from self.create_chart_entity(dashboard)
             yield from self.create_dashboard_entity(dashboard)
 
-    def create_user_entity(self, user) -> Iterable[Either[OMetaUserProfile]]:
+    def create_user_entity(self, user) -> Iterable[Either[UMetaUserProfile]]:
         try:
             user_metadata = CreateUserRequest(
                 email=user["email"],
@@ -172,7 +172,7 @@ class AmundsenSource(Source):
                 teamType=team.TeamType.Department.value,
             )
             yield Either(
-                right=OMetaUserProfile(
+                right=UMetaUserProfile(
                     user=user_metadata,
                     teams=[team_metadata],
                 )
@@ -339,7 +339,7 @@ class AmundsenSource(Source):
             tags = [AMUNDSEN_TABLE_TAG, table["cluster"]]
             if table["tags"]:
                 tags.extend(table["tags"])
-            yield from get_ometa_tag_and_classification(
+            yield from get_umeta_tag_and_classification(
                 tags=tags,
                 classification_name=AMUNDSEN_TAG_CATEGORY,
                 tag_description="Amundsen Table Tag",

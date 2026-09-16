@@ -364,8 +364,8 @@ WHERE name = 'tableRowInsertedCountToBeBetween';
 -- End of Test Definition Parameter Definition Validation Migration
 
 -- Start of updating existing customLogoConfiguration config with new customUiThemePreference
-UPDATE openmetadata_settings AS ui
-JOIN openmetadata_settings AS logo
+UPDATE umetadata_settings AS ui
+JOIN umetadata_settings AS logo
 ON ui.configType = 'customUiThemePreference' AND logo.configType = 'customLogoConfiguration'
 SET
   ui.json = JSON_OBJECT(
@@ -384,5 +384,5 @@ SET
   )
 WHERE ui.configType = 'customUiThemePreference';
 
-DELETE from openmetadata_settings where configType = 'customLogoConfiguration';
+DELETE from umetadata_settings where configType = 'customLogoConfiguration';
 -- End of updating  customUiThemePreference config

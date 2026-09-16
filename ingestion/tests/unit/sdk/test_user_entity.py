@@ -17,10 +17,10 @@ class TestUserEntity(unittest.TestCase):
 
     def setUp(self):
         """Set up test fixtures"""
-        self.mock_ometa = MagicMock()
+        self.mock_umeta = MagicMock()
 
         # Set default client directly
-        Users.set_default_client(self.mock_ometa)
+        Users.set_default_client(self.mock_umeta)
 
         # Test data
         self.user_id = "350e8400-e29b-41d4-a716-446655440000"
@@ -42,7 +42,7 @@ class TestUserEntity(unittest.TestCase):
         expected_user.email = "john.doe@company.com"
         expected_user.displayName = "John Doe"
 
-        self.mock_ometa.create_or_update.return_value = expected_user
+        self.mock_umeta.create_or_update.return_value = expected_user
 
         # Act
         result = Users.create(create_request)
@@ -51,7 +51,7 @@ class TestUserEntity(unittest.TestCase):
         self.assertEqual(str(result.id), self.user_id)
         self.assertEqual(result.name, "john.doe")
         self.assertEqual(result.email, "john.doe@company.com")
-        self.mock_ometa.create_or_update.assert_called_once_with(create_request)
+        self.mock_umeta.create_or_update.assert_called_once_with(create_request)
 
     def test_retrieve_user_by_id(self):
         """Test retrieving a user by ID"""
@@ -61,7 +61,7 @@ class TestUserEntity(unittest.TestCase):
         expected_user.name = "john.doe"
         expected_user.description = "Senior Data Engineer"
 
-        self.mock_ometa.get_by_id.return_value = expected_user
+        self.mock_umeta.get_by_id.return_value = expected_user
 
         # Act
         result = Users.retrieve(self.user_id)
@@ -69,7 +69,7 @@ class TestUserEntity(unittest.TestCase):
         # Assert
         self.assertEqual(str(result.id), self.user_id)
         self.assertEqual(result.name, "john.doe")
-        self.mock_ometa.get_by_id.assert_called_once_with(
+        self.mock_umeta.get_by_id.assert_called_once_with(
             entity=UserEntity, entity_id=self.user_id, fields=None
         )
 
@@ -95,7 +95,7 @@ class TestUserEntity(unittest.TestCase):
         expected_user.name = "john.doe"
         expected_user.teams = [team1, team2]
 
-        self.mock_ometa.get_by_id.return_value = expected_user
+        self.mock_umeta.get_by_id.return_value = expected_user
 
         # Act
         result = Users.retrieve(self.user_id, fields=fields)
@@ -104,7 +104,7 @@ class TestUserEntity(unittest.TestCase):
         self.assertIsNotNone(result.teams)
         self.assertEqual(len(result.teams), 2)
         self.assertEqual(result.teams[0].name, "data-engineering")
-        self.mock_ometa.get_by_id.assert_called_once_with(
+        self.mock_umeta.get_by_id.assert_called_once_with(
             entity=UserEntity, entity_id=self.user_id, fields=fields
         )
 
@@ -116,14 +116,14 @@ class TestUserEntity(unittest.TestCase):
         expected_user.name = "john.doe"
         expected_user.fullyQualifiedName = self.user_fqn
 
-        self.mock_ometa.get_by_name.return_value = expected_user
+        self.mock_umeta.get_by_name.return_value = expected_user
 
         # Act
         result = Users.retrieve_by_name(self.user_fqn)
 
         # Assert
         self.assertEqual(result.fullyQualifiedName, self.user_fqn)
-        self.mock_ometa.get_by_name.assert_called_once_with(
+        self.mock_umeta.get_by_name.assert_called_once_with(
             entity=UserEntity, fqn=self.user_fqn, fields=None
         )
 
@@ -140,10 +140,10 @@ class TestUserEntity(unittest.TestCase):
         current_entity.id = (
             user_to_update.id if hasattr(user_to_update, "id") else UUID(self.entity_id)
         )
-        self.mock_ometa.get_by_id.return_value = current_entity
+        self.mock_umeta.get_by_id.return_value = current_entity
 
         # Mock the patch to return the updated entity
-        self.mock_ometa.patch.return_value = user_to_update
+        self.mock_umeta.patch.return_value = user_to_update
 
         # Act
         result = Users.update(user_to_update)
@@ -151,9 +151,9 @@ class TestUserEntity(unittest.TestCase):
         # Assert
         self.assertEqual(result.description, "Principal Data Engineer")
         # Verify get_by_id was called to fetch current state
-        self.mock_ometa.get_by_id.assert_called_once()
+        self.mock_umeta.get_by_id.assert_called_once()
         # Verify patch was called with source and destination
-        self.mock_ometa.patch.assert_called_once()
+        self.mock_umeta.patch.assert_called_once()
 
     def test_delete_user(self):
         """Test deleting a user"""
@@ -161,7 +161,7 @@ class TestUserEntity(unittest.TestCase):
         Users.delete(self.user_id, recursive=False, hard_delete=True)
 
         # Assert
-        self.mock_ometa.delete.assert_called_once_with(
+        self.mock_umeta.delete.assert_called_once_with(
             entity=UserEntity, entity_id=self.user_id, recursive=False, hard_delete=True
         )
 
@@ -175,7 +175,7 @@ class TestUserEntity(unittest.TestCase):
         expected_user.id = UUID(self.user_id)
         expected_user.authenticationMechanism = auth_mechanism
 
-        self.mock_ometa.get_by_id.return_value = expected_user
+        self.mock_umeta.get_by_id.return_value = expected_user
 
         # Act
         result = Users.retrieve(self.user_id, fields=["authenticationMechanism"])
@@ -201,7 +201,7 @@ class TestUserEntity(unittest.TestCase):
         expected_user.roles = [role1, role2]
         expected_user.isAdmin = True
 
-        self.mock_ometa.get_by_id.return_value = expected_user
+        self.mock_umeta.get_by_id.return_value = expected_user
 
         # Act
         result = Users.retrieve(self.user_id, fields=["roles"])
@@ -230,7 +230,7 @@ class TestUserEntity(unittest.TestCase):
         expected_user.id = UUID(self.user_id)
         expected_user.owns = [owned_table, owned_dashboard]
 
-        self.mock_ometa.get_by_id.return_value = expected_user
+        self.mock_umeta.get_by_id.return_value = expected_user
 
         # Act
         result = Users.retrieve(self.user_id, fields=["owns"])
@@ -252,7 +252,7 @@ class TestUserEntity(unittest.TestCase):
         expected_user.id = UUID(self.user_id)
         expected_user.profile = profile
 
-        self.mock_ometa.get_by_id.return_value = expected_user
+        self.mock_umeta.get_by_id.return_value = expected_user
 
         # Act
         result = Users.retrieve(self.user_id, fields=["profile"])
@@ -276,7 +276,7 @@ class TestUserEntity(unittest.TestCase):
         mock_response = MagicMock()
         mock_response.entities = [mock_user1, mock_user2, mock_user3]
 
-        self.mock_ometa.list_entities.return_value = mock_response
+        self.mock_umeta.list_entities.return_value = mock_response
 
         # Act
         result = Users.list(limit=20, fields=["teams", "roles"])
@@ -284,7 +284,7 @@ class TestUserEntity(unittest.TestCase):
         # Assert
         self.assertEqual(len(result.entities), 3)
         self.assertEqual(result.entities[0].name, "user1")
-        self.mock_ometa.list_entities.assert_called_once()
+        self.mock_umeta.list_entities.assert_called_once()
 
     def test_user_follows(self):
         """Test user following entities"""
@@ -299,7 +299,7 @@ class TestUserEntity(unittest.TestCase):
         expected_user.id = UUID(self.user_id)
         expected_user.follows = [followed_table]
 
-        self.mock_ometa.get_by_id.return_value = expected_user
+        self.mock_umeta.get_by_id.return_value = expected_user
 
         # Act
         result = Users.retrieve(self.user_id, fields=["follows"])
@@ -311,7 +311,7 @@ class TestUserEntity(unittest.TestCase):
     def test_error_handling_user_not_found(self):
         """Test error handling when user not found"""
         # Arrange
-        self.mock_ometa.get_by_id.side_effect = Exception("User not found")
+        self.mock_umeta.get_by_id.side_effect = Exception("User not found")
 
         # Act & Assert
         with self.assertRaises(Exception) as context:

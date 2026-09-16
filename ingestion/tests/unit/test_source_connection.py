@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -671,18 +671,18 @@ class SourceConnectionTest(TestCase):
 
     def test_mysql_url(self):
         # connection arguments without db
-        expected_url = "mysql+pymysql://openmetadata_user:@localhost:3306"
+        expected_url = "mysql+pymysql://umetadata_user:@localhost:3306"
         mysql_conn_obj = MysqlConnection(
-            username="openmetadata_user",
+            username="umetadata_user",
             hostPort="localhost:3306",
             scheme=MySQLScheme.mysql_pymysql,
         )
         assert expected_url == get_connection_url_common(mysql_conn_obj)
 
         # connection arguments with db
-        expected_url = "mysql+pymysql://openmetadata_user:@localhost:3306"
+        expected_url = "mysql+pymysql://umetadata_user:@localhost:3306"
         mysql_conn_obj = MysqlConnection(
-            username="openmetadata_user",
+            username="umetadata_user",
             hostPort="localhost:3306",
             scheme=MySQLScheme.mysql_pymysql,
         )
@@ -723,18 +723,18 @@ class SourceConnectionTest(TestCase):
 
     def test_mariadb_url(self):
         # connection arguments without db
-        expected_url = "mysql+pymysql://openmetadata_user:@localhost:3306"
+        expected_url = "mysql+pymysql://umetadata_user:@localhost:3306"
         mariadb_conn_obj = MariaDBConnection(
-            username="openmetadata_user",
+            username="umetadata_user",
             hostPort="localhost:3306",
             scheme=MariaDBScheme.mysql_pymysql,
         )
         assert expected_url == get_connection_url_common(mariadb_conn_obj)
 
         # connection arguments with db
-        expected_url = "mysql+pymysql://openmetadata_user:@localhost:3306"
+        expected_url = "mysql+pymysql://umetadata_user:@localhost:3306"
         mariadb_conn_obj = MariaDBConnection(
-            username="openmetadata_user",
+            username="umetadata_user",
             hostPort="localhost:3306",
             scheme=MariaDBScheme.mysql_pymysql,
         )
@@ -742,9 +742,9 @@ class SourceConnectionTest(TestCase):
 
     def test_postgres_url(self):
         # connection arguments with db
-        expected_url = "postgresql+psycopg2://openmetadata_user:@localhost:5432/default"
+        expected_url = "postgresql+psycopg2://umetadata_user:@localhost:5432/default"
         postgres_conn_obj = PostgresConnection(
-            username="openmetadata_user",
+            username="umetadata_user",
             hostPort="localhost:5432",
             database="default",
             scheme=PostgresScheme.postgresql_psycopg2,
@@ -765,18 +765,18 @@ class SourceConnectionTest(TestCase):
 
     def test_singleStore_url(self):
         # connection arguments without db
-        expected_url = "mysql+pymysql://openmetadata_user:@localhost:5432"
+        expected_url = "mysql+pymysql://umetadata_user:@localhost:5432"
         singleStore_conn_obj = SingleStoreConnection(
-            username="openmetadata_user",
+            username="umetadata_user",
             hostPort="localhost:5432",
             scheme=SingleStoreScheme.mysql_pymysql,
         )
         assert expected_url == get_connection_url_common(singleStore_conn_obj)
 
         # connection arguments with db
-        expected_url = "mysql+pymysql://openmetadata_user:@localhost:5432"
+        expected_url = "mysql+pymysql://umetadata_user:@localhost:5432"
         singleStore_conn_obj = SingleStoreConnection(
-            username="openmetadata_user",
+            username="umetadata_user",
             hostPort="localhost:5432",
             scheme=SingleStoreScheme.mysql_pymysql,
         )
@@ -784,10 +784,10 @@ class SourceConnectionTest(TestCase):
 
     def test_db2_url(self):
         # connection arguments with db
-        expected_url = "db2+ibm_db://openmetadata_user:@localhost:50000/testdb"
+        expected_url = "db2+ibm_db://umetadata_user:@localhost:50000/testdb"
         db2_conn_obj = Db2Connection(
             scheme=Db2Scheme.db2_ibm_db,
-            username="openmetadata_user",
+            username="umetadata_user",
             hostPort="localhost:50000",
             database="testdb",
         )

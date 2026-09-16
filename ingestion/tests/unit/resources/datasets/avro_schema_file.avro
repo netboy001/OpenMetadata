@@ -1,5 +1,5 @@
 {
-    "namespace": "openmetadata.kafka",
+    "namespace": "umetadata.kafka",
     "name": "level",
     "type": "record",
     "fields": [

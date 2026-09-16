@@ -4,7 +4,7 @@ import textwrap
 import pytest
 from sqlalchemy import create_engine
 
-from _openmetadata_testutils.helpers.docker import try_bind
+from _umetadata_testutils.helpers.docker import try_bind
 from metadata.generated.schema.api.services.createDatabaseService import (
     CreateDatabaseServiceRequest,
 )

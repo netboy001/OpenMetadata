@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -106,8 +106,8 @@ from metadata.ingestion.api.steps import InvalidSourceException
 from metadata.ingestion.lineage.models import ConnectionTypeDialectMapper, Dialect
 from metadata.ingestion.lineage.parser import LineageParser
 from metadata.ingestion.lineage.sql_lineage import get_column_fqn
-from metadata.ingestion.models.ometa_classification import OMetaTagAndClassification
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.models.umeta_classification import UMetaTagAndClassification
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.dashboard.dashboard_service import (
     DashboardServiceSource,
     DashboardUsage,
@@ -131,7 +131,7 @@ from metadata.utils import fqn
 from metadata.utils.filters import filter_by_chart, filter_by_datamodel
 from metadata.utils.helpers import clean_uri, get_standard_chart_type
 from metadata.utils.logger import ingestion_logger
-from metadata.utils.tag_utils import get_ometa_tag_and_classification, get_tag_labels
+from metadata.utils.tag_utils import get_umeta_tag_and_classification, get_tag_labels
 
 logger = ingestion_logger()
 
@@ -192,13 +192,13 @@ class LookerSource(DashboardServiceSource):
     # pylint: disable=too-many-instance-attributes, too-many-public-methods
 
     config: WorkflowSource
-    metadata: OpenMetadata
+    metadata: UMetadata
     client: Looker40SDK
 
     def __init__(
         self,
         config: WorkflowSource,
-        metadata: OpenMetadata,
+        metadata: UMetadata,
     ):
         super().__init__(config, metadata)
         self.today = datetime.now().strftime("%Y-%m-%d")
@@ -223,7 +223,7 @@ class LookerSource(DashboardServiceSource):
     def create(
         cls,
         config_dict: dict,
-        metadata: OpenMetadata,
+        metadata: UMetadata,
         pipeline_name: Optional[str] = None,
     ) -> "LookerSource":
         config = WorkflowSource.model_validate(config_dict)
@@ -615,12 +615,12 @@ class LookerSource(DashboardServiceSource):
 
     def yield_data_model_tags(
         self, tags: List[str]
-    ) -> Iterable[Either[OMetaTagAndClassification]]:
+    ) -> Iterable[Either[UMetaTagAndClassification]]:
         """
         Method to yield tags related to specific dashboards
         """
         if tags and self.source_config.includeTags:
-            yield from get_ometa_tag_and_classification(
+            yield from get_umeta_tag_and_classification(
                 tags=tags or [],
                 classification_name=LOOKER_TAG_CATEGORY,
                 tag_description="Looker Tag",
@@ -1019,7 +1019,7 @@ class LookerSource(DashboardServiceSource):
                     for extended_view_name in extended_views_list:
                         extended_view_model = self._views_cache.get(extended_view_name)
 
-                        # If not in cache, try to fetch from OpenMetadata
+                        # If not in cache, try to fetch from UMetadata
                         if not extended_view_model:
                             try:
                                 # Try with _view suffix first (common pattern for views)
@@ -1032,11 +1032,11 @@ class LookerSource(DashboardServiceSource):
 
                                 if extended_view_model:
                                     logger.debug(
-                                        f"Extended view [{extended_view_name}] found in OpenMetadata for standalone view [{view.name}]"
+                                        f"Extended view [{extended_view_name}] found in UMetadata for standalone view [{view.name}]"
                                     )
                             except Exception:
                                 logger.debug(
-                                    f"Extended view [{extended_view_name}] not found in cache or OpenMetadata for standalone view [{view.name}]"
+                                    f"Extended view [{extended_view_name}] not found in cache or UMetadata for standalone view [{view.name}]"
                                 )
 
                         if extended_view_model:
@@ -1141,7 +1141,7 @@ class LookerSource(DashboardServiceSource):
                     for extended_view_name in extended_views_list:
                         extended_view_model = self._views_cache.get(extended_view_name)
 
-                        # If not in cache, try to fetch from OpenMetadata
+                        # If not in cache, try to fetch from UMetadata
                         if not extended_view_model:
                             try:
                                 # Try with _view suffix first (common pattern for views)
@@ -1154,11 +1154,11 @@ class LookerSource(DashboardServiceSource):
 
                                 if extended_view_model:
                                     logger.debug(
-                                        f"Extended view [{extended_view_name}] found in OpenMetadata for view [{view.name}]"
+                                        f"Extended view [{extended_view_name}] found in UMetadata for view [{view.name}]"
                                     )
                             except Exception:
                                 logger.debug(
-                                    f"Extended view [{extended_view_name}] not found in cache or OpenMetadata for view [{view.name}]"
+                                    f"Extended view [{extended_view_name}] not found in cache or UMetadata for view [{view.name}]"
                                 )
 
                         if extended_view_model:
@@ -1441,7 +1441,7 @@ class LookerSource(DashboardServiceSource):
         sql_table_names might contain Liquid templates
         when defining an explore. e.g,:
         sql_table_name:
-            {% if openmetadata %}
+            {% if umetadata %}
                 event
             {% elsif event.created_week._in_query %}
                 event_by_week
@@ -1450,12 +1450,12 @@ class LookerSource(DashboardServiceSource):
             {% endif %} ;;
         we should render the template and give the option
         to render a specific value during metadata ingestion
-        using the "openmetadata" context argument
+        using the "umetadata" context argument
         :param table_name: table name with possible templating
         :return: rendered table name
         """
         try:
-            context = {"openmetadata": True}
+            context = {"umetadata": True}
             template = Template(table_name)
             sql_table_name = template.render(context)
         except Exception:

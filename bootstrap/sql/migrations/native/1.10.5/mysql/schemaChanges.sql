@@ -2,7 +2,7 @@
 ALTER TABLE ACT_RU_EVENT_SUBSCR MODIFY ACTIVITY_ID_ varchar(255);
 
 -- Update workflow settings with new job acquisition interval settings
-UPDATE openmetadata_settings
+UPDATE umetadata_settings
 SET json = JSON_SET(
     json,
     '$.executorConfiguration.asyncJobAcquisitionInterval', 60000,

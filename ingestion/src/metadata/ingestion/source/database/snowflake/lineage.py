@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -40,7 +40,7 @@ from metadata.generated.schema.type.tableQuery import TableQuery
 from metadata.ingestion.api.models import Either
 from metadata.ingestion.connections.builders import get_connection_options_dict
 from metadata.ingestion.lineage.sql_lineage import get_column_fqn
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.database.lineage_source import LineageSource
 from metadata.ingestion.source.database.snowflake.connection import (
     probe_access_history_available,
@@ -117,7 +117,7 @@ class SnowflakeLineageSource(
     def __init__(
         self,
         config: WorkflowSource,
-        metadata: OpenMetadata,
+        metadata: UMetadata,
         get_engine: bool = True,
     ):
         # Pop the OM-specific flag from connectionOptions BEFORE the parent
@@ -305,7 +305,7 @@ class SnowflakeLineageSource(
         SQL — column-pairs are aggregated into a VARIANT array per edge inside
         Snowflake, so client memory stays O(1) regardless of catalog size. Each
         edge with representative SQL also yields a CreateQueryRequest so the
-        query surfaces in OpenMetadata, matching the legacy parser path.
+        query surfaces in UMetadata, matching the legacy parser path.
         """
         yield from self._yield_combined_access_history()
         yield from self._yield_copy_history_lineage()
@@ -337,7 +337,7 @@ class SnowflakeLineageSource(
         Stream the combined ACCESS_HISTORY query per date window and emit one
         `AddLineageRequest` per row, plus a `CreateQueryRequest` for each edge's
         representative SQL (deduped by checksum) so the originating query lands
-        in OpenMetadata just as the legacy parser path does. Counters accumulate
+        in UMetadata just as the legacy parser path does. Counters accumulate
         across all windows.
         """
         emitted = 0
@@ -374,7 +374,7 @@ class SnowflakeLineageSource(
     ) -> Optional[CreateQueryRequest]:  # noqa: UP045
         """
         Build a CreateQueryRequest for an edge's representative SQL so the query
-        is registered in OpenMetadata like the legacy parser path does. Deduped
+        is registered in UMetadata like the legacy parser path does. Deduped
         within the run by SQL checksum via a bounded LRU — one Query entity per
         unique statement, mirroring the sink's checksum dedup. `processedLineage`
         is True because the edge was derived from ACCESS_HISTORY directly, so the
@@ -438,7 +438,7 @@ class SnowflakeLineageSource(
         """
         Map the Snowflake `USER_NAME` that ran the query to the CreateQueryRequest
         `(users, usedBy)` pair, mirroring the usage stage's `_get_user_entity`:
-        `users` is the matching OpenMetadata user FQN (when one exists) and
+        `users` is the matching UMetadata user FQN (when one exists) and
         `usedBy` is the raw Snowflake username. Both hits and misses are cached
         in a bounded LRU — the same handful of service accounts run most queries,
         so this stays a hot path.
@@ -531,7 +531,7 @@ class SnowflakeLineageSource(
         upstream_entity = self._resolve_snowflake_table(row.upstream_table)
         if downstream_entity is None or upstream_entity is None:
             logger.debug(
-                "Skipping ACCESS_HISTORY edge: table not found in OpenMetadata "
+                "Skipping ACCESS_HISTORY edge: table not found in UMetadata "
                 "(upstream=`%s` found=%s, downstream=`%s` found=%s)",
                 row.upstream_table,
                 upstream_entity is not None,

@@ -38,27 +38,27 @@ class TestSDKFluentAPI:
 
     def setup_method(self):
         """Set up test fixtures"""
-        self.mock_ometa = MagicMock()
+        self.mock_umeta = MagicMock()
 
         # Mock the client getter to return our mock
-        with patch.object(Tables, "_get_client", return_value=self.mock_ometa):
-            with patch.object(Users, "_get_client", return_value=self.mock_ometa):
+        with patch.object(Tables, "_get_client", return_value=self.mock_umeta):
+            with patch.object(Users, "_get_client", return_value=self.mock_umeta):
                 with patch.object(
-                    Databases, "_get_client", return_value=self.mock_ometa
+                    Databases, "_get_client", return_value=self.mock_umeta
                 ):
                     with patch.object(
-                        DatabaseSchemas, "_get_client", return_value=self.mock_ometa
+                        DatabaseSchemas, "_get_client", return_value=self.mock_umeta
                     ):
                         with patch.object(
-                            Teams, "_get_client", return_value=self.mock_ometa
+                            Teams, "_get_client", return_value=self.mock_umeta
                         ):
                             with patch.object(
-                                Glossaries, "_get_client", return_value=self.mock_ometa
+                                Glossaries, "_get_client", return_value=self.mock_umeta
                             ):
                                 with patch.object(
                                     GlossaryTerms,
                                     "_get_client",
-                                    return_value=self.mock_ometa,
+                                    return_value=self.mock_umeta,
                                 ):
                                     self.setup_mocks()
 
@@ -76,7 +76,7 @@ class TestSDKFluentAPI:
     @patch.object(Tables, "_get_client")
     def test_tables_create(self, mock_get_client):
         """Test creating a table using Tables SDK"""
-        mock_get_client.return_value = self.mock_ometa
+        mock_get_client.return_value = self.mock_umeta
 
         # Arrange
         columns = [
@@ -94,40 +94,40 @@ class TestSDKFluentAPI:
         mock_table.id = self.table_id
         mock_table.name = "test_table"
         mock_table.fullyQualifiedName = "service.database.schema.test_table"
-        self.mock_ometa.create_or_update.return_value = mock_table
+        self.mock_umeta.create_or_update.return_value = mock_table
 
         # Act
         result = Tables.create(create_request)
 
         # Assert
         assert result.name == "test_table"
-        self.mock_ometa.create_or_update.assert_called_once_with(create_request)
+        self.mock_umeta.create_or_update.assert_called_once_with(create_request)
 
     @patch.object(Tables, "_get_client")
     def test_tables_retrieve_by_name(self, mock_get_client):
         """Test retrieving a table by name using Tables SDK"""
-        mock_get_client.return_value = self.mock_ometa
+        mock_get_client.return_value = self.mock_umeta
 
         # Arrange
         mock_table = MagicMock(spec=Table)
         mock_table.id = self.table_id
         mock_table.name = "test_table"
         mock_table.fullyQualifiedName = "service.database.schema.test_table"
-        self.mock_ometa.get_by_name.return_value = mock_table
+        self.mock_umeta.get_by_name.return_value = mock_table
 
         # Act
         result = Tables.retrieve_by_name("service.database.schema.test_table")
 
         # Assert
         assert result.name == "test_table"
-        self.mock_ometa.get_by_name.assert_called_once_with(
+        self.mock_umeta.get_by_name.assert_called_once_with(
             entity=Table, fqn="service.database.schema.test_table", fields=None
         )
 
     @patch.object(Users, "_get_client")
     def test_users_create(self, mock_get_client):
         """Test creating a user using Users SDK"""
-        mock_get_client.return_value = self.mock_ometa
+        mock_get_client.return_value = self.mock_umeta
 
         # Arrange
         create_request = CreateUserRequest(
@@ -139,7 +139,7 @@ class TestSDKFluentAPI:
         mock_user.id = self.user_id
         mock_user.name = "test_user"
         mock_user.email = "test@example.com"
-        self.mock_ometa.create_or_update.return_value = mock_user
+        self.mock_umeta.create_or_update.return_value = mock_user
 
         # Act
         result = Users.create(create_request)
@@ -147,12 +147,12 @@ class TestSDKFluentAPI:
         # Assert
         assert result.name == "test_user"
         assert result.email == "test@example.com"
-        self.mock_ometa.create_or_update.assert_called_once_with(create_request)
+        self.mock_umeta.create_or_update.assert_called_once_with(create_request)
 
     @patch.object(Databases, "_get_client")
     def test_databases_list(self, mock_get_client):
         """Test listing databases using Databases SDK"""
-        mock_get_client.return_value = self.mock_ometa
+        mock_get_client.return_value = self.mock_umeta
 
         # Arrange
         mock_db1 = MagicMock(spec=Database)
@@ -162,7 +162,7 @@ class TestSDKFluentAPI:
 
         mock_response = MagicMock()
         mock_response.entities = [mock_db1, mock_db2]
-        self.mock_ometa.list_entities.return_value = mock_response
+        self.mock_umeta.list_entities.return_value = mock_response
 
         # Act
         result = Databases.list()
@@ -171,14 +171,14 @@ class TestSDKFluentAPI:
         assert len(result.entities) == 2
         assert result.entities[0].name == "db1"
         assert result.entities[1].name == "db2"
-        self.mock_ometa.list_entities.assert_called_once_with(
+        self.mock_umeta.list_entities.assert_called_once_with(
             entity=Database, fields=None, after=None, before=None, limit=10, params=None
         )
 
     @patch.object(Teams, "_get_client")
     def test_teams_create_and_delete(self, mock_get_client):
         """Test creating and deleting a team using Teams SDK"""
-        mock_get_client.return_value = self.mock_ometa
+        mock_get_client.return_value = self.mock_umeta
 
         # Arrange - Create
         create_request = CreateTeamRequest(
@@ -189,7 +189,7 @@ class TestSDKFluentAPI:
         mock_team = MagicMock(spec=Team)
         mock_team.id = self.team_id
         mock_team.name = "test_team"
-        self.mock_ometa.create_or_update.return_value = mock_team
+        self.mock_umeta.create_or_update.return_value = mock_team
 
         # Act - Create
         created_team = Teams.create(create_request)
@@ -198,13 +198,13 @@ class TestSDKFluentAPI:
         assert created_team.name == "test_team"
 
         # Arrange - Delete
-        self.mock_ometa.delete.return_value = None
+        self.mock_umeta.delete.return_value = None
 
         # Act - Delete
         Teams.delete(str(self.team_id))
 
         # Assert - Delete
-        self.mock_ometa.delete.assert_called_once_with(
+        self.mock_umeta.delete.assert_called_once_with(
             entity=Team, entity_id=str(self.team_id), recursive=False, hard_delete=False
         )
 
@@ -212,8 +212,8 @@ class TestSDKFluentAPI:
     @patch.object(GlossaryTerms, "_get_client")
     def test_glossary_and_terms_workflow(self, mock_terms_client, mock_glossary_client):
         """Test creating glossary and terms using SDK"""
-        mock_glossary_client.return_value = self.mock_ometa
-        mock_terms_client.return_value = self.mock_ometa
+        mock_glossary_client.return_value = self.mock_umeta
+        mock_terms_client.return_value = self.mock_umeta
 
         # Create Glossary
         glossary_request = CreateGlossaryRequest(
@@ -225,7 +225,7 @@ class TestSDKFluentAPI:
         mock_glossary = MagicMock(spec=Glossary)
         mock_glossary.id = self.glossary_id
         mock_glossary.name = "business_glossary"
-        self.mock_ometa.create_or_update.return_value = mock_glossary
+        self.mock_umeta.create_or_update.return_value = mock_glossary
 
         created_glossary = Glossaries.create(glossary_request)
         assert created_glossary.name == "business_glossary"
@@ -242,7 +242,7 @@ class TestSDKFluentAPI:
         mock_term.id = self.term_id
         mock_term.name = "customer"
         mock_term.glossary = mock_glossary
-        self.mock_ometa.create_or_update.return_value = mock_term
+        self.mock_umeta.create_or_update.return_value = mock_term
 
         created_term = GlossaryTerms.create(term_request)
         assert created_term.name == "customer"
@@ -250,7 +250,7 @@ class TestSDKFluentAPI:
     @patch.object(DatabaseSchemas, "_get_client")
     def test_database_schemas_search(self, mock_get_client):
         """Test searching database schemas using DatabaseSchemas SDK"""
-        mock_get_client.return_value = self.mock_ometa
+        mock_get_client.return_value = self.mock_umeta
 
         # Arrange
         mock_schema1 = MagicMock(spec=DatabaseSchema)
@@ -258,32 +258,32 @@ class TestSDKFluentAPI:
         mock_schema2 = MagicMock(spec=DatabaseSchema)
         mock_schema2.name = "staging"
 
-        self.mock_ometa.es_search_from_fqn.return_value = [mock_schema1, mock_schema2]
+        self.mock_umeta.es_search_from_fqn.return_value = [mock_schema1, mock_schema2]
 
         # Act
         results = DatabaseSchemas.search("staging")
 
         # Assert
         assert len(results) == 2
-        self.mock_ometa.es_search_from_fqn.assert_called_once_with(
+        self.mock_umeta.es_search_from_fqn.assert_called_once_with(
             entity_type=DatabaseSchema, fqn_search_string="staging", size=10
         )
 
     @patch.object(StorageServices, "_get_client")
     def test_storage_services_retrieve(self, mock_get_client):
         """Test retrieving a storage service by ID using StorageServices SDK"""
-        mock_get_client.return_value = self.mock_ometa
+        mock_get_client.return_value = self.mock_umeta
 
         storage_service_id = "d1589e1d-2ab0-431c-a383-15e4be20a106"
         mock_storage_service = MagicMock(spec=StorageService)
         mock_storage_service.id = UUID(storage_service_id)
         mock_storage_service.name = "s3-prod"
-        self.mock_ometa.get_by_id.return_value = mock_storage_service
+        self.mock_umeta.get_by_id.return_value = mock_storage_service
 
         result = StorageServices.retrieve(storage_service_id)
 
         assert result.name == "s3-prod"
-        self.mock_ometa.get_by_id.assert_called_once_with(
+        self.mock_umeta.get_by_id.assert_called_once_with(
             entity=StorageService,
             entity_id=storage_service_id,
             fields=None,

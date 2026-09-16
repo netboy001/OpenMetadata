@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -61,9 +61,9 @@ from metadata.generated.schema.type.pipelineObservability import PipelineObserva
 from metadata.ingestion.api.models import Either
 from metadata.ingestion.api.steps import InvalidSourceException
 from metadata.ingestion.connections.session import create_and_bind_session
-from metadata.ingestion.models.ometa_classification import OMetaTagAndClassification
-from metadata.ingestion.models.pipeline_status import OMetaPipelineStatus
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.models.umeta_classification import UMetaTagAndClassification
+from metadata.ingestion.models.pipeline_status import UMetaPipelineStatus
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.pipeline.airflow.lineage_parser import (
     XLets,
     get_xlets_from_dag,
@@ -79,7 +79,7 @@ from metadata.utils import fqn
 from metadata.utils.constants import ENTITY_REFERENCE_TYPE_MAP
 from metadata.utils.helpers import clean_uri, datetime_to_ts
 from metadata.utils.logger import ingestion_logger
-from metadata.utils.tag_utils import get_ometa_tag_and_classification, get_tag_labels
+from metadata.utils.tag_utils import get_umeta_tag_and_classification, get_tag_labels
 
 logger = ingestion_logger()
 
@@ -124,7 +124,7 @@ class AirflowSource(PipelineServiceSource):
     def __init__(
         self,
         config: WorkflowSource,
-        metadata: OpenMetadata,
+        metadata: UMetadata,
     ):
         super().__init__(config, metadata)
         self.today = datetime.now().strftime("%Y-%m-%d")
@@ -199,7 +199,7 @@ class AirflowSource(PipelineServiceSource):
 
     @classmethod
     def create(
-        cls, config_dict, metadata: OpenMetadata, pipeline_name: Optional[str] = None
+        cls, config_dict, metadata: UMetadata, pipeline_name: Optional[str] = None
     ):
         from metadata.generated.schema.entity.utils.airflowRestApiConnection import (
             AirflowRestApiConnection,
@@ -255,8 +255,8 @@ class AirflowSource(PipelineServiceSource):
 
     def yield_tag(
         self, pipeline_details: AirflowDagDetails
-    ) -> Iterable[Either[OMetaTagAndClassification]]:
-        yield from get_ometa_tag_and_classification(
+    ) -> Iterable[Either[UMetaTagAndClassification]]:
+        yield from get_umeta_tag_and_classification(
             tags=self.get_all_tags(dag_id=pipeline_details.dag_id),
             classification_name=AIRFLOW_TAG_CATEGORY,
             tag_description="Airflow Tag",
@@ -372,7 +372,7 @@ class AirflowSource(PipelineServiceSource):
 
     def yield_pipeline_status(
         self, pipeline_details: AirflowDagDetails
-    ) -> Iterable[Either[OMetaPipelineStatus]]:
+    ) -> Iterable[Either[UMetaPipelineStatus]]:
         try:
             dag_run_list = self.get_pipeline_status(pipeline_details.dag_id)
 
@@ -426,7 +426,7 @@ class AirflowSource(PipelineServiceSource):
                         pipeline_name=self.context.get().pipeline,
                     )
                     yield Either(
-                        right=OMetaPipelineStatus(
+                        right=UMetaPipelineStatus(
                             pipeline_fqn=pipeline_fqn,
                             pipeline_status=pipeline_status,
                         )
@@ -861,19 +861,19 @@ class AirflowSource(PipelineServiceSource):
                             yield Either(right=lineage)
                         else:
                             logger.warning(
-                                f"Lineage skipped: Outlet entity not found in OpenMetadata. "
+                                f"Lineage skipped: Outlet entity not found in UMetadata. "
                                 f"Entity type: [{to_xlet.entity.__name__}], "
                                 f"FQN: [{to_xlet.fqn}], "
                                 f"Pipeline: [{pipeline_entity.fullyQualifiedName.root}]. "
-                                f"Ensure the entity exists in OpenMetadata before running lineage ingestion."
+                                f"Ensure the entity exists in UMetadata before running lineage ingestion."
                             )
                 else:
                     logger.warning(
-                        f"Lineage skipped: Inlet entity not found in OpenMetadata. "
+                        f"Lineage skipped: Inlet entity not found in UMetadata. "
                         f"Entity type: [{from_xlet.entity.__name__}], "
                         f"FQN: [{from_xlet.fqn}], "
                         f"Pipeline: [{pipeline_entity.fullyQualifiedName.root}]. "
-                        f"Ensure the entity exists in OpenMetadata before running lineage ingestion."
+                        f"Ensure the entity exists in UMetadata before running lineage ingestion."
                     )
 
         # Cache observability data for later use

@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -46,7 +46,7 @@ from metadata.generated.schema.entity.services.databaseService import (
 )
 from metadata.generated.schema.entity.services.storageService import StorageServiceType
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.generated.schema.type.basic import (
     EntityName,
@@ -272,9 +272,9 @@ mock_athena_config = {
     },
     "sink": {"type": "metadata-rest", "config": {}},
     "workflowConfig": {
-        "openMetadataServerConfig": {
+        "uMetadataServerConfig": {
             "hostPort": "http://localhost:8585/api",
-            "authProvider": "openmetadata",
+            "authProvider": "umetadata",
             "securityConfig": {"jwtToken": "athena"},
         }
     },
@@ -296,10 +296,10 @@ class TestAthenaService(unittest.TestCase):
     def __init__(self, methodName, test_connection) -> None:
         super().__init__(methodName)
         test_connection.return_value = False
-        self.config = OpenMetadataWorkflowConfig.model_validate(mock_athena_config)
+        self.config = UMetadataWorkflowConfig.model_validate(mock_athena_config)
         self.athena_source = AthenaSource.create(
             mock_athena_config["source"],
-            self.config.workflowConfig.openMetadataServerConfig,
+            self.config.workflowConfig.uMetadataServerConfig,
         )
         self.athena_source.context.get().__dict__[
             "database_schema"
@@ -392,14 +392,14 @@ def athena_source():
     """A minimally-wired AthenaSource with context populated and a dummy type ref."""
     from metadata.generated.schema.type.customProperty import PropertyType
 
-    config = OpenMetadataWorkflowConfig.model_validate(mock_athena_config)
+    config = UMetadataWorkflowConfig.model_validate(mock_athena_config)
     with patch(
         "metadata.ingestion.source.database.database_service.DatabaseServiceSource.test_connection",
         return_value=False,
     ):
         source = AthenaSource.create(
             mock_athena_config["source"],
-            config.workflowConfig.openMetadataServerConfig,
+            config.workflowConfig.uMetadataServerConfig,
         )
 
     source.context.get().__dict__["database_schema"] = MOCK_DATABASE_SCHEMA.name.root
@@ -771,14 +771,14 @@ class TestQueryTableNamesAndTypesIcebergConstant:
 def _make_source_with_glue(config, table_list):
     """Build an AthenaSource from config and attach a Glue client whose
     get_tables paginator yields a single page with the given TableList."""
-    workflow_config = OpenMetadataWorkflowConfig.model_validate(config)
+    workflow_config = UMetadataWorkflowConfig.model_validate(config)
     with patch(
         "metadata.ingestion.source.database.database_service.DatabaseServiceSource.test_connection",
         return_value=False,
     ):
         source = AthenaSource.create(
             config["source"],
-            workflow_config.workflowConfig.openMetadataServerConfig,
+            workflow_config.workflowConfig.uMetadataServerConfig,
         )
     mock_paginator = MagicMock()
     mock_paginator.paginate.return_value = [{"TableList": table_list}]

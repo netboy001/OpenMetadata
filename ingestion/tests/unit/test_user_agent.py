@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -11,10 +11,10 @@
 """
 Unit tests for the connector ingestion User-Agent header.
 
-The ometa REST client used to send every request with the default
+The umeta REST client used to send every request with the default
 ``python-requests/<version>`` User-Agent. Workflows now identify themselves
 with ``<connector>_<workflowType> (service: <name>; v<version>)`` so the
-OpenMetadata server access logs show which connector and workflow issued
+UMetadata server access logs show which connector and workflow issued
 each call. Every part is best-effort: an unresolvable piece is dropped
 rather than failing the workflow.
 """
@@ -22,11 +22,11 @@ rather than failing the workflow.
 from unittest.mock import MagicMock, patch
 
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
-from metadata.ingestion.ometa.client import REST, ClientConfig
-from metadata.ingestion.ometa.sse_client import SSEClient
-from metadata.ingestion.ometa.utils import MAX_USER_AGENT_LENGTH, sanitize_user_agent
+from metadata.ingestion.umeta.client import REST, ClientConfig
+from metadata.ingestion.umeta.sse_client import SSEClient
+from metadata.ingestion.umeta.utils import MAX_USER_AGENT_LENGTH, sanitize_user_agent
 from metadata.workflow.base import BaseWorkflow
 from metadata.workflow.metadata import MetadataWorkflow
 
@@ -42,14 +42,14 @@ SNOWFLAKE_SOURCE = {
 def _user_agent_for(source: dict) -> str | None:
     """Build the User-Agent a MetadataWorkflow would send for the given source config."""
     workflow = MetadataWorkflow.__new__(MetadataWorkflow)
-    workflow.config = OpenMetadataWorkflowConfig.model_validate(
+    workflow.config = UMetadataWorkflowConfig.model_validate(
         {
             "source": source,
             "sink": {"type": "metadata-rest", "config": {}},
             "workflowConfig": {
-                "openMetadataServerConfig": {
+                "uMetadataServerConfig": {
                     "hostPort": BASE_URL,
-                    "authProvider": "openmetadata",
+                    "authProvider": "umetadata",
                     "securityConfig": {"jwtToken": "token"},
                 }
             },
@@ -114,14 +114,14 @@ def test_user_agent_degrades_to_connector_only(*_):
 @patch("metadata.workflow.ingestion.get_client_version", return_value="1.10.0.0")
 def test_user_agent_is_none_without_connector_type(*_):
     workflow = MetadataWorkflow.__new__(MetadataWorkflow)
-    workflow.config = OpenMetadataWorkflowConfig.model_validate(
+    workflow.config = UMetadataWorkflowConfig.model_validate(
         {
             "source": SNOWFLAKE_SOURCE,
             "sink": {"type": "metadata-rest", "config": {}},
             "workflowConfig": {
-                "openMetadataServerConfig": {
+                "uMetadataServerConfig": {
                     "hostPort": BASE_URL,
-                    "authProvider": "openmetadata",
+                    "authProvider": "umetadata",
                     "securityConfig": {"jwtToken": "token"},
                 }
             },
@@ -134,12 +134,12 @@ def test_user_agent_is_none_without_connector_type(*_):
 
 @patch("metadata.workflow.base.get_client_version", return_value="1.10.0.0")
 def test_base_workflow_user_agent_includes_version(*_):
-    assert BaseWorkflow._build_user_agent(object()) == "openmetadata-ingestion (v1.10.0.0)"
+    assert BaseWorkflow._build_user_agent(object()) == "umetadata-ingestion (v1.10.0.0)"
 
 
 @patch("metadata.workflow.base.get_client_version", side_effect=RuntimeError("no version"))
 def test_base_workflow_user_agent_degrades_without_version(*_):
-    assert BaseWorkflow._build_user_agent(object()) == "openmetadata-ingestion"
+    assert BaseWorkflow._build_user_agent(object()) == "umetadata-ingestion"
 
 
 def test_sanitize_user_agent_strips_crlf():
@@ -213,7 +213,7 @@ def _capture_sse_headers(client: SSEClient) -> dict:
 
     fake_session.request.side_effect = _capture_request
 
-    with patch("metadata.ingestion.ometa.sse_client.requests.Session", return_value=fake_session):
+    with patch("metadata.ingestion.umeta.sse_client.requests.Session", return_value=fake_session):
         list(client.stream("GET", "/v1/events"))
 
     return captured_headers

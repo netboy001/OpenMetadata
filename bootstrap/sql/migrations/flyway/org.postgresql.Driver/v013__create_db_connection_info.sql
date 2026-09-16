@@ -1,7 +1,7 @@
 -- we are not using the secretsManagerCredentials
 UPDATE metadata_service_entity
-SET json = json::jsonb #- '{openMetadataServerConnection.secretsManagerCredentials}'
-where name = 'OpenMetadata';
+SET json = json::jsonb #- '{uMetadataServerConnection.secretsManagerCredentials}'
+where name = 'UMetadata';
 
 -- Rename githubCredentials to gitCredentials
 UPDATE dashboard_service_entity

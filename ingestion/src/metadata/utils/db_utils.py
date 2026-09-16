@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,7 +32,7 @@ from metadata.ingestion.lineage.sql_lineage import (
     get_lineage_by_query,
     get_lineage_via_table_entity,
 )
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.models import TableView
 from metadata.utils import fqn
 from metadata.utils.execution_time_tracker import calculate_execution_time_generator
@@ -55,7 +55,7 @@ def get_host_from_host_port(uri: str) -> str:
 @calculate_execution_time_generator()
 def get_view_lineage(
     view: TableView,
-    metadata: OpenMetadata,
+    metadata: UMetadata,
     service_names: Union[str, List[str]],
     connection_type: str,
     timeout_seconds: int,

@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,8 +33,8 @@ from metadata.generated.schema.metadataIngestion.workflow import (
 )
 from metadata.ingestion.api.models import Either, Entity
 from metadata.ingestion.api.steps import InvalidSourceException, Source
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
-from metadata.ingestion.ometa.utils import model_str
+from metadata.ingestion.umeta.umeta_api import UMetadata
+from metadata.ingestion.umeta.utils import model_str
 from metadata.ingestion.source.connections import get_connection, test_connection_common
 from metadata.ingestion.source.metadata.alationsink.client import AlationSinkClient
 from metadata.ingestion.source.metadata.alationsink.constants import (
@@ -73,7 +73,7 @@ class AlationsinkSource(Source):
     def __init__(
         self,
         config: WorkflowSource,
-        metadata: OpenMetadata,
+        metadata: UMetadata,
     ):
         super().__init__()
         self.config = config
@@ -87,7 +87,7 @@ class AlationsinkSource(Source):
 
     @classmethod
     def create(
-        cls, config_dict, metadata: OpenMetadata, pipeline_name: Optional[str] = None
+        cls, config_dict, metadata: UMetadata, pipeline_name: Optional[str] = None
     ):
         config: WorkflowSource = WorkflowSource.model_validate(config_dict)
         connection: AlationSinkConnection = config.serviceConnection.root.config
@@ -340,7 +340,7 @@ class AlationsinkSource(Source):
         Method to ingest the tables
         """
         try:
-            # Iterate over all the tables in OpenMetadata
+            # Iterate over all the tables in UMetadata
             om_tables = list(
                 self.metadata.list_all_entities(
                     entity=Table,
@@ -394,7 +394,7 @@ class AlationsinkSource(Source):
         Method to ingests the schemas
         """
         try:
-            # Iterate over all the schemas in OpenMetadata
+            # Iterate over all the schemas in UMetadata
             om_schemas = list(
                 self.metadata.list_all_entities(
                     entity=DatabaseSchema,
@@ -447,7 +447,7 @@ class AlationsinkSource(Source):
         else:
             # If the mapping is not provided, we'll iterate over all the databases
             self.connectors = self.alation_sink_client.list_connectors()
-            # Iterate over all the databases in OpenMetadata
+            # Iterate over all the databases in UMetadata
             om_databases = self.metadata.list_all_entities(
                 entity=Database,
                 skip_on_failure=True,

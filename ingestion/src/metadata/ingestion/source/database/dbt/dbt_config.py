@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -51,10 +51,10 @@ from metadata.ingestion.source.database.dbt.models import DbtFiles
 from metadata.readers.file.config_source_factory import get_reader
 from metadata.utils.credentials import set_google_credentials
 from metadata.utils.helpers import clean_uri
-from metadata.utils.logger import ometa_logger
+from metadata.utils.logger import umeta_logger
 from metadata.utils.s3_utils import list_s3_objects
 
-logger = ometa_logger()
+logger = umeta_logger()
 
 
 class DBTConfigException(Exception):
@@ -227,7 +227,7 @@ def _(config: DbtCloudConfig):  # pylint: disable=too-many-locals
     dbt_manifest = None
     dbt_run_results = None
     try:
-        from metadata.ingestion.ometa.client import (  # pylint: disable=import-outside-toplevel
+        from metadata.ingestion.umeta.client import (  # pylint: disable=import-outside-toplevel
             REST,
             ClientConfig,
         )

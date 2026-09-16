@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,7 +32,7 @@ from metadata.generated.schema.metadataIngestion.workflow import (
     Source as WorkflowSource,
 )
 from metadata.ingestion.api.steps import InvalidSourceException
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.database.common_db_source import (
     CommonDbSourceService,
     TableNameAndType,
@@ -192,7 +192,7 @@ class StarRocksSource(CommonDbSourceService):
     Database metadata from StarRocks Source
     """
 
-    def __init__(self, config: WorkflowSource, metadata: OpenMetadata):
+    def __init__(self, config: WorkflowSource, metadata: UMetadata):
         self.ssl_manager = None
         service_connection = config.serviceConnection.root.config
         self.ssl_manager: SSLManager = check_ssl_and_init(service_connection)
@@ -202,7 +202,7 @@ class StarRocksSource(CommonDbSourceService):
 
     @classmethod
     def create(
-        cls, config_dict, metadata: OpenMetadata, pipeline_name: Optional[str] = None
+        cls, config_dict, metadata: UMetadata, pipeline_name: Optional[str] = None
     ):
         """Create a StarRocksSource instance (factory method)"""
         config: WorkflowSource = WorkflowSource.model_validate(config_dict)
@@ -361,7 +361,7 @@ class StarRocksSource(CommonDbSourceService):
     ) -> Tuple[
         Optional[List[Column]], Optional[List[TableConstraint]], Optional[List[Dict]]
     ]:
-        """Get column information and constraints (compatible with OpenMetadata schema)"""
+        """Get column information and constraints (compatible with UMetadata schema)"""
         table_columns = []
         table_constraints = []
 
@@ -406,7 +406,7 @@ class StarRocksSource(CommonDbSourceService):
                         f"Table {schema_name}.{table_name} has a column with unknown type: {column['name']} (original type: {column['type']})"
                     )
 
-                # Build OpenMetadata Column instance
+                # Build UMetadata Column instance
                 om_column = Column(
                     name=column["name"] or "unknown_column",
                     description=column.get("comment"),

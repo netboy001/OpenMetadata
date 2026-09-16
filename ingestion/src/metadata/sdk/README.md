@@ -1,13 +1,13 @@
-# OpenMetadata Python SDK
+# UMetadata Python SDK
 
-A modern, fluent Python SDK for OpenMetadata that provides an intuitive API for all operations.
+A modern, fluent Python SDK for UMetadata that provides an intuitive API for all operations.
 
 ## Installation
 
-The SDK is part of the openmetadata-ingestion package:
+The SDK is part of the umetadata-ingestion package:
 
 ```bash
-pip install openmetadata-ingestion
+pip install umetadata-ingestion
 ```
 
 ### Data Quality SDK Installation
@@ -16,16 +16,16 @@ For running data quality tests, additional dependencies may be required:
 
 **DataFrame Validation:**
 ```bash
-pip install 'openmetadata-ingestion[pandas]'
+pip install 'umetadata-ingestion[pandas]'
 ```
 
 **Table-Based Testing:**
 ```bash
 # Install the database extra matching your table's service type
-pip install 'openmetadata-ingestion[mysql]'        # For MySQL
-pip install 'openmetadata-ingestion[postgres]'     # For PostgreSQL
-pip install 'openmetadata-ingestion[snowflake]'    # For Snowflake
-pip install 'openmetadata-ingestion[clickhouse]'   # For ClickHouse
+pip install 'umetadata-ingestion[mysql]'        # For MySQL
+pip install 'umetadata-ingestion[postgres]'     # For PostgreSQL
+pip install 'umetadata-ingestion[snowflake]'    # For Snowflake
+pip install 'umetadata-ingestion[clickhouse]'   # For ClickHouse
 ```
 
 ## Quick Start
@@ -41,37 +41,37 @@ from metadata.sdk import configure
 configure(host="http://localhost:8585/api", jwt_token="your-jwt-token")
 
 # Or configure from environment variables
-# Set OPENMETADATA_HOST and OPENMETADATA_JWT_TOKEN
+# Set UMETADATA_HOST and UMETADATA_JWT_TOKEN
 configure()
 ```
 
 The `configure()` function supports:
-- **`host`** or **`server_url`**: OpenMetadata server URL
+- **`host`** or **`server_url`**: UMetadata server URL
 - **`jwt_token`**: JWT authentication token
 - Falls back to environment variables:
-  - `OPENMETADATA_HOST` or `OPENMETADATA_SERVER_URL` for the server URL
-  - `OPENMETADATA_JWT_TOKEN` or `OPENMETADATA_API_KEY` for authentication
-  - `OPENMETADATA_VERIFY_SSL`: Enable SSL verification (default: false)
-  - `OPENMETADATA_CA_BUNDLE`: Path to CA bundle
-  - `OPENMETADATA_CLIENT_TIMEOUT`: Client timeout in seconds (default: 30)
+  - `UMETADATA_HOST` or `UMETADATA_SERVER_URL` for the server URL
+  - `UMETADATA_JWT_TOKEN` or `UMETADATA_API_KEY` for authentication
+  - `UMETADATA_VERIFY_SSL`: Enable SSL verification (default: false)
+  - `UMETADATA_CA_BUNDLE`: Path to CA bundle
+  - `UMETADATA_CLIENT_TIMEOUT`: Client timeout in seconds (default: 30)
 
 ### Alternative: Manual Initialization
 
 For more control, you can manually initialize the SDK:
 
 ```python
-from metadata.sdk import OpenMetadata, OpenMetadataConfig
+from metadata.sdk import UMetadata, UMetadataConfig
 from metadata.sdk.entities import Table, User
 from metadata.sdk.api import Search, Lineage, Bulk
 
 # Configure the client
-config = OpenMetadataConfig(
+config = UMetadataConfig(
     server_url="http://localhost:8585/api",
     jwt_token="your-jwt-token"
 )
 
 # Initialize the client
-client = OpenMetadata.initialize(config)
+client = UMetadata.initialize(config)
 
 # Set default client for static APIs
 Table.set_default_client(client)
@@ -86,10 +86,10 @@ Bulk.set_default_client(client)
 You can also load configuration entirely from environment variables:
 
 ```python
-from metadata.sdk.config import OpenMetadataConfig
+from metadata.sdk.config import UMetadataConfig
 
-# Reads from OPENMETADATA_HOST, OPENMETADATA_JWT_TOKEN, etc.
-config = OpenMetadataConfig.from_env()
+# Reads from UMETADATA_HOST, UMETADATA_JWT_TOKEN, etc.
+config = UMetadataConfig.from_env()
 ```
 
 ## Entity Operations
@@ -358,7 +358,7 @@ asyncio.run(main())
 
 ```python
 # Full configuration options
-config = OpenMetadataConfig(
+config = UMetadataConfig(
     server_url="https://metadata.company.com",
     jwt_token="jwt-token",
     verify_ssl=True,
@@ -367,7 +367,7 @@ config = OpenMetadataConfig(
 )
 
 # Using builder pattern
-config = OpenMetadataConfig.builder() \
+config = UMetadataConfig.builder() \
     .server_url("https://metadata.company.com") \
     .jwt_token("jwt-token") \
     .verify_ssl(True) \
@@ -378,7 +378,7 @@ config = OpenMetadataConfig.builder() \
 ## Error Handling
 
 ```python
-from metadata.ingestion.ometa.client import APIError
+from metadata.ingestion.umeta.client import APIError
 
 try:
     table = Table.retrieve("table-id")
@@ -413,7 +413,7 @@ for table in collection.get_data():
 
 ## Supported Entity Types
 
-The SDK provides the same fluent API for all OpenMetadata entity types:
+The SDK provides the same fluent API for all UMetadata entity types:
 
 - **Data Assets**: Table, Database, DatabaseSchema, Dashboard, Pipeline, Topic, Container, Query, StoredProcedure, DashboardDataModel, SearchIndex, MlModel, Report
 - **Services**: DatabaseService, MessagingService, DashboardService, PipelineService, MlModelService, StorageService, SearchService, MetadataService, ApiService
@@ -425,7 +425,7 @@ The SDK provides the same fluent API for all OpenMetadata entity types:
 
 ## Thread Safety
 
-The OpenMetadata client is thread-safe and can be shared across multiple threads. The static API methods use a shared default client instance.
+The UMetadata client is thread-safe and can be shared across multiple threads. The static API methods use a shared default client instance.
 
 ## Testing
 

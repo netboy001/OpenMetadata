@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -67,7 +67,7 @@ from metadata.generated.schema.type.entityReference import EntityReference
 from metadata.generated.schema.type.entityReferenceList import EntityReferenceList
 from metadata.ingestion.api.parser import parse_workflow_config_gracefully
 from metadata.ingestion.api.steps import InvalidSourceException
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.database.iceberg.metadata import IcebergSource
 from metadata.utils import fqn
 
@@ -80,7 +80,7 @@ MOCK_COLUMN_MAP = {
             required=False,
             doc="Binary",
         ),
-        "ometa": Column(
+        "umeta": Column(
             name="binary",
             description="Binary",
             dataType=DataType.BINARY,
@@ -95,7 +95,7 @@ MOCK_COLUMN_MAP = {
             field_type=BooleanType(),
             required=False,
         ),
-        "ometa": Column(
+        "umeta": Column(
             name="boolean",
             dataType=DataType.BOOLEAN,
             dataTypeDisplay=str(BooleanType()),
@@ -108,7 +108,7 @@ MOCK_COLUMN_MAP = {
             field_type=DateType(),
             required=True,
         ),
-        "ometa": Column(
+        "umeta": Column(
             name="date",
             dataType=DataType.DATE,
             dataTypeDisplay=str(DateType()),
@@ -122,7 +122,7 @@ MOCK_COLUMN_MAP = {
             field_type=DecimalType(9, 3),
             required=False,
         ),
-        "ometa": Column(
+        "umeta": Column(
             name="decimal",
             dataType=DataType.DECIMAL,
             dataTypeDisplay=str(DecimalType(9, 3)),
@@ -137,7 +137,7 @@ MOCK_COLUMN_MAP = {
             field_type=DoubleType(),
             required=False,
         ),
-        "ometa": Column(
+        "umeta": Column(
             name="double",
             dataType=DataType.DOUBLE,
             dataTypeDisplay=str(DoubleType()),
@@ -150,7 +150,7 @@ MOCK_COLUMN_MAP = {
             field_type=FixedType(10),
             required=False,
         ),
-        "ometa": Column(
+        "umeta": Column(
             name="fixed",
             dataType=DataType.FIXED,
             dataTypeDisplay=str(FixedType(10)),
@@ -163,7 +163,7 @@ MOCK_COLUMN_MAP = {
             field_type=FloatType(),
             required=False,
         ),
-        "ometa": Column(
+        "umeta": Column(
             name="float",
             dataType=DataType.FLOAT,
             dataTypeDisplay=str(FloatType()),
@@ -176,7 +176,7 @@ MOCK_COLUMN_MAP = {
             field_type=IntegerType(),
             required=False,
         ),
-        "ometa": Column(
+        "umeta": Column(
             name="integer",
             dataType=DataType.INT,
             dataTypeDisplay=str(IntegerType()),
@@ -192,7 +192,7 @@ MOCK_COLUMN_MAP = {
             ),
             required=False,
         ),
-        "ometa": Column(
+        "umeta": Column(
             name="list",
             dataType=DataType.ARRAY,
             dataTypeDisplay=str(
@@ -211,7 +211,7 @@ MOCK_COLUMN_MAP = {
             field_type=LongType(),
             required=False,
         ),
-        "ometa": Column(
+        "umeta": Column(
             name="long",
             dataType=DataType.LONG,
             dataTypeDisplay=str(LongType()),
@@ -229,7 +229,7 @@ MOCK_COLUMN_MAP = {
             ),
             required=False,
         ),
-        "ometa": Column(
+        "umeta": Column(
             name="map",
             dataType=DataType.MAP,
             dataTypeDisplay=str(
@@ -249,7 +249,7 @@ MOCK_COLUMN_MAP = {
             field_type=StringType(),
             required=False,
         ),
-        "ometa": Column(
+        "umeta": Column(
             name="string",
             dataType=DataType.STRING,
             dataTypeDisplay=str(StringType()),
@@ -278,7 +278,7 @@ MOCK_COLUMN_MAP = {
             ),
             required=False,
         ),
-        "ometa": Column(
+        "umeta": Column(
             name="struct",
             dataType=DataType.STRUCT,
             dataTypeDisplay=str(
@@ -323,7 +323,7 @@ MOCK_COLUMN_MAP = {
             field_type=TimeType(),
             required=False,
         ),
-        "ometa": Column(
+        "umeta": Column(
             name="time",
             dataType=DataType.TIME,
             dataTypeDisplay=str(TimeType()),
@@ -336,7 +336,7 @@ MOCK_COLUMN_MAP = {
             field_type=TimestampType(),
             required=False,
         ),
-        "ometa": Column(
+        "umeta": Column(
             name="timestamp",
             dataType=DataType.TIMESTAMP,
             dataTypeDisplay=str(TimestampType()),
@@ -349,7 +349,7 @@ MOCK_COLUMN_MAP = {
             field_type=TimestamptzType(),
             required=False,
         ),
-        "ometa": Column(
+        "umeta": Column(
             name="timestamptz",
             dataType=DataType.TIMESTAMPZ,
             dataTypeDisplay=str(TimestamptzType()),
@@ -362,7 +362,7 @@ MOCK_COLUMN_MAP = {
             field_type=UUIDType(),
             required=False,
         ),
-        "ometa": Column(
+        "umeta": Column(
             name="uuid",
             dataType=DataType.UUID,
             dataTypeDisplay=str(UUIDType()),
@@ -387,9 +387,9 @@ MOCK_HIVE_CONFIG = {
     },
     "sink": {"type": "metadata-rest", "config": {}},
     "workflowConfig": {
-        "openMetadataServerConfig": {
+        "uMetadataServerConfig": {
             "hostPort": "http://localhost:8585/api",
-            "authProvider": "openmetadata",
+            "authProvider": "umetadata",
             "securityConfig": {"jwtToken": "iceberg"},
         }
     },
@@ -412,9 +412,9 @@ MOCK_REST_CONFIG = {
     },
     "sink": {"type": "metadata-rest", "config": {}},
     "workflowConfig": {
-        "openMetadataServerConfig": {
+        "uMetadataServerConfig": {
             "hostPort": "http://localhost:8585/api",
-            "authProvider": "openmetadata",
+            "authProvider": "umetadata",
             "securityConfig": {"jwtToken": "iceberg"},
         }
     },
@@ -444,9 +444,9 @@ MOCK_GLUE_CONFIG = {
     },
     "sink": {"type": "metadata-rest", "config": {}},
     "workflowConfig": {
-        "openMetadataServerConfig": {
+        "uMetadataServerConfig": {
             "hostPort": "http://localhost:8585/api",
-            "authProvider": "openmetadata",
+            "authProvider": "umetadata",
             "securityConfig": {"jwtToken": "iceberg"},
         }
     },
@@ -478,9 +478,9 @@ MOCK_DYNAMO_CONFIG = {
     },
     "sink": {"type": "metadata-rest", "config": {}},
     "workflowConfig": {
-        "openMetadataServerConfig": {
+        "uMetadataServerConfig": {
             "hostPort": "http://localhost:8585/api",
-            "authProvider": "openmetadata",
+            "authProvider": "umetadata",
             "securityConfig": {"jwtToken": "iceberg"},
         }
     },
@@ -530,7 +530,7 @@ class IcebergUnitTest(TestCase):
             self.config = parse_workflow_config_gracefully(config)
             self.iceberg = IcebergSource.create(
                 config["source"],
-                OpenMetadata(self.config.workflowConfig.openMetadataServerConfig),
+                UMetadata(self.config.workflowConfig.uMetadataServerConfig),
             )
 
         self.iceberg.context.get().database_service = "test_iceberg"
@@ -547,10 +547,10 @@ class IcebergUnitTest(TestCase):
             "serviceConnection": {
                 "config": {
                     "type": "Mysql",
-                    "username": "openmetadata_user",
-                    "authType": {"password": "openmetadata_password"},
+                    "username": "umetadata_user",
+                    "authType": {"password": "umetadata_password"},
                     "hostPort": "localhost:3306",
-                    "databaseSchema": "openmetadata_db",
+                    "databaseSchema": "umetadata_db",
                 }
             },
             "sourceConfig": {
@@ -564,7 +564,7 @@ class IcebergUnitTest(TestCase):
             InvalidSourceException,
             IcebergSource.create,
             not_looker_source,
-            self.config.workflowConfig.openMetadataServerConfig,
+            self.config.workflowConfig.uMetadataServerConfig,
         )
 
     def test_get_database_name(self):
@@ -732,7 +732,7 @@ class IcebergUnitTest(TestCase):
             **iceberg_table_with_owner
         )
 
-        with patch.object(OpenMetadata, "get_reference_by_email", return_value=ref):
+        with patch.object(UMetadata, "get_reference_by_email", return_value=ref):
             self.assertEqual(
                 self.iceberg.get_owner_ref(table_name),
                 ref,
@@ -843,7 +843,7 @@ class IcebergUnitTest(TestCase):
             description=Markdown("Table Description"),
             owners=ref,
             columns=[
-                MOCK_COLUMN_MAP[field]["ometa"] for field in MOCK_COLUMN_MAP.keys()
+                MOCK_COLUMN_MAP[field]["umeta"] for field in MOCK_COLUMN_MAP.keys()
             ],
             tablePartition=TablePartition(
                 columns=[
@@ -858,7 +858,7 @@ class IcebergUnitTest(TestCase):
         )
 
         with (
-            patch.object(OpenMetadata, "get_reference_by_email", return_value=ref),
+            patch.object(UMetadata, "get_reference_by_email", return_value=ref),
             patch.object(fqn, "build", return_value=fq_database_schema),
         ):
             result = next(self.iceberg.yield_table((table_name, table_type))).right
@@ -921,14 +921,14 @@ class IcebergUnitTest(TestCase):
             description=Markdown("Table Description"),
             owners=ref,
             columns=[
-                MOCK_COLUMN_MAP[field]["ometa"] for field in MOCK_COLUMN_MAP.keys()
+                MOCK_COLUMN_MAP[field]["umeta"] for field in MOCK_COLUMN_MAP.keys()
             ],
             tablePartition=None,
             databaseSchema=FullyQualifiedEntityName(fq_database_schema),
         )
 
         with (
-            patch.object(OpenMetadata, "get_reference_by_email", return_value=ref),
+            patch.object(UMetadata, "get_reference_by_email", return_value=ref),
             patch.object(fqn, "build", return_value=fq_database_schema),
         ):
             result = next(self.iceberg.yield_table((table_name, table_type))).right

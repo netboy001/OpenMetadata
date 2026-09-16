@@ -1,0 +1,16 @@
+{
+	"type": "rest",
+	"serviceName": "umeta_api_service", 
+	"serviceConnection": {
+		"config": {
+			"type": "Rest",
+			"openAPISchemaConnection": {
+				"openAPISchemaURL": "https://docs.u-metadata.org/swagger.html"
+			},
+    		"token":"token"
+		}
+	},
+	"sourceConfig": {
+   		"config": {}
+  	}
+}

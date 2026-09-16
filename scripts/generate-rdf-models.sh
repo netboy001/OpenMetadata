@@ -1,14 +1,14 @@
 #!/bin/bash
 #
 # Script to generate RDF models from JSON schemas
-# This creates JSON-LD contexts and OWL ontology from OpenMetadata schemas
+# This creates JSON-LD contexts and OWL ontology from UMetadata schemas
 #
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ROOT_DIR="$SCRIPT_DIR/.."
 
-SCHEMA_PATH="$ROOT_DIR/openmetadata-spec/src/main/resources/json/schema"
-OUTPUT_PATH="$ROOT_DIR/openmetadata-spec/src/main/resources/rdf"
+SCHEMA_PATH="$ROOT_DIR/umetadata-spec/src/main/resources/json/schema"
+OUTPUT_PATH="$ROOT_DIR/umetadata-spec/src/main/resources/rdf"
 
 # Colors for output
 RED='\033[0;31m'
@@ -16,7 +16,7 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
-echo -e "${GREEN}OpenMetadata RDF Model Generator${NC}"
+echo -e "${GREEN}UMetadata RDF Model Generator${NC}"
 echo "=================================="
 
 # Check if schema directory exists
@@ -31,13 +31,13 @@ mkdir -p "$OUTPUT_PATH"
 # Compile the generator if needed
 echo -e "${YELLOW}Compiling RDF generator...${NC}"
 cd "$ROOT_DIR"
-mvn compile -pl openmetadata-service -DskipTests
+mvn compile -pl umetadata-service -DskipTests
 
 # Run the generator
 echo -e "${YELLOW}Generating RDF models...${NC}"
 mvn exec:java \
-    -pl openmetadata-service \
-    -Dexec.mainClass="org.openmetadata.service.rdf.generator.RdfModelGenerator" \
+    -pl umetadata-service \
+    -Dexec.mainClass="org.umetadata.service.rdf.generator.RdfModelGenerator" \
     -Dexec.args="$SCHEMA_PATH $OUTPUT_PATH"
 
 if [ $? -eq 0 ]; then
@@ -45,7 +45,7 @@ if [ $? -eq 0 ]; then
     echo ""
     echo "Generated files:"
     echo "- JSON-LD contexts: $OUTPUT_PATH/contexts/"
-    echo "- OWL ontology: $OUTPUT_PATH/ontology/openmetadata-generated.ttl"
+    echo "- OWL ontology: $OUTPUT_PATH/ontology/umetadata-generated.ttl"
 else
     echo -e "${RED}RDF model generation failed!${NC}"
     exit 1

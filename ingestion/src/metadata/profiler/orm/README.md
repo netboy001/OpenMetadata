@@ -1,8 +1,8 @@
-# OpenMetadata ORM
+# UMetadata ORM
 
-Convert OpenMetadata Table Entities into SQLAlchemy ORM objects.
+Convert UMetadata Table Entities into SQLAlchemy ORM objects.
 
 Here we can find:
-- Type map between OpenMetadata and SQLAlchemy
-- ORM builder to convert OMeta Entities into SQLAlchemy
+- Type map between UMetadata and SQLAlchemy
+- ORM builder to convert UMeta Entities into SQLAlchemy
 - Custom types definitions, such as `UUID`.

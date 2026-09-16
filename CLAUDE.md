@@ -2,9 +2,9 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## About OpenMetadata
+## About UMetadata
 
-OpenMetadata is a unified metadata platform for data discovery, data observability, and data governance. This is a multi-module project with Java backend services, React frontend, Python ingestion framework, and comprehensive Docker infrastructure.
+UMetadata is a unified metadata platform for data discovery, data observability, and data governance. This is a multi-module project with Java backend services, React frontend, Python ingestion framework, and comprehensive Docker infrastructure.
 
 ## Architecture Overview
 
@@ -26,7 +26,7 @@ make yarn_install_cache        # Install UI dependencies
 
 ### Frontend Development
 ```bash
-cd openmetadata-ui/src/main/resources/ui
+cd umetadata-ui/src/main/resources/ui
 yarn start                     # Start development server on localhost:3000
 yarn test                      # Run Jest unit tests
 yarn test path/to/test.spec.ts # Run a specific test file
@@ -40,7 +40,7 @@ yarn build                     # Production build
 ### Backend Development
 ```bash
 mvn clean package -DskipTests  # Build without tests
-mvn clean package -DonlyBackend -pl !openmetadata-ui  # Backend only
+mvn clean package -DonlyBackend -pl !umetadata-ui  # Backend only
 mvn test                       # Run unit tests
 mvn verify                     # Run integration tests
 mvn spotless:apply             # Format Java code
@@ -73,7 +73,7 @@ yarn test:coverage             # Frontend test coverage
 
 ## Code Generation and Schemas
 
-OpenMetadata uses a schema-first approach with JSON Schema definitions driving code generation:
+UMetadata uses a schema-first approach with JSON Schema definitions driving code generation:
 
 ```bash
 make generate                  # Generate all models from schemas
@@ -83,24 +83,24 @@ yarn parse-schema              # Parse JSON schemas for frontend (connection and
 ```
 
 ### Schema Architecture
-- **Source schemas** in `openmetadata-spec/` define the canonical data models
+- **Source schemas** in `umetadata-spec/` define the canonical data models
 - **Connection schemas** are pre-processed at build time via `parseSchemas.js` to resolve all `$ref` references
-- **Application schemas** in `openmetadata-ui/.../ApplicationSchemas/` are resolved at runtime using `schemaResolver.ts`
+- **Application schemas** in `umetadata-ui/.../ApplicationSchemas/` are resolved at runtime using `schemaResolver.ts`
 - JSON schemas with `$ref` references to external files require resolution before use in forms
 
 ## Key Directories
 
-- `openmetadata-service/` - Core Java backend services and REST APIs
-- `openmetadata-ui/src/main/resources/ui/` - React frontend application
+- `umetadata-service/` - Core Java backend services and REST APIs
+- `umetadata-ui/src/main/resources/ui/` - React frontend application
 - `ingestion/` - Python ingestion framework with connectors
-- `openmetadata-spec/` - JSON Schema specifications for all entities
+- `umetadata-spec/` - JSON Schema specifications for all entities
 - `bootstrap/sql/` - Database schema migrations and sample data
 - `conf/` - Configuration files for different environments
 - `docker/` - Docker configurations for local and production deployment
 
 ## Development Workflow
 
-1. **Schema Changes**: Modify JSON schemas in `openmetadata-spec/`, then run `mvn clean install` on openmetadata-spec to update models
+1. **Schema Changes**: Modify JSON schemas in `umetadata-spec/`, then run `mvn clean install` on umetadata-spec to update models
 2. **Backend**: Develop in Java using Dropwizard patterns, test with `mvn test`, format with `mvn spotless:apply`
 3. **Frontend**: Use React/TypeScript with Ant Design components, test with Jest/Playwright
 4. **Ingestion**: Python connectors follow plugin pattern, use `make install_dev_env` for development
@@ -131,7 +131,7 @@ yarn parse-schema              # Parse JSON schemas for frontend (connection and
 
 - **MUI Migration**: The project is gradually migrating from Ant Design to Material-UI (MUI) v7.3.1
 - **Preferred Approach**: Use MUI components v7.3.1 and styles wherever possible for new features
-- **Theme and Styles**: MUI theme data and styles are defined in `openmetadata-ui-core-components`
+- **Theme and Styles**: MUI theme data and styles are defined in `umetadata-ui-core-components`
 - **Colors and Design Tokens**: Always reference theme colors and design tokens from the MUI theme, not hardcoded values
 - **Legacy Components**: Ant Design components remain in existing code but should be replaced with MUI equivalents when refactoring
 - Do not add unnecessary spacing between logs and code.
@@ -172,7 +172,7 @@ yarn parse-schema              # Parse JSON schemas for frontend (connection and
 
 - JWT-based authentication with OAuth2/SAML support
 - Role-based access control defined in Java entities
-- Security configurations in `conf/openmetadata.yaml`
+- Security configurations in `conf/umetadata.yaml`
 - Never commit secrets - use environment variables or secure vaults
 
 ## Code Generation Standards
@@ -197,8 +197,8 @@ yarn parse-schema              # Parse JSON schemas for frontend (connection and
 - Use clear, descriptive variable and method names instead of comments
 - Follow existing project patterns and conventions
 - Generate production-ready code, not tutorial code
-- Create integration tests in openmetadata-integration-tests
-- Do not use Fully Qualified Names in the code such as org.openmetadata.schema.type.Status instead import the class name
+- Create integration tests in umetadata-integration-tests
+- Do not use Fully Qualified Names in the code such as org.umetadata.schema.type.Status instead import the class name
 - Do not import wild-card packages instead import exactly required packages
 
 ### TypeScript/Frontend Code Requirements
@@ -227,7 +227,7 @@ yarn parse-schema              # Parse JSON schemas for frontend (connection and
 - **Keep connector-specific logic in connector-specific files**, not in generic/shared files like `builders.py`
 - Example: Redshift IAM auth should be in `ingestion/src/metadata/ingestion/source/database/redshift/connection.py`, not in `ingestion/src/metadata/ingestion/connections/builders.py`
 - This keeps the codebase modular and prevents generic utilities from becoming cluttered with connector-specific edge cases
-- **Use `model_str()` for Pydantic RootModel to string conversion** — OpenMetadata schema types like `ColumnName`, `EntityName`, `FullyQualifiedEntityName`, and `UUID` are Pydantic `RootModel[str]` subclasses where `str()` returns `"root='value'"` instead of the raw value. Always use `model_str()` from `metadata.ingestion.ometa.utils` instead of manual `hasattr(x, "root")` / `str(x.root)` checks.
+- **Use `model_str()` for Pydantic RootModel to string conversion** — UMetadata schema types like `ColumnName`, `EntityName`, `FullyQualifiedEntityName`, and `UUID` are Pydantic `RootModel[str]` subclasses where `str()` returns `"root='value'"` instead of the raw value. Always use `model_str()` from `metadata.ingestion.umeta.utils` instead of manual `hasattr(x, "root")` / `str(x.root)` checks.
 
 ### Caching
 - **All caches MUST be bounded.** Never use a bare `dict` / `HashMap` / `Map` as a cache without an explicit size cap — they grow with the input and cause OOMs on large catalogs/ingestions. The only exception is when the user explicitly asks for an unbounded cache for a specific case.
@@ -235,11 +235,11 @@ yarn parse-schema              # Parse JSON schemas for frontend (connection and
 - **Python**: use `collections.OrderedDict` with `popitem(last=False)` eviction after insert, `@functools.lru_cache(maxsize=N)`, or `cachetools.LRUCache`. Cache both hits and misses (negative caching) — repeated unresolvable lookups are a common hot path.
 - **Java**: use Caffeine (`Caffeine.newBuilder().maximumSize(N).build()`) or Guava `CacheBuilder.newBuilder().maximumSize(N).build()`. Never a bare `HashMap`.
 - **TypeScript**: use `lru-cache` — never a bare `Map` or plain object.
-- **Before adding a cache, check whether the underlying call is already cached at a lower layer.** Example: `OpenMetadata._search_es_entity` is `@lru_cache(maxsize=512)`, so wrapping `get_entity_from_es` / `es_search_container_by_path` calls in a local dict cache is redundant — drop the local cache and rely on the existing LRU.
+- **Before adding a cache, check whether the underlying call is already cached at a lower layer.** Example: `UMetadata._search_es_entity` is `@lru_cache(maxsize=512)`, so wrapping `get_entity_from_es` / `es_search_container_by_path` calls in a local dict cache is redundant — drop the local cache and rely on the existing LRU.
 
 ### Testing Philosophy
 - **Test real behavior, not mock wiring** - if a test requires mocking 3+ classes just to verify a method call, it's testing the wrong thing
-- **Prefer integration tests** over heavily-mocked unit tests. This project has full integration test infrastructure (OpenMetadataApplicationTest, Docker containers, real OpenSearch). Use it.
+- **Prefer integration tests** over heavily-mocked unit tests. This project has full integration test infrastructure (UMetadataApplicationTest, Docker containers, real OpenSearch). Use it.
 - **Mocks are for boundaries, not internals** - mock external services (HTTP clients, third-party APIs), not your own classes. If you're mocking static methods left and right to test internal plumbing, write an integration test instead.
 - **A test that mocks everything proves nothing** - it only verifies that your mocks are wired correctly, not that the system works
 - **Ask "what breaks if this test passes but the code is wrong?"** - if the answer is "nothing, because everything real is mocked out", delete the test and write a better one

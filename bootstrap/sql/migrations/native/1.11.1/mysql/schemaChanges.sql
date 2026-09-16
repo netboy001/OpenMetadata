@@ -40,7 +40,7 @@ CREATE INDEX idx_flw_ru_batch_part_type ON flw_ru_batch_part (type_);
 CREATE INDEX idx_flw_ru_batch_part_status ON flw_ru_batch_part (status_);
 
 -- Update workflow settings with new history cleanup configuration fields
-UPDATE openmetadata_settings
+UPDATE umetadata_settings
 SET json = JSON_SET(
     JSON_SET(
         JSON_SET(

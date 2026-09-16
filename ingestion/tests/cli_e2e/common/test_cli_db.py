@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,7 +22,7 @@ from sqlalchemy.engine import Engine
 from metadata.config.common import load_config_file
 from metadata.generated.schema.entity.services.databaseService import DatabaseService
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.ingestion.api.status import Status
 from metadata.workflow.metadata import MetadataWorkflow
@@ -43,7 +43,7 @@ class CliCommonDB:
             )
             cls.engine = workflow.source.engine
 
-            cls.openmetadata = workflow.source.metadata
+            cls.umetadata = workflow.source.metadata
             cls.set_ingestion_bot_jwt_token()
 
             cls.config_file_path = str(
@@ -55,14 +55,14 @@ class CliCommonDB:
 
         @classmethod
         def tearDownClass(cls):
-            workflow = OpenMetadataWorkflowConfig.model_validate(
+            workflow = UMetadataWorkflowConfig.model_validate(
                 load_config_file(Path(cls.config_file_path))
             )
-            db_service: DatabaseService = cls.openmetadata.get_by_name(
+            db_service: DatabaseService = cls.umetadata.get_by_name(
                 DatabaseService, workflow.source.serviceName
             )
             if db_service and os.getenv("E2E_CLEAN_DB", "false") == "true":
-                cls.openmetadata.delete(
+                cls.umetadata.delete(
                     DatabaseService, db_service.id, hard_delete=True, recursive=True
                 )
 
@@ -100,7 +100,7 @@ class CliCommonDB:
                 self.expected_profiled_tables(),
             )
             # Since we removed view lineage from metadata workflow as part
-            # of https://github.com/open-metadata/OpenMetadata/pull/18558
+            # of https://github.com/u-metadata/UMetadata/pull/18558
             # we need to introduce Lineage E2E base and add view lineage check there.
 
         def assert_for_test_lineage(self, source_status: Status, sink_status: Status):

@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,8 +20,8 @@ from typing import Any, Callable, Optional, Type, TypeVar
 from pydantic import BaseModel
 
 from metadata.data_quality.validations.base_test_handler import BaseTestValidator
-from metadata.generated.schema.entity.services.connections.metadata.openMetadataConnection import (
-    OpenMetadataConnection,
+from metadata.generated.schema.entity.services.connections.metadata.uMetadataConnection import (
+    UMetadataConnection,
 )
 from metadata.generated.schema.entity.services.serviceType import ServiceType
 from metadata.generated.schema.metadataIngestion.workflow import Sink as WorkflowSink
@@ -59,7 +59,7 @@ class DynamicImportException(Exception):
 
 class MissingPluginException(Exception):
     """
-    An excpetion that captures a missing openmetadata-ingestion plugin for a specific connector.
+    An excpetion that captures a missing umetadata-ingestion plugin for a specific connector.
     """
 
     def __init__(self, plugin: str):
@@ -74,7 +74,7 @@ class MissingPluginException(Exception):
             version = ""
         return (
             f"You might be missing the plugin [{self.plugin}]. Try:\n"
-            f'pip install "openmetadata-ingestion[{self.plugin}]{version}"'
+            f'pip install "umetadata-ingestion[{self.plugin}]{version}"'
         )
 
 
@@ -184,7 +184,7 @@ def import_bulk_sink_type(
 def get_sink(
     sink_type: str,
     sink_config: WorkflowSink,
-    metadata_config: OpenMetadataConnection,
+    metadata_config: UMetadataConnection,
     from_: str = "ingestion",
 ) -> Sink:
     """

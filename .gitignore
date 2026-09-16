@@ -68,8 +68,8 @@ dist
 # Registry Kerberos SASL secrets directory
 
 # ts build info and report
-openmetadata-ui/src/main/resources/ui/webpack
-openmetadata-ui/src/main/resources/ui/tsconfig.tsbuildinfo
+umetadata-ui/src/main/resources/ui/webpack
+umetadata-ui/src/main/resources/ui/tsconfig.tsbuildinfo
 
 #tests
 .coverage*
@@ -78,22 +78,22 @@ openmetadata-ui/src/main/resources/ui/tsconfig.tsbuildinfo
 /ingestion/ci-coverage.xml
 /ingestion/junit/*
 /ingestion/tests/e2e/artifacts/*
-openmetadata-ui/src/main/resources/ui/src/test/unit/coverage
-openmetadata-ui/src/main/resources/ui/test-report.xml
+umetadata-ui/src/main/resources/ui/src/test/unit/coverage
+umetadata-ui/src/main/resources/ui/test-report.xml
 
 # Playwright artifacts
-openmetadata-ui/src/main/resources/ui/playwright/output/
-openmetadata-ui/src/main/resources/ui/playwright/e2e/.cache/
-openmetadata-ui/src/main/resources/ui/.env
-openmetadata-ui/src/main/resources/ui/playwright/.auth
-openmetadata-ui/src/main/resources/ui/blob-report
-openmetadata-ui/src/main/resources/ui/test-results/
+umetadata-ui/src/main/resources/ui/playwright/output/
+umetadata-ui/src/main/resources/ui/playwright/e2e/.cache/
+umetadata-ui/src/main/resources/ui/.env
+umetadata-ui/src/main/resources/ui/playwright/.auth
+umetadata-ui/src/main/resources/ui/blob-report
+umetadata-ui/src/main/resources/ui/test-results/
 
 #UI - Dereferenced Schemas
-openmetadata-ui/src/main/resources/ui/src/jsons/*
+umetadata-ui/src/main/resources/ui/src/jsons/*
 
 # UI - Contracts Downloads
-openmetadata-ui/src/main/resources/ui/downloads/*
+umetadata-ui/src/main/resources/ui/downloads/*
 
 #vscode
 */.vscode/*
@@ -113,7 +113,7 @@ mlruns/
 /ingestion/tests/integration/source/mlflow/tests/db/
 
 # Antlr
-openmetadata-ui/src/main/resources/ui/src/generated/antlr/
+umetadata-ui/src/main/resources/ui/src/generated/antlr/
 .antlr
 
 # SQLAlchemy tests

@@ -19562,18 +19562,18 @@
       "label": "asd",
       "maturity": "high",
       "meta": {
-        "open_metadata_fqn": "mlflow_svc.forecast_sales"
+        "u_metadata_fqn": "mlflow_svc.forecast_sales"
       },
       "tags": [],
       "config": {
         "enabled": true,
         "tags": [],
         "meta": {
-          "open_metadata_fqn": "mlflow_svc.forecast_sales"
+          "u_metadata_fqn": "mlflow_svc.forecast_sales"
         }
       },
       "unrendered_config": {},
-      "url": "https://docs.open-metadata.org/api/v1/tables",
+      "url": "https://docs.u-metadata.org/api/v1/tables",
       "depends_on": {
         "macros": [],
         "nodes": [
@@ -19618,18 +19618,18 @@
       "label": "asd",
       "maturity": "high",
       "meta": {
-        "open_metadata_fqn": "ometa_api_service.tables.createTable"
+        "u_metadata_fqn": "umeta_api_service.tables.createTable"
       },
       "tags": [],
       "config": {
         "enabled": true,
         "tags": [],
         "meta": {
-          "open_metadata_fqn": "ometa_api_service.tables.createTable"
+          "u_metadata_fqn": "umeta_api_service.tables.createTable"
         }
       },
       "unrendered_config": {},
-      "url": "https://docs.open-metadata.org/api/v1/tables",
+      "url": "https://docs.u-metadata.org/api/v1/tables",
       "depends_on": {
         "macros": [],
         "nodes": [
@@ -19668,7 +19668,7 @@
       "label": "zxc",
       "maturity": "high",
       "meta": {
-          "open_metadata_fqn": "dummy"
+          "u_metadata_fqn": "dummy"
       },
       "tags": [],
       "config": {

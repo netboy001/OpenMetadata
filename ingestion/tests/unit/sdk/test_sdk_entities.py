@@ -18,12 +18,12 @@ class TestSDKEntities(unittest.TestCase):
 
     def setUp(self):
         """Set up test fixtures"""
-        # Create mock OMeta instance
-        self.mock_ometa = MagicMock()
+        # Create mock UMeta instance
+        self.mock_umeta = MagicMock()
 
         # Set default clients
-        om.Tables.set_default_client(self.mock_ometa)
-        om.Users.set_default_client(self.mock_ometa)
+        om.Tables.set_default_client(self.mock_umeta)
+        om.Users.set_default_client(self.mock_umeta)
 
         # Test data
         self.table_id = "550e8400-e29b-41d4-a716-446655440000"
@@ -47,14 +47,14 @@ class TestSDKEntities(unittest.TestCase):
         mock_table.id = UUID(self.table_id)
         mock_table.name = "test_table"
         mock_table.fullyQualifiedName = "service.database.schema.test_table"
-        self.mock_ometa.create_or_update.return_value = mock_table
+        self.mock_umeta.create_or_update.return_value = mock_table
 
         # Act
         result = om.Tables.create(create_request)
 
         # Assert
         self.assertEqual(result.name, "test_table")
-        self.mock_ometa.create_or_update.assert_called_once_with(create_request)
+        self.mock_umeta.create_or_update.assert_called_once_with(create_request)
 
     def test_table_retrieve(self):
         """Test retrieving a table by ID"""
@@ -63,14 +63,14 @@ class TestSDKEntities(unittest.TestCase):
         mock_table.id = UUID(self.table_id)
         mock_table.name = "test_table"
         mock_table.fullyQualifiedName = "service.database.schema.test_table"
-        self.mock_ometa.get_by_id.return_value = mock_table
+        self.mock_umeta.get_by_id.return_value = mock_table
 
         # Act
         result = om.Tables.retrieve("table-id", fields=["owners", "tags"])
 
         # Assert
         self.assertEqual(result.name, "test_table")
-        self.mock_ometa.get_by_id.assert_called_once_with(
+        self.mock_umeta.get_by_id.assert_called_once_with(
             entity=TableEntity,
             entity_id="table-id",
             fields=["owners", "tags"],
@@ -83,7 +83,7 @@ class TestSDKEntities(unittest.TestCase):
         mock_table.id = UUID(self.table_id)
         mock_table.name = "test_table"
         mock_table.fullyQualifiedName = "service.database.schema.test_table"
-        self.mock_ometa.get_by_name.return_value = mock_table
+        self.mock_umeta.get_by_name.return_value = mock_table
 
         # Act
         result = om.Tables.retrieve_by_name("service.database.schema.test_table")
@@ -92,7 +92,7 @@ class TestSDKEntities(unittest.TestCase):
         self.assertEqual(
             result.fullyQualifiedName, "service.database.schema.test_table"
         )
-        self.mock_ometa.get_by_name.assert_called_once()
+        self.mock_umeta.get_by_name.assert_called_once()
 
     def test_table_delete(self):
         """Test deleting a table"""
@@ -100,7 +100,7 @@ class TestSDKEntities(unittest.TestCase):
         om.Tables.delete("table-id", recursive=True, hard_delete=False)
 
         # Assert
-        self.mock_ometa.delete.assert_called_once_with(
+        self.mock_umeta.delete.assert_called_once_with(
             entity=TableEntity,
             entity_id="table-id",
             recursive=True,
@@ -115,14 +115,14 @@ class TestSDKEntities(unittest.TestCase):
             MagicMock(spec=TableEntity, name="table1"),
             MagicMock(spec=TableEntity, name="table2"),
         ]
-        self.mock_ometa.list_entities.return_value = mock_response
+        self.mock_umeta.list_entities.return_value = mock_response
 
         # Act
         result = om.Tables.list(limit=25)
 
         # Assert
         self.assertEqual(len(result.entities), 2)
-        self.mock_ometa.list_entities.assert_called_once()
+        self.mock_umeta.list_entities.assert_called_once()
 
     def test_table_async_operations(self):
         """Test async CSV operations exist"""
@@ -148,7 +148,7 @@ class TestSDKEntities(unittest.TestCase):
         mock_user.id = UUID(self.user_id)
         mock_user.name = "john.doe"
         mock_user.email = "john.doe@company.com"
-        self.mock_ometa.create_or_update.return_value = mock_user
+        self.mock_umeta.create_or_update.return_value = mock_user
 
         # Act
         result = om.Users.create(create_request)
@@ -156,7 +156,7 @@ class TestSDKEntities(unittest.TestCase):
         # Assert
         self.assertEqual(result.name, "john.doe")
         self.assertEqual(result.email, "john.doe@company.com")
-        self.mock_ometa.create_or_update.assert_called_once_with(create_request)
+        self.mock_umeta.create_or_update.assert_called_once_with(create_request)
 
     def test_user_retrieve(self):
         """Test retrieving a user"""
@@ -165,14 +165,14 @@ class TestSDKEntities(unittest.TestCase):
         mock_user.id = UUID(self.user_id)
         mock_user.name = "john.doe"
         mock_user.email = "john.doe@company.com"
-        self.mock_ometa.get_by_id.return_value = mock_user
+        self.mock_umeta.get_by_id.return_value = mock_user
 
         # Act
         result = om.Users.retrieve("user-id")
 
         # Assert
         self.assertEqual(result.name, "john.doe")
-        self.mock_ometa.get_by_id.assert_called_once()
+        self.mock_umeta.get_by_id.assert_called_once()
 
     def test_user_delete(self):
         """Test deleting a user"""
@@ -180,7 +180,7 @@ class TestSDKEntities(unittest.TestCase):
         om.Users.delete("user-id", hard_delete=True)
 
         # Assert
-        self.mock_ometa.delete.assert_called_once_with(
+        self.mock_umeta.delete.assert_called_once_with(
             entity=UserEntity,
             entity_id="user-id",
             recursive=False,

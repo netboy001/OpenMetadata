@@ -1,0 +1,17 @@
+{
+  "$id": "https://u-metadata.org/schema/security/client/uMetadataJWTClientConfig.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "uMetadataJWTClientConfig",
+  "description": "uMetadataJWTClientConfig security configs.",
+  "type": "object",
+  "javaType": "org.umetadata.schema.security.client.UMetadataJWTClientConfig",
+  "properties": {
+    "jwtToken": {
+      "description": "UMetadata generated JWT token.",
+      "type": "string",
+      "format": "password"
+    }
+  },
+  "additionalProperties": false,
+  "required": ["jwtToken"]
+}

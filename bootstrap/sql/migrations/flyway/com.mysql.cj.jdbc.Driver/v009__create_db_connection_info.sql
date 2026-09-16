@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS automations_workflow (
 
 -- Do not store OM server connection, we'll set it dynamically on the resource
 UPDATE ingestion_pipeline_entity
-SET json = JSON_REMOVE(json, '$.openMetadataServerConnection');
+SET json = JSON_REMOVE(json, '$.uMetadataServerConnection');
 
 CREATE TABLE IF NOT EXISTS query_entity (
     id VARCHAR(36) GENERATED ALWAYS AS (json ->> '$.id') STORED NOT NULL,
@@ -103,7 +103,7 @@ DROP Table temp_query_migration;
 -- remove the audience if it was wrongfully sent from the UI after editing the OM service
 UPDATE metadata_service_entity
 SET json = JSON_REMOVE(json, '$.connection.config.securityConfig.audience')
-WHERE name = 'OpenMetadata' AND JSON_EXTRACT(json, '$.connection.config.authProvider') != 'google';
+WHERE name = 'UMetadata' AND JSON_EXTRACT(json, '$.connection.config.authProvider') != 'google';
 
 ALTER TABLE user_tokens MODIFY COLUMN expiryDate BIGINT UNSIGNED GENERATED ALWAYS AS (json ->> '$.expiryDate');
 
@@ -189,11 +189,11 @@ AND JSON_EXTRACT(json, '$.connection.config.personalAccessTokenSecret') is not n
 -- Removed property from metadataService.json
 UPDATE metadata_service_entity
 SET json = JSON_REMOVE(json, '$.allowServiceCreation')
-WHERE serviceType in ('Amundsen', 'Atlas', 'MetadataES', 'OpenMetadata');
+WHERE serviceType in ('Amundsen', 'Atlas', 'MetadataES', 'UMetadata');
 
 UPDATE metadata_service_entity
 SET json = JSON_INSERT(json, '$.provider', 'system')
-WHERE name = 'OpenMetadata';
+WHERE name = 'UMetadata';
 
 -- Fix Glue sample data endpoint URL to be a correct URI
 UPDATE dbservice_entity

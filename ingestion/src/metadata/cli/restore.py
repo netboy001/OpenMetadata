@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -76,12 +76,12 @@ def run_restore(
         bold=True,
         message="WARNING: restore is deprecated starting 1.4.0. Use database native tools to restore."
         "For more information, please visit: "
-        "https://docs.open-metadata.org/v1.4.x/deployment/backup-restore-metadata",
+        "https://docs.u-metadata.org/v1.4.x/deployment/backup-restore-metadata",
     )
     log_ansi_encoded_string(
         color=ANSI.GREEN,
         bold=False,
-        message="Restoring OpenMetadata backup for "
+        message="Restoring UMetadata backup for "
         f"{common_restore_obj_instance.host}:{common_restore_obj_instance.port}/{common_restore_obj_instance.database}",
     )
 

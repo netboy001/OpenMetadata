@@ -1,8 +1,8 @@
-# https://github.com/open-metadata/OpenMetadata/actions/runs/15640676139/job/44066998708?pr=21719  Copyright 2025 Collate
+# https://github.com/u-metadata/UMetadata/actions/runs/15640676139/job/44066998708?pr=21719  Copyright 2025 Collate
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -119,13 +119,13 @@ COMMONS = {
 
 DATA_DIFF = {
     driver: f"collate-data-diff[{driver}]"
-    # data-diff uses different drivers out-of-the-box than OpenMetadata
+    # data-diff uses different drivers out-of-the-box than UMetadata
     # the extras are described here:
-    # https://github.com/open-metadata/collate-data-diff/blob/main/pyproject.toml#L68
+    # https://github.com/u-metadata/collate-data-diff/blob/main/pyproject.toml#L68
     # install all data diffs with "pip install collate-data-diff[all-dbs]"
     for driver in [
         "clickhouse",
-        # "duckdb", # Not supported by OpenMetadata
+        # "duckdb", # Not supported by UMetadata
         "mssql",
         "mysql",
         "oracle",
@@ -260,7 +260,7 @@ plugins: Dict[str, Set[str]] = {
         "delta-spark>=3.0.0,<4.0.0",
         "deltalake>=0.19.0,<0.20",
         "pyspark==3.5.6",
-    },  # TODO: remove pinning to under 0.20 after https://github.com/open-metadata/OpenMetadata/issues/17909
+    },  # TODO: remove pinning to under 0.20 after https://github.com/u-metadata/UMetadata/issues/17909
     "deltalake-storage": {"deltalake>=0.19.0,<0.20"},
     "deltalake-spark": {"delta-spark>=3.0.0,<4.0.0", "pyspark==3.5.6"},
     "domo": {VERSIONS["pydomo"]},
@@ -382,7 +382,7 @@ plugins: Dict[str, Set[str]] = {
     "trino": {VERSIONS["trino"], DATA_DIFF["trino"]},
     "vertica": {"sqlalchemy-vertica[vertica-python]>=0.0.5", DATA_DIFF["vertica"]},
     # SDK Data Quality: Required for DataFrame validation (DataFrameValidator)
-    # Install with: pip install 'openmetadata-ingestion[pandas]'
+    # Install with: pip install 'umetadata-ingestion[pandas]'
     "pandas": {VERSIONS["pandas"], VERSIONS["numpy"]},
     "pyarrow": {VERSIONS["pyarrow"]},
     "pii-processor": {

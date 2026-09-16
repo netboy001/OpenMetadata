@@ -43,9 +43,9 @@ sink:
 
 workflowConfig:
   loggerLevel: INFO
-  openMetadataServerConfig:
-    hostPort: https://your-openmetadata-server.com/api
-    authProvider: openmetadata
+  uMetadataServerConfig:
+    hostPort: https://your-umetadata-server.com/api
+    authProvider: umetadata
     securityConfig:
       jwtToken: <your-jwt-token>
 

@@ -1,5 +1,5 @@
 """
-OpenMetadata SDK Entities - Plural naming convention to avoid conflicts with generated entities
+UMetadata SDK Entities - Plural naming convention to avoid conflicts with generated entities
 """
 from metadata.sdk.entities.apicollections import APICollections
 from metadata.sdk.entities.apiendpoints import APIEndpoints

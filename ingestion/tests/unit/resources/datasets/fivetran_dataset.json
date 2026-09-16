@@ -13,7 +13,7 @@
             "cluster_region": "us-east-2",
             "port": "5439",
             "host": "redshift.amazonaws.com",
-            "user": "openmetadata",
+            "user": "umetadata",
             "connection_method": "Directly"
         }
     },

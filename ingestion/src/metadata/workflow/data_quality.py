@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,7 +17,7 @@ from metadata.data_quality.processor.test_case_runner import TestCaseRunner
 from metadata.data_quality.source.test_suite import TestSuiteSource
 from metadata.generated.schema.tests.testSuite import ServiceType, TestSuite
 from metadata.ingestion.api.steps import Processor, Sink
-from metadata.ingestion.ometa.utils import model_str
+from metadata.ingestion.umeta.utils import model_str
 from metadata.utils import fqn
 from metadata.utils.importer import import_sink_class
 from metadata.utils.logger import test_suite_logger

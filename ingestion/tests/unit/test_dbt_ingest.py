@@ -10,18 +10,18 @@ from unittest.mock import MagicMock, patch
 
 from metadata.cli.ingest_dbt import (
     FilterPattern,
-    OpenMetadataDBTConfig,
+    UMetadataDBTConfig,
     create_dbt_workflow_config,
-    extract_openmetadata_config,
+    extract_umetadata_config,
     find_dbt_project_config,
     run_ingest_dbt,
     substitute_env_vars,
 )
 
 MOCK_ENVIRONMENT_VARIABLES = {
-    "OPENMETADATA_HOST_PORT": "http://test-server:port/endpoint",
-    "OPENMETADATA_JWT_TOKEN": "test-jwt-token",
-    "OPENMETADATA_SERVICE_NAME": "test_service",
+    "UMETADATA_HOST_PORT": "http://test-server:port/endpoint",
+    "UMETADATA_JWT_TOKEN": "test-jwt-token",
+    "UMETADATA_SERVICE_NAME": "test_service",
 }
 
 
@@ -59,9 +59,9 @@ class DbtIngestCLIUnitTest(unittest.TestCase):
         name: 'test_project'
         version: '1.0.0'
         vars:
-        openmetadata_host_port: "${OPENMETADATA_HOST_PORT}"
-        openmetadata_jwt_token: "{{ env_var('OPENMETADATA_JWT_TOKEN') }}"
-        openmetadata_service_name: '{{ env_var("OPENMETADATA_SERVICE_NAME") }}'
+        umetadata_host_port: "${UMETADATA_HOST_PORT}"
+        umetadata_jwt_token: "{{ env_var('UMETADATA_JWT_TOKEN') }}"
+        umetadata_service_name: '{{ env_var("UMETADATA_SERVICE_NAME") }}'
         fallback_setting: "{{ env_var('UNSET_VAR', 'default-value') }}"
         """
 
@@ -71,9 +71,9 @@ class DbtIngestCLIUnitTest(unittest.TestCase):
         self.assertIn("test-jwt-token", result)
         self.assertIn("test_service", result)
         self.assertIn("default-value", result)
-        self.assertNotIn("${OPENMETADATA_HOST_PORT", result)
-        self.assertNotIn("env_var('OPENMETADATA_JWT_TOKEN')", result)
-        self.assertNotIn("env_var('OPENMETADATA_SERVICE_NAME')", result)
+        self.assertNotIn("${UMETADATA_HOST_PORT", result)
+        self.assertNotIn("env_var('UMETADATA_JWT_TOKEN')", result)
+        self.assertNotIn("env_var('UMETADATA_SERVICE_NAME')", result)
         self.assertNotIn("env_var('UNSET_VAR', 'default-value')", result)
 
         # Test error cases
@@ -108,9 +108,9 @@ DOTENV_SERVICE=dotenv-service
 name: 'test_dotenv_project'
 version: '1.0.0'
 vars:
-  openmetadata_host_port: "${DOTENV_HOST}"
-  openmetadata_jwt_token: "{{ env_var('DOTENV_TOKEN') }}"
-  openmetadata_service_name: "{{ env_var('DOTENV_SERVICE') }}"
+  umetadata_host_port: "${DOTENV_HOST}"
+  umetadata_jwt_token: "{{ env_var('DOTENV_TOKEN') }}"
+  umetadata_service_name: "{{ env_var('DOTENV_SERVICE') }}"
 """
             dbt_project_file.write_text(dbt_project_content)
 
@@ -119,21 +119,21 @@ vars:
             vars_section = config["vars"]
 
             self.assertEqual(
-                vars_section["openmetadata_host_port"],
+                vars_section["umetadata_host_port"],
                 "http://dotenv-host:8585/endpoint",
             )
-            self.assertEqual(vars_section["openmetadata_jwt_token"], "dotenv-jwt-token")
+            self.assertEqual(vars_section["umetadata_jwt_token"], "dotenv-jwt-token")
             self.assertEqual(
-                vars_section["openmetadata_service_name"], "dotenv-service"
+                vars_section["umetadata_service_name"], "dotenv-service"
             )
 
-            # Test OpenMetadata config extraction
-            om_config = extract_openmetadata_config(config)
+            # Test UMetadata config extraction
+            om_config = extract_umetadata_config(config)
             self.assertEqual(
-                om_config.openmetadata_host_port, "http://dotenv-host:8585/endpoint"
+                om_config.umetadata_host_port, "http://dotenv-host:8585/endpoint"
             )
-            self.assertEqual(om_config.openmetadata_jwt_token, "dotenv-jwt-token")
-            self.assertEqual(om_config.openmetadata_service_name, "dotenv-service")
+            self.assertEqual(om_config.umetadata_jwt_token, "dotenv-jwt-token")
+            self.assertEqual(om_config.umetadata_service_name, "dotenv-service")
 
     def test_dbt_project_config_vars_validation(self):
         """Test dbt_project.yml vars section validation and structure"""
@@ -146,15 +146,15 @@ vars:
         self.assertEqual(config["version"], "1.0.0")
         self.assertIn("vars", config)
 
-        # Validate vars section structure and required OpenMetadata variables
+        # Validate vars section structure and required UMetadata variables
         vars_section = config["vars"]
         self.assertIsInstance(vars_section, dict)
 
-        # Validate all required OpenMetadata variables exist
+        # Validate all required UMetadata variables exist
         required_om_vars = [
-            "openmetadata_host_port",
-            "openmetadata_jwt_token",
-            "openmetadata_service_name",
+            "umetadata_host_port",
+            "umetadata_jwt_token",
+            "umetadata_service_name",
         ]
 
         for var_name in required_om_vars:
@@ -172,12 +172,12 @@ vars:
 
         # Validate specific values match expected test configuration
         self.assertEqual(
-            vars_section["openmetadata_host_port"], "http://test-server:port/endpoint"
+            vars_section["umetadata_host_port"], "http://test-server:port/endpoint"
         )
         # Get the expected JWT token from environment variable (same as what gets substituted)
-        expected_jwt_token = os.environ.get("OPENMETADATA_JWT_TOKEN")
-        self.assertEqual(vars_section["openmetadata_jwt_token"], expected_jwt_token)
-        self.assertEqual(vars_section["openmetadata_service_name"], "test_service")
+        expected_jwt_token = os.environ.get("UMETADATA_JWT_TOKEN")
+        self.assertEqual(vars_section["umetadata_jwt_token"], expected_jwt_token)
+        self.assertEqual(vars_section["umetadata_service_name"], "test_service")
 
         # Test file not found error
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -185,69 +185,69 @@ vars:
                 find_dbt_project_config(Path(temp_dir))
             self.assertIn("dbt_project.yml not found", str(context.exception))
 
-    def test_openmetadata_config_extraction_with_defaults(self):
-        """Test OpenMetadata configuration extraction with default values"""
+    def test_umetadata_config_extraction_with_defaults(self):
+        """Test UMetadata configuration extraction with default values"""
         # Test with only required variables (should use defaults for optional ones)
         minimal_config = {
             "vars": {
-                "openmetadata_host_port": "http://test-server:port/endpoint",
-                "openmetadata_jwt_token": "test-jwt-token",
-                "openmetadata_service_name": "test_service",
+                "umetadata_host_port": "http://test-server:port/endpoint",
+                "umetadata_jwt_token": "test-jwt-token",
+                "umetadata_service_name": "test_service",
             }
         }
-        om_config = extract_openmetadata_config(minimal_config)
+        om_config = extract_umetadata_config(minimal_config)
 
         # Validate required config
-        self.assertIsInstance(om_config, OpenMetadataDBTConfig)
+        self.assertIsInstance(om_config, UMetadataDBTConfig)
         self.assertEqual(
-            om_config.openmetadata_host_port, "http://test-server:port/endpoint"
+            om_config.umetadata_host_port, "http://test-server:port/endpoint"
         )
-        self.assertEqual(om_config.openmetadata_jwt_token, "test-jwt-token")
-        self.assertEqual(om_config.openmetadata_service_name, "test_service")
+        self.assertEqual(om_config.umetadata_jwt_token, "test-jwt-token")
+        self.assertEqual(om_config.umetadata_service_name, "test_service")
 
         # Validate defaults for optional config
-        self.assertTrue(om_config.openmetadata_dbt_update_descriptions)
-        self.assertTrue(om_config.openmetadata_dbt_update_owners)
-        self.assertTrue(om_config.openmetadata_include_tags)
-        self.assertFalse(om_config.openmetadata_search_across_databases)
-        self.assertIsNone(om_config.openmetadata_dbt_classification_name)
+        self.assertTrue(om_config.umetadata_dbt_update_descriptions)
+        self.assertTrue(om_config.umetadata_dbt_update_owners)
+        self.assertTrue(om_config.umetadata_include_tags)
+        self.assertFalse(om_config.umetadata_search_across_databases)
+        self.assertIsNone(om_config.umetadata_dbt_classification_name)
 
         # Validate default filter patterns (should be defaults when not specified)
         self.assertEqual(om_config.database_filter.includes, [".*"])
         self.assertEqual(om_config.schema_filter.includes, [".*"])
         self.assertEqual(om_config.table_filter.includes, [".*"])
 
-    def test_openmetadata_config_extraction_with_custom_values(self):
-        """Test OpenMetadata configuration extraction with custom values"""
+    def test_umetadata_config_extraction_with_custom_values(self):
+        """Test UMetadata configuration extraction with custom values"""
         # Test with custom optional variables using dict format only
         custom_config = {
             "vars": {
-                "openmetadata_host_port": "http://test-server:port/endpoint",
-                "openmetadata_jwt_token": "test-jwt-token",
-                "openmetadata_service_name": "test_service",
-                "openmetadata_dbt_update_descriptions": False,
-                "openmetadata_dbt_update_owners": False,
-                "openmetadata_include_tags": False,
-                "openmetadata_search_across_databases": True,
-                "openmetadata_dbt_classification_name": "custom_tags",
-                "openmetadata_database_filter_pattern": {
+                "umetadata_host_port": "http://test-server:port/endpoint",
+                "umetadata_jwt_token": "test-jwt-token",
+                "umetadata_service_name": "test_service",
+                "umetadata_dbt_update_descriptions": False,
+                "umetadata_dbt_update_owners": False,
+                "umetadata_include_tags": False,
+                "umetadata_search_across_databases": True,
+                "umetadata_dbt_classification_name": "custom_tags",
+                "umetadata_database_filter_pattern": {
                     "includes": ["prod_*", "staging_*"]
                 },
-                "openmetadata_schema_filter_pattern": {
+                "umetadata_schema_filter_pattern": {
                     "includes": ["public"],
                     "excludes": ["temp_*"],
                 },
-                "openmetadata_table_filter_pattern": {"includes": ["fact_*"]},
+                "umetadata_table_filter_pattern": {"includes": ["fact_*"]},
             }
         }
-        om_config = extract_openmetadata_config(custom_config)
+        om_config = extract_umetadata_config(custom_config)
 
         # Validate custom config values
-        self.assertFalse(om_config.openmetadata_dbt_update_descriptions)
-        self.assertFalse(om_config.openmetadata_dbt_update_owners)
-        self.assertFalse(om_config.openmetadata_include_tags)
-        self.assertTrue(om_config.openmetadata_search_across_databases)
-        self.assertEqual(om_config.openmetadata_dbt_classification_name, "custom_tags")
+        self.assertFalse(om_config.umetadata_dbt_update_descriptions)
+        self.assertFalse(om_config.umetadata_dbt_update_owners)
+        self.assertFalse(om_config.umetadata_include_tags)
+        self.assertTrue(om_config.umetadata_search_across_databases)
+        self.assertEqual(om_config.umetadata_dbt_classification_name, "custom_tags")
 
         # Validate custom filter patterns
         self.assertEqual(om_config.database_filter.includes, ["prod_*", "staging_*"])
@@ -255,12 +255,12 @@ vars:
         self.assertEqual(om_config.schema_filter.excludes, ["temp_*"])
         self.assertEqual(om_config.table_filter.includes, ["fact_*"])
 
-    def test_openmetadata_config_validation_errors(self):
+    def test_umetadata_config_validation_errors(self):
         """Test Pydantic validation errors for invalid configurations"""
         # Test missing required field
         with self.assertRaises(ValueError) as context:
-            extract_openmetadata_config(
-                {"vars": {"openmetadata_host_port": "http://test"}}
+            extract_umetadata_config(
+                {"vars": {"umetadata_host_port": "http://test"}}
             )
         self.assertIn("Field required", str(context.exception))
 
@@ -270,13 +270,13 @@ vars:
         # Test valid URLs - should all pass (based on URL class behavior)
         valid_urls = [
             "http://localhost:8585",
-            "https://openmetadata.example.com:8585",
+            "https://umetadata.example.com:8585",
             "http://192.168.1.100:8585/api",
-            "https://my-openmetadata-server.com/api",
+            "https://my-umetadata-server.com/api",
             "ws://localhost:8585",
             "wss://secure-websocket.example.com:8585",
             "http://127.0.0.1:8585",
-            "https://openmetadata-prod.company.com:443/api/v1",
+            "https://umetadata-prod.company.com:443/api/v1",
             # URL class accepts these edge cases
             "http://",
             "https://",
@@ -292,10 +292,10 @@ vars:
         for url in valid_urls:
             with self.subTest(url=url):
                 try:
-                    config = OpenMetadataDBTConfig(
-                        openmetadata_host_port=url,
-                        openmetadata_jwt_token="test-jwt-token",
-                        openmetadata_service_name="test_service",
+                    config = UMetadataDBTConfig(
+                        umetadata_host_port=url,
+                        umetadata_jwt_token="test-jwt-token",
+                        umetadata_service_name="test_service",
                     )
                     print(f"✅ {url!r} - VALID")
                 except Exception as e:
@@ -305,7 +305,7 @@ vars:
         invalid_urls = [
             # Missing protocol entirely
             "localhost:8585",
-            "openmetadata.example.com:8585",
+            "umetadata.example.com:8585",
             "192.168.1.100:8585",
             # Invalid protocols (not http*, https*, ws*, wss*)
             "ftp://localhost:8585",
@@ -337,10 +337,10 @@ vars:
                 with self.assertRaises(
                     ValueError, msg=f"Invalid URL {repr(url)} should have been rejected"
                 ):
-                    OpenMetadataDBTConfig(
-                        openmetadata_host_port=url,
-                        openmetadata_jwt_token="test-jwt-token",
-                        openmetadata_service_name="test_service",
+                    UMetadataDBTConfig(
+                        umetadata_host_port=url,
+                        umetadata_jwt_token="test-jwt-token",
+                        umetadata_service_name="test_service",
                     )
                 print(f"✅ {repr(url)} - CORRECTLY REJECTED")
 
@@ -361,10 +361,10 @@ vars:
                     (ValueError, TypeError),
                     msg=f"Edge case {repr(case)} should have been rejected",
                 ):
-                    OpenMetadataDBTConfig(
-                        openmetadata_host_port=case,
-                        openmetadata_jwt_token="test-jwt-token",
-                        openmetadata_service_name="test_service",
+                    UMetadataDBTConfig(
+                        umetadata_host_port=case,
+                        umetadata_jwt_token="test-jwt-token",
+                        umetadata_service_name="test_service",
                     )
                 print(f"✅ {repr(case)} - CORRECTLY REJECTED")
 
@@ -373,41 +373,41 @@ vars:
         config = find_dbt_project_config(self.test_resources_path)
         vars_section = config["vars"]
 
-        # Test that we only use standard OpenMetadata naming
+        # Test that we only use standard UMetadata naming
         standard_vars = [
-            var for var in vars_section.keys() if var.startswith("openmetadata_")
+            var for var in vars_section.keys() if var.startswith("umetadata_")
         ]
         self.assertGreaterEqual(
             len(standard_vars),
             3,
-            "Should have at least 3 required OpenMetadata variables",
+            "Should have at least 3 required UMetadata variables",
         )
 
         # Test that the configuration can be successfully parsed
-        om_config = extract_openmetadata_config(config)
-        self.assertIsInstance(om_config, OpenMetadataDBTConfig)
+        om_config = extract_umetadata_config(config)
+        self.assertIsInstance(om_config, UMetadataDBTConfig)
 
         # Validate URL format
         self.assertTrue(
-            om_config.openmetadata_host_port.startswith("http://")
-            or om_config.openmetadata_host_port.startswith("https://"),
+            om_config.umetadata_host_port.startswith("http://")
+            or om_config.umetadata_host_port.startswith("https://"),
             "Host port should be a valid URL",
         )
 
         # Validate JWT token format (should be non-empty string)
         self.assertIsInstance(
-            om_config.openmetadata_jwt_token, str, "JWT token should be a string"
+            om_config.umetadata_jwt_token, str, "JWT token should be a string"
         )
         self.assertGreater(
-            len(om_config.openmetadata_jwt_token), 0, "JWT token should not be empty"
+            len(om_config.umetadata_jwt_token), 0, "JWT token should not be empty"
         )
 
         # Validate service name format
         self.assertIsInstance(
-            om_config.openmetadata_service_name, str, "Service name should be a string"
+            om_config.umetadata_service_name, str, "Service name should be a string"
         )
         self.assertGreater(
-            len(om_config.openmetadata_service_name),
+            len(om_config.umetadata_service_name),
             0,
             "Service name should not be empty",
         )
@@ -424,21 +424,21 @@ vars:
             manifest_file.write_text('{"metadata": {"dbt_schema_version": "v1"}}')
 
             # Test with custom configuration using dict format only
-            custom_om_config = OpenMetadataDBTConfig(
-                openmetadata_host_port="http://test-server:port/endpoint",
-                openmetadata_jwt_token="test-jwt-token",
-                openmetadata_service_name="test_service",
-                openmetadata_dbt_update_descriptions=False,
-                openmetadata_dbt_update_owners=False,
-                openmetadata_include_tags=False,
-                openmetadata_search_across_databases=True,
-                openmetadata_dbt_classification_name="custom_tags",
-                openmetadata_database_filter_pattern={"includes": ["prod_*"]},
-                openmetadata_schema_filter_pattern={
+            custom_om_config = UMetadataDBTConfig(
+                umetadata_host_port="http://test-server:port/endpoint",
+                umetadata_jwt_token="test-jwt-token",
+                umetadata_service_name="test_service",
+                umetadata_dbt_update_descriptions=False,
+                umetadata_dbt_update_owners=False,
+                umetadata_include_tags=False,
+                umetadata_search_across_databases=True,
+                umetadata_dbt_classification_name="custom_tags",
+                umetadata_database_filter_pattern={"includes": ["prod_*"]},
+                umetadata_schema_filter_pattern={
                     "includes": ["public"],
                     "excludes": ["temp_*"],
                 },
-                openmetadata_table_filter_pattern={"includes": ["fact_*"]},
+                umetadata_table_filter_pattern={"includes": ["fact_*"]},
             )
 
             config = create_dbt_workflow_config(temp_path, custom_om_config)
@@ -485,10 +485,10 @@ vars:
             run_results_file.write_text('{"metadata": {"generated_at": "2023-01-01"}}')
 
             # Use default config
-            default_om_config = OpenMetadataDBTConfig(
-                openmetadata_host_port="http://test-server:port/endpoint",
-                openmetadata_jwt_token="test-jwt-token",
-                openmetadata_service_name="test_service",
+            default_om_config = UMetadataDBTConfig(
+                umetadata_host_port="http://test-server:port/endpoint",
+                umetadata_jwt_token="test-jwt-token",
+                umetadata_service_name="test_service",
             )
 
             config = create_dbt_workflow_config(temp_path, default_om_config)
@@ -524,9 +524,9 @@ vars:
                 """
 name: 'test_project'
 vars:
-  openmetadata_host_port: 'http://test-server:port/endpoint'
-  openmetadata_jwt_token: 'test-jwt-token'
-  openmetadata_service_name: 'test_service'
+  umetadata_host_port: 'http://test-server:port/endpoint'
+  umetadata_jwt_token: 'test-jwt-token'
+  umetadata_service_name: 'test_service'
 """
             )
 
@@ -546,34 +546,34 @@ vars:
         self.assertIn("vars", config)
         self.assertIsInstance(config["vars"], dict)
 
-        # Extract and validate OpenMetadata config
-        om_config = extract_openmetadata_config(config)
+        # Extract and validate UMetadata config
+        om_config = extract_umetadata_config(config)
 
         # Verify extracted configuration matches expected values exactly
-        self.assertIsInstance(om_config, OpenMetadataDBTConfig)
+        self.assertIsInstance(om_config, UMetadataDBTConfig)
         self.assertEqual(
-            om_config.openmetadata_host_port, "http://test-server:port/endpoint"
+            om_config.umetadata_host_port, "http://test-server:port/endpoint"
         )
         # Get the expected JWT token from environment variable (same as what gets substituted)
-        expected_jwt_token = os.environ.get("OPENMETADATA_JWT_TOKEN")
-        self.assertEqual(om_config.openmetadata_jwt_token, expected_jwt_token)
-        self.assertEqual(om_config.openmetadata_service_name, "test_service")
+        expected_jwt_token = os.environ.get("UMETADATA_JWT_TOKEN")
+        self.assertEqual(om_config.umetadata_jwt_token, expected_jwt_token)
+        self.assertEqual(om_config.umetadata_service_name, "test_service")
 
         # Verify optional configuration from test file
         self.assertTrue(
-            om_config.openmetadata_dbt_update_descriptions
+            om_config.umetadata_dbt_update_descriptions
         )  # explicitly set to true
         self.assertFalse(
-            om_config.openmetadata_dbt_update_owners
+            om_config.umetadata_dbt_update_owners
         )  # explicitly set to false
         self.assertTrue(
-            om_config.openmetadata_include_tags
+            om_config.umetadata_include_tags
         )  # default value (not in config)
         self.assertFalse(
-            om_config.openmetadata_search_across_databases
+            om_config.umetadata_search_across_databases
         )  # default value (not in config)
         self.assertEqual(
-            om_config.openmetadata_dbt_classification_name, "dbtTags"
+            om_config.umetadata_dbt_classification_name, "dbtTags"
         )  # custom value
 
         # Verify filter patterns from test file (dict format only)
@@ -602,15 +602,15 @@ vars:
             self.assertIsInstance(workflow_config, dict)
             self.assertEqual(workflow_config["source"]["serviceName"], "test_service")
             self.assertEqual(
-                workflow_config["workflowConfig"]["openMetadataServerConfig"][
+                workflow_config["workflowConfig"]["uMetadataServerConfig"][
                     "hostPort"
                 ],
                 "http://test-server:port/endpoint",
             )
             # Get the expected JWT token from environment variable (same as what gets substituted)
-            expected_jwt_token = os.environ.get("OPENMETADATA_JWT_TOKEN")
+            expected_jwt_token = os.environ.get("UMETADATA_JWT_TOKEN")
             self.assertEqual(
-                workflow_config["workflowConfig"]["openMetadataServerConfig"][
+                workflow_config["workflowConfig"]["uMetadataServerConfig"][
                     "securityConfig"
                 ]["jwtToken"],
                 expected_jwt_token,

@@ -48,4 +48,4 @@ networks:
 # 2. Build and start: docker-compose -f docker-compose-fuseki-arm64.yml up -d --build
 # 3. Access Fuseki UI: http://localhost:3030
 # 4. Login: admin/admin
-# 5. SPARQL endpoint: http://localhost:3030/openmetadata/sparql
+# 5. SPARQL endpoint: http://localhost:3030/umetadata/sparql

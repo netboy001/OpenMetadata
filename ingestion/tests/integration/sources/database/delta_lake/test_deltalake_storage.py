@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -38,7 +38,7 @@ from metadata.generated.schema.metadataIngestion.databaseServiceMetadataPipeline
     DatabaseServiceMetadataPipeline,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
     Sink,
     Source,
     SourceConfig,
@@ -123,7 +123,7 @@ def service(metadata, deltalake_storage_environment):
 
 @pytest.fixture(scope="module")
 def ingest(metadata, service, create_data):
-    workflow_config = OpenMetadataWorkflowConfig(
+    workflow_config = UMetadataWorkflowConfig(
         source=Source(
             type=service.connection.config.type.value.lower(),
             serviceName=service.fullyQualifiedName.root,
@@ -131,7 +131,7 @@ def ingest(metadata, service, create_data):
             sourceConfig=SourceConfig(config=DatabaseServiceMetadataPipeline()),
         ),
         sink=Sink(type="metadata-rest", config={}),
-        workflowConfig=WorkflowConfig(openMetadataServerConfig=metadata.config),
+        workflowConfig=WorkflowConfig(uMetadataServerConfig=metadata.config),
     )
 
     ingestion = MetadataWorkflow.create(workflow_config)

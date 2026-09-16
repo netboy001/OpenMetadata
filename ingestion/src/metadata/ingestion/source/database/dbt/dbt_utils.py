@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,7 +22,7 @@ from metadata.generated.schema.entity.teams.team import Team
 from metadata.generated.schema.entity.teams.user import User
 from metadata.generated.schema.tests.testSuite import TestSuite
 from metadata.generated.schema.type.entityReference import EntityReference
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.database.dbt.constants import (
     NONE_KEYWORDS_LIST,
     CompiledQueriesEnum,
@@ -71,7 +71,7 @@ def convert_java_to_python_format(java_format: str) -> str:
 
 def validate_email_format(email: str) -> bool:
     """
-    Validate email format using the same pattern as OpenMetadata backend.
+    Validate email format using the same pattern as UMetadata backend.
 
     Args:
         email: Email address to validate
@@ -79,7 +79,7 @@ def validate_email_format(email: str) -> bool:
     Returns:
         True if valid email format
     """
-    # Pattern from OpenMetadata basic.json schema
+    # Pattern from UMetadata basic.json schema
     pattern = r"^[\S.!#$%&\'*+/=?^_`{|}~-]+@\S+\.\S+$"
     return bool(re.match(pattern, email))
 
@@ -221,7 +221,7 @@ def validate_table_structure(
 
 
 def validate_time_interval(
-    value: Any, config: Optional[Any] = None, metadata: Optional[OpenMetadata] = None
+    value: Any, config: Optional[Any] = None, metadata: Optional[UMetadata] = None
 ) -> Tuple[bool, Optional[str], Any]:
     """
     Validate and convert timeInterval structure.
@@ -229,7 +229,7 @@ def validate_time_interval(
     Args:
         value: TimeInterval object with start and end
         config: Optional configuration (not used for timeInterval)
-        metadata: Optional OpenMetadata client (not used for timeInterval)
+        metadata: Optional UMetadata client (not used for timeInterval)
 
     Returns:
         Tuple[bool, Optional[str], Any]: (is_valid, error_message, converted_value)
@@ -272,7 +272,7 @@ def format_validation_error_message(
 
     Args:
         field_name: Name of the custom property
-        property_type: OpenMetadata type name
+        property_type: UMetadata type name
         value: The value that failed validation
         error_detail: Specific error details
 
@@ -290,7 +290,7 @@ def format_validation_error_message(
 
 
 def _validate_email_type(
-    value: Any, config: Optional[Any], metadata: Optional[OpenMetadata] = None
+    value: Any, config: Optional[Any], metadata: Optional[UMetadata] = None
 ) -> Tuple[bool, Optional[str], Any]:
     """Validate and convert email type"""
     if not isinstance(value, str):
@@ -301,7 +301,7 @@ def _validate_email_type(
 
 
 def _validate_date_time_type(
-    value: Any, config: Optional[Any], metadata: Optional[OpenMetadata] = None
+    value: Any, config: Optional[Any], metadata: Optional[UMetadata] = None
 ) -> Tuple[bool, Optional[str], Any]:
     """Validate and convert date/time types"""
     if not isinstance(value, str):
@@ -313,7 +313,7 @@ def _validate_date_time_type(
 
 
 def _validate_timestamp_type(
-    value: Any, config: Optional[Any], metadata: Optional[OpenMetadata] = None
+    value: Any, config: Optional[Any], metadata: Optional[UMetadata] = None
 ) -> Tuple[bool, Optional[str], Any]:
     """Validate and convert timestamp type"""
     if not isinstance(value, int):
@@ -328,7 +328,7 @@ def _validate_timestamp_type(
 
 
 def _validate_duration_type(
-    value: Any, config: Optional[Any], metadata: Optional[OpenMetadata] = None
+    value: Any, config: Optional[Any], metadata: Optional[UMetadata] = None
 ) -> Tuple[bool, Optional[str], Any]:
     """Validate and convert ISO 8601 duration format"""
     if not isinstance(value, str):
@@ -347,7 +347,7 @@ def _validate_duration_type(
 
 
 def _validate_enum_type(
-    value: Any, config: Optional[Any], metadata: Optional[OpenMetadata] = None
+    value: Any, config: Optional[Any], metadata: Optional[UMetadata] = None
 ) -> Tuple[bool, Optional[str], Optional[Any]]:
     """Validate and convert enum with allowed values"""
     if config and isinstance(config, dict):
@@ -372,7 +372,7 @@ def _validate_enum_type(
 
 
 def _validate_table_type(
-    value: Any, config: Optional[Any], metadata: Optional[OpenMetadata] = None
+    value: Any, config: Optional[Any], metadata: Optional[UMetadata] = None
 ) -> Tuple[bool, Optional[str], Any]:
     """Validate and convert table-cp structure"""
     if not isinstance(value, dict):
@@ -390,7 +390,7 @@ def _validate_table_type(
 
 
 def _validate_entity_reference_type(
-    value: Any, config: Optional[Any], metadata: Optional[OpenMetadata] = None
+    value: Any, config: Optional[Any], metadata: Optional[UMetadata] = None
 ) -> Tuple[bool, Optional[str], Any]:
     """
     Validate and convert entity reference format and type.
@@ -400,7 +400,7 @@ def _validate_entity_reference_type(
     Args:
         value: Entity reference value
         config: List of allowed entity types (e.g., ["table", "databaseSchema", "user"])
-        metadata: OpenMetadata client for fetching entity
+        metadata: UMetadata client for fetching entity
     """
     if not isinstance(value, dict):
         return (
@@ -432,7 +432,7 @@ def _validate_entity_reference_type(
                 None,
             )
 
-    # Convert: fetch entity from OpenMetadata
+    # Convert: fetch entity from UMetadata
     if metadata:
         entity = find_entity_by_type_and_fqn(metadata, entity_type, entity_fqn)
         if entity:
@@ -451,7 +451,7 @@ def _validate_entity_reference_type(
 
 
 def _validate_entity_reference_list_type(
-    value: Any, config: Optional[Any], metadata: Optional[OpenMetadata] = None
+    value: Any, config: Optional[Any], metadata: Optional[UMetadata] = None
 ) -> Tuple[bool, Optional[str], Any]:
     """
     Validate and convert entity reference list format and types.
@@ -459,7 +459,7 @@ def _validate_entity_reference_list_type(
     Args:
         value: List of entity references
         config: List of allowed entity types
-        metadata: OpenMetadata client for fetching entities
+        metadata: UMetadata client for fetching entities
     """
     if not isinstance(value, list):
         return (
@@ -524,29 +524,29 @@ def validate_custom_property_value(
     property_type: str,
     property_config: Optional[Any],
     value: Any,
-    metadata: Optional[OpenMetadata] = None,
+    metadata: Optional[UMetadata] = None,
 ) -> Tuple[bool, Optional[str], Any]:
     """
     Comprehensive validation and conversion of custom property value.
 
     This function validates type compatibility, format constraints, and converts
-    values to the format expected by OpenMetadata API for all 16 custom property types.
+    values to the format expected by UMetadata API for all 16 custom property types.
 
     For enum types with multi-select, automatically filters out invalid values.
-    For entity references, fetches and converts entities from OpenMetadata.
+    For entity references, fetches and converts entities from UMetadata.
 
     Args:
         property_name: Name of the custom property
-        property_type: OpenMetadata type name (e.g., "string", "date-cp", "email")
+        property_type: UMetadata type name (e.g., "string", "date-cp", "email")
         property_config: Configuration for the property (format, enum values, etc.)
         value: The value to validate and convert
-        metadata: OpenMetadata client (required for entityReference types)
+        metadata: UMetadata client (required for entityReference types)
 
     Returns:
         Tuple[bool, Optional[str], Any]: (is_valid, error_message, converted_value)
             - is_valid: True if validation passed
             - error_message: Detailed error message if validation failed, None if passed
-            - converted_value: The converted value ready for OpenMetadata API
+            - converted_value: The converted value ready for UMetadata API
     """
     # Handle None values
     if value is None:
@@ -762,7 +762,7 @@ def get_dbt_raw_query(mnode) -> Optional[str]:
 
 
 def check_or_create_test_suite(
-    metadata: OpenMetadata, test_entity_link: str
+    metadata: UMetadata, test_entity_link: str
 ) -> Union[TestSuite, EntityReference]:
     """Check if test suite exists, if not create it
 
@@ -827,7 +827,7 @@ def get_data_model_path(manifest_node):
 
 
 def find_entity_by_type_and_fqn(
-    metadata: OpenMetadata, entity_type: str, entity_fqn: str
+    metadata: UMetadata, entity_type: str, entity_fqn: str
 ) -> Optional[Any]:
     """
     Search for entity by type and FQN.
@@ -836,7 +836,7 @@ def find_entity_by_type_and_fqn(
     Validation happens in _validate_entity_reference_type() before calling this.
 
     Args:
-        metadata: OpenMetadata client
+        metadata: UMetadata client
         entity_type: Entity type (e.g., "table", "databaseSchema", "user")
         entity_fqn: Fully qualified name of the entity
 
@@ -887,7 +887,7 @@ def find_entity_by_type_and_fqn(
         return None
 
     try:
-        # Fetch entity from OpenMetadata by FQN
+        # Fetch entity from UMetadata by FQN
         entity = metadata.get_by_name(entity=entity_class, fqn=entity_fqn)
         if entity:
             logger.debug(f"Found {entity_type} entity: {entity_fqn}")
@@ -905,11 +905,11 @@ def format_entity_reference(
     entity: Any, entity_type: Optional[str] = None
 ) -> Dict[str, Any]:
     """
-    Formats entity into entityReference structure for OpenMetadata.
+    Formats entity into entityReference structure for UMetadata.
     Extracts all Pydantic .root values to ensure JSON serializability.
 
     Args:
-        entity: Entity object from OpenMetadata
+        entity: Entity object from UMetadata
         entity_type: Entity type string (e.g., "table", "databaseSchema").
                      If provided, uses this instead of entity.type
 
@@ -980,7 +980,7 @@ def format_entity_reference(
     }
 
 
-def find_domain_by_name(metadata: OpenMetadata, domain_name: str) -> Optional[Any]:
+def find_domain_by_name(metadata: UMetadata, domain_name: str) -> Optional[Any]:
     """
     Search domain by name
     """

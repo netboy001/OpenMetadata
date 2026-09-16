@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -54,9 +54,9 @@ from metadata.generated.schema.type.entityReference import EntityReference
 from metadata.ingestion.api.models import Either
 from metadata.ingestion.api.steps import InvalidSourceException
 from metadata.ingestion.lineage.sql_lineage import get_column_fqn
-from metadata.ingestion.models.pipeline_status import OMetaPipelineStatus
-from metadata.ingestion.ometa.ometa_api import OpenMetadata, T
-from metadata.ingestion.ometa.utils import model_str
+from metadata.ingestion.models.pipeline_status import UMetaPipelineStatus
+from metadata.ingestion.umeta.umeta_api import UMetadata, T
+from metadata.ingestion.umeta.utils import model_str
 from metadata.ingestion.source.pipeline.kafkaconnect.client import parse_cdc_topic_name
 from metadata.ingestion.source.pipeline.kafkaconnect.constants import (
     CDC_ENVELOPE_FIELDS,
@@ -96,7 +96,7 @@ class KafkaconnectSource(PipelineServiceSource):
     Pipeline metadata from Kafka Connect
     """
 
-    def __init__(self, config: WorkflowSource, metadata: OpenMetadata):
+    def __init__(self, config: WorkflowSource, metadata: UMetadata):
         super().__init__(config, metadata)
         # Track lineage results for summary reporting
         self.lineage_results = []
@@ -108,7 +108,7 @@ class KafkaconnectSource(PipelineServiceSource):
 
     @classmethod
     def create(
-        cls, config_dict, metadata: OpenMetadata, pipeline_name: Optional[str] = None
+        cls, config_dict, metadata: UMetadata, pipeline_name: Optional[str] = None
     ):
         config: WorkflowSource = WorkflowSource.model_validate(config_dict)
         connection: KafkaConnectConnection = config.serviceConnection.root.config
@@ -172,7 +172,7 @@ class KafkaconnectSource(PipelineServiceSource):
         Find database service by matching serviceType and hostname.
 
         Args:
-            service_type: OpenMetadata service type (e.g., "Mysql", "Postgres")
+            service_type: UMetadata service type (e.g., "Mysql", "Postgres")
             hostname: Hostname from Kafka Connect config (e.g., "localhost:3306", "db.example.com")
 
         Returns:
@@ -487,7 +487,7 @@ class KafkaconnectSource(PipelineServiceSource):
             topic_entities_map[topic.name] = topic_entity
 
             if topic_entity is None:
-                logger.warning(f"Topic {topic.name} not found in OpenMetadata")
+                logger.warning(f"Topic {topic.name} not found in UMetadata")
             else:
                 logger.info(f"✓ Successfully found topic entity: {topic.name}")
 
@@ -1452,7 +1452,7 @@ class KafkaconnectSource(PipelineServiceSource):
                     f"container={dataset_details.container_name}, parent_container={dataset_details.parent_container}"
                 )
 
-                # Find the dataset entity in OpenMetadata
+                # Find the dataset entity in UMetadata
                 current_dataset_entity = self.get_dataset_entity(
                     pipeline_details=pipeline_details, dataset_details=dataset_details
                 )
@@ -1514,7 +1514,7 @@ class KafkaconnectSource(PipelineServiceSource):
                     for topic_name, topic_entity in topic_entities_map.items():
                         if topic_entity is None:
                             logger.debug(
-                                f"Skipping topic {topic_name} - entity not found in OpenMetadata"
+                                f"Skipping topic {topic_name} - entity not found in UMetadata"
                             )
                             continue
 
@@ -1837,7 +1837,7 @@ class KafkaconnectSource(PipelineServiceSource):
 
     def yield_pipeline_status(
         self, pipeline_details: KafkaConnectPipelineDetails
-    ) -> Iterable[Either[OMetaPipelineStatus]]:
+    ) -> Iterable[Either[UMetaPipelineStatus]]:
         """
         Get Pipeline Status
         """
@@ -1867,7 +1867,7 @@ class KafkaconnectSource(PipelineServiceSource):
             )
 
             yield Either(
-                right=OMetaPipelineStatus(
+                right=UMetaPipelineStatus(
                     pipeline_fqn=pipeline_fqn,
                     pipeline_status=pipeline_status,
                 )

@@ -1,6 +1,6 @@
 # Distributed Search Indexing Test Environment
 
-This directory contains scripts and configurations to test the distributed search indexing feature with multiple OpenMetadata servers sharing a common database.
+This directory contains scripts and configurations to test the distributed search indexing feature with multiple UMetadata servers sharing a common database.
 
 ## Architecture
 
@@ -105,8 +105,8 @@ docker compose -f local/docker-compose-deps.yml up -d
 ### 2. Run Migrations (First Time)
 
 ```bash
-cd /path/to/openmetadata
-./bootstrap/openmetadata-ops.sh -d migrate --force
+cd /path/to/umetadata
+./bootstrap/umetadata-ops.sh -d migrate --force
 ```
 
 ### 3. Option A: Run from Terminal
@@ -124,7 +124,7 @@ cd /path/to/openmetadata
 Create run configurations in IntelliJ IDEA:
 
 **Server 1:**
-- Main class: `org.openmetadata.service.OpenMetadataApplication`
+- Main class: `org.umetadata.service.UMetadataApplication`
 - Program arguments: `server docker/development/distributed-test/local/server1.yaml`
 - VM options: `-Xmx1G -Xms512M`
 - Working directory: Project root
@@ -155,7 +155,7 @@ TEST_DATA_TABLES=10000
 LOG_LEVEL=INFO
 
 # Heap size per server
-OPENMETADATA_HEAP_OPTS=-Xmx1G -Xms1G
+UMETADATA_HEAP_OPTS=-Xmx1G -Xms1G
 ```
 
 ## Testing Distributed Indexing
@@ -190,7 +190,7 @@ You should see output like:
 curl -s http://localhost:8585/api/v1/apps/name/SearchIndexingApplication/status | jq
 
 # Check partition table directly
-docker exec -it distributed_test_mysql mysql -uopenmetadata_user -popenmetadata_password openmetadata_db \
+docker exec -it distributed_test_mysql mysql -uumetadata_user -pumetadata_password umetadata_db \
   -e "SELECT status, COUNT(*) FROM search_index_partition GROUP BY status"
 ```
 
@@ -209,7 +209,7 @@ lsof -i :8589
 
 Verify MySQL is accessible:
 ```bash
-docker exec -it distributed_test_mysql mysql -uopenmetadata_user -popenmetadata_password -e "SELECT 1"
+docker exec -it distributed_test_mysql mysql -uumetadata_user -pumetadata_password -e "SELECT 1"
 ```
 
 ### OpenSearch Not Ready

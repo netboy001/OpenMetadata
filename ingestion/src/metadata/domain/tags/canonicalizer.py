@@ -2,13 +2,13 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-"""TagCanonicalizer — case-corrected name resolution against OpenMetadata.
+"""TagCanonicalizer — case-corrected name resolution against UMetadata.
 
 Resolves source-system Classification and Tag names to the canonical form
 of any matching system-provider entity in OM (e.g., source reports
@@ -31,7 +31,7 @@ from tenacity import (
 from metadata.generated.schema.entity.classification.classification import Classification
 from metadata.generated.schema.entity.classification.tag import Tag
 from metadata.generated.schema.type.basic import ProviderType
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.utils import fqn
 from metadata.utils.logger import ingestion_logger
 
@@ -47,7 +47,7 @@ _es_retry = retry(
 
 
 class Canonical(NamedTuple):
-    """Canonical (name, description) pair returned from OpenMetadata."""
+    """Canonical (name, description) pair returned from UMetadata."""
 
     name: str
     description: str
@@ -60,7 +60,7 @@ class TagCanonicalizer:
     surface them to workflow status.
     """
 
-    def __init__(self, metadata: OpenMetadata) -> None:
+    def __init__(self, metadata: UMetadata) -> None:
         self._metadata = metadata
         self._classification_cache: dict[str, Canonical] = {}
         self._tag_cache: dict[str, Canonical] = {}

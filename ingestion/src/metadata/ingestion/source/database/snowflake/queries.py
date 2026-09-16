@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -66,7 +66,7 @@ SNOWFLAKE_SQL_STATEMENT = textwrap.dedent(
       total_elapsed_time "duration",
       CREDITS_USED_CLOUD_SERVICES * {credit_cost} as "cost"
     from {account_usage}.query_history
-    WHERE query_text NOT LIKE '/* {{"app": "OpenMetadata", %%}} */%%'
+    WHERE query_text NOT LIKE '/* {{"app": "UMetadata", %%}} */%%'
     AND query_text NOT LIKE '/* {{"app": "dbt", %%}} */%%'
     AND start_time between to_timestamp_ltz('{start_time}') and to_timestamp_ltz('{end_time}')
     {filters}
@@ -443,7 +443,7 @@ Q_HISTORY AS (
       DATABASE_NAME
     FROM {account_usage}.QUERY_HISTORY SP
     WHERE QUERY_TYPE <> 'CALL'
-      AND QUERY_TEXT NOT LIKE '/* {{"app": "OpenMetadata", %%}} */%%'
+      AND QUERY_TEXT NOT LIKE '/* {{"app": "UMetadata", %%}} */%%'
       AND QUERY_TEXT NOT LIKE '/* {{"app": "dbt", %%}} */%%'
       AND START_TIME >= '{start_date}'
       AND (

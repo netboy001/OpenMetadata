@@ -26,10 +26,10 @@ class TestTableEntity(unittest.TestCase):
 
     def setUp(self):
         """Set up test fixtures"""
-        self.mock_ometa = MagicMock()
+        self.mock_umeta = MagicMock()
 
         # Set default client directly
-        Tables.set_default_client(self.mock_ometa)
+        Tables.set_default_client(self.mock_umeta)
 
         # Test data
         self.table_id = "550e8400-e29b-41d4-a716-446655440000"
@@ -69,7 +69,7 @@ class TestTableEntity(unittest.TestCase):
         expected_table.columns = self.columns
         expected_table.tableType = TableType.Regular
 
-        self.mock_ometa.create_or_update.return_value = expected_table
+        self.mock_umeta.create_or_update.return_value = expected_table
 
         # Act
         result = Tables.create(create_request)
@@ -79,7 +79,7 @@ class TestTableEntity(unittest.TestCase):
         self.assertEqual(result.name, "test_table")
         self.assertEqual(result.fullyQualifiedName, self.table_fqn)
         self.assertEqual(len(result.columns), 3)
-        self.mock_ometa.create_or_update.assert_called_once_with(create_request)
+        self.mock_umeta.create_or_update.assert_called_once_with(create_request)
 
     def test_retrieve_table_by_id(self):
         """Test retrieving a table by ID"""
@@ -90,7 +90,7 @@ class TestTableEntity(unittest.TestCase):
         expected_table.description = "Retrieved table"
         expected_table.columns = self.columns
 
-        self.mock_ometa.get_by_id.return_value = expected_table
+        self.mock_umeta.get_by_id.return_value = expected_table
 
         # Act
         result = Tables.retrieve(self.table_id)
@@ -98,7 +98,7 @@ class TestTableEntity(unittest.TestCase):
         # Assert
         self.assertEqual(result.id, expected_table.id)
         self.assertEqual(result.description, "Retrieved table")
-        self.mock_ometa.get_by_id.assert_called_once_with(
+        self.mock_umeta.get_by_id.assert_called_once_with(
             entity=TableEntity, entity_id=self.table_id, fields=None
         )
 
@@ -127,7 +127,7 @@ class TestTableEntity(unittest.TestCase):
         expected_table.tags = tags
         expected_table.columns = self.columns
 
-        self.mock_ometa.get_by_id.return_value = expected_table
+        self.mock_umeta.get_by_id.return_value = expected_table
 
         # Act
         result = Tables.retrieve(self.table_id, fields=fields)
@@ -137,7 +137,7 @@ class TestTableEntity(unittest.TestCase):
         self.assertEqual(result.owner.name, "john.doe")
         self.assertEqual(len(result.tags), 2)
         self.assertEqual(result.tags[0].tagFQN, "PII.Sensitive")
-        self.mock_ometa.get_by_id.assert_called_once_with(
+        self.mock_umeta.get_by_id.assert_called_once_with(
             entity=TableEntity, entity_id=self.table_id, fields=fields
         )
 
@@ -150,14 +150,14 @@ class TestTableEntity(unittest.TestCase):
         expected_table.fullyQualifiedName = self.table_fqn
         expected_table.columns = self.columns
 
-        self.mock_ometa.get_by_name.return_value = expected_table
+        self.mock_umeta.get_by_name.return_value = expected_table
 
         # Act
         result = Tables.retrieve_by_name(self.table_fqn)
 
         # Assert
         self.assertEqual(result.fullyQualifiedName, self.table_fqn)
-        self.mock_ometa.get_by_name.assert_called_once_with(
+        self.mock_umeta.get_by_name.assert_called_once_with(
             entity=TableEntity, fqn=self.table_fqn, fields=None
         )
 
@@ -177,10 +177,10 @@ class TestTableEntity(unittest.TestCase):
             if hasattr(table_to_update, "id")
             else UUID(self.entity_id)
         )
-        self.mock_ometa.get_by_id.return_value = current_entity
+        self.mock_umeta.get_by_id.return_value = current_entity
 
         # Mock the patch to return the updated entity
-        self.mock_ometa.patch.return_value = table_to_update
+        self.mock_umeta.patch.return_value = table_to_update
 
         # Act
         result = Tables.update(table_to_update)
@@ -189,9 +189,9 @@ class TestTableEntity(unittest.TestCase):
         self.assertEqual(result.description, "Updated description")
         self.assertEqual(str(table_to_update.id), self.table_id)
         # Verify get_by_id was called to fetch current state
-        self.mock_ometa.get_by_id.assert_called_once()
+        self.mock_umeta.get_by_id.assert_called_once()
         # Verify patch was called with source and destination
-        self.mock_ometa.patch.assert_called_once()
+        self.mock_umeta.patch.assert_called_once()
 
     def test_delete_table(self):
         """Test deleting a table"""
@@ -199,7 +199,7 @@ class TestTableEntity(unittest.TestCase):
         Tables.delete(self.table_id, recursive=True, hard_delete=False)
 
         # Assert
-        self.mock_ometa.delete.assert_called_once_with(
+        self.mock_umeta.delete.assert_called_once_with(
             entity=TableEntity,
             entity_id=self.table_id,
             recursive=True,
@@ -212,7 +212,7 @@ class TestTableEntity(unittest.TestCase):
         Tables.delete(self.table_id, recursive=False, hard_delete=True)
 
         # Assert
-        self.mock_ometa.delete.assert_called_once_with(
+        self.mock_umeta.delete.assert_called_once_with(
             entity=TableEntity,
             entity_id=self.table_id,
             recursive=False,
@@ -240,7 +240,7 @@ class TestTableEntity(unittest.TestCase):
         expected_table.tableConstraints = constraints
         expected_table.columns = self.columns
 
-        self.mock_ometa.create_or_update.return_value = expected_table
+        self.mock_umeta.create_or_update.return_value = expected_table
 
         # Act
         result = Tables.create(create_request)
@@ -268,7 +268,7 @@ class TestTableEntity(unittest.TestCase):
         expected_table.joins = join_info
         expected_table.columns = self.columns
 
-        self.mock_ometa.get_by_id.return_value = expected_table
+        self.mock_umeta.get_by_id.return_value = expected_table
 
         # Act
         result = Tables.retrieve(self.table_id, fields=["joins"])
@@ -287,12 +287,12 @@ class TestTableEntity(unittest.TestCase):
         expected_table = MagicMock(spec=TableEntity)
         expected_table.id = UUID(self.table_id)
         expected_table.name = "test_table"
-        self.mock_ometa.create_or_update_custom_metric.return_value = expected_table
+        self.mock_umeta.create_or_update_custom_metric.return_value = expected_table
 
         result = Tables.add_custom_metric(self.table_id, custom_metric)
 
         self.assertEqual(result.name, "test_table")
-        self.mock_ometa.create_or_update_custom_metric.assert_called_once_with(
+        self.mock_umeta.create_or_update_custom_metric.assert_called_once_with(
             custom_metric=custom_metric,
             table_id=self.table_id,
         )
@@ -303,7 +303,7 @@ class TestTableEntity(unittest.TestCase):
             columns=["id", "email"],
             rows=[["1", "user@example.com"]],
         )
-        self.mock_ometa.ingest_table_sample_data.return_value = sample_data
+        self.mock_umeta.ingest_table_sample_data.return_value = sample_data
 
         result = Tables.add_sample_data(self.table_id, sample_data)
 
@@ -313,9 +313,9 @@ class TestTableEntity(unittest.TestCase):
                 [column.root for column in result.columns], ["id", "email"]
             )
             self.assertEqual(result.rows[0][1], "user@example.com")
-        self.mock_ometa.get_by_id.assert_not_called()
-        self.mock_ometa.ingest_table_sample_data.assert_called_once()
-        call_args = self.mock_ometa.ingest_table_sample_data.call_args.args
+        self.mock_umeta.get_by_id.assert_not_called()
+        self.mock_umeta.ingest_table_sample_data.assert_called_once()
+        call_args = self.mock_umeta.ingest_table_sample_data.call_args.args
         table_ref = call_args[0]
         self.assertEqual(str(table_ref.id.root), self.table_id)
         self.assertEqual(table_ref.name.root, f"sdk_ref_{self.table_id[:8]}")
@@ -327,16 +327,16 @@ class TestTableEntity(unittest.TestCase):
         sample_table = MagicMock(spec=TableEntity)
         sample_table.id = UUID(self.table_id)
         sample_table.name = "test_table"
-        self.mock_ometa.get_sample_data.return_value = sample_table
+        self.mock_umeta.get_sample_data.return_value = sample_table
 
         result = Tables.get_sample_data(self.table_id)
 
         self.assertIsNotNone(result)
         if result is not None:
             self.assertEqual(result.name, "test_table")
-        self.mock_ometa.get_by_id.assert_not_called()
-        self.mock_ometa.get_sample_data.assert_called_once()
-        table_ref = self.mock_ometa.get_sample_data.call_args.args[0]
+        self.mock_umeta.get_by_id.assert_not_called()
+        self.mock_umeta.get_sample_data.assert_called_once()
+        table_ref = self.mock_umeta.get_sample_data.call_args.args[0]
         self.assertEqual(str(table_ref.id.root), self.table_id)
         self.assertEqual(table_ref.name.root, f"sdk_ref_{self.table_id[:8]}")
         self.assertEqual(table_ref.fullyQualifiedName.root, f"sdk.ref.{self.table_id}")
@@ -345,7 +345,7 @@ class TestTableEntity(unittest.TestCase):
         """Test exporting table metadata to CSV"""
         # Arrange
         csv_data = "id,name,description,columns\n123,test_table,Test,3"
-        self.mock_ometa.export_csv.return_value = csv_data
+        self.mock_umeta.export_csv.return_value = csv_data
 
         # Act
         exporter = result = Tables.export_csv("table_export")
@@ -353,13 +353,13 @@ class TestTableEntity(unittest.TestCase):
 
         # Assert
         self.assertEqual(result, csv_data)
-        self.mock_ometa.export_csv.assert_called_once_with(
+        self.mock_umeta.export_csv.assert_called_once_with(
             entity=TableEntity, name="table_export"
         )
 
     def test_import_table_csv(self):
         # Mock CSV import
-        self.mock_ometa.import_csv.return_value = {
+        self.mock_umeta.import_csv.return_value = {
             "created": 1,
             "updated": 0,
             "errors": [],
@@ -376,14 +376,14 @@ class TestTableEntity(unittest.TestCase):
 
         # Assert
         self.assertEqual(result["created"], 1)
-        self.mock_ometa.import_csv.assert_called_once_with(
+        self.mock_umeta.import_csv.assert_called_once_with(
             entity=TableEntity, name="table_import", csv_data=csv_data, dry_run=False
         )
 
     def test_error_handling_not_found(self):
         """Test error handling when table not found"""
         # Arrange
-        self.mock_ometa.get_by_id.side_effect = Exception("Table not found")
+        self.mock_umeta.get_by_id.side_effect = Exception("Table not found")
 
         # Act & Assert
         with self.assertRaises(Exception) as context:

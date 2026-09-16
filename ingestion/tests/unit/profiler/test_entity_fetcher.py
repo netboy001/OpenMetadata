@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,14 +15,14 @@ Validate entity fetcher filtering strategies
 import uuid
 
 from metadata.generated.schema.entity.data.table import Table, TableType
-from metadata.generated.schema.entity.services.connections.metadata.openMetadataConnection import (
-    OpenMetadataConnection,
+from metadata.generated.schema.entity.services.connections.metadata.uMetadataConnection import (
+    UMetadataConnection,
 )
 from metadata.generated.schema.metadataIngestion.databaseServiceAutoClassificationPipeline import (
     DatabaseServiceAutoClassificationPipeline,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
     Source,
     SourceConfig,
     WorkflowConfig,
@@ -47,7 +47,7 @@ TABLE = Table(
 
 def get_db_fetcher(source_config):
     """Fetch database"""
-    workflow_config = OpenMetadataWorkflowConfig(
+    workflow_config = UMetadataWorkflowConfig(
         source=Source(
             type="mysql",
             serviceName="mysql",
@@ -56,7 +56,7 @@ def get_db_fetcher(source_config):
             ),
         ),
         workflowConfig=WorkflowConfig(
-            openMetadataServerConfig=OpenMetadataConnection(
+            uMetadataServerConfig=UMetadataConnection(
                 hostPort="localhost:8585/api",
             )
         ),

@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,8 +21,8 @@ from metadata.generated.schema.entity.data.chart import Chart, ChartType
 from metadata.generated.schema.entity.services.connections.dashboard.ssrsConnection import (
     SsrsConnection,
 )
-from metadata.generated.schema.entity.services.connections.metadata.openMetadataConnection import (
-    OpenMetadataConnection,
+from metadata.generated.schema.entity.services.connections.metadata.uMetadataConnection import (
+    UMetadataConnection,
 )
 from metadata.generated.schema.entity.services.ingestionPipelines.status import (
     StackTraceError,
@@ -38,7 +38,7 @@ from metadata.generated.schema.type.basic import (
 )
 from metadata.ingestion.api.models import Either
 from metadata.ingestion.api.steps import InvalidSourceException
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.dashboard.dashboard_service import DashboardServiceSource
 from metadata.ingestion.source.dashboard.ssrs.models import SsrsReport
 from metadata.utils import fqn
@@ -51,13 +51,13 @@ logger = ingestion_logger()
 
 class SsrsSource(DashboardServiceSource):
     config: WorkflowSource
-    metadata_config: OpenMetadataConnection
+    metadata_config: UMetadataConnection
 
     @classmethod
     def create(
         cls,
         config_dict: dict,
-        metadata: OpenMetadata,
+        metadata: UMetadata,
         pipeline_name: Optional[str] = None,
     ) -> "SsrsSource":
         config = WorkflowSource.model_validate(config_dict)
@@ -71,7 +71,7 @@ class SsrsSource(DashboardServiceSource):
     def __init__(
         self,
         config: WorkflowSource,
-        metadata: OpenMetadata,
+        metadata: UMetadata,
     ):
         super().__init__(config, metadata)
         self.folder_path_map: Dict[str, str] = {}

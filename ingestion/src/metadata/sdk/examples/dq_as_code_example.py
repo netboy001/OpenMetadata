@@ -1,17 +1,17 @@
 """
-Example: Data Quality as Code with OpenMetadata SDK
+Example: Data Quality as Code with UMetadata SDK
 
 This example demonstrates how to run data quality tests programmatically
 using the simplified DQ as Code API.
 
 Installation:
     For MySQL tables:
-        pip install 'openmetadata-ingestion[mysql]'
+        pip install 'umetadata-ingestion[mysql]'
 
     For other databases, replace [mysql] with your database type:
-        pip install 'openmetadata-ingestion[postgres]'
-        pip install 'openmetadata-ingestion[snowflake]'
-        pip install 'openmetadata-ingestion[clickhouse]'
+        pip install 'umetadata-ingestion[postgres]'
+        pip install 'umetadata-ingestion[snowflake]'
+        pip install 'umetadata-ingestion[clickhouse]'
 """
 
 # pyright: reportUnusedCallResult=false
@@ -32,7 +32,7 @@ configure(
 )
 
 # Initialize test runner for a specific table
-runner = TestRunner.for_table("MySQL.default.openmetadata_db.bot_entity")
+runner = TestRunner.for_table("MySQL.default.umetadata_db.bot_entity")
 
 # Add multiple tests
 runner.add_test(

@@ -17,8 +17,8 @@ volumes:
   es-data:
 services:
   postgresql:
-    container_name: openmetadata_postgresql
-    image: docker.getcollate.io/openmetadata/postgresql:1.12.14
+    container_name: umetadata_postgresql
+    image: docker.getcollate.io/umetadata/postgresql:1.12.14
     restart: always
     command: "--work_mem=10MB"
     environment:
@@ -34,13 +34,13 @@ services:
     networks:
       - app_net
     healthcheck:
-      test: psql -U postgres -tAc 'select 1' -d openmetadata_db
+      test: psql -U postgres -tAc 'select 1' -d umetadata_db
       interval: 15s
       timeout: 10s
       retries: 10
 
   elasticsearch:
-    container_name: openmetadata_elasticsearch
+    container_name: umetadata_elasticsearch
     image: docker.elastic.co/elasticsearch/elasticsearch:9.3.0
     environment:
       - discovery.type=single-node
@@ -61,10 +61,10 @@ services:
 
   execute-migrate-all:
     container_name: execute_migrate_all
-    image: docker.getcollate.io/openmetadata/server:1.12.14
-    command: "./bootstrap/openmetadata-ops.sh migrate"
+    image: docker.getcollate.io/umetadata/server:1.12.14
+    command: "./bootstrap/umetadata-ops.sh migrate"
     environment:
-      OPENMETADATA_CLUSTER_NAME: ${OPENMETADATA_CLUSTER_NAME:-openmetadata}
+      UMETADATA_CLUSTER_NAME: ${UMETADATA_CLUSTER_NAME:-umetadata}
       SERVER_PORT: ${SERVER_PORT:-8585}
       SERVER_ADMIN_PORT: ${SERVER_ADMIN_PORT:-8586}
       LOG_LEVEL: ${LOG_LEVEL:-INFO}
@@ -72,13 +72,13 @@ services:
       # Migration 
       MIGRATION_LIMIT_PARAM: ${MIGRATION_LIMIT_PARAM:-1200}
       
-      # OpenMetadata Server Authentication Configuration
-      AUTHORIZER_CLASS_NAME: ${AUTHORIZER_CLASS_NAME:-org.openmetadata.service.security.DefaultAuthorizer}
-      AUTHORIZER_REQUEST_FILTER: ${AUTHORIZER_REQUEST_FILTER:-org.openmetadata.service.security.JwtFilter}
+      # UMetadata Server Authentication Configuration
+      AUTHORIZER_CLASS_NAME: ${AUTHORIZER_CLASS_NAME:-org.umetadata.service.security.DefaultAuthorizer}
+      AUTHORIZER_REQUEST_FILTER: ${AUTHORIZER_REQUEST_FILTER:-org.umetadata.service.security.JwtFilter}
       AUTHORIZER_ADMIN_PRINCIPALS: ${AUTHORIZER_ADMIN_PRINCIPALS:-[admin]}
       AUTHORIZER_ALLOWED_REGISTRATION_DOMAIN: ${AUTHORIZER_ALLOWED_REGISTRATION_DOMAIN:-["all"]}
       AUTHORIZER_INGESTION_PRINCIPALS: ${AUTHORIZER_INGESTION_PRINCIPALS:-[ingestion-bot]}
-      AUTHORIZER_PRINCIPAL_DOMAIN: ${AUTHORIZER_PRINCIPAL_DOMAIN:-"open-metadata.org"}
+      AUTHORIZER_PRINCIPAL_DOMAIN: ${AUTHORIZER_PRINCIPAL_DOMAIN:-"u-metadata.org"}
       AUTHORIZER_ALLOWED_DOMAINS: ${AUTHORIZER_ALLOWED_DOMAINS:-[]}
       AUTHORIZER_ENFORCE_PRINCIPAL_DOMAIN: ${AUTHORIZER_ENFORCE_PRINCIPAL_DOMAIN:-false}
       AUTHORIZER_ENABLE_SECURE_SOCKET: ${AUTHORIZER_ENABLE_SECURE_SOCKET:-false}
@@ -156,23 +156,23 @@ services:
       # JWT Configuration
       RSA_PUBLIC_KEY_FILE_PATH: ${RSA_PUBLIC_KEY_FILE_PATH:-"./conf/public_key.der"}
       RSA_PRIVATE_KEY_FILE_PATH: ${RSA_PRIVATE_KEY_FILE_PATH:-"./conf/private_key.der"}
-      JWT_ISSUER: ${JWT_ISSUER:-"open-metadata.org"}
+      JWT_ISSUER: ${JWT_ISSUER:-"u-metadata.org"}
       JWT_KEY_ID: ${JWT_KEY_ID:-"Gb389a-9f76-gdjs-a92j-0242bk94356"}
-      # OpenMetadata Server Pipeline Service Client Configuration
+      # UMetadata Server Pipeline Service Client Configuration
       PIPELINE_SERVICE_CLIENT_ENDPOINT: ${PIPELINE_SERVICE_CLIENT_ENDPOINT:-http://ingestion:8080}
       PIPELINE_SERVICE_CLIENT_HEALTH_CHECK_INTERVAL: ${PIPELINE_SERVICE_CLIENT_HEALTH_CHECK_INTERVAL:-300}
-      SERVER_HOST_API_URL: ${SERVER_HOST_API_URL:-http://openmetadata-server:8585/api}
+      SERVER_HOST_API_URL: ${SERVER_HOST_API_URL:-http://umetadata-server:8585/api}
       PIPELINE_SERVICE_CLIENT_VERIFY_SSL: ${PIPELINE_SERVICE_CLIENT_VERIFY_SSL:-"no-ssl"}
       PIPELINE_SERVICE_CLIENT_SSL_CERT_PATH: ${PIPELINE_SERVICE_CLIENT_SSL_CERT_PATH:-""}
       #Database configuration for postgresql
       DB_DRIVER_CLASS: ${DB_DRIVER_CLASS:-org.postgresql.Driver}
       DB_SCHEME: ${DB_SCHEME:-postgresql}
       DB_PARAMS: ${DB_PARAMS:-allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC}
-      DB_USER: ${DB_USER:-openmetadata_user}
-      DB_USER_PASSWORD: ${DB_USER_PASSWORD:-openmetadata_password}
+      DB_USER: ${DB_USER:-umetadata_user}
+      DB_USER_PASSWORD: ${DB_USER_PASSWORD:-umetadata_password}
       DB_HOST: ${DB_HOST:-postgresql}
       DB_PORT: ${DB_PORT:-5432}
-      OM_DATABASE: ${OM_DATABASE:-openmetadata_db}
+      OM_DATABASE: ${OM_DATABASE:-umetadata_db}
       # ElasticSearch Configurations
       ELASTICSEARCH_HOST: ${ELASTICSEARCH_HOST:- elasticsearch}
       ELASTICSEARCH_PORT: ${ELASTICSEARCH_PORT:-9200}
@@ -204,7 +204,7 @@ services:
 
       #pipelineServiceClientConfiguration
       PIPELINE_SERVICE_CLIENT_ENABLED: ${PIPELINE_SERVICE_CLIENT_ENABLED:-true}
-      PIPELINE_SERVICE_CLIENT_CLASS_NAME: ${PIPELINE_SERVICE_CLIENT_CLASS_NAME:-"org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"}
+      PIPELINE_SERVICE_CLIENT_CLASS_NAME: ${PIPELINE_SERVICE_CLIENT_CLASS_NAME:-"org.umetadata.service.clients.pipeline.airflow.AirflowRESTClient"}
       PIPELINE_SERVICE_IP_INFO_ENABLED: ${PIPELINE_SERVICE_IP_INFO_ENABLED:-false}
       PIPELINE_SERVICE_CLIENT_HOST_IP: ${PIPELINE_SERVICE_CLIENT_HOST_IP:-""}
       PIPELINE_SERVICE_CLIENT_SECRETS_MANAGER_LOADER: ${PIPELINE_SERVICE_CLIENT_SECRETS_MANAGER_LOADER:-"noop"}
@@ -229,11 +229,11 @@ services:
       OM_SM_TENANT_ID: ${OM_SM_TENANT_ID:-""}
 
       #email configuration:
-      OM_EMAIL_ENTITY: ${OM_EMAIL_ENTITY:-"OpenMetadata"}
-      OM_SUPPORT_URL: ${OM_SUPPORT_URL:-"https://slack.open-metadata.org"}
+      OM_EMAIL_ENTITY: ${OM_EMAIL_ENTITY:-"UMetadata"}
+      OM_SUPPORT_URL: ${OM_SUPPORT_URL:-"https://slack.u-metadata.org"}
       AUTHORIZER_ENABLE_SMTP : ${AUTHORIZER_ENABLE_SMTP:-false}
-      OPENMETADATA_SERVER_URL: ${OPENMETADATA_SERVER_URL:-""}
-      OPENMETADATA_SMTP_SENDER_MAIL: ${OPENMETADATA_SMTP_SENDER_MAIL:-""}
+      UMETADATA_SERVER_URL: ${UMETADATA_SERVER_URL:-""}
+      UMETADATA_SMTP_SENDER_MAIL: ${UMETADATA_SMTP_SENDER_MAIL:-""}
       SMTP_SERVER_ENDPOINT: ${SMTP_SERVER_ENDPOINT:-""}
       SMTP_SERVER_PORT: ${SMTP_SERVER_PORT:-""}
       SMTP_SERVER_USERNAME: ${SMTP_SERVER_USERNAME:-""}
@@ -241,11 +241,11 @@ services:
       SMTP_SERVER_STRATEGY: ${SMTP_SERVER_STRATEGY:-"SMTP_TLS"}
       
       # Heap OPTS Configurations
-      OPENMETADATA_HEAP_OPTS: ${OPENMETADATA_HEAP_OPTS:--Xmx1G -Xms1G}
+      UMETADATA_HEAP_OPTS: ${UMETADATA_HEAP_OPTS:--Xmx1G -Xms1G}
       # Mask passwords values in UI
       MASK_PASSWORDS_API: ${MASK_PASSWORDS_API:-false}
 
-      #OpenMetadata Web Configuration
+      #UMetadata Web Configuration
       WEB_CONF_URI_PATH: ${WEB_CONF_URI_PATH:-"/api"}
       #HSTS
       WEB_CONF_HSTS_ENABLED: ${WEB_CONF_HSTS_ENABLED:-false}
@@ -283,23 +283,23 @@ services:
     networks:
       - app_net
 
-  openmetadata-server:
-    container_name: openmetadata_server
+  umetadata-server:
+    container_name: umetadata_server
     restart: always
-    image: docker.getcollate.io/openmetadata/server:1.12.14
+    image: docker.getcollate.io/umetadata/server:1.12.14
     environment:
-      OPENMETADATA_CLUSTER_NAME: ${OPENMETADATA_CLUSTER_NAME:-openmetadata}
+      UMETADATA_CLUSTER_NAME: ${UMETADATA_CLUSTER_NAME:-umetadata}
       SERVER_PORT: ${SERVER_PORT:-8585}
       SERVER_ADMIN_PORT: ${SERVER_ADMIN_PORT:-8586}
       LOG_LEVEL: ${LOG_LEVEL:-INFO}
 
-      # OpenMetadata Server Authentication Configuration
-      AUTHORIZER_CLASS_NAME: ${AUTHORIZER_CLASS_NAME:-org.openmetadata.service.security.DefaultAuthorizer}
-      AUTHORIZER_REQUEST_FILTER: ${AUTHORIZER_REQUEST_FILTER:-org.openmetadata.service.security.JwtFilter}
+      # UMetadata Server Authentication Configuration
+      AUTHORIZER_CLASS_NAME: ${AUTHORIZER_CLASS_NAME:-org.umetadata.service.security.DefaultAuthorizer}
+      AUTHORIZER_REQUEST_FILTER: ${AUTHORIZER_REQUEST_FILTER:-org.umetadata.service.security.JwtFilter}
       AUTHORIZER_ADMIN_PRINCIPALS: ${AUTHORIZER_ADMIN_PRINCIPALS:-[admin]}
       AUTHORIZER_ALLOWED_REGISTRATION_DOMAIN: ${AUTHORIZER_ALLOWED_REGISTRATION_DOMAIN:-["all"]}
       AUTHORIZER_INGESTION_PRINCIPALS: ${AUTHORIZER_INGESTION_PRINCIPALS:-[ingestion-bot]}
-      AUTHORIZER_PRINCIPAL_DOMAIN: ${AUTHORIZER_PRINCIPAL_DOMAIN:-"open-metadata.org"}
+      AUTHORIZER_PRINCIPAL_DOMAIN: ${AUTHORIZER_PRINCIPAL_DOMAIN:-"u-metadata.org"}
       AUTHORIZER_ALLOWED_DOMAINS: ${AUTHORIZER_ALLOWED_DOMAINS:-[]}
       AUTHORIZER_ENFORCE_PRINCIPAL_DOMAIN: ${AUTHORIZER_ENFORCE_PRINCIPAL_DOMAIN:-false}
       AUTHORIZER_ENABLE_SECURE_SOCKET: ${AUTHORIZER_ENABLE_SECURE_SOCKET:-false}
@@ -377,23 +377,23 @@ services:
       # JWT Configuration
       RSA_PUBLIC_KEY_FILE_PATH: ${RSA_PUBLIC_KEY_FILE_PATH:-"./conf/public_key.der"}
       RSA_PRIVATE_KEY_FILE_PATH: ${RSA_PRIVATE_KEY_FILE_PATH:-"./conf/private_key.der"}
-      JWT_ISSUER: ${JWT_ISSUER:-"open-metadata.org"}
+      JWT_ISSUER: ${JWT_ISSUER:-"u-metadata.org"}
       JWT_KEY_ID: ${JWT_KEY_ID:-"Gb389a-9f76-gdjs-a92j-0242bk94356"}
-      # OpenMetadata Server Pipeline Service Client Configuration
+      # UMetadata Server Pipeline Service Client Configuration
       PIPELINE_SERVICE_CLIENT_ENDPOINT: ${PIPELINE_SERVICE_CLIENT_ENDPOINT:-http://ingestion:8080}
       PIPELINE_SERVICE_CLIENT_HEALTH_CHECK_INTERVAL: ${PIPELINE_SERVICE_CLIENT_HEALTH_CHECK_INTERVAL:-300}
-      SERVER_HOST_API_URL: ${SERVER_HOST_API_URL:-http://openmetadata-server:8585/api}
+      SERVER_HOST_API_URL: ${SERVER_HOST_API_URL:-http://umetadata-server:8585/api}
       PIPELINE_SERVICE_CLIENT_VERIFY_SSL: ${PIPELINE_SERVICE_CLIENT_VERIFY_SSL:-"no-ssl"}
       PIPELINE_SERVICE_CLIENT_SSL_CERT_PATH: ${PIPELINE_SERVICE_CLIENT_SSL_CERT_PATH:-""}
       #Database configuration for postgresql
       DB_DRIVER_CLASS: ${DB_DRIVER_CLASS:-org.postgresql.Driver}
       DB_SCHEME: ${DB_SCHEME:-postgresql}
       DB_PARAMS: ${DB_PARAMS:-allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC}
-      DB_USER: ${DB_USER:-openmetadata_user}
-      DB_USER_PASSWORD: ${DB_USER_PASSWORD:-openmetadata_password}
+      DB_USER: ${DB_USER:-umetadata_user}
+      DB_USER_PASSWORD: ${DB_USER_PASSWORD:-umetadata_password}
       DB_HOST: ${DB_HOST:-postgresql}
       DB_PORT: ${DB_PORT:-5432}
-      OM_DATABASE: ${OM_DATABASE:-openmetadata_db}
+      OM_DATABASE: ${OM_DATABASE:-umetadata_db}
       # ElasticSearch Configurations
       ELASTICSEARCH_HOST: ${ELASTICSEARCH_HOST:- elasticsearch}
       ELASTICSEARCH_PORT: ${ELASTICSEARCH_PORT:-9200}
@@ -425,7 +425,7 @@ services:
 
       #pipelineServiceClientConfiguration
       PIPELINE_SERVICE_CLIENT_ENABLED: ${PIPELINE_SERVICE_CLIENT_ENABLED:-true}
-      PIPELINE_SERVICE_CLIENT_CLASS_NAME: ${PIPELINE_SERVICE_CLIENT_CLASS_NAME:-"org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"}
+      PIPELINE_SERVICE_CLIENT_CLASS_NAME: ${PIPELINE_SERVICE_CLIENT_CLASS_NAME:-"org.umetadata.service.clients.pipeline.airflow.AirflowRESTClient"}
       PIPELINE_SERVICE_IP_INFO_ENABLED: ${PIPELINE_SERVICE_IP_INFO_ENABLED:-false}
       PIPELINE_SERVICE_CLIENT_HOST_IP: ${PIPELINE_SERVICE_CLIENT_HOST_IP:-""}
       PIPELINE_SERVICE_CLIENT_SECRETS_MANAGER_LOADER: ${PIPELINE_SERVICE_CLIENT_SECRETS_MANAGER_LOADER:-"noop"}
@@ -445,11 +445,11 @@ services:
       OM_SM_ACCESS_KEY: ${OM_SM_ACCESS_KEY:-""}
       
       #email configuration:
-      OM_EMAIL_ENTITY: ${OM_EMAIL_ENTITY:-"OpenMetadata"}
-      OM_SUPPORT_URL: ${OM_SUPPORT_URL:-"https://slack.open-metadata.org"}
+      OM_EMAIL_ENTITY: ${OM_EMAIL_ENTITY:-"UMetadata"}
+      OM_SUPPORT_URL: ${OM_SUPPORT_URL:-"https://slack.u-metadata.org"}
       AUTHORIZER_ENABLE_SMTP : ${AUTHORIZER_ENABLE_SMTP:-false}
-      OPENMETADATA_SERVER_URL: ${OPENMETADATA_SERVER_URL:-""}
-      OPENMETADATA_SMTP_SENDER_MAIL: ${OPENMETADATA_SMTP_SENDER_MAIL:-""}
+      UMETADATA_SERVER_URL: ${UMETADATA_SERVER_URL:-""}
+      UMETADATA_SMTP_SENDER_MAIL: ${UMETADATA_SMTP_SENDER_MAIL:-""}
       SMTP_SERVER_ENDPOINT: ${SMTP_SERVER_ENDPOINT:-""}
       SMTP_SERVER_PORT: ${SMTP_SERVER_PORT:-""}
       SMTP_SERVER_USERNAME: ${SMTP_SERVER_USERNAME:-""}
@@ -457,11 +457,11 @@ services:
       SMTP_SERVER_STRATEGY: ${SMTP_SERVER_STRATEGY:-"SMTP_TLS"}
 
       # Heap OPTS Configurations
-      OPENMETADATA_HEAP_OPTS: ${OPENMETADATA_HEAP_OPTS:--Xmx1G -Xms1G}
+      UMETADATA_HEAP_OPTS: ${UMETADATA_HEAP_OPTS:--Xmx1G -Xms1G}
       # Mask passwords values in UI
       MASK_PASSWORDS_API: ${MASK_PASSWORDS_API:-false}
       
-      #OpenMetadata Web Configuration
+      #UMetadata Web Configuration
       WEB_CONF_URI_PATH: ${WEB_CONF_URI_PATH:-"/api"}
       #HSTS
       WEB_CONF_HSTS_ENABLED: ${WEB_CONF_HSTS_ENABLED:-false}
@@ -504,19 +504,19 @@ services:
       test: [ "CMD", "wget", "-q", "--spider",  "http://localhost:8586/healthcheck" ]
 
   ingestion:
-    container_name: openmetadata_ingestion
-    image: docker.getcollate.io/openmetadata/ingestion:1.12.14
+    container_name: umetadata_ingestion
+    image: docker.getcollate.io/umetadata/ingestion:1.12.14
     depends_on:
       elasticsearch:
         condition: service_started
       postgresql:
         condition: service_healthy
-      openmetadata-server:
+      umetadata-server:
         condition: service_started
     environment:
       AIRFLOW__API__AUTH_BACKENDS: "airflow.api.auth.backend.basic_auth,airflow.api.auth.backend.session"
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
-      AIRFLOW__OPENMETADATA_AIRFLOW_APIS__DAG_GENERATED_CONFIGS: "/opt/airflow/dag_generated_configs"
+      AIRFLOW__UMETADATA_AIRFLOW_APIS__DAG_GENERATED_CONFIGS: "/opt/airflow/dag_generated_configs"
       DB_HOST: ${AIRFLOW_DB_HOST:-postgresql}
       DB_PORT: ${AIRFLOW_DB_PORT:-5432}
       AIRFLOW_DB: ${AIRFLOW_DB:-airflow_db}
@@ -529,9 +529,9 @@ services:
       # properties: "?sslmode=require"
       DB_PROPERTIES: ${AIRFLOW_DB_PROPERTIES:-}
       # To test the lineage backend
-      # AIRFLOW__LINEAGE__BACKEND: airflow_provider_openmetadata.lineage.backend.OpenMetadataLineageBackend
+      # AIRFLOW__LINEAGE__BACKEND: airflow_provider_umetadata.lineage.backend.UMetadataLineageBackend
       # AIRFLOW__LINEAGE__AIRFLOW_SERVICE_NAME: local_airflow
-      # AIRFLOW__LINEAGE__OPENMETADATA_API_ENDPOINT: http://openmetadata-server:8585/api
+      # AIRFLOW__LINEAGE__UMETADATA_API_ENDPOINT: http://umetadata-server:8585/api
       # AIRFLOW__LINEAGE__JWT_TOKEN: ...
     entrypoint: /bin/bash
     command:

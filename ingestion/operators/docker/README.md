@@ -1,10 +1,10 @@
-# OpenMetadata Ingestion Docker Operator
+# UMetadata Ingestion Docker Operator
 
 Utilities required to handle metadata ingestion in Airflow using `DockerOperator`.
 
 The whole idea behind this approach is to avoid having to install packages directly
 in any Airflow host, as this adds many (unnecessary) constraints to be aligned
-on the `openmetadata-ingestion` package just to have the Python installation
+on the `umetadata-ingestion` package just to have the Python installation
 as a `virtualenv` within the Airflow host.
 
 The proposed solution - or alternative approach - is to use the
@@ -12,7 +12,7 @@ The proposed solution - or alternative approach - is to use the
 and run the ingestion workflows dynamically.
 
 This requires the following:
-- Docker image with the bare `openmetadata-ingestion` requirements,
+- Docker image with the bare `umetadata-ingestion` requirements,
 - `main.py` file to execute the `Workflow`s,
 - Handling of environment variables as input parameters for the operator.
 
@@ -55,7 +55,7 @@ from airflow.providers.cncf.kubernetes.operators.kubernetes_pod import Kubernete
 
 Which can be installed from `apache-airflow[docker]` and `apache-airflow[kubernetes]` respectively.
 
-If we want to handle both of these directly on the `openmetadata-managed-apis` we need to consider a couple of things:
+If we want to handle both of these directly on the `umetadata-managed-apis` we need to consider a couple of things:
 1. `DockerOperator` will only work with Docker and `KubernetesPodOperator` will only work with a k8s cluster. This means
     that we'll need to dynamically handle the internal logic to use either of them depending on the deployment.
     [Docs](https://airflow.apache.org/docs/apache-airflow-providers-cncf-kubernetes/stable/operators.html).

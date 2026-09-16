@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,7 +19,7 @@ from uuid import uuid4
 
 import pytest
 
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.utils.streamable_logger import (
     StreamableLogHandler,
     StreamableLogHandlerManager,
@@ -48,7 +48,7 @@ def _make_handler(enable_streaming=False, pipeline_fqn="test.pipeline", run_id=N
     if run_id is None:
         run_id = uuid4()
     return StreamableLogHandler(
-        metadata=Mock(spec=OpenMetadata),
+        metadata=Mock(spec=UMetadata),
         pipeline_fqn=pipeline_fqn,
         run_id=run_id,
         enable_streaming=enable_streaming,
@@ -98,7 +98,7 @@ class TestStreamableLoggingSetup(unittest.TestCase):
     @patch("metadata.utils.streamable_logger.logger")
     @patch("metadata.utils.streamable_logger.StreamableLogHandler")
     def test_setup_with_valid_config(self, mock_handler_cls, mock_logger, mock_get_logger):
-        mock_metadata = Mock(spec=OpenMetadata)
+        mock_metadata = Mock(spec=UMetadata)
         mock_handler = Mock()
         mock_handler.level = logging.INFO
         mock_handler_cls.return_value = mock_handler
@@ -118,7 +118,7 @@ class TestStreamableLoggingSetup(unittest.TestCase):
 
     def test_setup_returns_none_when_disabled(self):
         result = setup_streamable_logging_for_workflow(
-            metadata=Mock(spec=OpenMetadata),
+            metadata=Mock(spec=UMetadata),
             pipeline_fqn="test.pipeline",
             run_id=uuid4(),
             enable_streaming=False,
@@ -127,7 +127,7 @@ class TestStreamableLoggingSetup(unittest.TestCase):
 
     def test_setup_returns_none_when_pipeline_fqn_missing(self):
         result = setup_streamable_logging_for_workflow(
-            metadata=Mock(spec=OpenMetadata),
+            metadata=Mock(spec=UMetadata),
             pipeline_fqn=None,
             run_id=uuid4(),
             enable_streaming=True,
@@ -136,7 +136,7 @@ class TestStreamableLoggingSetup(unittest.TestCase):
 
     def test_setup_returns_none_when_run_id_missing(self):
         result = setup_streamable_logging_for_workflow(
-            metadata=Mock(spec=OpenMetadata),
+            metadata=Mock(spec=UMetadata),
             pipeline_fqn="test.pipeline",
             run_id=None,
             enable_streaming=True,
@@ -145,17 +145,17 @@ class TestStreamableLoggingSetup(unittest.TestCase):
 
 
 # ============================================================================
-# StreamableLogHandler — pytest-style tests using a fake OMeta transport.
+# StreamableLogHandler — pytest-style tests using a fake UMeta transport.
 #
 # These tests drive the full handler lifecycle (emit -> buffer -> worker ->
 # flush -> shutdown -> /close) without any real network or infrastructure.
-# A FakeOMeta records every batch and close call; failure modes are simulated
+# A FakeUMeta records every batch and close call; failure modes are simulated
 # via the post_delay / post_returns / post_raises knobs.
 # ============================================================================
 
 
-class FakeOMeta:
-    """Test double for OpenMetadata exposing only what the handler uses.
+class FakeUMeta:
+    """Test double for UMetadata exposing only what the handler uses.
 
     Recorded interactions: shipped_batches (log_content per POST),
     close_calls (one tuple per /close POST).
@@ -168,7 +168,7 @@ class FakeOMeta:
     """
 
     def __init__(self):
-        from metadata.ingestion.ometa.client import ClientConfig
+        from metadata.ingestion.umeta.client import ClientConfig
 
         fake_client = type("_FakeClient", (), {})()
         fake_client.config = ClientConfig(base_url="http://test")
@@ -201,8 +201,8 @@ class FakeOMeta:
 
 
 @pytest.fixture
-def fake_ometa():
-    return FakeOMeta()
+def fake_umeta():
+    return FakeUMeta()
 
 
 @pytest.fixture
@@ -247,13 +247,13 @@ def fast_constants(monkeypatch):
 
 
 @pytest.fixture
-def make_v2(fake_ometa, fake_atexit, fake_rest, fast_constants):
+def make_v2(fake_umeta, fake_atexit, fake_rest, fast_constants):
     """Factory for fully configured V2 handlers. Cleans up after each test."""
     handlers = []
 
     def _make(max_buffer=1000, enable_streaming=True):
         h = StreamableLogHandler(
-            metadata=fake_ometa,
+            metadata=fake_umeta,
             pipeline_fqn="test.pipeline",
             run_id=uuid4(),
             max_buffer=max_buffer,
@@ -293,7 +293,7 @@ def test_emit_drops_when_buffer_full(make_v2):
     assert handler._buffer.qsize() == 2
 
 
-def test_emit_drops_after_close(make_v2, fake_ometa):
+def test_emit_drops_after_close(make_v2, fake_umeta):
     handler = make_v2()
     handler.shutdown(timeout=1.0)
 
@@ -301,7 +301,7 @@ def test_emit_drops_after_close(make_v2, fake_ometa):
     handler.emit(_make_record("also after"))
 
     assert handler.dropped_after_close == 2
-    assert all("after close" not in b and "also after" not in b for b in fake_ometa.shipped_batches)
+    assert all("after close" not in b and "also after" not in b for b in fake_umeta.shipped_batches)
 
 
 def test_emit_handles_format_error(make_v2):
@@ -332,7 +332,7 @@ def test_recursion_guard_prevents_self_emit(make_v2):
 # ----- Group 2: flush semantics -----
 
 
-def test_flush_blocks_until_buffer_empty(make_v2, fake_ometa):
+def test_flush_blocks_until_buffer_empty(make_v2, fake_umeta):
     handler = make_v2()
     for i in range(50):
         handler.emit(_make_record(f"log {i}"))
@@ -342,12 +342,12 @@ def test_flush_blocks_until_buffer_empty(make_v2, fake_ometa):
     assert handler._buffer.empty()
     # Each batch is a single "\n"-joined log_content; total record count
     # across all batches must be 50.
-    total = sum(b.count("\n") for b in fake_ometa.shipped_batches)
+    total = sum(b.count("\n") for b in fake_umeta.shipped_batches)
     assert total == 50
 
 
-def test_flush_times_out_when_post_is_slow(make_v2, fake_ometa):
-    fake_ometa.post_delay = 1.0
+def test_flush_times_out_when_post_is_slow(make_v2, fake_umeta):
+    fake_umeta.post_delay = 1.0
     handler = make_v2()
     handler.emit(_make_record("slow"))
 
@@ -356,11 +356,11 @@ def test_flush_times_out_when_post_is_slow(make_v2, fake_ometa):
     assert handler.flush_timed_out == 1
 
 
-def test_flush_does_not_return_in_dequeue_post_gap(make_v2, fake_ometa):
+def test_flush_does_not_return_in_dequeue_post_gap(make_v2, fake_umeta):
     """Regression: flush() must NOT report drained while a batch the worker
     just dequeued hasn't started POSTing yet (TOCTOU between buffer.get() and
     _post_in_flight.set())."""
-    fake_ometa.post_delay = 0.5
+    fake_umeta.post_delay = 0.5
     handler = make_v2()
     handler.emit(_make_record("payload"))
 
@@ -369,42 +369,42 @@ def test_flush_does_not_return_in_dequeue_post_gap(make_v2, fake_ometa):
 
     # If the race fires, flush() returns before the POST runs and the fake
     # records zero shipped batches.
-    assert len(fake_ometa.shipped_batches) >= 1
+    assert len(fake_umeta.shipped_batches) >= 1
     assert handler.flush_timed_out == 0
 
 
 # ----- Group 3: shutdown lifecycle -----
 
 
-def test_shutdown_is_idempotent(make_v2, fake_ometa):
+def test_shutdown_is_idempotent(make_v2, fake_umeta):
     handler = make_v2()
     handler.shutdown(timeout=1.0)
     handler.shutdown(timeout=1.0)
     handler.shutdown(timeout=1.0)
 
-    assert len(fake_ometa.close_calls) == 1
+    assert len(fake_umeta.close_calls) == 1
 
 
-def test_shutdown_delivers_close_post(make_v2, fake_ometa):
+def test_shutdown_delivers_close_post(make_v2, fake_umeta):
     handler = make_v2()
     handler.emit(_make_record("first"))
     handler.shutdown(timeout=1.0)
 
-    assert len(fake_ometa.close_calls) == 1
+    assert len(fake_umeta.close_calls) == 1
 
 
-def test_shutdown_ships_metrics_before_close(make_v2, fake_ometa):
+def test_shutdown_ships_metrics_before_close(make_v2, fake_umeta):
     handler = make_v2()
     handler.emit(_make_record("payload"))
     handler.shutdown(timeout=1.0)
 
     # Last shipped batch must be the multi-line metrics block.
-    assert fake_ometa.shipped_batches, "expected at least one shipped batch"
-    last = fake_ometa.shipped_batches[-1]
+    assert fake_umeta.shipped_batches, "expected at least one shipped batch"
+    last = fake_umeta.shipped_batches[-1]
     assert "streamable_logger shutdown:" in last
     assert "shipped:" in last and "failed:" in last
     # Close must have happened after the metrics POST.
-    assert len(fake_ometa.close_calls) == 1
+    assert len(fake_umeta.close_calls) == 1
 
 
 def test_atexit_registered_then_unregistered(make_v2, fake_atexit):
@@ -414,13 +414,13 @@ def test_atexit_registered_then_unregistered(make_v2, fake_atexit):
     assert handler.shutdown in fake_atexit["unregistered"]
 
 
-def test_shutdown_force_stops_on_join_timeout(make_v2, fake_ometa, fake_rest):
+def test_shutdown_force_stops_on_join_timeout(make_v2, fake_umeta, fake_rest):
     # Each POST blocks longer than the shutdown deadline → worker can't
     # finish the drain in its 0.5s budget. P1 force-stop path must fire:
     #   - shutdown_timed_out increments
     #   - A second REST(...) is constructed (first one was in __init__)
     #   - /close is still delivered via the fresh client
-    fake_ometa.post_delay = 0.8
+    fake_umeta.post_delay = 0.8
     handler = make_v2()
     rest_count_after_init = len(fake_rest)
     for i in range(5):
@@ -430,14 +430,14 @@ def test_shutdown_force_stops_on_join_timeout(make_v2, fake_ometa, fake_rest):
 
     assert handler.shutdown_timed_out == 1
     assert len(fake_rest) == rest_count_after_init + 1  # fresh REST was created
-    assert len(fake_ometa.close_calls) == 1
+    assert len(fake_umeta.close_calls) == 1
 
 
 # ----- Group 4: worker resilience -----
 
 
-def test_worker_survives_post_exception(make_v2, fake_ometa):
-    fake_ometa.post_raises = RuntimeError
+def test_worker_survives_post_exception(make_v2, fake_umeta):
+    fake_umeta.post_raises = RuntimeError
     handler = make_v2()
     handler.emit(_make_record("a"))
     handler.emit(_make_record("b"))
@@ -470,7 +470,7 @@ def test_worker_survives_collect_exception(make_v2):
     assert handler._worker.is_alive()
 
 
-def test_worker_drain_breaks_on_persistent_failure(make_v2, fake_ometa):
+def test_worker_drain_breaks_on_persistent_failure(make_v2, fake_umeta):
     # During shutdown's drain phase, persistent _collect_batch failure must
     # bail out instead of spinning forever.
     handler = make_v2()
@@ -494,8 +494,8 @@ def test_worker_drain_breaks_on_persistent_failure(make_v2, fake_ometa):
 # ----- Group 5: network failures / chaos -----
 
 
-def test_failed_posts_increments_on_false_return(make_v2, fake_ometa):
-    fake_ometa.post_returns = False
+def test_failed_posts_increments_on_false_return(make_v2, fake_umeta):
+    fake_umeta.post_returns = False
     handler = make_v2()
     for i in range(3):
         handler.emit(_make_record(f"log {i}"))
@@ -506,9 +506,9 @@ def test_failed_posts_increments_on_false_return(make_v2, fake_ometa):
     assert handler.shipped_records == 0
 
 
-def test_intermittent_failures_counted_correctly(make_v2, fake_ometa):
+def test_intermittent_failures_counted_correctly(make_v2, fake_umeta):
     # Alternate True / False every other POST.
-    fake_ometa.intermittent_pattern = lambda n: n % 2 == 1
+    fake_umeta.intermittent_pattern = lambda n: n % 2 == 1
     handler = make_v2()
     for i in range(20):
         handler.emit(_make_record(f"log {i}"))
@@ -521,9 +521,9 @@ def test_intermittent_failures_counted_correctly(make_v2, fake_ometa):
     assert handler.shipped_records >= 1
 
 
-def test_slow_om_shutdown_still_delivers_close(make_v2, fake_ometa, fake_rest):
+def test_slow_om_shutdown_still_delivers_close(make_v2, fake_umeta, fake_rest):
     # Full P1 chaos: every POST takes longer than the join budget.
-    fake_ometa.post_delay = 0.6
+    fake_umeta.post_delay = 0.6
     handler = make_v2()
     rest_count_after_init = len(fake_rest)
     for i in range(10):
@@ -535,13 +535,13 @@ def test_slow_om_shutdown_still_delivers_close(make_v2, fake_ometa, fake_rest):
     # a fresh REST instance (force-stop + fresh client path).
     assert handler.shutdown_timed_out == 1
     assert len(fake_rest) == rest_count_after_init + 1
-    assert len(fake_ometa.close_calls) == 1
+    assert len(fake_umeta.close_calls) == 1
 
 
 # ----- Group 6: end-to-end lifecycle -----
 
 
-def test_end_to_end_emit_lifecycle(make_v2, fake_ometa):
+def test_end_to_end_emit_lifecycle(make_v2, fake_umeta):
     """The whole story in one test: emit a bunch, shutdown, assert clean."""
     handler = make_v2()
     for i in range(200):
@@ -551,15 +551,15 @@ def test_end_to_end_emit_lifecycle(make_v2, fake_ometa):
 
     # Reconstruct what landed on the "server": sum of newlines across all
     # shipped batches except the multi-line metrics block at the end.
-    payload_batches = fake_ometa.shipped_batches[:-1]
-    metrics_batch = fake_ometa.shipped_batches[-1]
+    payload_batches = fake_umeta.shipped_batches[:-1]
+    metrics_batch = fake_umeta.shipped_batches[-1]
 
     total_lines = sum(b.count("\n") for b in payload_batches)
     assert total_lines == 200
 
     # Metrics line shipped + /close delivered.
     assert "streamable_logger shutdown:" in metrics_batch
-    assert len(fake_ometa.close_calls) == 1
+    assert len(fake_umeta.close_calls) == 1
 
     # Counters all clean.
     assert handler.dropped_overflow == 0

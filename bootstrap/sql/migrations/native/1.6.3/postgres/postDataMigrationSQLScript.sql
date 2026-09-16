@@ -1,4 +1,4 @@
--- remove openMetadataUrl from smtpSettings
-UPDATE openmetadata_settings
-SET json = json - 'openMetadataUrl'
+-- remove uMetadataUrl from smtpSettings
+UPDATE umetadata_settings
+SET json = json - 'uMetadataUrl'
 WHERE configType = 'emailConfiguration';

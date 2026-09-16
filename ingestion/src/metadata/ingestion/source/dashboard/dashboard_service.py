@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -61,8 +61,8 @@ from metadata.ingestion.api.topology_runner import C, TopologyRunnerMixin
 from metadata.ingestion.lineage.sql_lineage import get_column_fqn
 from metadata.ingestion.models.barrier import Barrier
 from metadata.ingestion.models.delete_entity import DeleteEntity
-from metadata.ingestion.models.ometa_classification import OMetaTagAndClassification
-from metadata.ingestion.models.ometa_lineage import OMetaLineageRequest
+from metadata.ingestion.models.umeta_classification import UMetaTagAndClassification
+from metadata.ingestion.models.umeta_lineage import UMetaLineageRequest
 from metadata.ingestion.models.patch_request import PatchRequest
 from metadata.ingestion.models.topology import (
     NodeStage,
@@ -70,7 +70,7 @@ from metadata.ingestion.models.topology import (
     TopologyContextManager,
     TopologyNode,
 )
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.connections import get_connection, test_connection_common
 from metadata.utils import fqn
 from metadata.utils.filters import filter_by_dashboard, filter_by_project
@@ -118,7 +118,7 @@ class DashboardServiceTopology(ServiceTopology):
                 cache_entities=True,
             ),
             NodeStage(
-                type_=OMetaTagAndClassification,
+                type_=UMetaTagAndClassification,
                 processor="yield_bulk_tags",
                 nullable=True,
             ),
@@ -152,7 +152,7 @@ class DashboardServiceTopology(ServiceTopology):
         producer="get_dashboard",
         stages=[
             NodeStage(
-                type_=OMetaTagAndClassification,
+                type_=UMetaTagAndClassification,
                 processor="yield_tags",
                 nullable=True,
             ),
@@ -211,7 +211,7 @@ class DashboardServiceSource(TopologyRunnerMixin, Source, ABC):
 
     source_config: DashboardServiceMetadataPipeline
     config: WorkflowSource
-    metadata: OpenMetadata
+    metadata: UMetadata
     # Big union of types we want to fetch dynamically
     service_connection: DashboardConnection.model_fields["config"].annotation
 
@@ -224,7 +224,7 @@ class DashboardServiceSource(TopologyRunnerMixin, Source, ABC):
     def __init__(
         self,
         config: WorkflowSource,
-        metadata: OpenMetadata,
+        metadata: UMetadata,
     ):
         super().__init__()
         self.config = config
@@ -381,7 +381,7 @@ class DashboardServiceSource(TopologyRunnerMixin, Source, ABC):
 
     def yield_dashboard_lineage(
         self, dashboard_details: Any
-    ) -> Iterable[Either[OMetaLineageRequest]]:
+    ) -> Iterable[Either[UMetaLineageRequest]]:
         """
         Yields lineage if config is enabled.
 
@@ -409,14 +409,14 @@ class DashboardServiceSource(TopologyRunnerMixin, Source, ABC):
 
     def yield_lineage_request(
         self, lineage: Optional[Either[AddLineageRequest]] = None
-    ) -> Iterable[Either[OMetaLineageRequest]]:
+    ) -> Iterable[Either[UMetaLineageRequest]]:
         """
         Method to yield lineage request
         """
         if lineage:
             if lineage.right is not None:
                 yield Either(
-                    right=OMetaLineageRequest(
+                    right=UMetaLineageRequest(
                         lineage_request=lineage.right,
                         override_lineage=self.source_config.overrideLineage,
                     )
@@ -426,14 +426,14 @@ class DashboardServiceSource(TopologyRunnerMixin, Source, ABC):
 
     def yield_bulk_tags(
         self, *args, **kwargs
-    ) -> Iterable[Either[OMetaTagAndClassification]]:
+    ) -> Iterable[Either[UMetaTagAndClassification]]:
         """
         Method to bulk fetch dashboard tags
         """
 
     def yield_tags(
         self, dashboard_details
-    ) -> Iterable[Either[OMetaTagAndClassification]]:
+    ) -> Iterable[Either[UMetaTagAndClassification]]:
         """
         Method to fetch dashboard tags
         """

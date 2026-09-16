@@ -37,8 +37,8 @@ from metadata.generated.schema.entity.services.connections.dashboard.tableauConn
 from metadata.generated.schema.entity.services.connections.database.bigQueryConnection import (
     BigQueryConnection,
 )
-from metadata.generated.schema.entity.services.connections.metadata.openMetadataConnection import (
-    OpenMetadataConnection,
+from metadata.generated.schema.entity.services.connections.metadata.uMetadataConnection import (
+    UMetadataConnection,
 )
 from metadata.generated.schema.entity.services.dashboardService import (
     DashboardServiceType,
@@ -67,8 +67,8 @@ from metadata.ingestion.lineage.sql_lineage import (
     get_column_fqn,
     get_table_fqn_from_query_name,
 )
-from metadata.ingestion.models.ometa_classification import OMetaTagAndClassification
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.models.umeta_classification import UMetaTagAndClassification
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.dashboard.dashboard_service import (
     DashboardServiceSource,
     DashboardUsage,
@@ -93,7 +93,7 @@ from metadata.utils.helpers import (
     get_standard_chart_type,
 )
 from metadata.utils.logger import ingestion_logger
-from metadata.utils.tag_utils import get_ometa_tag_and_classification, get_tag_labels
+from metadata.utils.tag_utils import get_umeta_tag_and_classification, get_tag_labels
 
 logger = ingestion_logger()
 
@@ -106,13 +106,13 @@ class TableauSource(DashboardServiceSource):
     """
 
     config: WorkflowSource
-    metadata_config: OpenMetadataConnection
+    metadata_config: UMetadataConnection
     client: TableauClient
 
     def __init__(
         self,
         config: WorkflowSource,
-        metadata: OpenMetadata,
+        metadata: UMetadata,
     ):
         super().__init__(config, metadata)
         self.today = datetime.now().strftime("%Y-%m-%d")
@@ -121,7 +121,7 @@ class TableauSource(DashboardServiceSource):
     def create(
         cls,
         config_dict: dict,
-        metadata: OpenMetadata,
+        metadata: UMetadata,
         pipeline_name: Optional[str] = None,
     ):
         config: WorkflowSource = WorkflowSource.model_validate(config_dict)
@@ -187,7 +187,7 @@ class TableauSource(DashboardServiceSource):
 
     def yield_tags(
         self, dashboard_details: TableauDashboard
-    ) -> Iterable[Either[OMetaTagAndClassification]]:
+    ) -> Iterable[Either[UMetaTagAndClassification]]:
         """
         Method to yield tags related to specific dashboards
         """
@@ -201,7 +201,7 @@ class TableauSource(DashboardServiceSource):
 
             _all_tags = tags.union(_data_models_tags)
 
-            yield from get_ometa_tag_and_classification(
+            yield from get_umeta_tag_and_classification(
                 tags=list(_all_tags),
                 classification_name=TABLEAU_TAG_CATEGORY,
                 tag_description="Tableau Tag",
@@ -881,7 +881,7 @@ class TableauSource(DashboardServiceSource):
                 else:
                     logger.warning(
                         f"Database service '{db_service_name}' not found for table '{table.name}'. "
-                        f"Please ensure the database service exists in OpenMetadata."
+                        f"Please ensure the database service exists in UMetadata."
                     )
 
             schema_name = (

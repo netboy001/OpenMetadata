@@ -8,7 +8,7 @@ from metadata.generated.schema.entity.data.table import Table
 from metadata.generated.schema.metadataIngestion.databaseServiceAutoClassificationPipeline import (
     DatabaseServiceAutoClassificationPipeline,
 )
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.workflow.classification import AutoClassificationWorkflow
 from metadata.workflow.metadata import MetadataWorkflow
 
@@ -87,7 +87,7 @@ def run_classifier(
 )
 def test_auto_classification_workflow(
     run_classifier,
-    metadata: OpenMetadata,
+    metadata: UMetadata,
     table_name: str,
     db_service: DatabaseServiceAutoClassificationPipeline,
 ):

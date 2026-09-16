@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -47,7 +47,7 @@ from metadata.ingestion.api.delete import delete_entity_from_source
 from metadata.ingestion.api.models import Either
 from metadata.ingestion.api.steps import Source
 from metadata.ingestion.api.topology_runner import TopologyRunnerMixin
-from metadata.ingestion.models.ometa_classification import OMetaTagAndClassification
+from metadata.ingestion.models.umeta_classification import UMetaTagAndClassification
 from metadata.ingestion.models.topology import (
     NodeStage,
     ServiceTopology,
@@ -104,7 +104,7 @@ class DriveServiceTopology(ServiceTopology):
         producer="get_directory_names",
         stages=[
             NodeStage(
-                type_=OMetaTagAndClassification,
+                type_=UMetaTagAndClassification,
                 context="tags",
                 processor="yield_directory_tag_details",
                 nullable=True,
@@ -135,7 +135,7 @@ class DriveServiceTopology(ServiceTopology):
         producer="get_spreadsheet",
         stages=[
             NodeStage(
-                type_=OMetaTagAndClassification,
+                type_=UMetaTagAndClassification,
                 context="tags",
                 processor="yield_spreadsheet_tag_details",
                 nullable=True,
@@ -265,7 +265,7 @@ class DriveServiceSource(
 
     def yield_directory_tag_details(
         self, directory_name: str
-    ) -> Iterable[Either[OMetaTagAndClassification]]:
+    ) -> Iterable[Either[UMetaTagAndClassification]]:
         """
         From topology. To be run for each directory
         """
@@ -274,7 +274,7 @@ class DriveServiceSource(
 
     def yield_file_tag_details(
         self, file_name: str
-    ) -> Iterable[Either[OMetaTagAndClassification]]:
+    ) -> Iterable[Either[UMetaTagAndClassification]]:
         """
         From topology. To be run for each file
         """
@@ -283,7 +283,7 @@ class DriveServiceSource(
 
     def yield_spreadsheet_tag_details(
         self, spreadsheet_name: str
-    ) -> Iterable[Either[OMetaTagAndClassification]]:
+    ) -> Iterable[Either[UMetaTagAndClassification]]:
         """
         From topology. To be run for each spreadsheet
         """
@@ -292,7 +292,7 @@ class DriveServiceSource(
 
     def yield_worksheet_tag_details(
         self, worksheet_name: str
-    ) -> Iterable[Either[OMetaTagAndClassification]]:
+    ) -> Iterable[Either[UMetaTagAndClassification]]:
         """
         From topology. To be run for each worksheet
         """
@@ -342,28 +342,28 @@ class DriveServiceSource(
 
     def yield_directory_tags(
         self, directory_name: str
-    ) -> Iterable[Either[OMetaTagAndClassification]]:
+    ) -> Iterable[Either[UMetaTagAndClassification]]:
         """
         From topology. To be run for each directory
         """
 
     def yield_file_tags(
         self, file_name: str
-    ) -> Iterable[Either[OMetaTagAndClassification]]:
+    ) -> Iterable[Either[UMetaTagAndClassification]]:
         """
         From topology. To be run for each file
         """
 
     def yield_spreadsheet_tags(
         self, spreadsheet_name: str
-    ) -> Iterable[Either[OMetaTagAndClassification]]:
+    ) -> Iterable[Either[UMetaTagAndClassification]]:
         """
         From topology. To be run for each spreadsheet
         """
 
     def yield_worksheet_tags(
         self, worksheet_name: str
-    ) -> Iterable[Either[OMetaTagAndClassification]]:
+    ) -> Iterable[Either[UMetaTagAndClassification]]:
         """
         From topology. To be run for each worksheet
         """

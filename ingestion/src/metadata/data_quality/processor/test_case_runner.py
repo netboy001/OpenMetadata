@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,7 +33,7 @@ from metadata.generated.schema.entity.services.ingestionPipelines.status import 
     StackTraceError,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.generated.schema.tests.testCase import TestCase
 from metadata.generated.schema.tests.testDefinition import (
@@ -46,7 +46,7 @@ from metadata.ingestion.api.models import Either
 from metadata.ingestion.api.parser import parse_workflow_config_gracefully
 from metadata.ingestion.api.step import Step
 from metadata.ingestion.api.steps import Processor
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.utils import entity_link
 from metadata.utils.logger import test_suite_logger
 
@@ -56,7 +56,7 @@ logger = test_suite_logger()
 class TestCaseRunner(Processor):
     """Execute the test suite tests and create test cases from the YAML config"""
 
-    def __init__(self, config: OpenMetadataWorkflowConfig, metadata: OpenMetadata):
+    def __init__(self, config: UMetadataWorkflowConfig, metadata: UMetadata):
         super().__init__()
 
         self.config = config
@@ -84,23 +84,23 @@ class TestCaseRunner(Processor):
             test_cases=record.test_cases,
             table_fqn=record.table.fullyQualifiedName.root,
         )
-        openmetadata_test_cases = self.filter_for_om_test_cases(test_cases)
-        openmetadata_test_cases = self.filter_incompatible_test_cases(
-            record.table, openmetadata_test_cases
+        umetadata_test_cases = self.filter_for_om_test_cases(test_cases)
+        umetadata_test_cases = self.filter_incompatible_test_cases(
+            record.table, umetadata_test_cases
         )
 
         self.config.source.serviceConnection = RootModel(record.service_connection)
         test_suite_runner = self.get_test_suite_runner(record.table)
 
         logger.debug(
-            f"Found {len(openmetadata_test_cases)} test cases for table {record.table.fullyQualifiedName.root}"
+            f"Found {len(umetadata_test_cases)} test cases for table {record.table.fullyQualifiedName.root}"
         )
-        if len(openmetadata_test_cases) == 0:
+        if len(umetadata_test_cases) == 0:
             logger.warning("No test cases found for the table")
 
         test_results = [
             test_case_result
-            for test_case in openmetadata_test_cases
+            for test_case in umetadata_test_cases
             if (test_case_result := self._run_test_case(test_case, test_suite_runner))
         ]
 
@@ -265,9 +265,9 @@ class TestCaseRunner(Processor):
             test_definition: TestDefinition = self.metadata.get_by_id(
                 TestDefinition, test_case.testDefinition.id
             )
-            if TestPlatform.OpenMetadata not in test_definition.testPlatforms:
+            if TestPlatform.UMetadata not in test_definition.testPlatforms:
                 logger.debug(
-                    f"Test case {test_case.name.root} is not an OpenMetadata test case."
+                    f"Test case {test_case.name.root} is not an UMetadata test case."
                 )
                 continue
             if not getattr(test_definition, "enabled", True):
@@ -304,7 +304,7 @@ class TestCaseRunner(Processor):
     def create(
         cls,
         config_dict: dict,
-        metadata: OpenMetadata,
+        metadata: UMetadata,
         pipeline_name: Optional[str] = None,
     ) -> "Step":
         config = parse_workflow_config_gracefully(config_dict)

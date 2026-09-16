@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -102,7 +102,7 @@ class TableDetails:
 @dataclass
 class ResolvedTable:
     """
-    An OpenLineage dataset resolved to an existing OpenMetadata table.
+    An OpenLineage dataset resolved to an existing UMetadata table.
 
     The fqn is the matched Table FQN; the details field holds the identity
     candidate (top-level or symlink) that produced the match.
@@ -153,7 +153,7 @@ class SymlinkType(str, Enum):
     OpenLineage symlink identifier types.
 
     TABLE is a logical/catalog identity (Hive, Glue catalog) and is what
-    OpenMetadata database services hold. LOCATION is a physical path
+    UMetadata database services hold. LOCATION is a physical path
     (S3, HDFS) which this connector cannot resolve to a table or topic.
 
     Source: https://github.com/OpenLineage/OpenLineage/blob/main/client/java/

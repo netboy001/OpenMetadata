@@ -67,7 +67,7 @@ def validate_slack_link(url: str) -> bool:
 
 def main():
     slack_url_map = {
-        "open-metadata": "https://slack.open-metadata.org",
+        "u-metadata": "https://slack.u-metadata.org",
         "free-tier-support": "https://free-tier-support.getcollate.io/",
     }
 

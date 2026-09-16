@@ -1,4 +1,4 @@
-# Snyk policy file for the OpenMetadata repo root.
+# Snyk policy file for the UMetadata repo root.
 #
 # This file is read by Snyk scans that run FROM REPO ROOT. Currently
 # that means the snyk-server-report target (see Makefile):
@@ -18,7 +18,7 @@
 # is also added (without the `ingestion/` prefix) to `ingestion/.snyk`.
 # Keep the two files in sync for any path under `ingestion/`.
 #
-# The same dual-file rule would apply to `openmetadata-airflow-apis/`
+# The same dual-file rule would apply to `umetadata-airflow-apis/`
 # if that scan ever needs path exclusions. The dedicated airflow scan
 # also runs from a subdirectory and would need its own .snyk there.
 #
@@ -37,12 +37,12 @@ exclude:
     # both Snyk Code scans to honour it.
     - ingestion/examples/**
     - ingestion/tests/**
-    - ingestion/src/_openmetadata_testutils/**
+    - ingestion/src/_umetadata_testutils/**
     - ingestion/src/metadata/sdk/examples/**
 
     # UI (TypeScript) test mocks.
-    - openmetadata-ui/src/main/resources/ui/src/pages/service/mocks/**
-    - openmetadata-ui/src/main/resources/ui/src/components/common/TestConnection/TestConnection.mock.ts
+    - umetadata-ui/src/main/resources/ui/src/pages/service/mocks/**
+    - umetadata-ui/src/main/resources/ui/src/components/common/TestConnection/TestConnection.mock.ts
 
     # Server (Java) test fixtures.
-    - openmetadata-service/src/test/**
+    - umetadata-service/src/test/**

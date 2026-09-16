@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,7 +29,7 @@ from metadata.generated.schema.entity.data.table import Table
 from metadata.generated.schema.entity.services.databaseService import DatabaseConnection
 from metadata.generated.schema.tests.testCase import TestCase
 from metadata.ingestion.connections.session import create_and_bind_session
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.mixins.sqalchemy.sqa_mixin import SQAInterfaceMixin
 from metadata.profiler.processor.runner import QueryRunner
 from metadata.sampler.sampler_interface import SamplerInterface
@@ -51,13 +51,13 @@ class SQATestSuiteInterface(SQAInterfaceMixin, TestSuiteInterface):
     def __init__(
         self,
         service_connection_config: DatabaseConnection,
-        ometa_client: OpenMetadata,
+        umeta_client: UMetadata,
         sampler: SamplerInterface,
         table_entity: Table = None,
         **kwargs,
     ):
         super().__init__(
-            service_connection_config, ometa_client, sampler, table_entity, **kwargs
+            service_connection_config, umeta_client, sampler, table_entity, **kwargs
         )
         self.source_type = SourceType.SQL
         self.create_session()
@@ -114,7 +114,7 @@ class SQATestSuiteInterface(SQAInterfaceMixin, TestSuiteInterface):
     def _get_validator_builder(
         self, test_case: TestCase, entity_type: str
     ) -> ValidatorBuilder:
-        test_definition = self.ometa_client.get_by_name(
+        test_definition = self.umeta_client.get_by_name(
             entity=TestDefinition,
             fqn=test_case.testDefinition.fullyQualifiedName,
         )

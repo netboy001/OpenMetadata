@@ -10,7 +10,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-# Script to analyze request latency metrics for a specific endpoint from OpenMetadata Prometheus metrics
+# Script to analyze request latency metrics for a specific endpoint from UMetadata Prometheus metrics
 
 # Default values
 HOST="localhost"
@@ -127,7 +127,7 @@ fi
 if [ "$LIST_MODE" = true ]; then
     # List mode
     echo -e "${BLUE}═══════════════════════════════════════════════════════════════════════${NC}"
-    echo -e "${BLUE}OpenMetadata Endpoints with Metrics${NC}"
+    echo -e "${BLUE}UMetadata Endpoints with Metrics${NC}"
     echo -e "${BLUE}═══════════════════════════════════════════════════════════════════════${NC}"
     echo -e "${GREEN}Host:${NC} $HOST"
     echo -e "${GREEN}Port:${NC} $PORT"
@@ -232,7 +232,7 @@ fi
 
 # Analyze mode
 echo -e "${BLUE}═══════════════════════════════════════════════════════════════════════${NC}"
-echo -e "${BLUE}OpenMetadata Endpoint Metrics Analysis${NC}"
+echo -e "${BLUE}UMetadata Endpoint Metrics Analysis${NC}"
 echo -e "${BLUE}═══════════════════════════════════════════════════════════════════════${NC}"
 echo -e "${GREEN}Endpoint:${NC} $ENDPOINT"
 echo -e "${GREEN}Host:${NC} $HOST"

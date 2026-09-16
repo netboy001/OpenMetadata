@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -37,12 +37,12 @@ from metadata.generated.schema.entity.services.connections.database.unityCatalog
     UnityCatalogConnection,
 )
 from metadata.ingestion.models.custom_pydantic import BaseModel
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.connections import get_connection
 from metadata.ingestion.source.database.snowflake.queries import (
     SNOWFLAKE_SESSION_TAG_QUERY,
 )
-from metadata.profiler.orm.converter.base import ometa_to_sqa_orm
+from metadata.profiler.orm.converter.base import umeta_to_sqa_orm
 from metadata.utils.collaborative_super import Root
 from metadata.utils.constants import NON_SQA_DATABASE_CONNECTIONS
 
@@ -119,10 +119,10 @@ class SQAInterfaceMixin(Root):
         ]
 
     def build_table_orm(
-        self, table: Table, service_conn_config: BaseModel, ometa_client: OpenMetadata
+        self, table: Table, service_conn_config: BaseModel, umeta_client: UMetadata
     ) -> Optional[DeclarativeMeta]:
         """Build the ORM table if needed for the sampler and profiler interfaces"""
         if service_conn_config.type.value not in NON_SQA_DATABASE_CONNECTIONS:
-            orm_obj = ometa_to_sqa_orm(table, ometa_client, MetaData())
+            orm_obj = umeta_to_sqa_orm(table, umeta_client, MetaData())
             return orm_obj
         return None

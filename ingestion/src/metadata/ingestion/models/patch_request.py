@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,8 +20,8 @@ import jsonpatch
 from pydantic import BaseModel
 
 from metadata.ingestion.api.models import Entity, T
-from metadata.ingestion.ometa.mixins.patch_mixin_utils import PatchOperation
-from metadata.ingestion.ometa.utils import model_str
+from metadata.ingestion.umeta.mixins.patch_mixin_utils import PatchOperation
+from metadata.ingestion.umeta.utils import model_str
 
 logger = logging.getLogger("metadata")
 
@@ -353,7 +353,7 @@ def build_patch(
     generate a JSON Patch and apply it.
 
     Args
-        source: Source payload which is current state of the source in OpenMetadata
+        source: Source payload which is current state of the source in UMetadata
         destination: payload with changes applied to the source.
         allowed_fields: List of field names to filter from source and destination models
         restrict_update_fields: List of field names which will only support add operation

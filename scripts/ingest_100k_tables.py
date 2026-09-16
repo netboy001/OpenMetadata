@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Script to ingest 100k tables into OpenMetadata for testing distributed indexing.
+Script to ingest 100k tables into UMetadata for testing distributed indexing.
 """
 
 import argparse
@@ -32,25 +32,25 @@ from metadata.generated.schema.entity.services.databaseService import (
     DatabaseService,
     DatabaseServiceType,
 )
-from metadata.generated.schema.security.client.openMetadataJWTClientConfig import (
-    OpenMetadataJWTClientConfig,
+from metadata.generated.schema.security.client.uMetadataJWTClientConfig import (
+    UMetadataJWTClientConfig,
 )
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
-from metadata.generated.schema.entity.services.connections.metadata.openMetadataConnection import (
-    OpenMetadataConnection,
+from metadata.ingestion.umeta.umeta_api import UMetadata
+from metadata.generated.schema.entity.services.connections.metadata.uMetadataConnection import (
+    UMetadataConnection,
 )
 
 
-def create_metadata_client(server_url: str, token: str) -> OpenMetadata:
-    """Create OpenMetadata client."""
-    server_config = OpenMetadataConnection(
+def create_metadata_client(server_url: str, token: str) -> UMetadata:
+    """Create UMetadata client."""
+    server_config = UMetadataConnection(
         hostPort=server_url,
-        securityConfig=OpenMetadataJWTClientConfig(jwtToken=token),
+        securityConfig=UMetadataJWTClientConfig(jwtToken=token),
     )
-    return OpenMetadata(server_config)
+    return UMetadata(server_config)
 
 
-def create_service(metadata: OpenMetadata, service_name: str) -> DatabaseService:
+def create_service(metadata: UMetadata, service_name: str) -> DatabaseService:
     """Create or get database service."""
     # Check if service exists
     existing = metadata.get_by_name(entity=DatabaseService, fqn=service_name)
@@ -75,7 +75,7 @@ def create_service(metadata: OpenMetadata, service_name: str) -> DatabaseService
     return created
 
 
-def create_database(metadata: OpenMetadata, service_fqn: str, db_name: str):
+def create_database(metadata: UMetadata, service_fqn: str, db_name: str):
     """Create or get database."""
     fqn = f"{service_fqn}.{db_name}"
     from metadata.generated.schema.entity.data.database import Database
@@ -91,7 +91,7 @@ def create_database(metadata: OpenMetadata, service_fqn: str, db_name: str):
     return created
 
 
-def create_schema(metadata: OpenMetadata, database_fqn: str, schema_name: str):
+def create_schema(metadata: UMetadata, database_fqn: str, schema_name: str):
     """Create or get schema."""
     fqn = f"{database_fqn}.{schema_name}"
     from metadata.generated.schema.entity.data.databaseSchema import DatabaseSchema
@@ -108,7 +108,7 @@ def create_schema(metadata: OpenMetadata, database_fqn: str, schema_name: str):
 
 
 def create_tables_batch(
-    metadata: OpenMetadata, schema_fqn: str, start_idx: int, count: int
+    metadata: UMetadata, schema_fqn: str, start_idx: int, count: int
 ) -> int:
     """Create a batch of tables."""
     created_count = 0
@@ -146,7 +146,7 @@ def ingest_tables(
     batch_size: int = 100,
     workers: int = 10,
 ):
-    """Ingest tables into OpenMetadata."""
+    """Ingest tables into UMetadata."""
     print(f"Starting ingestion of {total_tables} tables...", flush=True)
     print(f"Server: {server_url}", flush=True)
     print(f"Batch size: {batch_size}, Workers: {workers}", flush=True)
@@ -223,12 +223,12 @@ def ingest_tables(
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Ingest tables into OpenMetadata for scale testing"
+        description="Ingest tables into UMetadata for scale testing"
     )
     parser.add_argument(
         "--server",
         default="http://localhost:8585/api",
-        help="OpenMetadata server URL",
+        help="UMetadata server URL",
     )
     parser.add_argument(
         "--token",

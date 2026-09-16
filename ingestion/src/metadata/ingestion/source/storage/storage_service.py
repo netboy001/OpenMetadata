@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -41,14 +41,14 @@ from metadata.ingestion.api.models import Either
 from metadata.ingestion.api.steps import Source
 from metadata.ingestion.api.topology_runner import TopologyRunnerMixin
 from metadata.ingestion.models.delete_entity import DeleteEntity
-from metadata.ingestion.models.ometa_classification import OMetaTagAndClassification
+from metadata.ingestion.models.umeta_classification import UMetaTagAndClassification
 from metadata.ingestion.models.topology import (
     NodeStage,
     ServiceTopology,
     TopologyContextManager,
     TopologyNode,
 )
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.connections import get_connection, test_connection_common
 from metadata.ingestion.source.database.glue.models import Column
 from metadata.readers.dataframe.models import DatalakeTableSchemaWrapper
@@ -69,7 +69,7 @@ from metadata.utils.storage_metadata_config import (
 logger = ingestion_logger()
 
 KEY_SEPARATOR = "/"
-OPENMETADATA_TEMPLATE_FILE_NAME = "openmetadata.json"
+UMETADATA_TEMPLATE_FILE_NAME = "umetadata.json"
 
 
 class StorageServiceTopology(ServiceTopology):
@@ -102,7 +102,7 @@ class StorageServiceTopology(ServiceTopology):
         producer="get_containers",
         stages=[
             NodeStage(
-                type_=OMetaTagAndClassification,
+                type_=UMetaTagAndClassification,
                 context="tags",
                 processor="yield_tag_details",
                 nullable=True,
@@ -128,7 +128,7 @@ class StorageServiceSource(TopologyRunnerMixin, Source, ABC):
 
     source_config: StorageServiceMetadataPipeline
     config: WorkflowSource
-    metadata: OpenMetadata
+    metadata: UMetadata
     # Big union of types we want to fetch dynamically
     service_connection: StorageConnection.model_fields["config"].annotation
 
@@ -142,7 +142,7 @@ class StorageServiceSource(TopologyRunnerMixin, Source, ABC):
     def __init__(
         self,
         config: WorkflowSource,
-        metadata: OpenMetadata,
+        metadata: UMetadata,
     ):
         super().__init__()
         self.config = config
@@ -200,14 +200,14 @@ class StorageServiceSource(TopologyRunnerMixin, Source, ABC):
 
     def yield_container_tags(
         self, container_details: Any
-    ) -> Iterable[Either[OMetaTagAndClassification]]:
+    ) -> Iterable[Either[UMetaTagAndClassification]]:
         """
         From topology. To be run for each container
         """
 
     def yield_tag_details(
         self, container_details: Any
-    ) -> Iterable[Either[OMetaTagAndClassification]]:
+    ) -> Iterable[Either[UMetaTagAndClassification]]:
         """
         From topology. To be run for each container
         """

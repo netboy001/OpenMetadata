@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -39,8 +39,8 @@ from metadata.generated.schema.entity.services.connections.database.common.basic
 from metadata.generated.schema.entity.services.connections.database.mysqlConnection import (
     MysqlConnection,
 )
-from metadata.generated.schema.entity.services.connections.metadata.openMetadataConnection import (
-    OpenMetadataConnection,
+from metadata.generated.schema.entity.services.connections.metadata.uMetadataConnection import (
+    UMetadataConnection,
 )
 from metadata.generated.schema.entity.services.databaseService import (
     DatabaseConnection,
@@ -48,10 +48,10 @@ from metadata.generated.schema.entity.services.databaseService import (
     DatabaseServiceType,
 )
 from metadata.generated.schema.entity.services.pipelineService import PipelineService
-from metadata.generated.schema.security.client.openMetadataJWTClientConfig import (
-    OpenMetadataJWTClientConfig,
+from metadata.generated.schema.security.client.uMetadataJWTClientConfig import (
+    UMetadataJWTClientConfig,
 )
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 
 # These variables are just here to validate elements in the local deployment
 OM_HOST_PORT = "http://localhost:8585/api"
@@ -60,7 +60,7 @@ AIRFLOW_HOST = "http://localhost:8080"
 AIRFLOW_API_ROOT = f"{AIRFLOW_HOST}/api/v2/"
 AIRFLOW_USERNAME = "admin"
 AIRFLOW_PASSWORD = "admin"
-DEFAULT_OM_AIRFLOW_CONNECTION = "openmetadata_conn_id"
+DEFAULT_OM_AIRFLOW_CONNECTION = "umetadata_conn_id"
 OM_LINEAGE_DAG_NAME = "lineage_tutorial_operator"
 PIPELINE_SERVICE_NAME = "airflow_lineage_op_service"
 
@@ -103,16 +103,16 @@ def get_task_status_type_by_name(pipeline: Pipeline, name: str) -> Optional[Stat
 class AirflowLineageTest(TestCase):
     """
     This test will trigger an Airflow DAG and validate that the
-    OpenMetadata Lineage Operator can properly handle the
+    UMetadata Lineage Operator can properly handle the
     metadata ingestion and processes inlets and outlets.
     """
 
-    server_config = OpenMetadataConnection(
+    server_config = UMetadataConnection(
         hostPort=OM_HOST_PORT,
-        authProvider="openmetadata",
-        securityConfig=OpenMetadataJWTClientConfig(jwtToken=OM_JWT),
+        authProvider="umetadata",
+        securityConfig=UMetadataJWTClientConfig(jwtToken=OM_JWT),
     )
-    metadata = OpenMetadata(server_config)
+    metadata = UMetadata(server_config)
 
     assert metadata.health_check()
 
@@ -216,7 +216,7 @@ class AirflowLineageTest(TestCase):
 
         headers = get_airflow_headers()
 
-        # 1. Validate that the OpenMetadata connection exists
+        # 1. Validate that the UMetadata connection exists
         res = requests.get(
             AIRFLOW_API_ROOT + f"connections/{DEFAULT_OM_AIRFLOW_CONNECTION}",
             headers=headers,

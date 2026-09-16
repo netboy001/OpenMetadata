@@ -49,7 +49,7 @@
         },
         {
           "Name": "zipcode-db",
-          "LocationUri": "s3://datalake-openmetadata-ohio/zipcode",
+          "LocationUri": "s3://datalake-umetadata-ohio/zipcode",
           "CreateTime": "2022-05-13 17:02:17",
           "CreateTableDefaultPermissions": [
             {

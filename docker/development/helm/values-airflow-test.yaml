@@ -1,7 +1,7 @@
 # Test values for migrated Airflow pipeline client validation  
 # Only contains essential overrides for testing the new nested structure
 
-openmetadata:
+umetadata:
   config:
     # Enable debug logging for testing
     logLevel: DEBUG
@@ -15,7 +15,7 @@ openmetadata:
       auth:
         password:
           secretRef: postgres-secrets
-          secretKey: openmetadata-postgres-password
+          secretKey: umetadata-postgres-password
     
     # Search configuration (using local OpenSearch via host machine)
     elasticsearch:
@@ -28,20 +28,20 @@ openmetadata:
     pipelineServiceClientConfig:
       type: "airflow"  # Use traditional Airflow approach
       # Common configuration for all pipeline service clients
-      metadataApiEndpoint: http://openmetadata:8585/api
+      metadataApiEndpoint: http://umetadata:8585/api
       airflow:
         # Airflow-specific connection settings
-        apiEndpoint: http://openmetadata-dependencies-api-server:8080
+        apiEndpoint: http://umetadata-dependencies-api-server:8080
         verifySsl: "no-ssl"
         auth:
           username: admin
           password:
             secretRef: airflow-secrets
-            secretKey: openmetadata-airflow-password
+            secretKey: umetadata-airflow-password
 
 # Local image configuration
 image:
-  repository: openmetadata/server
+  repository: umetadata/server
   tag: "20260107"
   pullPolicy: IfNotPresent
 

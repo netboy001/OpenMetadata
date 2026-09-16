@@ -1,9 +1,9 @@
-name: openmetadata-keycloak-saml
+name: umetadata-keycloak-saml
 
 services:
   keycloak:
     image: ${KEYCLOAK_IMAGE:-quay.io/keycloak/keycloak:26.3.3}
-    container_name: openmetadata-keycloak-saml
+    container_name: umetadata-keycloak-saml
     command: ['start-dev', '--import-realm']
     environment:
       KC_BOOTSTRAP_ADMIN_USERNAME: ${KEYCLOAK_BOOTSTRAP_ADMIN_USERNAME:-admin}

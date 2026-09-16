@@ -1,4 +1,4 @@
-"""Simplified Data Quality as Code API for OpenMetadata SDK."""
+"""Simplified Data Quality as Code API for UMetadata SDK."""
 
 from metadata.sdk.data_quality.runner import TestRunner
 from metadata.sdk.data_quality.tests.base_tests import BaseTest, ColumnTest, TableTest

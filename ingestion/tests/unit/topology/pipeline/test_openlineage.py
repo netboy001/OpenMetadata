@@ -10,8 +10,8 @@ from cachetools import LRUCache
 
 from metadata.generated.schema.api.lineage.addLineage import AddLineageRequest
 from metadata.generated.schema.entity.data.pipeline import Pipeline, Task
-from metadata.generated.schema.entity.services.connections.metadata.openMetadataConnection import (
-    OpenMetadataConnection,
+from metadata.generated.schema.entity.services.connections.metadata.uMetadataConnection import (
+    UMetadataConnection,
 )
 from metadata.generated.schema.entity.services.connections.pipeline.openLineageConnection import (
     ConsumerOffsets,
@@ -30,7 +30,7 @@ from metadata.generated.schema.metadataIngestion.pipelineServiceMetadataPipeline
     LineageInformation,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.generated.schema.type.basic import FullyQualifiedEntityName
 from metadata.generated.schema.type.entityLineage import ColumnLineage
@@ -50,9 +50,9 @@ from metadata.ingestion.source.pipeline.openlineage.utils import (
 )
 
 MOCK_WORKFLOW_CONFIG = {
-    "openMetadataServerConfig": {
+    "uMetadataServerConfig": {
         "hostPort": "http://localhost:8585/api",
-        "authProvider": "openmetadata",
+        "authProvider": "umetadata",
         "securityConfig": {
             "jwtToken": "eyJraWQiOiJHYjM4OWEtOWY3Ni1nZGpzLWE5MmotMDI0MmJrOTQzNTYiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlzQm90IjpmYWxzZSwiaXNzIjoib3Blbi1tZXRhZGF0YS5vcmciLCJpYXQiOjE2NjM5Mzg0NjIsImVtYWlsIjoiYWRtaW5Ab3Blbm1ldGFkYXRhLm9yZyJ9.tS8um_5DKu7HgzGBzS1VTA5uUjKWOCU0B_j08WXBiEC0mr0zNREkqVfwFDD-d24HlNEbrqioLsBuFRiwIWKc1m_ZlVQbG7P36RUxhuv2vbSp80FKyNM-Tj93FDzq91jsyNmsQhyNv_fNr3TXfzzSPjHt8Go0FMMP66weoKMgW2PbXlhVKwEuXUHyakLLzewm9UMeQaEiRzhiTMU3UkLXcKbYEJJvfNFcLwSl9W8JCO_l0Yj3ud-qt_nQYEZwqW6u5nfdQllN133iikV4fM5QZsMCnm8Rq1mvLR0y9bmJiD7fwM1tmJ791TUWqmKaTnP49U493VanKpUAfzIiOiIbhg"
         },
@@ -182,20 +182,20 @@ class OpenLineageUnitTest(unittest.TestCase):
         test_connection.return_value = False
 
         # Kafka source
-        config = OpenMetadataWorkflowConfig.model_validate(MOCK_OL_CONFIG)
+        config = UMetadataWorkflowConfig.model_validate(MOCK_OL_CONFIG)
         self.open_lineage_source = OpenlineageSource.create(
             MOCK_OL_CONFIG["source"],
-            config.workflowConfig.openMetadataServerConfig,
+            config.workflowConfig.uMetadataServerConfig,
         )
         self.open_lineage_source.context.get().pipeline = MOCK_PIPELINE.name.root
         self.open_lineage_source.context.get().pipeline_service = MOCK_PIPELINE_SERVICE.name.root
         self.open_lineage_source.source_config.lineageInformation = LineageInformation(dbServiceNames=["skun"])
 
         # Kinesis source
-        kinesis_config = OpenMetadataWorkflowConfig.model_validate(MOCK_OL_KINESIS_CONFIG)
+        kinesis_config = UMetadataWorkflowConfig.model_validate(MOCK_OL_KINESIS_CONFIG)
         self.open_lineage_kinesis_source = OpenlineageSource.create(
             MOCK_OL_KINESIS_CONFIG["source"],
-            kinesis_config.workflowConfig.openMetadataServerConfig,
+            kinesis_config.workflowConfig.uMetadataServerConfig,
         )
         self.open_lineage_kinesis_source.context.get().pipeline = MOCK_PIPELINE.name.root
         self.open_lineage_kinesis_source.context.get().pipeline_service = MOCK_PIPELINE_SERVICE.name.root
@@ -560,7 +560,7 @@ class OpenLineageUnitTest(unittest.TestCase):
     @patch("metadata.ingestion.source.pipeline.openlineage.metadata.OpenlineageSource._get_table_fqn")
     @patch("metadata.ingestion.source.pipeline.openlineage.metadata.OpenlineageSource._build_ol_name_to_fqn_map")
     def test_get_column_lineage_skips_when_input_unresolved(self, mock_build_map, mock_get_table_fqn):
-        """When the input table is not in OpenMetadata, the column entry must
+        """When the input table is not in UMetadata, the column entry must
         be skipped instead of being emitted with a literal 'None.column' FQN
         on the input side."""
         mock_get_table_fqn.side_effect = lambda table_details, namespace=None: f"svc.schema.{table_details.name}"
@@ -944,7 +944,7 @@ class OpenLineageUnitTest(unittest.TestCase):
         event["outputs"] = []
         ol_event = self.read_openlineage_event_from_kafka(event)
 
-        with patch.object(OpenMetadataConnection, "get_by_name", create=True, return_value=None):
+        with patch.object(UMetadataConnection, "get_by_name", create=True, return_value=None):
             list(self.open_lineage_source.yield_pipeline_lineage_details(ol_event))
 
         self.assertIsNot(self.open_lineage_source._resolution_cache, cache_before)
@@ -997,7 +997,7 @@ class OpenLineageUnitTest(unittest.TestCase):
         ol_event = self.read_openlineage_event_from_kafka(FULL_OL_KAFKA_EVENT)
 
         with patch.object(
-            OpenMetadataConnection,
+            UMetadataConnection,
             "get_by_name",
             create=True,
             side_effect=mock_get_uuid_by_name,
@@ -1034,7 +1034,7 @@ class OpenLineageUnitTest(unittest.TestCase):
         """End-to-end: an event whose datasets carry the Glue identity only in
         the symlinks facet (top-level namespace is the physical S3 bucket)
         still produces a table lineage edge - the Spark-on-Glue-catalog
-        customer scenario. Only the OpenMetadata boundary is mocked; the full
+        customer scenario. Only the UMetadata boundary is mocked; the full
         candidate-resolution path runs for real.
         """
         src_uuid = "11111111-1111-1111-1111-111111111111"
@@ -1075,7 +1075,7 @@ class OpenLineageUnitTest(unittest.TestCase):
         ol_event = self.read_openlineage_event_from_kafka(event)
 
         with patch.object(
-            OpenMetadataConnection,
+            UMetadataConnection,
             "get_by_name",
             create=True,
             side_effect=mock_get_by_name,
@@ -1201,7 +1201,7 @@ class OpenLineageUnitTest(unittest.TestCase):
         # Process START event with lineage
         start_ol_event = message_to_open_lineage_event(start_event)
         with patch.object(
-            OpenMetadataConnection,
+            UMetadataConnection,
             "get_by_name",
             create=True,
             side_effect=mock_get_uuid_by_name,
@@ -1211,7 +1211,7 @@ class OpenLineageUnitTest(unittest.TestCase):
         # Process RUNNING event without lineage
         running_ol_event = message_to_open_lineage_event(running_event)
         with patch.object(
-            OpenMetadataConnection,
+            UMetadataConnection,
             "get_by_name",
             create=True,
             side_effect=mock_get_uuid_by_name,
@@ -1272,7 +1272,7 @@ class OpenLineageUnitTest(unittest.TestCase):
 
     def test_kinesis_config_validation(self):
         """Test that Kinesis config is parsed and validated correctly."""
-        config = OpenMetadataWorkflowConfig.model_validate(MOCK_OL_KINESIS_CONFIG)
+        config = UMetadataWorkflowConfig.model_validate(MOCK_OL_KINESIS_CONFIG)
         connection = config.source.serviceConnection.root.config
         self.assertEqual(connection.type.value, "OpenLineage")
         broker = connection.brokerConfig
@@ -1403,7 +1403,7 @@ class OpenLineageUnitTest(unittest.TestCase):
         ol_event = results[0]
 
         with patch.object(
-            OpenMetadataConnection,
+            UMetadataConnection,
             "get_by_name",
             create=True,
             side_effect=mock_get_uuid_by_name,
@@ -2355,7 +2355,7 @@ class OpenLineageUnitTest(unittest.TestCase):
         self.assertEqual(result.name, "users")
 
     def test_parse_dotted_table_name_captures_database_for_three_part_names(self):
-        """Three-part db.schema.table names populate database so OpenMetadata
+        """Three-part db.schema.table names populate database so UMetadata
         can disambiguate the same schema.table across multiple databases."""
         result = OpenlineageSource._parse_dotted_table_name("mydb.myschema.mytable")
         self.assertEqual(result.database, "mydb")
@@ -2364,7 +2364,7 @@ class OpenLineageUnitTest(unittest.TestCase):
 
     def test_parse_dotted_table_name_two_part_leaves_database_none(self):
         """Two-part schema.table names (MySQL, Hive, Teradata, Cassandra)
-        leave database as None for OpenMetadata's partial FQN search."""
+        leave database as None for UMetadata's partial FQN search."""
         result = OpenlineageSource._parse_dotted_table_name("myschema.mytable")
         self.assertIsNone(result.database)
         self.assertEqual(result.schema, "myschema")

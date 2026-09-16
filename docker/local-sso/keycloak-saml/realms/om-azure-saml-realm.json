@@ -1,7 +1,7 @@
 {
   "realm": "om-azure-saml",
   "enabled": true,
-  "displayName": "OpenMetadata Azure SAML",
+  "displayName": "UMetadata Azure SAML",
   "sslRequired": "none",
   "registrationAllowed": false,
   "loginWithEmailAllowed": true,
@@ -11,7 +11,7 @@
   "clients": [
     {
       "clientId": "http://localhost:8585/api/v1/saml/metadata",
-      "name": "OpenMetadata",
+      "name": "UMetadata",
       "enabled": true,
       "protocol": "saml",
       "publicClient": true,
@@ -87,8 +87,8 @@
   ],
   "users": [
     {
-      "username": "azure.saml@openmetadata.local",
-      "email": "azure.saml@openmetadata.local",
+      "username": "azure.saml@umetadata.local",
+      "email": "azure.saml@umetadata.local",
       "firstName": "Azure",
       "lastName": "SAML",
       "enabled": true,
@@ -100,7 +100,7 @@
       "credentials": [
         {
           "type": "password",
-          "value": "OpenMetadata@123",
+          "value": "UMetadata@123",
           "temporary": false
         }
       ]

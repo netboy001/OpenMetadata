@@ -15,7 +15,7 @@ from testcontainers.core.generic import DbContainer
 from testcontainers.minio import MinioContainer
 from testcontainers.mysql import MySqlContainer
 
-from _openmetadata_testutils.helpers.docker import try_bind
+from _umetadata_testutils.helpers.docker import try_bind
 from metadata.generated.schema.api.services.createDatabaseService import (
     CreateDatabaseServiceRequest,
 )

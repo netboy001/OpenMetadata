@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -46,8 +46,8 @@ from metadata.generated.schema.type.entityReference import EntityReference
 from metadata.generated.schema.type.tagLabel import TagLabel
 from metadata.ingestion.api.models import Either
 from metadata.ingestion.api.steps import InvalidSourceException
-from metadata.ingestion.models.ometa_classification import OMetaTagAndClassification
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.models.umeta_classification import UMetaTagAndClassification
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.storage.s3.models import (
     S3BucketResponse,
     S3ContainerDetails,
@@ -56,7 +56,7 @@ from metadata.ingestion.source.storage.s3.models import (
 )
 from metadata.ingestion.source.storage.storage_service import (
     KEY_SEPARATOR,
-    OPENMETADATA_TEMPLATE_FILE_NAME,
+    UMETADATA_TEMPLATE_FILE_NAME,
     StorageServiceSource,
 )
 from metadata.readers.file.base import ReadException
@@ -65,7 +65,7 @@ from metadata.utils import fqn
 from metadata.utils.filters import filter_by_container
 from metadata.utils.logger import ingestion_logger
 from metadata.utils.s3_utils import list_s3_objects
-from metadata.utils.tag_utils import get_ometa_tag_and_classification, get_tag_label
+from metadata.utils.tag_utils import get_umeta_tag_and_classification, get_tag_label
 
 logger = ingestion_logger()
 
@@ -84,7 +84,7 @@ class S3Source(StorageServiceSource):
     Source implementation to ingest S3 buckets data.
     """
 
-    def __init__(self, config: WorkflowSource, metadata: OpenMetadata):
+    def __init__(self, config: WorkflowSource, metadata: UMetadata):
         super().__init__(config, metadata)
         self.s3_client = self.connection.s3_client
         self.cloudwatch_client = self.connection.cloudwatch_client
@@ -95,7 +95,7 @@ class S3Source(StorageServiceSource):
 
     @classmethod
     def create(
-        cls, config_dict, metadata: OpenMetadata, pipeline_name: Optional[str] = None
+        cls, config_dict, metadata: UMetadata, pipeline_name: Optional[str] = None
     ):
         config: WorkflowSource = WorkflowSource.model_validate(config_dict)
         connection: S3Connection = config.serviceConnection.root.config
@@ -220,7 +220,7 @@ class S3Source(StorageServiceSource):
 
     def yield_container_tags(
         self, container_details: S3ContainerDetails
-    ) -> Iterable[Either[OMetaTagAndClassification]]:
+    ) -> Iterable[Either[UMetaTagAndClassification]]:
         """
         From topology. To be run for each container
         """
@@ -235,7 +235,7 @@ class S3Source(StorageServiceSource):
                 tags = self.s3_client.get_object_tagging(Bucket=bucket_name, Key=key)
                 tags_list: List[S3Tag] = S3TagResponse.model_validate(tags).TagSet
                 for tag in tags_list:
-                    yield from get_ometa_tag_and_classification(
+                    yield from get_umeta_tag_and_classification(
                         tag_fqn=FullyQualifiedEntityName(
                             container_details.container_fqn
                         ),
@@ -794,10 +794,10 @@ class S3Source(StorageServiceSource):
         """
         try:
             logger.info(
-                f"Looking for metadata template file at - s3://{bucket_name}/{OPENMETADATA_TEMPLATE_FILE_NAME}"
+                f"Looking for metadata template file at - s3://{bucket_name}/{UMETADATA_TEMPLATE_FILE_NAME}"
             )
             response_object = self.s3_reader.read(
-                path=OPENMETADATA_TEMPLATE_FILE_NAME,
+                path=UMETADATA_TEMPLATE_FILE_NAME,
                 bucket_name=bucket_name,
                 verbose=False,
             )
@@ -806,11 +806,11 @@ class S3Source(StorageServiceSource):
             return metadata_config
         except ReadException:
             logger.warning(
-                f"No metadata file found at s3://{bucket_name}/{OPENMETADATA_TEMPLATE_FILE_NAME}"
+                f"No metadata file found at s3://{bucket_name}/{UMETADATA_TEMPLATE_FILE_NAME}"
             )
         except Exception as exc:
             logger.debug(traceback.format_exc())
             logger.warning(
-                f"Failed loading metadata file s3://{bucket_name}/{OPENMETADATA_TEMPLATE_FILE_NAME}-{exc}"
+                f"Failed loading metadata file s3://{bucket_name}/{UMETADATA_TEMPLATE_FILE_NAME}-{exc}"
             )
         return None

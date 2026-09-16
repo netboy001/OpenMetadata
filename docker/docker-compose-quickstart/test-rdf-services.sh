@@ -12,14 +12,14 @@ if curl -s http://localhost:3030/$/ping > /dev/null 2>&1; then
     echo "✓ OK"
     
     echo -n "  Checking datasets: "
-    if curl -s http://localhost:3030/$/datasets | grep -q "openmetadata"; then
-        echo "✓ openmetadata dataset found"
+    if curl -s http://localhost:3030/$/datasets | grep -q "umetadata"; then
+        echo "✓ umetadata dataset found"
     else
-        echo "✗ openmetadata dataset not found"
+        echo "✗ umetadata dataset not found"
     fi
     
     echo -n "  Testing SPARQL endpoint: "
-    SPARQL_TEST=$(curl -s -X POST http://localhost:3030/openmetadata/sparql \
+    SPARQL_TEST=$(curl -s -X POST http://localhost:3030/umetadata/sparql \
         -H "Content-Type: application/x-www-form-urlencoded" \
         -d 'query=SELECT ?s WHERE { ?s ?p ?o } LIMIT 1' 2>&1)
     if echo "$SPARQL_TEST" | grep -q "results"; then

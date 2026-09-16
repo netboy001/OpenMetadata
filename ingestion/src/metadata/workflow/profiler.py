@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,8 +15,8 @@ Workflow definition for the profiler
 from metadata.ingestion.api.steps import Processor, Sink
 from metadata.ingestion.source.connections import test_connection_common
 from metadata.profiler.processor.processor import ProfilerProcessor
-from metadata.profiler.source.metadata import OpenMetadataSource
-from metadata.profiler.source.metadata_ext import OpenMetadataSourceExt
+from metadata.profiler.source.metadata import UMetadataSource
+from metadata.profiler.source.metadata_ext import UMetadataSourceExt
 from metadata.utils.helpers import retry_with_docker_host
 from metadata.utils.importer import import_sink_class
 from metadata.utils.logger import profiler_logger
@@ -41,16 +41,16 @@ class ProfilerWorkflow(IngestionWorkflow):
     def _get_source_class(self):
         if self.config.source.serviceName:
             self.import_source_class()
-            return OpenMetadataSource
+            return UMetadataSource
         logger.info(
             "Database Service name not provided, we will scan all the tables "
-            "available within data source and locate table entity in OpenMetadata "
+            "available within data source and locate table entity in UMetadata "
             "to ingest profiler data."
         )
-        return OpenMetadataSourceExt
+        return UMetadataSourceExt
 
     def set_steps(self):
-        # TODO: Clean after https://github.com/open-metadata/OpenMetadata/issues/21259
+        # TODO: Clean after https://github.com/u-metadata/UMetadata/issues/21259
         # We are forcing the secret evaluation to "ignore" null secrets down the line
         # Remove this when the issue above is fixed and empty secrets migrated
         source_config_class = type(self.config.source.serviceConnection.root.config)

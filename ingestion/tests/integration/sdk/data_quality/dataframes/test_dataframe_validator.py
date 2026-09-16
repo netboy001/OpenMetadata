@@ -14,7 +14,7 @@ from metadata.generated.schema.entity.data.table import Table
 from metadata.generated.schema.entity.services.databaseService import DatabaseService
 from metadata.generated.schema.tests.basic import TestCaseStatus
 from metadata.generated.schema.tests.testCase import TestCase, TestCaseParameterValue
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.sdk.data_quality import ColumnValueMinToBeBetween
 from metadata.sdk.data_quality.dataframes.dataframe_validator import DataFrameValidator
 from metadata.utils.entity_link import get_entity_link
@@ -27,7 +27,7 @@ def table_fqn(db_service: DatabaseService) -> str:
 
 @pytest.fixture(scope="module")
 def column_unique_test(
-    table_fqn: str, metadata: OpenMetadata[TestCase, CreateTestCaseRequest]
+    table_fqn: str, metadata: UMetadata[TestCase, CreateTestCaseRequest]
 ) -> TestCase:
     request = CreateTestCaseRequest(
         name="column_not_null",
@@ -46,7 +46,7 @@ def column_unique_test(
 
 @pytest.fixture(scope="module")
 def table_row_count_test(
-    table_fqn: str, metadata: OpenMetadata[TestCase, CreateTestCaseRequest]
+    table_fqn: str, metadata: UMetadata[TestCase, CreateTestCaseRequest]
 ) -> TestCase:
     request = CreateTestCaseRequest(
         name="table_row_count",
@@ -75,17 +75,17 @@ def dataframe(
         )
 
 
-def test_it_runs_tests_from_openmetadata(
+def test_it_runs_tests_from_umetadata(
     ingest_metadata: None,
-    metadata: OpenMetadata[Any, Any],
+    metadata: UMetadata[Any, Any],
     dataframe: DataFrame,
     column_unique_test: TestCase,
     table_row_count_test: TestCase,
 ) -> None:
     validator = DataFrameValidator(client=metadata)
 
-    validator.add_openmetadata_test(column_unique_test.fullyQualifiedName.root)
-    validator.add_openmetadata_test(table_row_count_test.fullyQualifiedName.root)
+    validator.add_umetadata_test(column_unique_test.fullyQualifiedName.root)
+    validator.add_umetadata_test(table_row_count_test.fullyQualifiedName.root)
 
     result = validator.validate(dataframe)
 
@@ -97,17 +97,17 @@ def test_it_runs_tests_from_openmetadata(
     )
 
 
-def test_it_runs_openmetadata_table_tests(
+def test_it_runs_umetadata_table_tests(
     table_fqn: str,
     ingest_metadata: None,
-    metadata: OpenMetadata[Any, Any],
+    metadata: UMetadata[Any, Any],
     dataframe: DataFrame,
     column_unique_test: TestCase,
     table_row_count_test: TestCase,
 ) -> None:
     validator = DataFrameValidator(client=metadata)
 
-    validator.add_openmetadata_table_tests(table_fqn)
+    validator.add_umetadata_table_tests(table_fqn)
 
     result = validator.validate(dataframe)
 
@@ -124,7 +124,7 @@ class TestFullUseCase:
         self,
         table_fqn: str,
         ingest_metadata: None,
-        metadata: OpenMetadata[Any, Any],
+        metadata: UMetadata[Any, Any],
         dataframe: DataFrame,
         column_unique_test: TestCase,
         table_row_count_test: TestCase,
@@ -141,7 +141,7 @@ class TestFullUseCase:
         # Run validation
         validator = DataFrameValidator(client=metadata)
 
-        validator.add_openmetadata_table_tests(table_fqn)
+        validator.add_umetadata_table_tests(table_fqn)
         # Forcing a failure with this test
         validator.add_test(
             ColumnValueMinToBeBetween(
@@ -197,7 +197,7 @@ class TestFullUseCase:
         # Publish results
         with patch(
             "metadata.sdk.data_quality.dataframes.validation_results.get_client",
-            return_value=Mock(ometa=metadata),
+            return_value=Mock(umeta=metadata),
         ) as mock_client:
             result.publish(
                 table_fqn,

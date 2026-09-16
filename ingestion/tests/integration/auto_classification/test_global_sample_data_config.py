@@ -9,7 +9,7 @@ import uuid
 
 import pytest
 
-from _openmetadata_testutils.ometa import int_admin_ometa
+from _umetadata_testutils.umeta import int_admin_umeta
 from metadata.generated.schema.api.services.createDatabaseService import (
     CreateDatabaseServiceRequest,
 )
@@ -39,7 +39,7 @@ from metadata.generated.schema.metadataIngestion.databaseServiceMetadataPipeline
 )
 from metadata.generated.schema.settings.settings import Settings, SettingType
 from metadata.generated.schema.type.filterPattern import FilterPattern
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.workflow.classification import AutoClassificationWorkflow
 from metadata.workflow.metadata import MetadataWorkflow
 
@@ -89,18 +89,18 @@ def load_metadata(run_workflow, ingestion_config) -> MetadataWorkflow:
 
 
 @pytest.fixture(scope="module")
-def bot_metadata(metadata) -> OpenMetadata:
+def bot_metadata(metadata) -> UMetadata:
     automator_bot: User = metadata.get_by_name(entity=User, fqn="ingestion-bot")
     automator_bot_auth: AuthenticationMechanism = metadata.get_by_id(
         entity=AuthenticationMechanism, entity_id=automator_bot.id
     )
-    return int_admin_ometa(jwt=automator_bot_auth.config.JWTToken.get_secret_value())
+    return int_admin_umeta(jwt=automator_bot_auth.config.JWTToken.get_secret_value())
 
 
 @pytest.fixture(scope="module")
 def bot_workflow_config(bot_metadata, workflow_config):
     bot_wf_config = workflow_config.copy()
-    bot_wf_config["openMetadataServerConfig"] = bot_metadata.config.model_dump()
+    bot_wf_config["uMetadataServerConfig"] = bot_metadata.config.model_dump()
     return bot_wf_config
 
 
@@ -158,7 +158,7 @@ def _cleanup_profiler_config(metadata):
     )
 
 
-def _set_global_profiler_config(metadata: OpenMetadata, store: bool):
+def _set_global_profiler_config(metadata: UMetadata, store: bool):
     """Set the global profiler configuration for sample data."""
     metadata.create_or_update_settings(
         Settings(
@@ -175,7 +175,7 @@ def _set_global_profiler_config(metadata: OpenMetadata, store: bool):
 
 def test_store_sample_data_when_global_config_enabled(
     db_service: DatabaseService,
-    metadata: OpenMetadata,
+    metadata: UMetadata,
     pii_classification: Classification,
     sensitive_pii_tag: Tag,
     non_sensitive_pii_tag: Tag,
@@ -200,7 +200,7 @@ def test_store_sample_data_when_global_config_enabled(
 
 def test_no_sample_data_when_global_config_disabled(
     db_service: DatabaseService,
-    metadata: OpenMetadata,
+    metadata: UMetadata,
     pii_classification: Classification,
     sensitive_pii_tag: Tag,
     non_sensitive_pii_tag: Tag,

@@ -5,9 +5,9 @@
     "config": {
       "type": "Mysql",
       "hostPort": "localhost:3306",
-      "username": "openmetadata_user",
+      "username": "umetadata_user",
       "authType": {
-        "password": "openmetadata_password"
+        "password": "umetadata_password"
       },
       "databaseSchema": "posts_db"
     }

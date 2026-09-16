@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -24,16 +24,16 @@ from sqlalchemy import Column, DateTime, Integer, String, create_engine
 from sqlalchemy.orm import declarative_base
 
 from metadata.generated.schema.entity.data.table import Table
-from metadata.generated.schema.entity.services.connections.metadata.openMetadataConnection import (
-    OpenMetadataConnection,
+from metadata.generated.schema.entity.services.connections.metadata.uMetadataConnection import (
+    UMetadataConnection,
 )
 from metadata.generated.schema.entity.services.databaseService import DatabaseService
-from metadata.generated.schema.security.client.openMetadataJWTClientConfig import (
-    OpenMetadataJWTClientConfig,
+from metadata.generated.schema.security.client.uMetadataJWTClientConfig import (
+    UMetadataJWTClientConfig,
 )
 from metadata.generated.schema.tests.testSuite import TestSuite
 from metadata.ingestion.connections.session import create_and_bind_session
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.workflow.metadata import MetadataWorkflow
 
 Base = declarative_base()
@@ -45,9 +45,9 @@ SQLLITE_SHARD = "file:cachedb?mode=memory&cache=shared&check_same_thread=False"
 LOGGER = logging.getLogger(__name__)
 
 WORKFLOW_CONFIG = {
-    "openMetadataServerConfig": {
+    "uMetadataServerConfig": {
         "hostPort": "http://localhost:8585/api",
-        "authProvider": "openmetadata",
+        "authProvider": "umetadata",
         "securityConfig": {
             "jwtToken": "eyJraWQiOiJHYjM4OWEtOWY3Ni1nZGpzLWE5MmotMDI0MmJrOTQzNTYiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlzQm90IjpmYWxzZSwiaXNzIjoib3Blbi1tZXRhZGF0YS5vcmciLCJpYXQiOjE2NjM5Mzg0NjIsImVtYWlsIjoiYWRtaW5Ab3Blbm1ldGFkYXRhLm9yZyJ9.tS8um_5DKu7HgzGBzS1VTA5uUjKWOCU0B_j08WXBiEC0mr0zNREkqVfwFDD-d24HlNEbrqioLsBuFRiwIWKc1m_ZlVQbG7P36RUxhuv2vbSp80FKyNM-Tj93FDzq91jsyNmsQhyNv_fNr3TXfzzSPjHt8Go0FMMP66weoKMgW2PbXlhVKwEuXUHyakLLzewm9UMeQaEiRzhiTMU3UkLXcKbYEJJvfNFcLwSl9W8JCO_l0Yj3ud-qt_nQYEZwqW6u5nfdQllN133iikV4fM5QZsMCnm8Rq1mvLR0y9bmJiD7fwM1tmJ791TUWqmKaTnP49U493VanKpUAfzIiOiIbhg"
         },
@@ -98,16 +98,16 @@ class TestGreatExpectationIntegration(TestCase):
         f"sqlite+pysqlite:///{SQLLITE_SHARD}",
     )
     session = create_and_bind_session(engine)
-    server_config = OpenMetadataConnection(
-        hostPort=WORKFLOW_CONFIG["openMetadataServerConfig"]["hostPort"],
-        authProvider=WORKFLOW_CONFIG["openMetadataServerConfig"]["authProvider"],
-        securityConfig=OpenMetadataJWTClientConfig(
-            jwtToken=WORKFLOW_CONFIG["openMetadataServerConfig"]["securityConfig"][
+    server_config = UMetadataConnection(
+        hostPort=WORKFLOW_CONFIG["uMetadataServerConfig"]["hostPort"],
+        authProvider=WORKFLOW_CONFIG["uMetadataServerConfig"]["authProvider"],
+        securityConfig=UMetadataJWTClientConfig(
+            jwtToken=WORKFLOW_CONFIG["uMetadataServerConfig"]["securityConfig"][
                 "jwtToken"
             ]
         ),
     )  # type: ignore
-    metadata = OpenMetadata(server_config)
+    metadata = UMetadata(server_config)
 
     @classmethod
     def setUpClass(cls):
@@ -239,7 +239,7 @@ class TestGreatExpectationIntegration(TestCase):
         ge_folder = os.path.join(
             os.path.dirname(os.path.abspath(__file__)),
         )
-        ometa_config = os.path.join(ge_folder, "gx/ometa_config")
+        umeta_config = os.path.join(ge_folder, "gx/umeta_config")
         context = gx.get_context(project_root_dir=ge_folder)
 
         # Create query-based expectation suite for users table
@@ -309,12 +309,12 @@ class TestGreatExpectationIntegration(TestCase):
             ],
             "action_list": [
                 {
-                    "name": "openmetadata_action",
+                    "name": "umetadata_action",
                     "action": {
-                        "class_name": "OpenMetadataValidationAction",
+                        "class_name": "UMetadataValidationAction",
                         "module_name": "metadata.great_expectations.action",
                         "database_service_name": "test_sqlite",
-                        "config_file_path": ometa_config,
+                        "config_file_path": umeta_config,
                         "database_name": "default",
                         "schema_name": "main",
                         "expectation_suite_table_config_map": table_config_map,

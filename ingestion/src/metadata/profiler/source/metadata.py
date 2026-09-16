@@ -2,14 +2,14 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 """
-OpenMetadata source for the profiler
+UMetadata source for the profiler
 """
 from typing import Iterable, List, Optional, cast
 
@@ -18,13 +18,13 @@ from metadata.generated.schema.metadataIngestion.databaseServiceProfilerPipeline
     DatabaseServiceProfilerPipeline,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.ingestion.api.models import Either
 from metadata.ingestion.api.parser import parse_workflow_config_gracefully
 from metadata.ingestion.api.step import Step
 from metadata.ingestion.api.steps import Source
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.profiler.source.fetcher.entity_fetcher import EntityFetcher
 from metadata.profiler.source.model import ProfilerSourceAndEntity
 from metadata.utils.logger import profiler_logger
@@ -35,7 +35,7 @@ TABLE_FIELDS = ["tableProfilerConfig", "columns", "customMetrics"]
 TAGS_FIELD = ["tags"]
 
 
-class OpenMetadataSource(Source):
+class UMetadataSource(Source):
     """
     This source lists and filters the entities that need
     to be processed by the profiler workflow.
@@ -47,12 +47,12 @@ class OpenMetadataSource(Source):
 
     @property
     def name(self) -> str:
-        return "OpenMetadata Service"
+        return "UMetadata Service"
 
     def __init__(
         self,
-        config: OpenMetadataWorkflowConfig,
-        metadata: OpenMetadata,
+        config: UMetadataWorkflowConfig,
+        metadata: UMetadata,
     ):
         super().__init__()
 
@@ -87,7 +87,7 @@ class OpenMetadataSource(Source):
         )
 
     def _validate_service_name(self):
-        """Validate service name exists in OpenMetadata"""
+        """Validate service name exists in UMetadata"""
         return self.metadata.get_by_name(
             entity=DatabaseService, fqn=self.config.source.serviceName  # type: ignore
         )
@@ -97,7 +97,7 @@ class OpenMetadataSource(Source):
 
     def test_connection(self) -> None:
         """
-        Our source is the ometa client. Validate the
+        Our source is the umeta client. Validate the
         health check before moving forward
         """
         self.metadata.health_check()
@@ -113,7 +113,7 @@ class OpenMetadataSource(Source):
     def create(
         cls,
         config_dict: dict,
-        metadata: OpenMetadata,
+        metadata: UMetadata,
         pipeline_name: Optional[str] = None,
     ) -> "Step":
         config = parse_workflow_config_gracefully(config_dict)

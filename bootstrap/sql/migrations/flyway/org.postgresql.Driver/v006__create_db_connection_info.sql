@@ -149,7 +149,7 @@ SET json = json::jsonb #- '{deployed}';
 UPDATE ingestion_pipeline_entity
 SET json = jsonb_set(json::jsonb, '{deployed}', 'true'::jsonb, true);
 
--- We removed the supportsMetadataExtraction field in the `OpenMetadataConnection` object being used in IngestionPipelines
+-- We removed the supportsMetadataExtraction field in the `UMetadataConnection` object being used in IngestionPipelines
 UPDATE ingestion_pipeline_entity
-SET json = json::jsonb #- '{openMetadataServerConnection,supportsMetadataExtraction}';
+SET json = json::jsonb #- '{uMetadataServerConnection,supportsMetadataExtraction}';
 

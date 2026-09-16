@@ -1,0 +1,12 @@
+{
+  "serviceConnection": {
+    "config": {
+      "type": "MySQL",
+      "username": "umetadata_user",
+      "authType":{
+        "password": "umetadata_password"
+        },
+      "hostPort": "localhost:3306"
+    }
+  }
+}

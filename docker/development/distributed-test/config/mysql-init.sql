@@ -1,13 +1,13 @@
 -- MySQL initialization script for distributed test environment
 
--- Create the OpenMetadata database
-CREATE DATABASE IF NOT EXISTS openmetadata_db;
+-- Create the UMetadata database
+CREATE DATABASE IF NOT EXISTS umetadata_db;
 
--- Create the OpenMetadata user
-CREATE USER IF NOT EXISTS 'openmetadata_user'@'%' IDENTIFIED BY 'openmetadata_password';
+-- Create the UMetadata user
+CREATE USER IF NOT EXISTS 'umetadata_user'@'%' IDENTIFIED BY 'umetadata_password';
 
 -- Grant privileges
-GRANT ALL PRIVILEGES ON openmetadata_db.* TO 'openmetadata_user'@'%';
-GRANT ALL PRIVILEGES ON *.* TO 'openmetadata_user'@'%';
+GRANT ALL PRIVILEGES ON umetadata_db.* TO 'umetadata_user'@'%';
+GRANT ALL PRIVILEGES ON *.* TO 'umetadata_user'@'%';
 
 FLUSH PRIVILEGES;

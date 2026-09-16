@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,7 +33,7 @@ from metadata.generated.schema.entity.services.pipelineService import (
     PipelineServiceType,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.generated.schema.type.basic import FullyQualifiedEntityName
 from metadata.generated.schema.type.entityLineage import (
@@ -42,8 +42,8 @@ from metadata.generated.schema.type.entityLineage import (
     LineageDetails,
 )
 from metadata.generated.schema.type.entityReference import EntityReference
-from metadata.ingestion.models.pipeline_status import OMetaBulkPipelineStatus
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.models.pipeline_status import UMetaBulkPipelineStatus
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.pipeline.databrickspipeline.metadata import (
     DatabrickspipelineSource,
 )
@@ -88,9 +88,9 @@ mock_databricks_config = {
     },
     "sink": {"type": "metadata-rest", "config": {}},
     "workflowConfig": {
-        "openMetadataServerConfig": {
+        "uMetadataServerConfig": {
             "hostPort": "http://localhost:8585/api",
-            "authProvider": "openmetadata",
+            "authProvider": "umetadata",
             "securityConfig": {
                 "jwtToken": "eyJraWQiOiJHYjM4OWEtOWY3Ni1nZGpzLWE5MmotMDI0MmJrOTQzNTYiLCJ0eXAiOiJKV1QiLCJhbGc"
                 "iOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlzQm90IjpmYWxzZSwiaXNzIjoib3Blbi1tZXRhZGF0YS5vcmciLCJpYXQiOjE"
@@ -115,7 +115,7 @@ MOCK_PIPELINE = Pipeline(
     id="2aaa012e-099a-11ed-861d-0242ac120002",
     name="11223344",
     fullyQualifiedName="databricks_pipeline_test.11223344",
-    displayName="OpenMetadata Databricks Workflow",
+    displayName="UMetadata Databricks Workflow",
     tasks=[
         Task(
             name="Orders_Ingest",
@@ -146,7 +146,7 @@ MOCK_PIPELINE = Pipeline(
 
 EXPECTED_CREATED_PIPELINES = CreatePipelineRequest(
     name="11223344",
-    displayName="OpenMetadata Databricks Workflow",
+    displayName="UMetadata Databricks Workflow",
     description="This job contain multiple tasks that are required to produce the weekly shark sightings report.",
     tasks=[
         Task(
@@ -176,7 +176,7 @@ EXPECTED_CREATED_PIPELINES = CreatePipelineRequest(
 )
 
 EXPECTED_PIPELINE_STATUS = [
-    OMetaBulkPipelineStatus(
+    UMetaBulkPipelineStatus(
         pipeline_fqn="databricks_pipeline_test.11223344",
         pipeline_statuses=[
             PipelineStatus(
@@ -258,18 +258,18 @@ class DatabricksPipelineTests(TestCase):
         super().__init__(methodName)
         log_ansi_encoded_string(message="init")
         test_connection.return_value = False
-        config = OpenMetadataWorkflowConfig.model_validate(mock_databricks_config)
+        config = UMetadataWorkflowConfig.model_validate(mock_databricks_config)
 
         self.databricks = DatabrickspipelineSource.create(
             mock_databricks_config["source"],
-            config.workflowConfig.openMetadataServerConfig,
+            config.workflowConfig.uMetadataServerConfig,
         )
         self.databricks.context.get().__dict__["pipeline"] = MOCK_PIPELINE.name.root
         self.databricks.context.get().__dict__[
             "pipeline_service"
         ] = MOCK_PIPELINE_SERVICE.name.root
-        self.databricks.metadata = OpenMetadata(
-            config.workflowConfig.openMetadataServerConfig
+        self.databricks.metadata = UMetadata(
+            config.workflowConfig.uMetadataServerConfig
         )
 
     @patch(

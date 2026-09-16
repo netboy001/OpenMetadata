@@ -37,9 +37,9 @@ class SourceLoader(ABC):
 
 class BaseSpec(BaseModel):
     """
-    # The OpenMetadata Ingestion Service Specification (Spec)
+    # The UMetadata Ingestion Service Specification (Spec)
 
-    This is the API for defining a service in OpenMetadata it needs to be in the classpath of the connector in
+    This is the API for defining a service in UMetadata it needs to be in the classpath of the connector in
     the form:
 
     metadata.ingestion.source.{service_type}.{service_name}.service_spec.ServiceSpec

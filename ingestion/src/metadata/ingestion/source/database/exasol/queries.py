@@ -12,7 +12,7 @@ EXASOL_SQL_STATEMENT = textwrap.dedent(
     FROM EXA_DBA_AUDIT_SQL s
     JOIN EXA_DBA_AUDIT_SESSIONS se
     ON s.SESSION_ID = se.SESSION_ID
-    WHERE s.sql_text NOT LIKE '/* {{"app": "OpenMetadata", %%}} */%%' 
+    WHERE s.sql_text NOT LIKE '/* {{"app": "UMetadata", %%}} */%%' 
     AND s.sql_text NOT LIKE '/* {{"app": "dbt", %%}} */%%'
     AND start_time between TO_TIMESTAMP('{start_time}') and TO_TIMESTAMP('{end_time}')
     {filters}

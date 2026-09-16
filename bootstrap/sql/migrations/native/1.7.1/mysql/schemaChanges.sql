@@ -37,7 +37,7 @@ SET json =
 WHERE name = 'AutoPilotApplication';
 
 -- Update workflow settings with default values if present
-UPDATE openmetadata_settings
+UPDATE umetadata_settings
 SET json = JSON_SET(
     json,
     '$.executorConfiguration.corePoolSize', 10,

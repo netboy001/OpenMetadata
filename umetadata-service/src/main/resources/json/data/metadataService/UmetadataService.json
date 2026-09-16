@@ -1,0 +1,7 @@
+{
+  "name": "UMetadata",
+  "displayName": "UMetadata Service",
+  "description": "Service Used for creating UMetadata Ingestion Pipelines.",
+  "serviceType": "UMetadata",
+  "provider": "system"
+}

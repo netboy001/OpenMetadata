@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -80,13 +80,13 @@ from metadata.generated.schema.type.schema import Topic
 from metadata.ingestion.api.models import Either, Entity, StackTraceError
 from metadata.ingestion.api.steps import Sink
 from metadata.ingestion.models.barrier import Barrier
-from metadata.ingestion.models.custom_properties import OMetaCustomProperties
-from metadata.ingestion.models.data_insight import OMetaDataInsightSample
+from metadata.ingestion.models.custom_properties import UMetaCustomProperties
+from metadata.ingestion.models.data_insight import UMetaDataInsightSample
 from metadata.ingestion.models.delete_entity import DeleteEntity
-from metadata.ingestion.models.life_cycle import OMetaLifeCycleData
-from metadata.ingestion.models.ometa_classification import OMetaTagAndClassification
-from metadata.ingestion.models.ometa_lineage import OMetaLineageRequest
-from metadata.ingestion.models.ometa_topic_data import OMetaTopicSampleData
+from metadata.ingestion.models.life_cycle import UMetaLifeCycleData
+from metadata.ingestion.models.umeta_classification import UMetaTagAndClassification
+from metadata.ingestion.models.umeta_lineage import UMetaLineageRequest
+from metadata.ingestion.models.umeta_topic_data import UMetaTopicSampleData
 from metadata.ingestion.models.patch_request import (
     ALLOWED_COMMON_PATCH_FIELDS,
     ARRAY_ENTITY_FIELDS,
@@ -95,22 +95,22 @@ from metadata.ingestion.models.patch_request import (
     PatchRequest,
 )
 from metadata.ingestion.models.pipeline_status import (
-    OMetaBulkPipelineStatus,
-    OMetaPipelineStatus,
+    UMetaBulkPipelineStatus,
+    UMetaPipelineStatus,
 )
-from metadata.ingestion.models.profile_data import OMetaTableProfileSampleData
-from metadata.ingestion.models.search_index_data import OMetaIndexSampleData
+from metadata.ingestion.models.profile_data import UMetaTableProfileSampleData
+from metadata.ingestion.models.search_index_data import UMetaIndexSampleData
 from metadata.ingestion.models.tests_data import (
-    OMetaLogicalTestSuiteSample,
-    OMetaTestCaseResolutionStatus,
-    OMetaTestCaseResultsSample,
-    OMetaTestCaseSample,
-    OMetaTestSuiteSample,
+    UMetaLogicalTestSuiteSample,
+    UMetaTestCaseResolutionStatus,
+    UMetaTestCaseResultsSample,
+    UMetaTestCaseSample,
+    UMetaTestSuiteSample,
 )
-from metadata.ingestion.models.user import OMetaUserProfile
-from metadata.ingestion.ometa.client import APIError, LimitsException
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
-from metadata.ingestion.ometa.utils import model_str
+from metadata.ingestion.models.user import UMetaUserProfile
+from metadata.ingestion.umeta.client import APIError, LimitsException
+from metadata.ingestion.umeta.umeta_api import UMetadata
+from metadata.ingestion.umeta.utils import model_str
 from metadata.ingestion.source.dashboard.dashboard_service import DashboardUsage
 from metadata.ingestion.source.database.database_service import DataModelLink
 from metadata.ingestion.source.pipeline.pipeline_service import (
@@ -166,7 +166,7 @@ class MetadataRestSink(Sink):  # pylint: disable=too-many-public-methods
     # We want to catch any errors that might happen during the sink
     # pylint: disable=broad-except
 
-    def __init__(self, config: MetadataRestSinkConfig, metadata: OpenMetadata):
+    def __init__(self, config: MetadataRestSinkConfig, metadata: UMetadata):
         super().__init__()
         self.config = config
         self.wrote_something = False
@@ -176,7 +176,7 @@ class MetadataRestSink(Sink):  # pylint: disable=too-many-public-methods
         self.team_entities = {}
         self.limit_reached = set()
         self.buffer: list[BaseModel] = []
-        self.deferred_lifecycle_records: list[OMetaLifeCycleData] = []
+        self.deferred_lifecycle_records: list[UMetaLifeCycleData] = []
         self.deferred_lifecycle_processed = False
         # Track entity names in buffer for O(1) duplicate checking
         # Key: (entity_type, name), Value: True
@@ -191,7 +191,7 @@ class MetadataRestSink(Sink):  # pylint: disable=too-many-public-methods
     def create(
         cls,
         config_dict: dict,
-        metadata: OpenMetadata,
+        metadata: UMetadata,
         pipeline_name: Optional[str] = None,
     ):
         config = MetadataRestSinkConfig.model_validate(config_dict)
@@ -199,7 +199,7 @@ class MetadataRestSink(Sink):  # pylint: disable=too-many-public-methods
 
     @property
     def name(self) -> str:
-        return "OpenMetadata"
+        return "UMetadata"
 
     @singledispatchmethod
     def _run_dispatch(self, record: Entity) -> Either[Any]:
@@ -498,7 +498,7 @@ class MetadataRestSink(Sink):  # pylint: disable=too-many-public-methods
         return Either(right=patched_entity)
 
     @_run_dispatch.register
-    def write_custom_properties(self, record: OMetaCustomProperties) -> Either[Dict]:
+    def write_custom_properties(self, record: UMetaCustomProperties) -> Either[Dict]:
         """
         Create or update the custom properties
         """
@@ -544,7 +544,7 @@ class MetadataRestSink(Sink):  # pylint: disable=too-many-public-methods
 
     @_run_dispatch.register
     def write_classification_and_tag(
-        self, record: OMetaTagAndClassification
+        self, record: UMetaTagAndClassification
     ) -> Either[Tag]:
         """PUT Classification and Tag to OM API"""
         tag_name = (
@@ -577,13 +577,13 @@ class MetadataRestSink(Sink):  # pylint: disable=too-many-public-methods
 
     @_run_dispatch.register
     def write_override_lineage(
-        self, add_lineage: OMetaLineageRequest
+        self, add_lineage: UMetaLineageRequest
     ) -> Either[Dict[str, Any]]:
         """
         Writes the override lineage for the given lineage request.
 
         Args:
-            add_lineage (OMetaLineageRequest): The lineage request containing the override lineage information.
+            add_lineage (UMetaLineageRequest): The lineage request containing the override lineage information.
 
         Returns:
             Either[Dict[str, Any]]: The result of the dispatch operation.
@@ -689,7 +689,7 @@ class MetadataRestSink(Sink):  # pylint: disable=too-many-public-methods
 
     # pylint: disable=too-many-branches
     @_run_dispatch.register
-    def write_users(self, record: OMetaUserProfile) -> Either[User]:
+    def write_users(self, record: UMetaUserProfile) -> Either[User]:
         """
         Given a User profile (User + Teams + Roles create requests):
         1. Check if role & team exist, otherwise create
@@ -769,7 +769,7 @@ class MetadataRestSink(Sink):  # pylint: disable=too-many-public-methods
 
     @_run_dispatch.register
     def write_pipeline_status(
-        self, record: OMetaPipelineStatus
+        self, record: UMetaPipelineStatus
     ) -> Either[PipelineStatus]:
         """
         Use the /status endpoint to add PipelineStatus
@@ -782,7 +782,7 @@ class MetadataRestSink(Sink):  # pylint: disable=too-many-public-methods
 
     @_run_dispatch.register
     def write_bulk_pipeline_status(
-        self, record: OMetaBulkPipelineStatus
+        self, record: UMetaBulkPipelineStatus
     ) -> Either[Pipeline]:
         pipeline = self.metadata.add_bulk_pipeline_status(
             fqn=record.pipeline_fqn, statuses=record.pipeline_statuses
@@ -791,7 +791,7 @@ class MetadataRestSink(Sink):  # pylint: disable=too-many-public-methods
 
     @_run_dispatch.register
     def write_profile_sample_data(
-        self, record: OMetaTableProfileSampleData
+        self, record: UMetaTableProfileSampleData
     ) -> Either[Table]:
         """
         Use the /tableProfile endpoint to ingest sample profile data
@@ -803,7 +803,7 @@ class MetadataRestSink(Sink):  # pylint: disable=too-many-public-methods
 
     @_run_dispatch.register
     def write_test_suite_sample(
-        self, record: OMetaTestSuiteSample
+        self, record: UMetaTestSuiteSample
     ) -> Either[TestSuite]:
         """
         Use the /testSuites endpoint to ingest sample test suite
@@ -815,7 +815,7 @@ class MetadataRestSink(Sink):  # pylint: disable=too-many-public-methods
 
     @_run_dispatch.register
     def write_logical_test_suite_sample(
-        self, record: OMetaLogicalTestSuiteSample
+        self, record: UMetaLogicalTestSuiteSample
     ) -> Either[TestSuite]:
         """Create logical test suite and add tests cases to it"""
         test_suite = self.metadata.create_or_update(record.test_suite)
@@ -828,7 +828,7 @@ class MetadataRestSink(Sink):  # pylint: disable=too-many-public-methods
         return Either(right=test_suite)
 
     @_run_dispatch.register
-    def write_test_case_sample(self, record: OMetaTestCaseSample) -> Either[TestCase]:
+    def write_test_case_sample(self, record: UMetaTestCaseSample) -> Either[TestCase]:
         """
         Use the /dataQuality/testCases endpoint to ingest sample test suite
         """
@@ -837,7 +837,7 @@ class MetadataRestSink(Sink):  # pylint: disable=too-many-public-methods
 
     @_run_dispatch.register
     def write_test_case_results_sample(
-        self, record: OMetaTestCaseResultsSample
+        self, record: UMetaTestCaseResultsSample
     ) -> Either[TestCaseResult]:
         """
         Use the /dataQuality/testCases endpoint to ingest sample test suite
@@ -862,7 +862,7 @@ class MetadataRestSink(Sink):  # pylint: disable=too-many-public-methods
 
     @_run_dispatch.register
     def write_test_case_resolution_status(
-        self, record: OMetaTestCaseResolutionStatus
+        self, record: UMetaTestCaseResolutionStatus
     ) -> TestCaseResolutionStatus:
         """For sample data"""
         res = self.metadata.create_test_case_resolution(record.test_case_resolution)
@@ -871,7 +871,7 @@ class MetadataRestSink(Sink):  # pylint: disable=too-many-public-methods
 
     @_run_dispatch.register
     def write_data_insight_sample(
-        self, record: OMetaDataInsightSample
+        self, record: UMetaDataInsightSample
     ) -> Either[ReportData]:
         """
         Use the /dataQuality/testCases endpoint to ingest sample test suite
@@ -891,7 +891,7 @@ class MetadataRestSink(Sink):  # pylint: disable=too-many-public-methods
 
     @_run_dispatch.register
     def write_topic_sample_data(
-        self, record: OMetaTopicSampleData
+        self, record: UMetaTopicSampleData
     ) -> Either[Union[TopicSampleData, Topic]]:
         """
         Use the /dataQuality/testCases endpoint to ingest sample test suite
@@ -908,7 +908,7 @@ class MetadataRestSink(Sink):  # pylint: disable=too-many-public-methods
 
     @_run_dispatch.register
     def write_search_index_sample_data(
-        self, record: OMetaIndexSampleData
+        self, record: UMetaIndexSampleData
     ) -> Either[Union[SearchIndexSampleData, SearchIndex]]:
         """
         Ingest Search Index Sample Data
@@ -924,7 +924,7 @@ class MetadataRestSink(Sink):  # pylint: disable=too-many-public-methods
         return Either(right=record.entity)
 
     @_run_dispatch.register
-    def write_life_cycle_data(self, record: OMetaLifeCycleData) -> Either[Entity]:
+    def write_life_cycle_data(self, record: UMetaLifeCycleData) -> Either[Entity]:
         """
         Ingest the life cycle data
         """

@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,8 +16,8 @@ from unittest import TestCase
 
 from pydantic import BaseModel
 
-from _openmetadata_testutils.ometa import int_admin_ometa
-from airflow_provider_openmetadata.lineage.status import add_status, get_dag_status
+from _umetadata_testutils.umeta import int_admin_umeta
+from airflow_provider_umetadata.lineage.status import add_status, get_dag_status
 from metadata.generated.schema.entity.data.pipeline import (
     Pipeline,
     StatusType,
@@ -50,7 +50,7 @@ class TestStatusCallback(TestCase):
     Test Status Callback
     """
 
-    metadata = int_admin_ometa()
+    metadata = int_admin_umeta()
     service_name = generate_name()
     pipeline_name = generate_name()
 

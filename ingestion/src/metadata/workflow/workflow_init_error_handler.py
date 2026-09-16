@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,12 +32,12 @@ EXAMPLES_WORKFLOW_PATH: Path = Path(__file__).parent / "../examples" / "workflow
 
 
 URLS: Dict[PipelineType, str] = {
-    PipelineType.metadata: "https://docs.open-metadata.org/connectors/ingestion/workflows/metadata",
-    PipelineType.profiler: "https://docs.open-metadata.org/connectors/ingestion/workflows/profiler",
-    PipelineType.TestSuite: "https://docs.open-metadata.org/connectors/ingestion/workflows/data-quality",
-    PipelineType.lineage: "https://docs.open-metadata.org/connectors/ingestion/workflows/lineage",
-    PipelineType.usage: "https://docs.open-metadata.org/connectors/ingestion/workflows/usage",
-    PipelineType.dbt: "https://docs.open-metadata.org/connectors/ingestion/workflows/dbt",
+    PipelineType.metadata: "https://docs.u-metadata.org/connectors/ingestion/workflows/metadata",
+    PipelineType.profiler: "https://docs.u-metadata.org/connectors/ingestion/workflows/profiler",
+    PipelineType.TestSuite: "https://docs.u-metadata.org/connectors/ingestion/workflows/data-quality",
+    PipelineType.lineage: "https://docs.u-metadata.org/connectors/ingestion/workflows/lineage",
+    PipelineType.usage: "https://docs.u-metadata.org/connectors/ingestion/workflows/usage",
+    PipelineType.dbt: "https://docs.u-metadata.org/connectors/ingestion/workflows/dbt",
 }
 
 
@@ -144,7 +144,7 @@ class WorkflowInitErrorHandler:
         """
         log_ansi_encoded_string(
             message=f"\nFor more information, please visit: {URLS[pipeline_type]}"
-            + "\nOr join us in Slack: https://slack.open-metadata.org/"
+            + "\nOr join us in Slack: https://slack.u-metadata.org/"
         )
 
     @staticmethod

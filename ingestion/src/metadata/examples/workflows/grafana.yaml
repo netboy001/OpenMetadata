@@ -30,7 +30,7 @@ source:
       #   excludes:
       #     - ".*debug.*"
       
-      # Include Grafana tags as OpenMetadata tags
+      # Include Grafana tags as UMetadata tags
       includeTags: true
       
       # Optional: Database service name for lineage
@@ -55,9 +55,9 @@ sink:
 
 workflowConfig:
   loggerLevel: INFO
-  openMetadataServerConfig:
+  uMetadataServerConfig:
     hostPort: http://localhost:8585/api
-    authProvider: openmetadata
+    authProvider: umetadata
     securityConfig:
       jwtToken: ${OM_JWT_TOKEN}
 

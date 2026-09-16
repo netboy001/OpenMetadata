@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,8 +20,8 @@ from metadata.generated.schema.entity.data.table import Column, DataType, Table
 from metadata.generated.schema.entity.services.connections.database.mysqlConnection import (
     MysqlConnection,
 )
-from metadata.generated.schema.entity.services.connections.metadata.openMetadataConnection import (
-    OpenMetadataConnection,
+from metadata.generated.schema.entity.services.connections.metadata.uMetadataConnection import (
+    UMetadataConnection,
 )
 from metadata.generated.schema.entity.services.databaseService import (
     DatabaseConnection,
@@ -43,10 +43,10 @@ from metadata.sdk.data_quality.workflow_config_builder import WorkflowConfigBuil
 
 
 @pytest.fixture
-def mock_ometa_client(mock_table, mock_service):
-    """Mock OpenMetadata client"""
+def mock_umeta_client(mock_table, mock_service):
+    """Mock UMetadata client"""
     client = MagicMock()
-    client.config = OpenMetadataConnection.model_construct(
+    client.config = UMetadataConnection.model_construct(
         hostPort="http://localhost:8585/api"
     )
     client.get_by_name.return_value = mock_table
@@ -55,10 +55,10 @@ def mock_ometa_client(mock_table, mock_service):
 
 
 @pytest.fixture
-def mock_ometa_client_without_entities():
-    """Mock OpenMetadata client"""
+def mock_umeta_client_without_entities():
+    """Mock UMetadata client"""
     client = MagicMock()
-    client.config = OpenMetadataConnection.model_construct(
+    client.config = UMetadataConnection.model_construct(
         hostPort="http://localhost:8585/api"
     )
     return client
@@ -139,11 +139,11 @@ def test_definition_2():
     )
 
 
-def test_builder_initialization(mock_ometa_client):
-    """Test that builder accepts OMeta client"""
-    builder = WorkflowConfigBuilder(client=mock_ometa_client)
+def test_builder_initialization(mock_umeta_client):
+    """Test that builder accepts UMeta client"""
+    builder = WorkflowConfigBuilder(client=mock_umeta_client)
 
-    assert builder.client == mock_ometa_client
+    assert builder.client == mock_umeta_client
     assert builder.table is None
     assert builder.service_connection is None
     assert builder.test_definitions == []
@@ -155,22 +155,22 @@ def test_builder_initialization(mock_ometa_client):
 
 
 def test_with_table_fetches_table_and_service(
-    mock_ometa_client, mock_table, mock_service
+    mock_umeta_client, mock_table, mock_service
 ):
     """Test that with_table() fetches table and service connection"""
-    builder = WorkflowConfigBuilder(client=mock_ometa_client)
+    builder = WorkflowConfigBuilder(client=mock_umeta_client)
     result = builder.with_table("MySQL.default.test_db.test_table")
 
     assert result is builder
     assert builder.table == mock_table
     assert builder.service_connection == mock_service.connection
-    mock_ometa_client.get_by_name.assert_called_once()
-    mock_ometa_client.get_by_id.assert_called_once()
+    mock_umeta_client.get_by_name.assert_called_once()
+    mock_umeta_client.get_by_id.assert_called_once()
 
 
-def test_add_test_definition_single(mock_ometa_client, test_definition_1):
+def test_add_test_definition_single(mock_umeta_client, test_definition_1):
     """Test adding a single test definition"""
-    builder = WorkflowConfigBuilder(client=mock_ometa_client)
+    builder = WorkflowConfigBuilder(client=mock_umeta_client)
 
     result = builder.add_test_definition(test_definition_1)
 
@@ -180,10 +180,10 @@ def test_add_test_definition_single(mock_ometa_client, test_definition_1):
 
 
 def test_add_test_definitions_multiple(
-    mock_ometa_client, test_definition_1, test_definition_2
+    mock_umeta_client, test_definition_1, test_definition_2
 ):
     """Test adding multiple test definitions"""
-    builder = WorkflowConfigBuilder(client=mock_ometa_client)
+    builder = WorkflowConfigBuilder(client=mock_umeta_client)
 
     builder.add_test_definitions([test_definition_1, test_definition_2])
 
@@ -193,10 +193,10 @@ def test_add_test_definitions_multiple(
 
 
 def test_add_test_definitions_chaining(
-    mock_ometa_client, test_definition_1, test_definition_2
+    mock_umeta_client, test_definition_1, test_definition_2
 ):
     """Test that add_test_definitions supports method chaining"""
-    builder = WorkflowConfigBuilder(client=mock_ometa_client)
+    builder = WorkflowConfigBuilder(client=mock_umeta_client)
 
     builder.add_test_definitions([test_definition_1]).add_test_definitions(
         [test_definition_2]
@@ -206,10 +206,10 @@ def test_add_test_definitions_chaining(
 
 
 def test_build_creates_valid_config(
-    mock_ometa_client, mock_table, mock_service, test_definition_1, test_definition_2
+    mock_umeta_client, mock_table, mock_service, test_definition_1, test_definition_2
 ):
     """Test that build creates a complete and valid workflow configuration"""
-    builder = WorkflowConfigBuilder(client=mock_ometa_client)
+    builder = WorkflowConfigBuilder(client=mock_umeta_client)
     builder.with_table("MySQL.default.test_db.test_table")
     builder.add_test_definitions([test_definition_1, test_definition_2])
 
@@ -223,10 +223,10 @@ def test_build_creates_valid_config(
 
 
 def test_build_source_configuration(
-    mock_ometa_client, mock_table, mock_service, test_definition_1
+    mock_umeta_client, mock_table, mock_service, test_definition_1
 ):
     """Test that source configuration is correctly set"""
-    builder = WorkflowConfigBuilder(client=mock_ometa_client)
+    builder = WorkflowConfigBuilder(client=mock_umeta_client)
     builder.with_table("MySQL.default.test_db.test_table")
     builder.add_test_definitions([test_definition_1])
 
@@ -239,10 +239,10 @@ def test_build_source_configuration(
 
 
 def test_build_source_config_contains_test_suite_pipeline(
-    mock_ometa_client, mock_table, mock_service, test_definition_1
+    mock_umeta_client, mock_table, mock_service, test_definition_1
 ):
     """Test that source config contains TestSuitePipeline with correct FQN"""
-    builder = WorkflowConfigBuilder(client=mock_ometa_client)
+    builder = WorkflowConfigBuilder(client=mock_umeta_client)
     builder.with_table("MySQL.default.test_db.test_table")
     builder.add_test_definitions([test_definition_1])
 
@@ -258,11 +258,11 @@ def test_build_source_config_contains_test_suite_pipeline(
 
 
 def test_build_includes_test_definitions_in_processor(
-    mock_ometa_client, mock_table, mock_service, test_definition_1, test_definition_2
+    mock_umeta_client, mock_table, mock_service, test_definition_1, test_definition_2
 ):
     """Test that processor config includes all test definitions"""
 
-    builder = WorkflowConfigBuilder(client=mock_ometa_client)
+    builder = WorkflowConfigBuilder(client=mock_umeta_client)
     builder.with_table("MySQL.default.test_db.test_table")
     builder.add_test_definitions([test_definition_1, test_definition_2])
 
@@ -275,11 +275,11 @@ def test_build_includes_test_definitions_in_processor(
 
 
 def test_build_processor_config_structure(
-    mock_ometa_client, mock_table, mock_service, test_definition_1
+    mock_umeta_client, mock_table, mock_service, test_definition_1
 ):
     """Test that processor config has correct structure"""
 
-    builder = WorkflowConfigBuilder(client=mock_ometa_client)
+    builder = WorkflowConfigBuilder(client=mock_umeta_client)
     builder.with_table("MySQL.default.test_db.test_table")
     builder.add_test_definitions([test_definition_1])
 
@@ -292,11 +292,11 @@ def test_build_processor_config_structure(
 
 
 def test_build_sets_correct_source_type(
-    mock_ometa_client, mock_table, mock_service, test_definition_1
+    mock_umeta_client, mock_table, mock_service, test_definition_1
 ):
     """Test that source type matches table service type"""
 
-    builder = WorkflowConfigBuilder(client=mock_ometa_client)
+    builder = WorkflowConfigBuilder(client=mock_umeta_client)
     builder.with_table("MySQL.default.test_db.test_table")
     builder.add_test_definitions([test_definition_1])
 
@@ -307,11 +307,11 @@ def test_build_sets_correct_source_type(
 
 
 def test_build_sink_configuration(
-    mock_ometa_client, mock_table, mock_service, test_definition_1
+    mock_umeta_client, mock_table, mock_service, test_definition_1
 ):
     """Test that sink configuration is correctly set"""
 
-    builder = WorkflowConfigBuilder(client=mock_ometa_client)
+    builder = WorkflowConfigBuilder(client=mock_umeta_client)
     builder.with_table("MySQL.default.test_db.test_table")
     builder.add_test_definitions([test_definition_1])
 
@@ -321,24 +321,24 @@ def test_build_sink_configuration(
 
 
 def test_build_workflow_config_settings(
-    mock_ometa_client, mock_table, mock_service, test_definition_1
+    mock_umeta_client, mock_table, mock_service, test_definition_1
 ):
     """Test that workflow config has correct logger and server settings"""
 
-    builder = WorkflowConfigBuilder(client=mock_ometa_client)
+    builder = WorkflowConfigBuilder(client=mock_umeta_client)
     builder.with_table("MySQL.default.test_db.test_table")
     builder.add_test_definitions([test_definition_1])
 
     config = builder.build()
 
     assert config.workflowConfig.loggerLevel.value == "INFO"
-    assert config.workflowConfig.openMetadataServerConfig == mock_ometa_client.config
+    assert config.workflowConfig.uMetadataServerConfig == mock_umeta_client.config
 
 
-def test_build_with_no_test_definitions(mock_ometa_client, mock_table, mock_service):
+def test_build_with_no_test_definitions(mock_umeta_client, mock_table, mock_service):
     """Test that build handles empty test list correctly"""
 
-    builder = WorkflowConfigBuilder(client=mock_ometa_client)
+    builder = WorkflowConfigBuilder(client=mock_umeta_client)
     builder.with_table("MySQL.default.test_db.test_table")
 
     config = builder.build()
@@ -349,13 +349,13 @@ def test_build_with_no_test_definitions(mock_ometa_client, mock_table, mock_serv
 
 
 def test_build_uses_table_fqn_in_source_config(
-    mock_ometa_client, mock_table, mock_service, test_definition_1
+    mock_umeta_client, mock_table, mock_service, test_definition_1
 ):
     """Test that table FQN is correctly propagated to source config"""
     expected_fqn = "MySQL.default.test_db.test_table"
     assert mock_table.fullyQualifiedName.root == expected_fqn
 
-    builder = WorkflowConfigBuilder(client=mock_ometa_client)
+    builder = WorkflowConfigBuilder(client=mock_umeta_client)
     builder.with_table(expected_fqn)
     builder.add_test_definitions([test_definition_1])
 
@@ -367,11 +367,11 @@ def test_build_uses_table_fqn_in_source_config(
 
 
 def test_with_force_test_update(
-    mock_ometa_client, mock_table, mock_service, test_definition_1
+    mock_umeta_client, mock_table, mock_service, test_definition_1
 ):
     """Test that force_test_update flag is correctly set"""
 
-    builder = WorkflowConfigBuilder(client=mock_ometa_client)
+    builder = WorkflowConfigBuilder(client=mock_umeta_client)
     builder.with_table("MySQL.default.test_db.test_table")
     builder.with_force_test_update(True)
     builder.add_test_definitions([test_definition_1])
@@ -382,11 +382,11 @@ def test_with_force_test_update(
 
 
 def test_with_force_test_update_chaining(
-    mock_ometa_client, mock_table, mock_service, test_definition_1
+    mock_umeta_client, mock_table, mock_service, test_definition_1
 ):
     """Test that with_force_test_update supports method chaining"""
 
-    builder = WorkflowConfigBuilder(client=mock_ometa_client)
+    builder = WorkflowConfigBuilder(client=mock_umeta_client)
 
     result = (
         builder.with_table("MySQL.default.test_db.test_table")
@@ -399,11 +399,11 @@ def test_with_force_test_update_chaining(
 
 
 def test_build_preserves_table_service_name(
-    mock_ometa_client, mock_table, mock_service, test_definition_1
+    mock_umeta_client, mock_table, mock_service, test_definition_1
 ):
     """Test that table service name is preserved in config"""
 
-    builder = WorkflowConfigBuilder(client=mock_ometa_client)
+    builder = WorkflowConfigBuilder(client=mock_umeta_client)
     builder.with_table("MySQL.default.test_db.test_table")
     builder.add_test_definitions([test_definition_1])
 
@@ -414,11 +414,11 @@ def test_build_preserves_table_service_name(
 
 
 def test_build_multiple_times_produces_same_config(
-    mock_ometa_client, mock_table, mock_service, test_definition_1
+    mock_umeta_client, mock_table, mock_service, test_definition_1
 ):
     """Test that calling build multiple times produces equivalent configs"""
 
-    builder = WorkflowConfigBuilder(client=mock_ometa_client)
+    builder = WorkflowConfigBuilder(client=mock_umeta_client)
     builder.with_table("MySQL.default.test_db.test_table")
     builder.add_test_definitions([test_definition_1])
 
@@ -433,10 +433,10 @@ def test_build_multiple_times_produces_same_config(
     )
 
 
-def test_with_log_level(mock_ometa_client, mock_table, mock_service, test_definition_1):
+def test_with_log_level(mock_umeta_client, mock_table, mock_service, test_definition_1):
     """Test that log level can be configured"""
 
-    builder = WorkflowConfigBuilder(client=mock_ometa_client)
+    builder = WorkflowConfigBuilder(client=mock_umeta_client)
     builder.with_table("MySQL.default.test_db.test_table")
     builder.with_log_level(LogLevels.DEBUG)
     builder.add_test_definitions([test_definition_1])
@@ -446,9 +446,9 @@ def test_with_log_level(mock_ometa_client, mock_table, mock_service, test_defini
     assert config.workflowConfig.loggerLevel == LogLevels.DEBUG
 
 
-def test_with_log_level_chaining(mock_ometa_client):
+def test_with_log_level_chaining(mock_umeta_client):
     """Test that with_log_level supports method chaining"""
-    builder = WorkflowConfigBuilder(client=mock_ometa_client)
+    builder = WorkflowConfigBuilder(client=mock_umeta_client)
 
     result = builder.with_log_level(LogLevels.WARN)
 
@@ -457,11 +457,11 @@ def test_with_log_level_chaining(mock_ometa_client):
 
 
 def test_with_raise_on_error(
-    mock_ometa_client, mock_table, mock_service, test_definition_1
+    mock_umeta_client, mock_table, mock_service, test_definition_1
 ):
     """Test that raise_on_error flag is correctly set"""
 
-    builder = WorkflowConfigBuilder(client=mock_ometa_client)
+    builder = WorkflowConfigBuilder(client=mock_umeta_client)
     builder.with_table("MySQL.default.test_db.test_table")
     builder.with_raise_on_error(True)
     builder.add_test_definitions([test_definition_1])
@@ -471,9 +471,9 @@ def test_with_raise_on_error(
     assert config.workflowConfig.raiseOnError is True
 
 
-def test_with_raise_on_error_chaining(mock_ometa_client):
+def test_with_raise_on_error_chaining(mock_umeta_client):
     """Test that with_raise_on_error supports method chaining"""
-    builder = WorkflowConfigBuilder(client=mock_ometa_client)
+    builder = WorkflowConfigBuilder(client=mock_umeta_client)
 
     result = builder.with_raise_on_error(True)
 
@@ -482,11 +482,11 @@ def test_with_raise_on_error_chaining(mock_ometa_client):
 
 
 def test_with_success_threshold(
-    mock_ometa_client, mock_table, mock_service, test_definition_1
+    mock_umeta_client, mock_table, mock_service, test_definition_1
 ):
     """Test that success threshold is correctly set"""
 
-    builder = WorkflowConfigBuilder(client=mock_ometa_client)
+    builder = WorkflowConfigBuilder(client=mock_umeta_client)
     builder.with_table("MySQL.default.test_db.test_table")
     builder.with_success_threshold(75)
     builder.add_test_definitions([test_definition_1])
@@ -496,9 +496,9 @@ def test_with_success_threshold(
     assert config.workflowConfig.successThreshold == 75
 
 
-def test_with_success_threshold_chaining(mock_ometa_client):
+def test_with_success_threshold_chaining(mock_umeta_client):
     """Test that with_success_threshold supports method chaining"""
-    builder = WorkflowConfigBuilder(client=mock_ometa_client)
+    builder = WorkflowConfigBuilder(client=mock_umeta_client)
 
     result = builder.with_success_threshold(80)
 
@@ -507,11 +507,11 @@ def test_with_success_threshold_chaining(mock_ometa_client):
 
 
 def test_with_enable_streamable_logs(
-    mock_ometa_client, mock_table, mock_service, test_definition_1
+    mock_umeta_client, mock_table, mock_service, test_definition_1
 ):
     """Test that enable_streamable_logs flag is correctly set"""
 
-    builder = WorkflowConfigBuilder(client=mock_ometa_client)
+    builder = WorkflowConfigBuilder(client=mock_umeta_client)
     builder.with_table("MySQL.default.test_db.test_table")
     builder.with_enable_streamable_logs(True)
     builder.add_test_definitions([test_definition_1])
@@ -521,9 +521,9 @@ def test_with_enable_streamable_logs(
     assert config.enableStreamableLogs is True
 
 
-def test_with_enable_streamable_logs_chaining(mock_ometa_client):
+def test_with_enable_streamable_logs_chaining(mock_umeta_client):
     """Test that with_enable_streamable_logs supports method chaining"""
-    builder = WorkflowConfigBuilder(client=mock_ometa_client)
+    builder = WorkflowConfigBuilder(client=mock_umeta_client)
 
     result = builder.with_enable_streamable_logs(True)
 
@@ -532,11 +532,11 @@ def test_with_enable_streamable_logs_chaining(mock_ometa_client):
 
 
 def test_builder_full_configuration_chain(
-    mock_ometa_client, mock_table, mock_service, test_definition_1, test_definition_2
+    mock_umeta_client, mock_table, mock_service, test_definition_1, test_definition_2
 ):
     """Test that all builder methods can be chained together"""
 
-    builder = WorkflowConfigBuilder(client=mock_ometa_client)
+    builder = WorkflowConfigBuilder(client=mock_umeta_client)
 
     result = (
         builder.with_table("MySQL.default.test_db.test_table")
@@ -561,11 +561,11 @@ def test_builder_full_configuration_chain(
 
 
 def test_default_workflow_config_values(
-    mock_ometa_client, mock_table, mock_service, test_definition_1
+    mock_umeta_client, mock_table, mock_service, test_definition_1
 ):
     """Test that default workflow config values are applied when not overridden"""
 
-    builder = WorkflowConfigBuilder(client=mock_ometa_client)
+    builder = WorkflowConfigBuilder(client=mock_umeta_client)
     builder.with_table("MySQL.default.test_db.test_table")
     builder.add_test_definitions([test_definition_1])
 
@@ -578,9 +578,9 @@ def test_default_workflow_config_values(
     assert config.processor.config.root["forceUpdate"] is True
 
 
-def test_build_without_table_raises_assertion(mock_ometa_client, test_definition_1):
+def test_build_without_table_raises_assertion(mock_umeta_client, test_definition_1):
     """Test that building without calling with_table() raises assertion"""
-    builder = WorkflowConfigBuilder(client=mock_ometa_client)
+    builder = WorkflowConfigBuilder(client=mock_umeta_client)
     builder.add_test_definitions([test_definition_1])
 
     with pytest.raises(AssertionError, match="Table entity not provided"):

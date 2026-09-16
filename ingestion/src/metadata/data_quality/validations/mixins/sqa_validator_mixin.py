@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -153,7 +153,7 @@ class SQAValidatorMixin:
             raise ValueError(
                 f"\nQuery on table/column {column.name if column is not None else ''} returned None. Your table might be empty. "
                 "If you confirmed your table is not empty and are still seeing this message you can:\n"
-                "\t1. check the documentation: https://docs.open-metadata.org/v1.3.x/connectors/ingestion/workflows/data-quality/tests\n"
+                "\t1. check the documentation: https://docs.u-metadata.org/v1.3.x/connectors/ingestion/workflows/data-quality/tests\n"
                 "\t2. reach out to the Collate team for support"
             )
 

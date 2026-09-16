@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -10,7 +10,7 @@
 #  limitations under the License.
 """
 Great Expectations subpackage to send expectation results to
-Open Metadata table quality.
+U Metadata table quality.
 
 This subpackage needs to be used in Great Expectations
 checkpoints actions.
@@ -54,21 +54,21 @@ from metadata.great_expectations.table_mapper import (
     TableMapper,
     TablePart,
 )
-from metadata.great_expectations.utils.ometa_config_handler import (
+from metadata.great_expectations.utils.umeta_config_handler import (
     create_jinja_environment,
-    create_ometa_connection_obj,
+    create_umeta_connection_obj,
     render_template,
 )
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.utils import fqn
 from metadata.utils.entity_link import get_entity_link
 
 logger = logging.getLogger(
-    "great_expectations.validation_operators.validation_operators.openmetadata"
+    "great_expectations.validation_operators.validation_operators.umetadata"
 )
 
 
-class OpenMetadataValidationAction1xx(ValidationAction):
+class UMetadataValidationAction1xx(ValidationAction):
     """Open Metdata validation action for GE 1.x.x It inherits from
     great expection validation action class and implements the
     `run` method.
@@ -77,15 +77,15 @@ class OpenMetadataValidationAction1xx(ValidationAction):
         data_context: great expectation data context
         database_service_name: name of the service for the table
         api_version: default to v1
-        config_file_path: path to the open metadata config path
+        config_file_path: path to the u metadata config path
         expectation_suite_table_config_map: optional mapping of expectation suite names
             to table configurations. Used to route validation results to specific tables
             in multi-table checkpoints.
             Format: {"suite_name": {"database_name": "db", "schema_name": "schema", "table_name": "table"}}
     """
 
-    type: Literal["open_metadata_validation_action"] = "open_metadata_validation_action"
-    name: str = "OpenMetadataValidationAction"
+    type: Literal["u_metadata_validation_action"] = "u_metadata_validation_action"
+    name: str = "UMetadataValidationAction"
     config_file_path: Optional[str] = None
     database_service_name: Optional[str] = None
     schema_name: Optional[str] = "default"
@@ -94,7 +94,7 @@ class OpenMetadataValidationAction1xx(ValidationAction):
     expectation_suite_table_config_map: Optional[Dict[str, Dict[str, str]]] = None
     # Using Optional to make this field not part of the serialized model
     # This will be initialized in the run method
-    ometa_conn: Optional[OpenMetadata] = None
+    umeta_conn: Optional[UMetadata] = None
 
     # pylint: disable=arguments-differ, unused-argument
     def run(
@@ -111,7 +111,7 @@ class OpenMetadataValidationAction1xx(ValidationAction):
             expectation_suite_identifier: type of expectation suite
             checkpoint_identifier: identifier for the checkpoint
         """
-        self.ometa_conn = self._create_ometa_connection()
+        self.umeta_conn = self._create_umeta_connection()
 
         table_mapper = TableMapper(
             default_database_name=self.database_name,
@@ -204,11 +204,11 @@ class OpenMetadataValidationAction1xx(ValidationAction):
         """
         if not all([schema_name, table_name]):
             raise ValueError(
-                "No Schema or Table name provided. Can't fetch table entity from OpenMetadata."
+                "No Schema or Table name provided. Can't fetch table entity from UMetadata."
             )
 
         if self.database_service_name:
-            return self.ometa_conn.get_by_name(
+            return self.umeta_conn.get_by_name(
                 entity=Table,
                 fqn=f"{self.database_service_name}.{database}.{schema_name}.{table_name}",
                 fields=["testSuite"],
@@ -216,7 +216,7 @@ class OpenMetadataValidationAction1xx(ValidationAction):
 
         table_entity = [
             entity
-            for entity in self.ometa_conn.list_entities(
+            for entity in self.umeta_conn.list_entities(
                 entity=Table, fields=["testSuite"]
             ).entities
             if f"{database}.{schema_name}.{table_name}"
@@ -248,7 +248,7 @@ class OpenMetadataValidationAction1xx(ValidationAction):
         """
 
         if table_entity.testSuite:
-            test_suite = self.ometa_conn.get_by_name(
+            test_suite = self.umeta_conn.get_by_name(
                 TestSuite, table_entity.testSuite.fullyQualifiedName
             )
             test_suite = cast(TestSuite, test_suite)
@@ -258,7 +258,7 @@ class OpenMetadataValidationAction1xx(ValidationAction):
             name=f"{table_entity.fullyQualifiedName.root}.TestSuite",
             basicEntityReference=table_entity.fullyQualifiedName.root,
         )  # type: ignore
-        test_suite = self.ometa_conn.create_or_update_executable_test_suite(
+        test_suite = self.umeta_conn.create_or_update_executable_test_suite(
             create_test_suite
         )
         return test_suite
@@ -285,12 +285,12 @@ class OpenMetadataValidationAction1xx(ValidationAction):
             " expectations against a relational database"
         )
 
-    def _create_ometa_connection(self) -> OpenMetadata:
-        """Create OpenMetadata API connection"""
+    def _create_umeta_connection(self) -> UMetadata:
+        """Create UMetadata API connection"""
         environment = create_jinja_environment(self.config_file_path)
         rendered_config = render_template(environment)
 
-        return OpenMetadata(create_ometa_connection_obj(rendered_config))
+        return UMetadata(create_umeta_connection_obj(rendered_config))
 
     def _build_test_case_fqn(self, table_fqn: str, result: Dict) -> str:
         """build test case fqn from table entity and GE test results
@@ -301,7 +301,7 @@ class OpenMetadataValidationAction1xx(ValidationAction):
         """
         split_table_fqn = table_fqn.split(".")
         fqn_ = fqn.build(
-            self.ometa_conn,
+            self.umeta_conn,
             entity_type=TestCase,
             service_name=split_table_fqn[0],
             database_name=split_table_fqn[1],
@@ -461,7 +461,7 @@ class OpenMetadataValidationAction1xx(ValidationAction):
         """
 
         try:
-            test_definition = self.ometa_conn.get_or_create_test_definition(
+            test_definition = self.umeta_conn.get_or_create_test_definition(
                 test_definition_fqn=result["expectation_config"]["type"],
                 test_definition_description=result["expectation_config"][
                     "type"
@@ -480,7 +480,7 @@ class OpenMetadataValidationAction1xx(ValidationAction):
                 result,
             )
 
-            test_case = self.ometa_conn.get_or_create_test_case(
+            test_case = self.umeta_conn.get_or_create_test_case(
                 test_case_fqn,
                 entity_link=get_entity_link(
                     Table,
@@ -491,7 +491,7 @@ class OpenMetadataValidationAction1xx(ValidationAction):
                 test_case_parameter_values=self._get_test_case_params_value(result),
             )
 
-            self.ometa_conn.add_test_case_results(
+            self.umeta_conn.add_test_case_results(
                 test_results=TestCaseResult(
                     timestamp=Timestamp(int(datetime.now().timestamp() * 1000)),
                     testCaseStatus=TestCaseStatus.Success

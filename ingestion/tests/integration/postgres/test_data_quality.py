@@ -5,7 +5,7 @@ from typing import List
 
 import pytest
 
-from _openmetadata_testutils.pydantic.test_utils import assert_equal_pydantic_objects
+from _umetadata_testutils.pydantic.test_utils import assert_equal_pydantic_objects
 from metadata.data_quality.api.models import TestCaseDefinition
 from metadata.generated.schema.entity.services.databaseService import DatabaseService
 from metadata.generated.schema.metadataIngestion.testSuitePipeline import (
@@ -14,7 +14,7 @@ from metadata.generated.schema.metadataIngestion.testSuitePipeline import (
     TestSuitePipeline,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
     Processor,
     Sink,
     Source,
@@ -30,7 +30,7 @@ from metadata.generated.schema.tests.testCase import TestCase
 from metadata.generated.schema.tests.testSuite import TestSuite
 from metadata.generated.schema.type.basic import ComponentConfig
 from metadata.ingestion.api.status import TruncatedStackTraceError
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.workflow.data_quality import TestSuiteWorkflow
 from metadata.workflow.metadata import MetadataWorkflow
 
@@ -43,12 +43,12 @@ def run_data_quality_workflow(
     run_workflow,
     ingestion_config,
     db_service: DatabaseService,
-    metadata: OpenMetadata,
+    metadata: UMetadata,
     sink_config,
     workflow_config,
 ):
     run_workflow(MetadataWorkflow, ingestion_config)
-    test_suite_config = OpenMetadataWorkflowConfig(
+    test_suite_config = UMetadataWorkflowConfig(
         source=Source(
             type="postgres",
             serviceName="MyTestSuite",
@@ -308,7 +308,7 @@ def run_data_quality_workflow(
 )
 def test_data_quality(
     run_data_quality_workflow,
-    metadata: OpenMetadata,
+    metadata: UMetadata,
     test_case_name,
     expected_status,
     db_service,
@@ -427,7 +427,7 @@ def test_incompatible_column_type(
     run_workflow,
     ingestion_config,
     get_incompatible_column_type_config,
-    metadata: OpenMetadata,
+    metadata: UMetadata,
     db_service,
     cleanup_fqns,
 ):

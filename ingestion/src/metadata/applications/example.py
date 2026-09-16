@@ -18,9 +18,9 @@ from metadata.generated.schema.entity.applications.configuration.internal.helloP
     HelloPipelinesAppConfiguration,
 )
 from metadata.generated.schema.metadataIngestion.application import (
-    OpenMetadataApplicationConfig,
+    UMetadataApplicationConfig,
 )
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.utils.logger import app_logger
 from metadata.workflow.application import AppRunner, InvalidAppConfiguration
 
@@ -40,15 +40,15 @@ class HelloPipelines(AppRunner):
       echo: this will be echoed
     workflowConfig:
       loggerLevel: INFO
-      openMetadataServerConfig:
+      uMetadataServerConfig:
         hostPort: http://localhost:8585/api
-        authProvider: openmetadata
+        authProvider: umetadata
         securityConfig:
           jwtToken: "..."
     """
 
     def __init__(
-        self, config: OpenMetadataApplicationConfig, metadata: OpenMetadata[Any, Any]
+        self, config: UMetadataApplicationConfig, metadata: UMetadata[Any, Any]
     ):
         super().__init__(config, metadata)  # pyright: ignore [reportUnknownMemberType]
         try:

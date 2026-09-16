@@ -22,31 +22,31 @@ run_e2e_tests: ## Run e2e tests
 ## Yarn
 .PHONY: yarn_install_cache
 yarn_install_cache:  ## Use Yarn to install UI dependencies
-	cd openmetadata-ui/src/main/resources/ui && yarn install --frozen-lockfile
+	cd umetadata-ui/src/main/resources/ui && yarn install --frozen-lockfile
 
 .PHONY: yarn_start_dev_ui
 yarn_start_dev_ui:  ## Run the UI locally with Yarn
-	cd openmetadata-ui/src/main/resources/ui && yarn start
+	cd umetadata-ui/src/main/resources/ui && yarn start
 
 .PHONY: yarn_start_e2e
 yarn_start_e2e:  ## Run the e2e tests locally with Yarn
-	cd openmetadata-ui/src/main/resources/ui && yarn playwright:run
+	cd umetadata-ui/src/main/resources/ui && yarn playwright:run
 
 .PHONY: yarn_start_e2e_ui
 yarn_start_e2e_ui:  ## Run the e2e tests locally in UI mode with Yarn
-	cd openmetadata-ui/src/main/resources/ui && yarn playwright:open
+	cd umetadata-ui/src/main/resources/ui && yarn playwright:open
 
 .PHONY: yarn_start_e2e_codegen
 yarn_start_e2e_codegen:  ## generate playwright code
-	cd openmetadata-ui/src/main/resources/ui && yarn playwright:codegen
+	cd umetadata-ui/src/main/resources/ui && yarn playwright:codegen
 	
 .PHONY: py_antlr
 py_antlr:  ## Generate the Python code for parsing FQNs
-	antlr4 -Dlanguage=Python3 -o ingestion/src/metadata/generated/antlr ${PWD}/openmetadata-spec/src/main/antlr4/org/openmetadata/schema/*.g4
+	antlr4 -Dlanguage=Python3 -o ingestion/src/metadata/generated/antlr ${PWD}/umetadata-spec/src/main/antlr4/org/umetadata/schema/*.g4
 
 .PHONY: js_antlr
 js_antlr:  ## Generate the Python code for parsing FQNs
-	antlr4 -Dlanguage=JavaScript -o openmetadata-ui/src/main/resources/ui/src/generated/antlr ${PWD}/openmetadata-spec/src/main/antlr4/org/openmetadata/schema/*.g4
+	antlr4 -Dlanguage=JavaScript -o umetadata-ui/src/main/resources/ui/src/generated/antlr ${PWD}/umetadata-spec/src/main/antlr4/org/umetadata/schema/*.g4
 
 ## Ingestion models generation
 .PHONY: generate
@@ -74,8 +74,8 @@ SNYK_ARGS := --severity-threshold=high
 .PHONY: snyk-ingestion-report
 snyk-ingestion-report:  ## Uses Snyk CLI to validate the ingestion code and container. Don't stop the execution
 	@echo "Validating Ingestion container..."
-	docker build -t openmetadata-ingestion:scan -f ingestion/Dockerfile.ci .
-	snyk container test openmetadata-ingestion:scan --file=ingestion/Dockerfile.ci $(SNYK_ARGS) --json > security-report/ingestion-docker-scan.json | true;
+	docker build -t umetadata-ingestion:scan -f ingestion/Dockerfile.ci .
+	snyk container test umetadata-ingestion:scan --file=ingestion/Dockerfile.ci $(SNYK_ARGS) --json > security-report/ingestion-docker-scan.json | true;
 	@echo "Validating ALL ingestion dependencies. Make sure the venv is activated."
 	cd ingestion; \
 		pip freeze > scan-requirements.txt; \
@@ -86,21 +86,21 @@ snyk-ingestion-report:  ## Uses Snyk CLI to validate the ingestion code and cont
 .PHONY: snyk-airflow-apis-report
 snyk-airflow-apis-report:  ## Uses Snyk CLI to validate the airflow apis code. Don't stop the execution
 	@echo "Validating airflow dependencies. Make sure the venv is activated."
-	cd openmetadata-airflow-apis; \
+	cd umetadata-airflow-apis; \
 		rm -rf build; \
 		snyk code test $(SNYK_ARGS) --json > ../security-report/airflow-apis-code-scan.json | true;
 
 .PHONY: snyk-catalog-report
 snyk-server-report:  ## Uses Snyk CLI to validate the catalog code and container. Don't stop the execution
-	@echo "Validating catalog container... Make sure the code is built and available under openmetadata-dist"
-	docker build -t openmetadata-server:scan -f docker/development/Dockerfile .
-	snyk container test openmetadata-server:scan --file=docker/development/Dockerfile $(SNYK_ARGS) --json > security-report/server-docker-scan.json | true;
+	@echo "Validating catalog container... Make sure the code is built and available under umetadata-dist"
+	docker build -t umetadata-server:scan -f docker/development/Dockerfile .
+	snyk container test umetadata-server:scan --file=docker/development/Dockerfile $(SNYK_ARGS) --json > security-report/server-docker-scan.json | true;
 	snyk test --all-projects $(SNYK_ARGS) --json > security-report/server-dep-scan.json | true;
 	snyk code test --all-projects --severity-threshold=high --json > security-report/server-code-scan.json | true;
 
 .PHONY: snyk-ui-report
 snyk-ui-report:  ## Uses Snyk CLI to validate the UI dependencies. Don't stop the execution
-	snyk test --file=openmetadata-ui/src/main/resources/ui/yarn.lock $(SNYK_ARGS) --json > security-report/ui-dep-scan.json | true;
+	snyk test --file=umetadata-ui/src/main/resources/ui/yarn.lock $(SNYK_ARGS) --json > security-report/ui-dep-scan.json | true;
 
 .PHONY: snyk-dependencies-report
 snyk-dependencies-report:  ## Uses Snyk CLI to validate the project dependencies: MySQL, Postgres and ES. Only local testing.
@@ -112,8 +112,8 @@ snyk-dependencies-report:  ## Uses Snyk CLI to validate the project dependencies
 .PHONY: snyk-ingestion-base-slim-report
 snyk-ingestion-base-slim-report:
 	@echo "Validating Ingestion Slim Container"
-	docker build -t openmetadata-ingestion-base-slim:scan -f ingestion/operators/docker/Dockerfile.ci --build-arg INGESTION_DEPENDENCY=slim .
-	snyk container test openmetadata-ingestion-base-slim:scan --file=ingestion/operators/docker/Dockerfile.ci $(SNYK_ARGS) --json > security-report/ingestion-docker-base-slim-scan.json | true;
+	docker build -t umetadata-ingestion-base-slim:scan -f ingestion/operators/docker/Dockerfile.ci --build-arg INGESTION_DEPENDENCY=slim .
+	snyk container test umetadata-ingestion-base-slim:scan --file=ingestion/operators/docker/Dockerfile.ci $(SNYK_ARGS) --json > security-report/ingestion-docker-base-slim-scan.json | true;
 
 .PHONY: snyk-report
 snyk-report:  ## Uses Snyk CLI to run a security scan of the different pieces of the code
@@ -140,12 +140,12 @@ export-snyk-pdf-report:  ## export json file from security-report/ to HTML
 .PHONY: build-ingestion-base-local
 build-ingestion-base-local:  ## Builds the ingestion DEV docker operator with the local ingestion files
 	$(MAKE) install_dev generate
-	docker build -f ingestion/operators/docker/Dockerfile.ci . -t openmetadata/ingestion-base:local
+	docker build -f ingestion/operators/docker/Dockerfile.ci . -t umetadata/ingestion-base:local
 
 .PHONY: build-ingestion-base-slim-local
 build-ingestion-base-local:  ## Builds the ingestion DEV docker operator with the local ingestion files
 	$(MAKE) install_dev generate
-	docker build -f ingestion/operators/docker/Dockerfile.ci . -t openmetadata/ingestion-base-slim:local --build-arg INGESTION_DEPENDENCY=slim
+	docker build -f ingestion/operators/docker/Dockerfile.ci . -t umetadata/ingestion-base-slim:local --build-arg INGESTION_DEPENDENCY=slim
 
 #Upgrade release automation scripts below
 .PHONY: update_all
@@ -167,7 +167,7 @@ update_maven:  ## To update the common and pom.xml maven version
 #make update_maven RELEASE_VERSION=2.2.2
 
 .PHONY: update_openapi_version
-update_openapi_version:  ## To update the OpenAPI version in OpenMetadataApplication.java
+update_openapi_version:  ## To update the OpenAPI version in UMetadataApplication.java
 	@echo "Updating OpenAPI version to $(RELEASE_VERSION)..."; \
 	python3 scripts/update_version.py update_openapi_version -v $(RELEASE_VERSION)
 #make update_openapi_version RELEASE_VERSION=2.2.2
@@ -175,7 +175,7 @@ update_openapi_version:  ## To update the OpenAPI version in OpenMetadataApplica
 .PHONY: update_pyproject_version
 update_pyproject_version:  ## To update the pyproject.toml files
 	file_paths="ingestion/pyproject.toml \
-				openmetadata-airflow-apis/pyproject.toml"; \
+				umetadata-airflow-apis/pyproject.toml"; \
 	echo "Updating pyproject.toml versions to $(RELEASE_VERSION)... "; \
 	for file_path in $$file_paths; do \
 	    python3 scripts/update_version.py update_pyproject_version -f $$file_path -v $(RELEASE_VERSION) ; \
@@ -186,7 +186,7 @@ update_pyproject_version:  ## To update the pyproject.toml files
 .PHONY: update_dockerfile_version
 update_dockerfile_version:  ## To update the dockerfiles version
 	@file_paths="docker/docker-compose-ingestion/docker-compose-ingestion.yml \
-		     docker/docker-compose-openmetadata/docker-compose-openmetadata.yml \
+		     docker/docker-compose-umetadata/docker-compose-umetadata.yml \
 		     docker/docker-compose-quickstart/docker-compose-postgres.yml \
 		     docker/docker-compose-quickstart/docker-compose.yml"; \
 	echo "Updating docker github action release version to $(RELEASE_VERSION)... "; \
@@ -213,6 +213,6 @@ update_dockerfile_ri_version:  ## To update the dockerfile RI_VERSION argument
 .PHONY: update_typescript_types
 update_typescript_types:
 	@echo "Generating JSON to TS files"
-	./openmetadata-ui/src/main/resources/ui/json2ts-generate-all.sh -l true
+	./umetadata-ui/src/main/resources/ui/json2ts-generate-all.sh -l true
 	@echo "Generating antlr typescript files"
 	$(MAKE) js_antlr

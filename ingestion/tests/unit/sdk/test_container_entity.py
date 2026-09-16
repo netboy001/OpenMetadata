@@ -20,10 +20,10 @@ class TestContainerEntity(unittest.TestCase):
 
     def setUp(self):
         """Set up test fixtures"""
-        self.mock_ometa = MagicMock()
+        self.mock_umeta = MagicMock()
 
         # Set default client directly
-        Containers.set_default_client(self.mock_ometa)
+        Containers.set_default_client(self.mock_umeta)
 
         # Test data
         self.container_id = "650e8400-e29b-41d4-a716-446655440000"
@@ -46,7 +46,7 @@ class TestContainerEntity(unittest.TestCase):
         expected_container.fullyQualifiedName = self.container_fqn
         expected_container.fileFormats = [FileFormat.parquet, FileFormat.csv]
 
-        self.mock_ometa.create_or_update.return_value = expected_container
+        self.mock_umeta.create_or_update.return_value = expected_container
 
         # Act
         result = Containers.create(create_request)
@@ -56,7 +56,7 @@ class TestContainerEntity(unittest.TestCase):
         self.assertEqual(result.name, "analytics-bucket")
         self.assertEqual(result.fullyQualifiedName, self.container_fqn)
         self.assertEqual(len(result.fileFormats), 2)
-        self.mock_ometa.create_or_update.assert_called_once_with(create_request)
+        self.mock_umeta.create_or_update.assert_called_once_with(create_request)
 
     def test_retrieve_container_by_id(self):
         """Test retrieving a container by ID"""
@@ -66,7 +66,7 @@ class TestContainerEntity(unittest.TestCase):
         expected_container.name = "analytics-bucket"
         expected_container.description = "Analytics data storage"
 
-        self.mock_ometa.get_by_id.return_value = expected_container
+        self.mock_umeta.get_by_id.return_value = expected_container
 
         # Act
         result = Containers.retrieve(self.container_id)
@@ -74,7 +74,7 @@ class TestContainerEntity(unittest.TestCase):
         # Assert
         self.assertEqual(str(result.id), self.container_id)
         self.assertEqual(result.name, "analytics-bucket")
-        self.mock_ometa.get_by_id.assert_called_once_with(
+        self.mock_umeta.get_by_id.assert_called_once_with(
             entity=ContainerEntity, entity_id=self.container_id, fields=None
         )
 
@@ -100,7 +100,7 @@ class TestContainerEntity(unittest.TestCase):
         expected_container.name = "analytics-bucket"
         expected_container.children = [child1, child2]
 
-        self.mock_ometa.get_by_id.return_value = expected_container
+        self.mock_umeta.get_by_id.return_value = expected_container
 
         # Act
         result = Containers.retrieve(self.container_id, fields=fields)
@@ -109,7 +109,7 @@ class TestContainerEntity(unittest.TestCase):
         self.assertIsNotNone(result.children)
         self.assertEqual(len(result.children), 2)
         self.assertEqual(result.children[0].name, "raw-data")
-        self.mock_ometa.get_by_id.assert_called_once_with(
+        self.mock_umeta.get_by_id.assert_called_once_with(
             entity=ContainerEntity, entity_id=self.container_id, fields=fields
         )
 
@@ -121,14 +121,14 @@ class TestContainerEntity(unittest.TestCase):
         expected_container.name = "analytics-bucket"
         expected_container.fullyQualifiedName = self.container_fqn
 
-        self.mock_ometa.get_by_name.return_value = expected_container
+        self.mock_umeta.get_by_name.return_value = expected_container
 
         # Act
         result = Containers.retrieve_by_name(self.container_fqn)
 
         # Assert
         self.assertEqual(result.fullyQualifiedName, self.container_fqn)
-        self.mock_ometa.get_by_name.assert_called_once_with(
+        self.mock_umeta.get_by_name.assert_called_once_with(
             entity=ContainerEntity, fqn=self.container_fqn, fields=None
         )
 
@@ -147,10 +147,10 @@ class TestContainerEntity(unittest.TestCase):
             if hasattr(container_to_update, "id")
             else UUID(self.entity_id)
         )
-        self.mock_ometa.get_by_id.return_value = current_entity
+        self.mock_umeta.get_by_id.return_value = current_entity
 
         # Mock the patch to return the updated entity
-        self.mock_ometa.patch.return_value = container_to_update
+        self.mock_umeta.patch.return_value = container_to_update
 
         # Act
         result = Containers.update(container_to_update)
@@ -158,9 +158,9 @@ class TestContainerEntity(unittest.TestCase):
         # Assert
         self.assertEqual(result.description, "Updated analytics bucket")
         # Verify get_by_id was called to fetch current state
-        self.mock_ometa.get_by_id.assert_called_once()
+        self.mock_umeta.get_by_id.assert_called_once()
         # Verify patch was called with source and destination
-        self.mock_ometa.patch.assert_called_once()
+        self.mock_umeta.patch.assert_called_once()
 
     def test_delete_container(self):
         """Test deleting a container"""
@@ -168,7 +168,7 @@ class TestContainerEntity(unittest.TestCase):
         Containers.delete(self.container_id, recursive=True, hard_delete=False)
 
         # Assert
-        self.mock_ometa.delete.assert_called_once_with(
+        self.mock_umeta.delete.assert_called_once_with(
             entity=ContainerEntity,
             entity_id=self.container_id,
             recursive=True,
@@ -185,7 +185,7 @@ class TestContainerEntity(unittest.TestCase):
         expected_container.id = UUID(self.container_id)
         expected_container.dataModel = data_model
 
-        self.mock_ometa.get_by_id.return_value = expected_container
+        self.mock_umeta.get_by_id.return_value = expected_container
 
         # Act
         result = Containers.retrieve(self.container_id, fields=["dataModel"])
@@ -207,7 +207,7 @@ class TestContainerEntity(unittest.TestCase):
         expected_container.id = UUID(self.container_id)
         expected_container.parent = parent_ref
 
-        self.mock_ometa.get_by_id.return_value = expected_container
+        self.mock_umeta.get_by_id.return_value = expected_container
 
         # Act
         result = Containers.retrieve(self.container_id, fields=["parent"])
@@ -229,7 +229,7 @@ class TestContainerEntity(unittest.TestCase):
         expected_container.name = "partitioned-data"
         expected_container.prefix = "/data/year=2024/month=01/"
 
-        self.mock_ometa.create_or_update.return_value = expected_container
+        self.mock_umeta.create_or_update.return_value = expected_container
 
         # Act
         result = Containers.create(create_request)
@@ -250,7 +250,7 @@ class TestContainerEntity(unittest.TestCase):
         mock_response = MagicMock()
         mock_response.entities = [mock_bucket1, mock_bucket2, mock_bucket3]
 
-        self.mock_ometa.list_entities.return_value = mock_response
+        self.mock_umeta.list_entities.return_value = mock_response
 
         # Act
         result = Containers.list(limit=25, after="cursor456")
@@ -258,7 +258,7 @@ class TestContainerEntity(unittest.TestCase):
         # Assert
         self.assertEqual(len(result.entities), 3)
         self.assertEqual(result.entities[0].name, "bucket1")
-        self.mock_ometa.list_entities.assert_called_once()
+        self.mock_umeta.list_entities.assert_called_once()
 
     def test_container_size_and_objects(self):
         """Test container with size and object count"""
@@ -268,7 +268,7 @@ class TestContainerEntity(unittest.TestCase):
         expected_container.size = 1073741824  # 1GB in bytes
         expected_container.numberOfObjects = 1500
 
-        self.mock_ometa.get_by_id.return_value = expected_container
+        self.mock_umeta.get_by_id.return_value = expected_container
 
         # Act
         result = Containers.retrieve(self.container_id)
@@ -280,7 +280,7 @@ class TestContainerEntity(unittest.TestCase):
     def test_error_handling_container_not_found(self):
         """Test error handling when container not found"""
         # Arrange
-        self.mock_ometa.get_by_id.side_effect = Exception("Container not found")
+        self.mock_umeta.get_by_id.side_effect = Exception("Container not found")
 
         # Act & Assert
         with self.assertRaises(Exception) as context:

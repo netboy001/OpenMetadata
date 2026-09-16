@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -90,7 +90,7 @@ class TableDiffParamsSetter(RuntimeParameterSetter):
         self.get_service_url = service_url_getter
 
     def get_parameters(self, test_case) -> TableDiffRuntimeParameters:
-        service1: DatabaseService = self.ometa_client.get_by_id(
+        service1: DatabaseService = self.umeta_client.get_by_id(
             DatabaseService, self.table_entity.service.id, nullable=False
         )
 
@@ -98,10 +98,10 @@ class TableDiffParamsSetter(RuntimeParameterSetter):
         if table2_fqn is None:
             raise ValueError("table2 not set")
 
-        table2: Table = self.ometa_client.get_by_name(
+        table2: Table = self.umeta_client.get_by_name(
             Table, fqn=table2_fqn, nullable=False
         )
-        service2: DatabaseService = self.ometa_client.get_by_id(
+        service2: DatabaseService = self.umeta_client.get_by_id(
             DatabaseService, table2.service.id, nullable=False
         )
 

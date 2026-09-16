@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -261,8 +261,8 @@ def test_db2():
         "serviceConnection": {
             "config": {
                 "type": "Db2",
-                "username": "openmetadata_user",
-                "password": "openmetadata_password",
+                "username": "umetadata_user",
+                "password": "umetadata_password",
                 "hostPort": "localhost:50000",
                 "database": "db",
             }
@@ -474,8 +474,8 @@ def test_mariadb():
         "serviceConnection": {
             "config": {
                 "type": "MariaDB",
-                "username": "openmetadata_user",
-                "password": "openmetadata_password",
+                "username": "umetadata_user",
+                "password": "umetadata_password",
                 "hostPort": "localhost:3306",
             }
         },
@@ -542,8 +542,8 @@ def test_mysql():
         "serviceConnection": {
             "config": {
                 "type": "Mysql",
-                "username": "openmetadata_user",
-                "authType": {"password": "openmetadata_password"},
+                "username": "umetadata_user",
+                "authType": {"password": "umetadata_password"},
                 "hostPort": "localhost:3306",
             }
         },
@@ -581,9 +581,9 @@ def test_postgres():
         "serviceConnection": {
             "config": {
                 "type": "Postgres",
-                "username": "openmetadata_user",
+                "username": "umetadata_user",
                 "authType": {
-                    "password": "openmetadata_password",
+                    "password": "umetadata_password",
                 },
                 "hostPort": "localhost:5432",
                 "database": "pagila",
@@ -742,8 +742,8 @@ def test_singlestore():
         "serviceConnection": {
             "config": {
                 "type": "SingleStore",
-                "username": "openmetadata_user",
-                "password": "openmetadata_password",
+                "username": "umetadata_user",
+                "password": "umetadata_password",
                 "hostPort": "localhost:3306",
             }
         },
@@ -870,7 +870,7 @@ def test_vertica():
         "serviceConnection": {
             "config": {
                 "type": "Vertica",
-                "username": "openmetadata_user",
+                "username": "umetadata_user",
                 "password": "",
                 "hostPort": "localhost:5433",
                 "database": "custom_database_name",

@@ -200,7 +200,7 @@
     "trigger_info": {
       "run_id": 0
     },
-    "run_name": "OpenMetadata Databricks Workflow run",
+    "run_name": "UMetadata Databricks Workflow run",
     "run_page_url": "https://my-workspace.cloud.databricks.com/#job/11223344/run/123",
     "run_type": "JOB_RUN",
     "tasks": [

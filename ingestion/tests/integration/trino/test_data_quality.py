@@ -2,7 +2,7 @@ import pytest
 from dirty_equals import IsPositiveInt
 from sqlalchemy import create_engine
 
-from _openmetadata_testutils.pydantic.test_utils import assert_equal_pydantic_objects
+from _umetadata_testutils.pydantic.test_utils import assert_equal_pydantic_objects
 from metadata.data_quality.api.models import TestCaseDefinition
 from metadata.generated.schema.entity.data.table import Table
 from metadata.generated.schema.entity.services.databaseService import DatabaseService
@@ -12,7 +12,7 @@ from metadata.generated.schema.metadataIngestion.testSuitePipeline import (
 from metadata.generated.schema.tests.basic import TestCaseResult, TestCaseStatus
 from metadata.generated.schema.tests.testCase import TestCase, TestCaseParameterValue
 from metadata.generated.schema.type.basic import Timestamp
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.workflow.data_quality import TestSuiteWorkflow
 from metadata.workflow.metadata import MetadataWorkflow
 
@@ -108,7 +108,7 @@ def test_table_diff(
     prepare_data,
     db_service: DatabaseService,
     ingestion_config,
-    metadata: OpenMetadata,
+    metadata: UMetadata,
     sink_config,
     workflow_config,
     run_workflow,

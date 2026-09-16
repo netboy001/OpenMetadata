@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,13 +27,13 @@ import requests
 
 from metadata.generated.schema.entity.data.pipeline import Pipeline
 from metadata.generated.schema.entity.data.table import Table
-from metadata.generated.schema.entity.services.connections.metadata.openMetadataConnection import (
-    OpenMetadataConnection,
+from metadata.generated.schema.entity.services.connections.metadata.uMetadataConnection import (
+    UMetadataConnection,
 )
-from metadata.generated.schema.security.client.openMetadataJWTClientConfig import (
-    OpenMetadataJWTClientConfig,
+from metadata.generated.schema.security.client.uMetadataJWTClientConfig import (
+    UMetadataJWTClientConfig,
 )
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 
 OM_HOST = "http://localhost:8585"
 OM_API = f"{OM_HOST}/api"
@@ -83,11 +83,11 @@ pytestmark = [
 
 @pytest.fixture(scope="module")
 def metadata():
-    meta = OpenMetadata(
-        OpenMetadataConnection(
+    meta = UMetadata(
+        UMetadataConnection(
             hostPort=OM_API,
-            authProvider="openmetadata",
-            securityConfig=OpenMetadataJWTClientConfig(jwtToken=OM_JWT),
+            authProvider="umetadata",
+            securityConfig=UMetadataJWTClientConfig(jwtToken=OM_JWT),
         )
     )
     assert meta.health_check()

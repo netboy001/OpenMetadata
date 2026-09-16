@@ -2,24 +2,24 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-"""Examples demonstrating DataFrame validation with OpenMetadata SDK.
+"""Examples demonstrating DataFrame validation with UMetadata SDK.
 
 Installation:
     For basic DataFrame validation:
-        pip install 'openmetadata-ingestion[pandas]'
+        pip install 'umetadata-ingestion[pandas]'
 
     For reading Parquet files:
-        pip install 'openmetadata-ingestion[pandas,pyarrow]'
+        pip install 'umetadata-ingestion[pandas,pyarrow]'
 
     For reading from S3 datalakes:
-        pip install 'openmetadata-ingestion[pandas,datalake-s3]'
+        pip install 'umetadata-ingestion[pandas,datalake-s3]'
 """
 # pyright: reportUnknownVariableType=false, reportAttributeAccessIssue=false, reportUnknownMemberType=false
 # pyright: reportUnusedCallResult=false
@@ -121,8 +121,8 @@ def multiple_tests_example():
             print(f"  Failed: {test_result.failed_rows} rows ({percentage:.1f}%)")
 
 
-def integrating_with_openmetadata_example():
-    """Integrating with OpenMetadata."""
+def integrating_with_umetadata_example():
+    """Integrating with UMetadata."""
 
     def transform_to_dwh_table(raw_df: pd.DataFrame) -> pd.DataFrame:
         """Transform the dataframe to dwh table."""
@@ -136,14 +136,14 @@ def integrating_with_openmetadata_example():
 
     # Instantiate validator and load the executable test suite for a table
     validator = DataFrameValidator()
-    validator.add_openmetadata_table_tests(
+    validator.add_umetadata_table_tests(
         "DbService.database_name.schema_name.dwh_table"
     )
 
     result = validator.validate(df)
     print(f"Validation: {'PASSED' if result.success else 'FAILED'}")
 
-    # Publish the results back to Open Metadata
+    # Publish the results back to U Metadata
     result.publish("DbService.database_name.schema_name.dwh_table")
 
     if result.success:
@@ -156,7 +156,7 @@ def processing_big_data_with_chunks_example():
     configure(host="http://localhost:8585/api", jwt_token="your jwt token")
 
     validator = DataFrameValidator()
-    validator.add_openmetadata_table_tests(
+    validator.add_umetadata_table_tests(
         "DbService.database_name.schema_name.dwh_table"
     )
 

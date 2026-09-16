@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,25 +25,25 @@ from metadata.generated.schema.tests.basic import TestCaseResult
 from metadata.generated.schema.tests.testCase import TestCase
 
 
-class OMetaTestSuiteSample(BaseModel):
+class UMetaTestSuiteSample(BaseModel):
     test_suite: CreateTestSuiteRequest
 
 
-class OMetaLogicalTestSuiteSample(BaseModel):
+class UMetaLogicalTestSuiteSample(BaseModel):
     test_suite: CreateTestSuiteRequest
     test_cases: List[TestCase]
 
 
-class OMetaTestCaseSample(BaseModel):
+class UMetaTestCaseSample(BaseModel):
     test_case: CreateTestCaseRequest
 
 
-class OMetaTestCaseResultsSample(BaseModel):
+class UMetaTestCaseResultsSample(BaseModel):
     test_case_results: TestCaseResult
     test_case_name: str
 
 
-class OMetaTestCaseResolutionStatus(BaseModel):
+class UMetaTestCaseResolutionStatus(BaseModel):
     """For sample data"""
 
     test_case_resolution: CreateTestCaseResolutionStatus

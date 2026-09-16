@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -35,7 +35,7 @@ from metadata.generated.schema.metadataIngestion.parserconfig.queryParserConfig 
 from metadata.ingestion.lineage.models import ConnectionTypeDialectMapper, Dialect
 from metadata.ingestion.lineage.parser import LineageParser
 from metadata.ingestion.lineage.sql_lineage import get_table_entities_from_query
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.dashboard.hex.warehouse_queries import (
     get_hex_query_template,
 )
@@ -81,7 +81,7 @@ class HexQueryFetcher:
 
     def __init__(
         self,
-        metadata: OpenMetadata,
+        metadata: UMetadata,
         lookback_days: int = 7,
         query_limit: int = 1000,
     ):
@@ -89,7 +89,7 @@ class HexQueryFetcher:
         Initialize the Hex Query Fetcher
 
         Args:
-            metadata: OpenMetadata client instance
+            metadata: UMetadata client instance
             lookback_days: Number of days to look back for queries
             query_limit: Maximum number of queries to fetch per warehouse
         """

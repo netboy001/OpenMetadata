@@ -81,7 +81,7 @@ echo ""
 echo "Authenticating..."
 TOKEN_RESPONSE=$(curl -s -X POST "${SERVER_URL}/api/v1/users/login" \
     -H "Content-Type: application/json" \
-    -d '{"email": "admin@open-metadata.org", "password": "admin"}')
+    -d '{"email": "admin@u-metadata.org", "password": "admin"}')
 
 ACCESS_TOKEN=$(echo "$TOKEN_RESPONSE" | grep -o '"accessToken":"[^"]*"' | cut -d'"' -f4)
 

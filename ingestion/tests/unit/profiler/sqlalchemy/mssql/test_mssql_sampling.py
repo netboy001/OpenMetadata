@@ -58,7 +58,7 @@ class SampleTest(TestCase):
 
         sampler = SQASampler(
             service_connection_config=cls.mssql_conn,
-            ometa_client=None,
+            umeta_client=None,
             entity=None,
         )
         cls.sqa_profiler_interface = SQAProfilerInterface(
@@ -79,7 +79,7 @@ class SampleTest(TestCase):
         """
         sampler = MssqlSampler(
             service_connection_config=self.mssql_conn,
-            ometa_client=None,
+            umeta_client=None,
             entity=self.table_entity,
             sample_config=SampleConfig(
                 profileSampleType=ProfileSampleType.PERCENTAGE, profileSample=50.0
@@ -102,7 +102,7 @@ class SampleTest(TestCase):
         """
         sampler = MssqlSampler(
             service_connection_config=self.mssql_conn,
-            ometa_client=None,
+            umeta_client=None,
             entity=self.table_entity,
             sample_config=SampleConfig(
                 profileSampleType=ProfileSampleType.ROWS, profileSample=50
@@ -125,7 +125,7 @@ class SampleTest(TestCase):
         """
         sampler = MssqlSampler(
             service_connection_config=self.mssql_conn,
-            ometa_client=None,
+            umeta_client=None,
             entity=self.table_entity,
             sample_config=SampleConfig(
                 profileSampleType=ProfileSampleType.PERCENTAGE,

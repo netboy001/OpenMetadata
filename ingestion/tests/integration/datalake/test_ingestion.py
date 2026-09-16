@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,8 +14,8 @@
 import pytest
 
 from metadata.generated.schema.entity.data.table import DataType, Table
-from metadata.ingestion.ometa.models import EntityList
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.models import EntityList
+from metadata.ingestion.umeta.umeta_api import UMetadata
 
 from .conftest import BUCKET_NAME
 
@@ -23,7 +23,7 @@ from .conftest import BUCKET_NAME
 class TestDatalake:
     """datalake profiler E2E test"""
 
-    metadata: OpenMetadata = None
+    metadata: UMetadata = None
     s3_client = None
 
     @pytest.fixture(autouse=True)

@@ -15,12 +15,12 @@ class TestCsvMixin:
 
     def setUp(self):
         """Set up test fixtures"""
-        self.mock_ometa = Mock()
+        self.mock_umeta = Mock()
 
-    @patch("metadata.ingestion.ometa.mixins.csv_mixin.CSVMixin._get_csv_endpoint")
+    @patch("metadata.ingestion.umeta.mixins.csv_mixin.CSVMixin._get_csv_endpoint")
     def test_export_csv(self, mock_get_endpoint):
         """Test export_csv method."""
-        from metadata.ingestion.ometa.mixins.csv_mixin import CSVMixin
+        from metadata.ingestion.umeta.mixins.csv_mixin import CSVMixin
 
         # Create a mock client
         mock_client = Mock()
@@ -39,10 +39,10 @@ class TestCsvMixin:
         mock_client.get.assert_called_once_with("/glossaries/name/test_glossary/export")
         mock_get_endpoint.assert_called_once_with(Glossary)
 
-    @patch("metadata.ingestion.ometa.mixins.csv_mixin.CSVMixin._get_csv_endpoint")
+    @patch("metadata.ingestion.umeta.mixins.csv_mixin.CSVMixin._get_csv_endpoint")
     def test_export_csv_async(self, mock_get_endpoint):
         """Test export_csv_async method."""
-        from metadata.ingestion.ometa.mixins.csv_mixin import CSVMixin
+        from metadata.ingestion.umeta.mixins.csv_mixin import CSVMixin
 
         # Create a mock client
         mock_client = Mock()
@@ -62,10 +62,10 @@ class TestCsvMixin:
             "/glossaries/name/test_glossary/exportAsync"
         )
 
-    @patch("metadata.ingestion.ometa.mixins.csv_mixin.CSVMixin._get_csv_endpoint")
+    @patch("metadata.ingestion.umeta.mixins.csv_mixin.CSVMixin._get_csv_endpoint")
     def test_import_csv(self, mock_get_endpoint):
         """Test import_csv method."""
-        from metadata.ingestion.ometa.mixins.csv_mixin import CSVMixin
+        from metadata.ingestion.umeta.mixins.csv_mixin import CSVMixin
 
         # Create a mock client
         mock_client = Mock()
@@ -88,10 +88,10 @@ class TestCsvMixin:
             headers={"Content-Type": "text/plain"},
         )
 
-    @patch("metadata.ingestion.ometa.mixins.csv_mixin.CSVMixin._get_csv_endpoint")
+    @patch("metadata.ingestion.umeta.mixins.csv_mixin.CSVMixin._get_csv_endpoint")
     def test_import_csv_dry_run(self, mock_get_endpoint):
         """Test import_csv with dry_run=True."""
-        from metadata.ingestion.ometa.mixins.csv_mixin import CSVMixin
+        from metadata.ingestion.umeta.mixins.csv_mixin import CSVMixin
 
         # Create a mock client
         mock_client = Mock()
@@ -114,10 +114,10 @@ class TestCsvMixin:
             headers={"Content-Type": "text/plain"},
         )
 
-    @patch("metadata.ingestion.ometa.mixins.csv_mixin.CSVMixin._get_csv_endpoint")
+    @patch("metadata.ingestion.umeta.mixins.csv_mixin.CSVMixin._get_csv_endpoint")
     def test_import_csv_async(self, mock_get_endpoint):
         """Test import_csv_async method."""
-        from metadata.ingestion.ometa.mixins.csv_mixin import CSVMixin
+        from metadata.ingestion.umeta.mixins.csv_mixin import CSVMixin
 
         # Create a mock client
         mock_client = Mock()
@@ -146,7 +146,7 @@ class TestCsvMixin:
         # Mock CSV import
         # Mock CSV export
         """Test _get_csv_endpoint for Glossary."""
-        from metadata.ingestion.ometa.mixins.csv_mixin import CSVMixin
+        from metadata.ingestion.umeta.mixins.csv_mixin import CSVMixin
 
         mixin = CSVMixin()
         endpoint = mixin._get_csv_endpoint(Glossary)
@@ -155,7 +155,7 @@ class TestCsvMixin:
 
     def test_get_csv_endpoint_team(self):
         """Test _get_csv_endpoint for Teams."""
-        from metadata.ingestion.ometa.mixins.csv_mixin import CSVMixin
+        from metadata.ingestion.umeta.mixins.csv_mixin import CSVMixin
 
         mixin = CSVMixin()
         endpoint = mixin._get_csv_endpoint(Team)
@@ -163,7 +163,7 @@ class TestCsvMixin:
 
     def test_get_csv_endpoint_user(self):
         """Test _get_csv_endpoint for Users."""
-        from metadata.ingestion.ometa.mixins.csv_mixin import CSVMixin
+        from metadata.ingestion.umeta.mixins.csv_mixin import CSVMixin
 
         mixin = CSVMixin()
         endpoint = mixin._get_csv_endpoint(User)
@@ -172,7 +172,7 @@ class TestCsvMixin:
     def test_get_csv_endpoint_unsupported(self):
         """Test _get_csv_endpoint for unsupported entity type."""
         from metadata.generated.schema.entity.data.chart import Chart
-        from metadata.ingestion.ometa.mixins.csv_mixin import CSVMixin
+        from metadata.ingestion.umeta.mixins.csv_mixin import CSVMixin
 
         mixin = CSVMixin()
 
@@ -188,10 +188,10 @@ class TestBaseEntityCsvIntegration:
         """Test BaseEntity.export_csv integration."""
         from metadata.sdk import BaseEntity
 
-        # Create mock ometa client
-        mock_ometa = Mock()
-        mock_ometa.export_csv = Mock(return_value="exported,csv,data")
-        mock_get_client.return_value = mock_ometa
+        # Create mock umeta client
+        mock_umeta = Mock()
+        mock_umeta.export_csv = Mock(return_value="exported,csv,data")
+        mock_get_client.return_value = mock_umeta
 
         # Create test entity class
         class TestEntity(BaseEntity):
@@ -205,7 +205,7 @@ class TestBaseEntityCsvIntegration:
 
         # Verify
         assert result == "exported,csv,data"
-        mock_ometa.export_csv.assert_called_once_with(
+        mock_umeta.export_csv.assert_called_once_with(
             entity=Glossary, name="test_glossary"
         )
 
@@ -214,10 +214,10 @@ class TestBaseEntityCsvIntegration:
         """Test BaseEntity.import_csv integration."""
         from metadata.sdk import BaseEntity
 
-        # Create mock ometa client
-        mock_ometa = Mock()
-        mock_ometa.import_csv = Mock(return_value={"created": 10})
-        mock_get_client.return_value = mock_ometa
+        # Create mock umeta client
+        mock_umeta = Mock()
+        mock_umeta.import_csv = Mock(return_value={"created": 10})
+        mock_get_client.return_value = mock_umeta
 
         # Create test entity class
         class TestEntity(BaseEntity):
@@ -234,7 +234,7 @@ class TestBaseEntityCsvIntegration:
 
         # Verify
         assert result == {"created": 10}
-        mock_ometa.import_csv.assert_called_once_with(
+        mock_umeta.import_csv.assert_called_once_with(
             entity=Glossary, name="test_glossary", csv_data=csv_data, dry_run=False
         )
 
@@ -243,10 +243,10 @@ class TestBaseEntityCsvIntegration:
         """Test BaseEntity async export integration."""
         from metadata.sdk import BaseEntity
 
-        # Create mock ometa client
-        mock_ometa = Mock()
-        mock_ometa.export_csv_async = Mock(return_value="export-job-789")
-        mock_get_client.return_value = mock_ometa
+        # Create mock umeta client
+        mock_umeta = Mock()
+        mock_umeta.export_csv_async = Mock(return_value="export-job-789")
+        mock_get_client.return_value = mock_umeta
 
         # Create test entity class
         class TestEntity(BaseEntity):
@@ -260,7 +260,7 @@ class TestBaseEntityCsvIntegration:
 
         # Verify
         assert result == "export-job-789"
-        mock_ometa.export_csv_async.assert_called_once_with(
+        mock_umeta.export_csv_async.assert_called_once_with(
             entity=Glossary, name="test_glossary"
         )
 
@@ -269,10 +269,10 @@ class TestBaseEntityCsvIntegration:
         """Test BaseEntity async import integration."""
         from metadata.sdk import BaseEntity
 
-        # Create mock ometa client
-        mock_ometa = Mock()
-        mock_ometa.import_csv_async = Mock(return_value="import-job-999")
-        mock_get_client.return_value = mock_ometa
+        # Create mock umeta client
+        mock_umeta = Mock()
+        mock_umeta.import_csv_async = Mock(return_value="import-job-999")
+        mock_get_client.return_value = mock_umeta
 
         # Create test entity class
         class TestEntity(BaseEntity):
@@ -289,6 +289,6 @@ class TestBaseEntityCsvIntegration:
 
         # Verify
         assert result == "import-job-999"
-        mock_ometa.import_csv_async.assert_called_once_with(
+        mock_umeta.import_csv_async.assert_called_once_with(
             entity=Glossary, name="test_glossary", csv_data=csv_data, dry_run=False
         )

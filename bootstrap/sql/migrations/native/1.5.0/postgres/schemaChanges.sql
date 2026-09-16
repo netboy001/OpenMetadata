@@ -197,8 +197,8 @@ jsonb_build_array(json#>'{owner}')) where json #>> '{owner}' is not null;
 ALTER TABLE test_case ALTER COLUMN name TYPE VARCHAR(512);
 
 -- set templates to fetch emailTemplates
-UPDATE openmetadata_settings
-SET json = jsonb_set(json, '{templates}', '"openmetadata"')
+UPDATE umetadata_settings
+SET json = jsonb_set(json, '{templates}', '"umetadata"')
 WHERE configType = 'emailConfiguration';
 
 -- remove dangling owner and service from ingestion pipelines. This info is in entity_relationship

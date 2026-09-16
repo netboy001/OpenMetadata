@@ -8,7 +8,7 @@ from metadata.generated.schema.entity.services.connections.database import (
     pinotDBConnection,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.profiler.source.database.base.profiler_source import ProfilerSource
 
@@ -17,7 +17,7 @@ class PinotProfilerSource(ProfilerSource):
     """PinotDB Profiler source"""
 
     def _copy_service_config(
-        self, config: OpenMetadataWorkflowConfig, database: Database
+        self, config: UMetadataWorkflowConfig, database: Database
     ) -> pinotDBConnection.PinotDBConnection:
         """Make a copy of the service config and update the database name
 

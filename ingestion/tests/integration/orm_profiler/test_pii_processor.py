@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -36,8 +36,8 @@ from metadata.generated.schema.entity.services.connections.database.common.basic
 from metadata.generated.schema.entity.services.connections.database.mysqlConnection import (
     MysqlConnection,
 )
-from metadata.generated.schema.entity.services.connections.metadata.openMetadataConnection import (
-    OpenMetadataConnection,
+from metadata.generated.schema.entity.services.connections.metadata.uMetadataConnection import (
+    UMetadataConnection,
 )
 from metadata.generated.schema.entity.services.databaseService import (
     DatabaseConnection,
@@ -48,17 +48,17 @@ from metadata.generated.schema.metadataIngestion.databaseServiceAutoClassificati
     DatabaseServiceAutoClassificationPipeline,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
     Source,
     SourceConfig,
     WorkflowConfig,
 )
-from metadata.generated.schema.security.client.openMetadataJWTClientConfig import (
-    OpenMetadataJWTClientConfig,
+from metadata.generated.schema.security.client.uMetadataJWTClientConfig import (
+    UMetadataJWTClientConfig,
 )
 from metadata.generated.schema.type.tagLabel import TagFQN, TagLabel
 from metadata.ingestion.models.table_metadata import ColumnTag
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.pii.processor import PIIProcessor
 from metadata.profiler.api.models import ProfilerResponse
 from metadata.sampler.models import SampleData, SamplerResponse
@@ -150,10 +150,10 @@ class PiiProcessorTest(TestCase):
     to attach PII Tags
     """
 
-    server_config = OpenMetadataConnection(
+    server_config = UMetadataConnection(
         hostPort="http://localhost:8585/api",
-        authProvider="openmetadata",
-        securityConfig=OpenMetadataJWTClientConfig(
+        authProvider="umetadata",
+        securityConfig=UMetadataJWTClientConfig(
             jwtToken="eyJraWQiOiJHYjM4OWEtOWY3Ni1nZGpzLWE5MmotMDI0MmJrOTQzNTYiLCJ0eXAiOiJKV1QiLCJh"
             "bGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlzQm90IjpmYWxzZSwiaXNzIjoib3Blbi1tZXRhZGF0YS5vc"
             "mciLCJpYXQiOjE2NjM5Mzg0NjIsImVtYWlsIjoiYWRtaW5Ab3Blbm1ldGFkYXRhLm9yZyJ9.tS8um_5DKu7Hgz"
@@ -164,7 +164,7 @@ class PiiProcessorTest(TestCase):
         ),
     )
 
-    workflow_config = OpenMetadataWorkflowConfig(
+    workflow_config = UMetadataWorkflowConfig(
         source=Source(
             type="mysql",
             serviceName="test",
@@ -175,12 +175,12 @@ class PiiProcessorTest(TestCase):
                 )
             ),
         ),
-        workflowConfig=WorkflowConfig(openMetadataServerConfig=server_config),
+        workflowConfig=WorkflowConfig(uMetadataServerConfig=server_config),
     )
 
-    metadata = OpenMetadata(server_config)
+    metadata = UMetadata(server_config)
     pii_processor = PIIProcessor(
-        config=workflow_config, metadata=OpenMetadata(server_config)
+        config=workflow_config, metadata=UMetadata(server_config)
     )
 
     @classmethod

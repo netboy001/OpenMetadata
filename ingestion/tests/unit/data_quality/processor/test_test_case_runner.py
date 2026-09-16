@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -74,11 +74,11 @@ class TestFilterForOMTestCases:
             runner.metadata = Mock()
             return runner
 
-    def test_filters_out_non_openmetadata_platform(self, mock_runner):
-        """Test that test cases with non-OpenMetadata platforms are filtered out."""
+    def test_filters_out_non_umetadata_platform(self, mock_runner):
+        """Test that test cases with non-UMetadata platforms are filtered out."""
         om_definition = create_test_definition(
             name="om_test",
-            test_platforms=[TestPlatform.OpenMetadata],
+            test_platforms=[TestPlatform.UMetadata],
             enabled=True,
         )
         dbt_definition = create_test_definition(
@@ -125,12 +125,12 @@ class TestFilterForOMTestCases:
         """Test that test cases with disabled TestDefinitions are filtered out."""
         enabled_definition = create_test_definition(
             name="enabled_test",
-            test_platforms=[TestPlatform.OpenMetadata],
+            test_platforms=[TestPlatform.UMetadata],
             enabled=True,
         )
         disabled_definition = create_test_definition(
             name="disabled_test",
-            test_platforms=[TestPlatform.OpenMetadata],
+            test_platforms=[TestPlatform.UMetadata],
             enabled=False,
         )
 
@@ -164,7 +164,7 @@ class TestFilterForOMTestCases:
         """Test that TestDefinitions without enabled field default to enabled=True."""
         definition_without_enabled = create_test_definition(
             name="legacy_test",
-            test_platforms=[TestPlatform.OpenMetadata],
+            test_platforms=[TestPlatform.UMetadata],
             include_enabled_field=False,
         )
 
@@ -177,11 +177,11 @@ class TestFilterForOMTestCases:
         assert len(result) == 1
         assert result[0].name.root == "legacy_case"
 
-    def test_multi_platform_with_openmetadata_passes(self, mock_runner):
-        """Test that definitions with multiple platforms including OpenMetadata pass."""
+    def test_multi_platform_with_umetadata_passes(self, mock_runner):
+        """Test that definitions with multiple platforms including UMetadata pass."""
         multi_platform_definition = create_test_definition(
             name="multi_platform_test",
-            test_platforms=[TestPlatform.OpenMetadata, TestPlatform.dbt],
+            test_platforms=[TestPlatform.UMetadata, TestPlatform.dbt],
             enabled=True,
         )
 
@@ -196,16 +196,16 @@ class TestFilterForOMTestCases:
         assert len(result) == 1
         assert result[0].name.root == "multi_platform_case"
 
-    def test_non_openmetadata_and_disabled_both_filtered(self, mock_runner):
-        """Test that both non-OpenMetadata platform AND disabled definitions are filtered."""
+    def test_non_umetadata_and_disabled_both_filtered(self, mock_runner):
+        """Test that both non-UMetadata platform AND disabled definitions are filtered."""
         om_enabled = create_test_definition(
             name="om_enabled",
-            test_platforms=[TestPlatform.OpenMetadata],
+            test_platforms=[TestPlatform.UMetadata],
             enabled=True,
         )
         om_disabled = create_test_definition(
             name="om_disabled",
-            test_platforms=[TestPlatform.OpenMetadata],
+            test_platforms=[TestPlatform.UMetadata],
             enabled=False,
         )
         dbt_enabled = create_test_definition(
@@ -256,7 +256,7 @@ class TestFilterForOMTestCases:
         """Test that when all test cases are filtered, empty list is returned."""
         disabled_definition = create_test_definition(
             name="disabled_test",
-            test_platforms=[TestPlatform.OpenMetadata],
+            test_platforms=[TestPlatform.UMetadata],
             enabled=False,
         )
 
@@ -278,8 +278,8 @@ class TestFilterForOMTestCases:
             TestPlatform.Other,
         ],
     )
-    def test_each_non_openmetadata_platform_filtered(self, mock_runner, platform):
-        """Test that each non-OpenMetadata platform is correctly filtered out."""
+    def test_each_non_umetadata_platform_filtered(self, mock_runner, platform):
+        """Test that each non-UMetadata platform is correctly filtered out."""
         definition = create_test_definition(
             name=f"{platform.value}_test",
             test_platforms=[platform],

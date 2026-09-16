@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,7 +31,7 @@ from metadata.generated.schema.metadataIngestion.workflow import (
     Source as WorkflowSource,
 )
 from metadata.ingestion.api.steps import InvalidSourceException
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.connections import get_connection
 from metadata.ingestion.source.database.column_type_parser import ColumnTypeParser
 from metadata.ingestion.source.database.common_db_source import CommonDbSourceService
@@ -62,7 +62,7 @@ def get_type_name_and_opts(type_str: str) -> Tuple[str, Optional[str]]:
 
 def parse_array_data_type(type_str: str) -> str:
     """
-    This mehtod is used to convert the complex array datatype to the format that is supported by OpenMetadata
+    This mehtod is used to convert the complex array datatype to the format that is supported by UMetadata
     For Example:
     If we have a row type as array(row(col1 bigint, col2 string))
     this method will return type as -> array<struct<col1:bigint,col2:string>>
@@ -81,7 +81,7 @@ def parse_array_data_type(type_str: str) -> str:
 
 def parse_row_data_type(type_str: str) -> str:
     """
-    This mehtod is used to convert the complex row datatype to the format that is supported by OpenMetadata
+    This mehtod is used to convert the complex row datatype to the format that is supported by UMetadata
     For Example:
     If we have a row type as row(col1 bigint, col2 bigint, col3 row(col4 string, col5 bigint))
     this method will return type as -> struct<col1:bigint,col2:bigint,col3:struct<col4:string,col5:bigint>>
@@ -250,7 +250,7 @@ class TrinoSource(CommonDbSourceService):
 
     @classmethod
     def create(
-        cls, config_dict, metadata: OpenMetadata, pipeline_name: Optional[str] = None
+        cls, config_dict, metadata: UMetadata, pipeline_name: Optional[str] = None
     ):
         config = WorkflowSource.model_validate(config_dict)
         connection: TrinoConnection = config.serviceConnection.root.config

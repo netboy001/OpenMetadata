@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -56,8 +56,8 @@ from metadata.generated.schema.type.entityReference import EntityReference
 from metadata.ingestion.api.models import Either
 from metadata.ingestion.api.steps import InvalidSourceException
 from metadata.ingestion.lineage.sql_lineage import get_column_fqn
-from metadata.ingestion.models.pipeline_status import OMetaBulkPipelineStatus
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.models.pipeline_status import UMetaBulkPipelineStatus
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.pipeline.databrickspipeline.kafka_parser import (
     extract_dlt_table_dependencies,
     extract_kafka_sources,
@@ -103,7 +103,7 @@ class DatabrickspipelineSource(PipelineServiceSource):
 
     @classmethod
     def create(
-        cls, config_dict, metadata: OpenMetadata, pipeline_name: Optional[str] = None
+        cls, config_dict, metadata: UMetadata, pipeline_name: Optional[str] = None
     ):
         """Create class instance"""
         config: WorkflowSource = WorkflowSource.model_validate(config_dict)
@@ -251,7 +251,7 @@ class DatabrickspipelineSource(PipelineServiceSource):
 
     def yield_pipeline_status(
         self, pipeline_details: DataBrickPipelineDetails
-    ) -> Iterable[Either[OMetaBulkPipelineStatus]]:
+    ) -> Iterable[Either[UMetaBulkPipelineStatus]]:
         try:
             if not pipeline_details.job_id:
                 return
@@ -298,7 +298,7 @@ class DatabrickspipelineSource(PipelineServiceSource):
                     pipeline_name=self.context.get().pipeline,
                 )
                 yield Either(
-                    right=OMetaBulkPipelineStatus(
+                    right=UMetaBulkPipelineStatus(
                         pipeline_fqn=pipeline_fqn,
                         pipeline_statuses=statuses,
                     )
@@ -367,7 +367,7 @@ class DatabrickspipelineSource(PipelineServiceSource):
 
     def _get_databricks_services(self) -> List[str]:
         """
-        Get list of all Databricks/Unity Catalog database service names from OpenMetadata
+        Get list of all Databricks/Unity Catalog database service names from UMetadata
 
         Caches the result to avoid repeated API calls during lineage extraction.
         Returns list of service names that are of type Databricks or UnityCatalog.
@@ -442,14 +442,14 @@ class DatabrickspipelineSource(PipelineServiceSource):
         self, table_name: str, catalog: Optional[str], schema: Optional[str]
     ) -> Optional[Table]:
         """
-        Find DLT table in OpenMetadata by iterating through Databricks services
+        Find DLT table in UMetadata by iterating through Databricks services
 
         DLT pipelines only write to Databricks/Unity Catalog Delta tables.
         Uses catalog.schema.table_name from DLT spec to build FQN for each Databricks service.
 
         Args:
             table_name: Table name extracted from notebook code
-            catalog: Catalog name from DLT pipeline spec (database in OpenMetadata)
+            catalog: Catalog name from DLT pipeline spec (database in UMetadata)
             schema: Schema name from DLT pipeline spec
 
         Returns:
@@ -471,7 +471,7 @@ class DatabrickspipelineSource(PipelineServiceSource):
 
             if not databricks_services:
                 logger.warning(
-                    "No Databricks/Unity Catalog services found in OpenMetadata"
+                    "No Databricks/Unity Catalog services found in UMetadata"
                 )
                 # Fall back to configured dbServiceNames if available
                 databricks_services = self.get_db_service_names() or []
@@ -559,7 +559,7 @@ class DatabrickspipelineSource(PipelineServiceSource):
 
     def _find_kafka_topic(self, topic_name: str) -> Optional[Topic]:
         """
-        Find Kafka topic in OpenMetadata using Elasticsearch search
+        Find Kafka topic in UMetadata using Elasticsearch search
 
         Handles topic names with dots (e.g., "dev.example.transactions.customerEvent_v1")
         by searching with wildcard pattern: *.topic_name
@@ -606,7 +606,7 @@ class DatabrickspipelineSource(PipelineServiceSource):
             logger.debug(traceback.format_exc())
 
         logger.warning(
-            f"Topic {topic_name} not found in OpenMetadata. "
+            f"Topic {topic_name} not found in UMetadata. "
             f"Ensure the topic is ingested from a messaging service."
         )
         return None
@@ -926,7 +926,7 @@ class DatabrickspipelineSource(PipelineServiceSource):
                                 kafka_topic = self._find_kafka_topic(topic_name)
                                 if not kafka_topic:
                                     logger.warning(
-                                        f"   ✗ Kafka topic '{topic_name}' not found in OpenMetadata"
+                                        f"   ✗ Kafka topic '{topic_name}' not found in UMetadata"
                                     )
                                     continue
 
@@ -1091,7 +1091,7 @@ class DatabrickspipelineSource(PipelineServiceSource):
                                                         f"   ✗ S3 container not found for path: {storage_location}"
                                                     )
                                                     logger.info(
-                                                        f"      Make sure the S3 container is ingested in OpenMetadata"
+                                                        f"      Make sure the S3 container is ingested in UMetadata"
                                                     )
                                         else:
                                             logger.warning(

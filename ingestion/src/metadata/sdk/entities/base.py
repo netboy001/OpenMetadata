@@ -20,8 +20,8 @@ from typing import (
 
 from metadata.generated.schema.type.basic import FullyQualifiedEntityName
 from metadata.ingestion.models.custom_pydantic import BaseModel
-from metadata.sdk.client import OpenMetadata
-from metadata.sdk.types import JsonDict, OMetaClient, UuidLike
+from metadata.sdk.client import UMetadata
+from metadata.sdk.types import JsonDict, UMetaClient, UuidLike
 
 TCreate = TypeVar("TCreate", bound=BaseModel)  # pylint: disable=invalid-name
 TEntity = TypeVar("TEntity", bound=BaseModel)  # pylint: disable=invalid-name
@@ -40,7 +40,7 @@ class EntityList(Generic[TEntity]):
 class CsvExportOperation(Generic[TEntity]):
     """Stateful helper that performs synchronous or async CSV exports."""
 
-    client: OMetaClient
+    client: UMetaClient
     entity: Type[TEntity]
     name: str
     async_enabled: bool = field(default=False, init=False)
@@ -64,7 +64,7 @@ class CsvExportOperation(Generic[TEntity]):
 class CsvImportOperation(Generic[TEntity]):
     """Stateful helper for CSV import operations."""
 
-    client: OMetaClient
+    client: UMetaClient
     entity: Type[TEntity]
     name: str
     csv_data: Optional[str] = None
@@ -106,28 +106,28 @@ class CsvImportOperation(Generic[TEntity]):
 
 
 class BaseEntity(Generic[TEntity, TCreate]):
-    """Typed facade over the ingestion `OpenMetadata` client."""
+    """Typed facade over the ingestion `UMetadata` client."""
 
-    _default_client: ClassVar[Optional[OMetaClient]] = None
+    _default_client: ClassVar[Optional[UMetaClient]] = None
 
     # ------------------------------------------------------------------
     # Client handling
     # ------------------------------------------------------------------
     @classmethod
-    def _get_client(cls) -> OMetaClient:
+    def _get_client(cls) -> UMetaClient:
         if cls._default_client is None:
-            cls._default_client = OpenMetadata.get_default_client()
+            cls._default_client = UMetadata.get_default_client()
         return cls._default_client
 
     @classmethod
-    def use_client(cls, client: Union[OpenMetadata, OMetaClient]) -> None:
+    def use_client(cls, client: Union[UMetadata, UMetaClient]) -> None:
         """Register a default client for SDK calls."""
         cls._default_client = (
-            client.ometa if isinstance(client, OpenMetadata) else client
+            client.umeta if isinstance(client, UMetadata) else client
         )
 
     @classmethod
-    def set_default_client(cls, client: Union[OpenMetadata, OMetaClient]) -> None:
+    def set_default_client(cls, client: Union[UMetadata, UMetaClient]) -> None:
         """Backward-compatible alias used across legacy tests/examples."""
         cls.use_client(client)
 
@@ -240,7 +240,7 @@ class BaseEntity(Generic[TEntity, TCreate]):
         fields: Optional[Sequence[str]] = None,
         filters: Optional[Mapping[str, str]] = None,
     ) -> EntityList[TEntity]:
-        """Fetch a single page of entities from OpenMetadata."""
+        """Fetch a single page of entities from UMetadata."""
         client = cls._get_client()
         response = client.list_entities(
             entity=cls.entity_type(),
@@ -290,7 +290,7 @@ class BaseEntity(Generic[TEntity, TCreate]):
         client = cls._get_client()
         search_fn = getattr(client, "es_search_from_fqn", None)
         if not callable(search_fn):
-            raise AttributeError("OpenMetadata client does not support entity search")
+            raise AttributeError("UMetadata client does not support entity search")
         assert callable(search_fn)
         results = cast(
             Sequence[Any],
@@ -460,14 +460,14 @@ class BaseEntity(Generic[TEntity, TCreate]):
         raise TypeError("Expected mapping-compatible payload")
 
     @staticmethod
-    def _get_rest_client(client: OMetaClient) -> Any:
+    def _get_rest_client(client: UMetaClient) -> Any:
         rest_client = getattr(client, "client", None)
         if rest_client is None:
-            raise RuntimeError("OpenMetadata client does not expose a REST interface")
+            raise RuntimeError("UMetadata client does not expose a REST interface")
         return rest_client
 
     @classmethod
-    def _get_endpoint_path(cls, client: OMetaClient) -> str:
+    def _get_endpoint_path(cls, client: UMetaClient) -> str:
         suffix_getter = getattr(client, "get_suffix", None)
         if callable(suffix_getter):
             raw_suffix = cast(str, suffix_getter(cls.entity_type()))

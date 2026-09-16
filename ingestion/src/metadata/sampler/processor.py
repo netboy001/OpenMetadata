@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,13 +32,13 @@ from metadata.generated.schema.metadataIngestion.databaseServiceAutoClassificati
     DatabaseServiceAutoClassificationPipeline,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.ingestion.api.models import Either
 from metadata.ingestion.api.parser import parse_workflow_config_gracefully
 from metadata.ingestion.api.step import Step
 from metadata.ingestion.api.steps import Processor
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.profiler.api.models import ProfilerProcessorConfig
 from metadata.profiler.source.metadata import ProfilerSourceAndEntity
 from metadata.sampler.config import get_config_for_table
@@ -60,8 +60,8 @@ class SamplerProcessor(Processor):
     @inject
     def __init__(
         self,
-        config: OpenMetadataWorkflowConfig,
-        metadata: OpenMetadata,
+        config: UMetadataWorkflowConfig,
+        metadata: UMetadata,
         profiler_config_class: Inject[Type[ProfilerProcessorConfig]] = None,
     ):
         if profiler_config_class is None:
@@ -121,7 +121,7 @@ class SamplerProcessor(Processor):
 
             sampler_interface: SamplerInterface = self.sampler_class.create(
                 service_connection_config=service_conn_config,
-                ometa_client=self.metadata,
+                umeta_client=self.metadata,
                 entity=entity,
                 schema_entity=schema_entity,
                 database_entity=database_entity,
@@ -173,14 +173,14 @@ class SamplerProcessor(Processor):
     def create(
         cls,
         config_dict: dict,
-        metadata: OpenMetadata,
+        metadata: UMetadata,
         pipeline_name: Optional[str] = None,
     ) -> "Step":
         config = parse_workflow_config_gracefully(config_dict)
         return cls(config=config, metadata=metadata)
 
     def _copy_service_config(
-        self, config: OpenMetadataWorkflowConfig, database: Database
+        self, config: UMetadataWorkflowConfig, database: Database
     ) -> DatabaseConnection:
         """Make a copy of the service config and update the database name
 

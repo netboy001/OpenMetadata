@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -42,8 +42,8 @@ from metadata.generated.schema.type.tagLabel import (
     TagSource,
 )
 from metadata.ingestion.api.models import Either
-from metadata.ingestion.models.ometa_classification import OMetaTagAndClassification
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.models.umeta_classification import UMetaTagAndClassification
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.utils import fqn
 from metadata.utils.logger import ingestion_logger
 
@@ -51,18 +51,18 @@ logger = ingestion_logger()
 
 
 # pylint: disable=too-many-arguments
-def get_ometa_tag_and_classification(
+def get_umeta_tag_and_classification(
     tags: List[str],
     classification_name: str,
     tag_description: str,
     classification_description: str,
     include_tags: bool = True,
     tag_fqn: Optional[FullyQualifiedEntityName] = None,
-    metadata: Optional[OpenMetadata] = None,
+    metadata: Optional[UMetadata] = None,
     system_tags: bool = False,
-) -> Iterable[Either[OMetaTagAndClassification]]:
+) -> Iterable[Either[UMetaTagAndClassification]]:
     """
-    Returns the OMetaTagAndClassification object
+    Returns the UMetaTagAndClassification object
     """
     if not include_tags:
         return
@@ -112,7 +112,7 @@ def get_ometa_tag_and_classification(
                         specific_tag_description = tag_entity.description.root
                         break
 
-            classification = OMetaTagAndClassification(
+            classification = UMetaTagAndClassification(
                 fqn=tag_fqn,
                 classification_request=CreateClassificationRequest(
                     name=EntityName(classification_name),
@@ -142,7 +142,7 @@ def get_ometa_tag_and_classification(
 
 @functools.lru_cache(maxsize=512)
 def get_tag_label(
-    metadata: OpenMetadata,
+    metadata: UMetadata,
     tag_name: str,
     classification_name: Optional[str],
     tag_type: Union[Type[Tag], Type[GlossaryTerm]] = Tag,
@@ -192,7 +192,7 @@ def get_tag_label(
 
 
 def get_tag_labels(
-    metadata: OpenMetadata,
+    metadata: UMetadata,
     tags: List[str],
     classification_name: Optional[str] = None,
     include_tags: bool = True,

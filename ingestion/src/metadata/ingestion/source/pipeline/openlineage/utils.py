@@ -13,7 +13,7 @@ def message_to_open_lineage_event(incoming_event: Dict) -> OpenLineageEvent:
     Method that takes raw Open Lineage event and parses is to shape into OpenLineageEvent.
 
     We check whether received event (from Kafka) adheres to expected form and contains all the fields that are required
-    for successful processing by OpenMetadata OpenLineage connector.
+    for successful processing by UMetadata OpenLineage connector.
 
     :param incoming_event: raw event received from kafka topic by OpenlineageSource
     :return: OpenLineageEvent

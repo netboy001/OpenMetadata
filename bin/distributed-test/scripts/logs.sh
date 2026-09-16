@@ -78,9 +78,9 @@ COMPOSE_ARGS="$COMPOSE_ARGS --tail=$TAIL_LINES"
 SERVICES=""
 if [ -n "$SERVER_FILTER" ]; then
     case $SERVER_FILTER in
-        1) SERVICES="openmetadata-server-1" ;;
-        2) SERVICES="openmetadata-server-2" ;;
-        3) SERVICES="openmetadata-server-3" ;;
+        1) SERVICES="umetadata-server-1" ;;
+        2) SERVICES="umetadata-server-2" ;;
+        3) SERVICES="umetadata-server-3" ;;
         mysql) SERVICES="mysql" ;;
         opensearch) SERVICES="opensearch" ;;
         *)
@@ -90,17 +90,17 @@ if [ -n "$SERVER_FILTER" ]; then
             ;;
     esac
 else
-    SERVICES="openmetadata-server-1 openmetadata-server-2 openmetadata-server-3"
+    SERVICES="umetadata-server-1 umetadata-server-2 umetadata-server-3"
 fi
 
 # Function to colorize output
 colorize_logs() {
     while IFS= read -r line; do
-        if [[ $line == *"openmetadata-server-1"* ]] || [[ $line == *"om-server-1"* ]]; then
+        if [[ $line == *"umetadata-server-1"* ]] || [[ $line == *"om-server-1"* ]]; then
             echo -e "${COLOR_SERVER1}[SERVER-1]${COLOR_RESET} $line"
-        elif [[ $line == *"openmetadata-server-2"* ]] || [[ $line == *"om-server-2"* ]]; then
+        elif [[ $line == *"umetadata-server-2"* ]] || [[ $line == *"om-server-2"* ]]; then
             echo -e "${COLOR_SERVER2}[SERVER-2]${COLOR_RESET} $line"
-        elif [[ $line == *"openmetadata-server-3"* ]] || [[ $line == *"om-server-3"* ]]; then
+        elif [[ $line == *"umetadata-server-3"* ]] || [[ $line == *"om-server-3"* ]]; then
             echo -e "${COLOR_SERVER3}[SERVER-3]${COLOR_RESET} $line"
         elif [[ $line == *"mysql"* ]]; then
             echo -e "${COLOR_MYSQL}[MYSQL]${COLOR_RESET} $line"

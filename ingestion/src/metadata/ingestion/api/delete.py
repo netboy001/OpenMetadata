@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,14 +19,14 @@ from metadata.generated.schema.entity.services.ingestionPipelines.status import 
 )
 from metadata.ingestion.api.models import Either
 from metadata.ingestion.models.delete_entity import DeleteEntity
-from metadata.ingestion.ometa.ometa_api import OpenMetadata, T
+from metadata.ingestion.umeta.umeta_api import UMetadata, T
 from metadata.utils.logger import utils_logger
 
 logger = utils_logger()
 
 
 def delete_entity_from_source(
-    metadata: OpenMetadata,
+    metadata: UMetadata,
     entity_type: Type[T],
     entity_source_state,
     mark_deleted_entity: bool = True,
@@ -34,7 +34,7 @@ def delete_entity_from_source(
 ) -> Iterable[Either[DeleteEntity]]:
     """
     Method to delete the entities
-    :param metadata: OMeta client
+    :param metadata: UMeta client
     :param entity_type: Pydantic Entity model
     :param entity_source_state: Current state of the service
     :param mark_deleted_entity: Option to mark the entity as deleted or not
@@ -61,14 +61,14 @@ def delete_entity_from_source(
 
 
 def delete_entity_by_name(
-    metadata: OpenMetadata,
+    metadata: UMetadata,
     entity_type: Type[T],
     entity_names: List[str],
     mark_deleted_entity: bool = True,
 ) -> Iterable[Either[DeleteEntity]]:
     """
     Method to delete the entites contained on a given list
-    :param metadata: OMeta client
+    :param metadata: UMeta client
     :param entity_type: Pydantic Entity model
     :param entity_names: List of FullyQualifiedNames of the entities to be deleted
     :param mark_deleted_entity: Option to mark the entity as deleted or not

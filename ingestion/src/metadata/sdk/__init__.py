@@ -1,12 +1,12 @@
-"""High-level entry points for the OpenMetadata Python SDK."""
+"""High-level entry points for the UMetadata Python SDK."""
 from __future__ import annotations
 
 import os
 from collections.abc import Mapping
 from typing import Any, Optional
 
-from metadata.sdk.client import OpenMetadata
-from metadata.sdk.config import OpenMetadataConfig
+from metadata.sdk.client import UMetadata
+from metadata.sdk.config import UMetadataConfig
 from metadata.sdk.entities import (
     APICollections,
     APIEndpoints,
@@ -41,7 +41,7 @@ from metadata.sdk.entities import (
 )
 from metadata.sdk.entities.base import BaseEntity
 
-_global_client: Optional[OpenMetadata] = None
+_global_client: Optional[UMetadata] = None
 
 
 def to_entity_reference(entity: Any) -> dict[str, Any]:
@@ -70,30 +70,30 @@ def to_entity_reference(entity: Any) -> dict[str, Any]:
 
 
 def configure(
-    config: OpenMetadataConfig | Mapping[str, Any] | None = None,
+    config: UMetadataConfig | Mapping[str, Any] | None = None,
     /,
     host: str | None = None,
     server_url: str | None = None,
     jwt_token: str | None = None,
     **kwargs: Any,
-) -> OpenMetadata:
-    """Configure the SDK with a connection to OpenMetadata.
+) -> UMetadata:
+    """Configure the SDK with a connection to UMetadata.
 
     Mirrors the ergonomics of ``stripe.api_key = ...`` by establishing a global
     client that the entity facades rely on. You can either pass an
-    :class:`OpenMetadataConfig` instance, a mapping, or keyword arguments.
+    :class:`UMetadataConfig` instance, a mapping, or keyword arguments.
 
     If neither config nor keyword arguments are provided, configuration will be
     loaded from environment variables.
 
     Args:
-        config: OpenMetadataConfig instance or mapping
-        host: OpenMetadata server URL (alias for server_url). Falls back to
-              OPENMETADATA_HOST or OPENMETADATA_SERVER_URL env vars
-        server_url: OpenMetadata server URL. Falls back to OPENMETADATA_HOST
-                    or OPENMETADATA_SERVER_URL env vars
+        config: UMetadataConfig instance or mapping
+        host: UMetadata server URL (alias for server_url). Falls back to
+              UMETADATA_HOST or UMETADATA_SERVER_URL env vars
+        server_url: UMetadata server URL. Falls back to UMETADATA_HOST
+                    or UMETADATA_SERVER_URL env vars
         jwt_token: JWT token for authentication. Falls back to
-                   OPENMETADATA_JWT_TOKEN or OPENMETADATA_API_KEY env vars
+                   UMETADATA_JWT_TOKEN or UMETADATA_API_KEY env vars
         **kwargs: Additional configuration parameters
 
     Example:
@@ -102,8 +102,8 @@ def configure(
 
         Or using environment variables:
         >>> import os
-        >>> os.environ["OPENMETADATA_HOST"] = "http://localhost:8585/api"
-        >>> os.environ["OPENMETADATA_JWT_TOKEN"] = "your-token"
+        >>> os.environ["UMETADATA_HOST"] = "http://localhost:8585/api"
+        >>> os.environ["UMETADATA_JWT_TOKEN"] = "your-token"
         >>> configure()
     """
 
@@ -112,43 +112,43 @@ def configure(
     if config is not None and (host or server_url or jwt_token or kwargs):
         raise TypeError("Pass either a config object or keyword arguments, not both")
 
-    config_obj: OpenMetadataConfig
+    config_obj: UMetadataConfig
     if config is None:
         if not host and not server_url and not jwt_token and not kwargs:
-            config_obj = OpenMetadataConfig.from_env()
+            config_obj = UMetadataConfig.from_env()
         else:
             resolved_server_url = (
                 host
                 or server_url
-                or os.environ.get("OPENMETADATA_HOST")
-                or os.environ.get("OPENMETADATA_SERVER_URL")
+                or os.environ.get("UMETADATA_HOST")
+                or os.environ.get("UMETADATA_SERVER_URL")
             )
             resolved_jwt_token = (
                 jwt_token
-                or os.environ.get("OPENMETADATA_JWT_TOKEN")
-                or os.environ.get("OPENMETADATA_API_KEY")
+                or os.environ.get("UMETADATA_JWT_TOKEN")
+                or os.environ.get("UMETADATA_API_KEY")
             )
 
             if not resolved_server_url:
                 raise ValueError(
                     "Server URL must be provided via 'host'/'server_url' parameter or "
-                    + "'OPENMETADATA_HOST'/'OPENMETADATA_SERVER_URL' environment variable"
+                    + "'UMETADATA_HOST'/'UMETADATA_SERVER_URL' environment variable"
                 )
 
-            config_obj = OpenMetadataConfig(
+            config_obj = UMetadataConfig(
                 server_url=resolved_server_url, jwt_token=resolved_jwt_token, **kwargs
             )
     elif isinstance(config, Mapping):
-        config_obj = OpenMetadataConfig(**dict(config))
+        config_obj = UMetadataConfig(**dict(config))
     else:
         config_obj = config
 
-    _global_client = OpenMetadata.initialize(config_obj)
+    _global_client = UMetadata.initialize(config_obj)
     return _global_client
 
 
-def client() -> OpenMetadata:
-    """Return the active OpenMetadata client."""
+def client() -> UMetadata:
+    """Return the active UMetadata client."""
     if _global_client is None:
         raise RuntimeError("SDK not configured. Call metadata.sdk.configure(...) first")
     return _global_client
@@ -157,7 +157,7 @@ def client() -> OpenMetadata:
 def reset() -> None:
     """Reset the SDK state, closing any cached client."""
     global _global_client  # pylint: disable=global-statement
-    OpenMetadata.reset()
+    UMetadata.reset()
     _global_client = None
 
 
@@ -195,8 +195,8 @@ test_suites = TestSuites  # pylint: disable=invalid-name
 users = Users  # pylint: disable=invalid-name
 
 __all__ = [
-    "OpenMetadata",
-    "OpenMetadataConfig",
+    "UMetadata",
+    "UMetadataConfig",
     "configure",
     "reset",
     "client",

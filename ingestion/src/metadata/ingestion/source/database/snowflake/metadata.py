@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -60,8 +60,8 @@ from metadata.generated.schema.type.tagLabel import TagLabel
 from metadata.ingestion.api.delete import delete_entity_by_name
 from metadata.ingestion.api.models import Either
 from metadata.ingestion.api.steps import InvalidSourceException
-from metadata.ingestion.models.ometa_classification import OMetaTagAndClassification
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.models.umeta_classification import UMetaTagAndClassification
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.database.column_type_parser import create_sqlalchemy_type
 from metadata.ingestion.source.database.common_db_source import (
     CommonDbSourceService,
@@ -233,7 +233,7 @@ class SnowflakeSource(
 
     @classmethod
     def create(
-        cls, config_dict, metadata: OpenMetadata, pipeline_name: Optional[str] = None
+        cls, config_dict, metadata: UMetadata, pipeline_name: Optional[str] = None
     ):
         config: WorkflowSource = WorkflowSource.model_validate(config_dict)
         connection: SnowflakeConnection = config.serviceConnection.root.config
@@ -535,7 +535,7 @@ class SnowflakeSource(
 
     def yield_tag(
         self, schema_name: str
-    ) -> Iterable[Either[OMetaTagAndClassification]]:
+    ) -> Iterable[Either[UMetaTagAndClassification]]:
         """
         Yield tags for tables/columns and schemas.
         """
@@ -650,7 +650,7 @@ class SnowflakeSource(
                         )
             yield from (Either(left=None, right=record) for record in self.tags_registry.drain())
 
-    def yield_database_tag(self, database_name: str) -> Iterable[Either[OMetaTagAndClassification]]:
+    def yield_database_tag(self, database_name: str) -> Iterable[Either[UMetaTagAndClassification]]:
         """Yield database-level tags for the topology."""
         if not self.source_config.includeTags:
             return
@@ -1165,10 +1165,10 @@ class SnowflakeSource(
         This means that ownership of database objects, such as tables, is assigned
         to roles rather than individual users.
 
-        As OpenMetadata currently does not support role-based ownership assignment,
+        As UMetadata currently does not support role-based ownership assignment,
         we are unable to retrieve or associate a meaningful table owner using this method.
         Therefore, this function will return `None` or a placeholder, and ownership
-        metadata will not be populated in the OpenMetadata ingestion process.
+        metadata will not be populated in the UMetadata ingestion process.
         """
         logger.debug(
             f"Processing ownership is not supported for {self.service_connection.type.name}"

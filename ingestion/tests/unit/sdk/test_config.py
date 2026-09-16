@@ -6,15 +6,15 @@ import unittest
 from unittest.mock import patch
 
 from metadata.sdk import configure, reset
-from metadata.sdk.config import OpenMetadataConfig
+from metadata.sdk.config import UMetadataConfig
 
 
-class TestOpenMetadataConfig(unittest.TestCase):
-    """Test OpenMetadataConfig class"""
+class TestUMetadataConfig(unittest.TestCase):
+    """Test UMetadataConfig class"""
 
     def test_config_creation(self):
         """Test basic config creation"""
-        config = OpenMetadataConfig(
+        config = UMetadataConfig(
             server_url="http://localhost:8585/api", jwt_token="test-token"
         )
         self.assertEqual(config.server_url, "http://localhost:8585/api")
@@ -24,14 +24,14 @@ class TestOpenMetadataConfig(unittest.TestCase):
 
     def test_config_strips_trailing_slash(self):
         """Test that server URL strips trailing slash"""
-        config = OpenMetadataConfig(
+        config = UMetadataConfig(
             server_url="http://localhost:8585/api/", jwt_token="test-token"
         )
         self.assertEqual(config.server_url, "http://localhost:8585/api")
 
     def test_config_api_key_alias(self):
         """Test that api_key works as alias for jwt_token"""
-        config = OpenMetadataConfig(
+        config = UMetadataConfig(
             server_url="http://localhost:8585/api", api_key="test-key"
         )
         self.assertEqual(config.jwt_token, "test-key")
@@ -42,24 +42,24 @@ class TestOpenMetadataConfig(unittest.TestCase):
         with patch.dict(
             os.environ,
             {
-                "OPENMETADATA_HOST": "http://localhost:8585/api",
-                "OPENMETADATA_JWT_TOKEN": "env-token",
+                "UMETADATA_HOST": "http://localhost:8585/api",
+                "UMETADATA_JWT_TOKEN": "env-token",
             },
         ):
-            config = OpenMetadataConfig.from_env()
+            config = UMetadataConfig.from_env()
             self.assertEqual(config.server_url, "http://localhost:8585/api")
             self.assertEqual(config.jwt_token, "env-token")
 
     def test_config_from_env_server_url_alias(self):
-        """Test from_env with OPENMETADATA_SERVER_URL"""
+        """Test from_env with UMETADATA_SERVER_URL"""
         with patch.dict(
             os.environ,
             {
-                "OPENMETADATA_SERVER_URL": "http://example.com/api",
-                "OPENMETADATA_API_KEY": "api-key",
+                "UMETADATA_SERVER_URL": "http://example.com/api",
+                "UMETADATA_API_KEY": "api-key",
             },
         ):
-            config = OpenMetadataConfig.from_env()
+            config = UMetadataConfig.from_env()
             self.assertEqual(config.server_url, "http://example.com/api")
             self.assertEqual(config.jwt_token, "api-key")
 
@@ -67,7 +67,7 @@ class TestOpenMetadataConfig(unittest.TestCase):
         """Test from_env raises error when host is missing"""
         with patch.dict(os.environ, {}, clear=True):
             with self.assertRaises(ValueError) as context:
-                OpenMetadataConfig.from_env()
+                UMetadataConfig.from_env()
             self.assertIn("Server URL must be provided", str(context.exception))
 
     def test_config_from_env_ssl_settings(self):
@@ -75,14 +75,14 @@ class TestOpenMetadataConfig(unittest.TestCase):
         with patch.dict(
             os.environ,
             {
-                "OPENMETADATA_HOST": "https://localhost:8585/api",
-                "OPENMETADATA_JWT_TOKEN": "token",
-                "OPENMETADATA_VERIFY_SSL": "true",
-                "OPENMETADATA_CA_BUNDLE": "/path/to/ca.pem",
-                "OPENMETADATA_CLIENT_TIMEOUT": "60",
+                "UMETADATA_HOST": "https://localhost:8585/api",
+                "UMETADATA_JWT_TOKEN": "token",
+                "UMETADATA_VERIFY_SSL": "true",
+                "UMETADATA_CA_BUNDLE": "/path/to/ca.pem",
+                "UMETADATA_CLIENT_TIMEOUT": "60",
             },
         ):
-            config = OpenMetadataConfig.from_env()
+            config = UMetadataConfig.from_env()
             self.assertTrue(config.verify_ssl)
             self.assertEqual(config.ca_bundle, "/path/to/ca.pem")
             self.assertEqual(config.client_timeout, 60)
@@ -90,7 +90,7 @@ class TestOpenMetadataConfig(unittest.TestCase):
     def test_config_builder(self):
         """Test config builder pattern"""
         config = (
-            OpenMetadataConfig.builder()
+            UMetadataConfig.builder()
             .server_url("http://localhost:8585/api")
             .jwt_token("builder-token")
             .verify_ssl(True)
@@ -105,7 +105,7 @@ class TestOpenMetadataConfig(unittest.TestCase):
     def test_config_builder_missing_url(self):
         """Test builder raises error when URL is missing"""
         with self.assertRaises(ValueError) as context:
-            OpenMetadataConfig.builder().jwt_token("token").build()
+            UMetadataConfig.builder().jwt_token("token").build()
         self.assertIn("Server URL is required", str(context.exception))
 
 
@@ -120,7 +120,7 @@ class TestConfigureFunction(unittest.TestCase):
         """Clean up after each test"""
         reset()
 
-    @patch("metadata.sdk.OpenMetadata.initialize")
+    @patch("metadata.sdk.UMetadata.initialize")
     def test_configure_with_host_and_token(self, mock_initialize):
         """Test configure with explicit host and jwt_token"""
         configure(host="http://localhost:8585/api", jwt_token="test-token")
@@ -129,21 +129,21 @@ class TestConfigureFunction(unittest.TestCase):
         self.assertEqual(config.server_url, "http://localhost:8585/api")
         self.assertEqual(config.jwt_token, "test-token")
 
-    @patch("metadata.sdk.OpenMetadata.initialize")
+    @patch("metadata.sdk.UMetadata.initialize")
     def test_configure_with_server_url(self, mock_initialize):
         """Test configure with server_url parameter"""
         configure(server_url="http://example.com/api", jwt_token="token")
         config = mock_initialize.call_args[0][0]
         self.assertEqual(config.server_url, "http://example.com/api")
 
-    @patch("metadata.sdk.OpenMetadata.initialize")
+    @patch("metadata.sdk.UMetadata.initialize")
     def test_configure_host_fallback_to_env(self, mock_initialize):
         """Test configure falls back to env vars when host not provided"""
         with patch.dict(
             os.environ,
             {
-                "OPENMETADATA_HOST": "http://env-host:8585/api",
-                "OPENMETADATA_JWT_TOKEN": "env-token",
+                "UMETADATA_HOST": "http://env-host:8585/api",
+                "UMETADATA_JWT_TOKEN": "env-token",
             },
         ):
             configure(jwt_token="explicit-token")
@@ -151,22 +151,22 @@ class TestConfigureFunction(unittest.TestCase):
             self.assertEqual(config.server_url, "http://env-host:8585/api")
             self.assertEqual(config.jwt_token, "explicit-token")
 
-    @patch("metadata.sdk.OpenMetadata.initialize")
+    @patch("metadata.sdk.UMetadata.initialize")
     def test_configure_token_fallback_to_env(self, mock_initialize):
         """Test configure falls back to env for jwt_token"""
-        with patch.dict(os.environ, {"OPENMETADATA_JWT_TOKEN": "env-token"}):
+        with patch.dict(os.environ, {"UMETADATA_JWT_TOKEN": "env-token"}):
             configure(host="http://localhost:8585/api")
             config = mock_initialize.call_args[0][0]
             self.assertEqual(config.jwt_token, "env-token")
 
-    @patch("metadata.sdk.OpenMetadata.initialize")
+    @patch("metadata.sdk.UMetadata.initialize")
     def test_configure_from_env_only(self, mock_initialize):
         """Test configure with no args loads from env"""
         with patch.dict(
             os.environ,
             {
-                "OPENMETADATA_HOST": "http://env-only:8585/api",
-                "OPENMETADATA_JWT_TOKEN": "env-only-token",
+                "UMETADATA_HOST": "http://env-only:8585/api",
+                "UMETADATA_JWT_TOKEN": "env-only-token",
             },
         ):
             configure()
@@ -181,10 +181,10 @@ class TestConfigureFunction(unittest.TestCase):
                 configure(jwt_token="token")
             self.assertIn("Server URL must be provided", str(context.exception))
 
-    @patch("metadata.sdk.OpenMetadata.initialize")
+    @patch("metadata.sdk.UMetadata.initialize")
     def test_configure_with_config_object(self, mock_initialize):
-        """Test configure with OpenMetadataConfig object"""
-        config = OpenMetadataConfig(
+        """Test configure with UMetadataConfig object"""
+        config = UMetadataConfig(
             server_url="http://localhost:8585/api", jwt_token="config-token"
         )
         configure(config)
@@ -192,7 +192,7 @@ class TestConfigureFunction(unittest.TestCase):
 
     def test_configure_rejects_mixed_config_and_kwargs(self):
         """Test configure raises error when both config and kwargs provided"""
-        config = OpenMetadataConfig(
+        config = UMetadataConfig(
             server_url="http://localhost:8585/api", jwt_token="token"
         )
         with self.assertRaises(TypeError) as context:

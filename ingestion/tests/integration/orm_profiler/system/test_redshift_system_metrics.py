@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -37,10 +37,10 @@ import pytest
 import yaml
 
 from metadata.generated.schema.entity.data.table import SystemProfile
-from metadata.generated.schema.entity.services.connections.metadata.openMetadataConnection import (
-    OpenMetadataConnection,
+from metadata.generated.schema.entity.services.connections.metadata.uMetadataConnection import (
+    UMetadataConnection,
 )
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.utils.time_utils import (
     get_beginning_of_day_timestamp_mill,
     get_end_of_day_timestamp_mill,
@@ -98,12 +98,12 @@ class TestRedshiftSystem(TestCase):
 
         # set metadata config
         cls.metadata_config_dict = cls.config["workflowConfig"][
-            "openMetadataServerConfig"
+            "uMetadataServerConfig"
         ]
-        cls.metadata_config = OpenMetadataConnection.model_validate(
+        cls.metadata_config = UMetadataConnection.model_validate(
             cls.metadata_config_dict
         )
-        cls.metadata = OpenMetadata(cls.metadata_config)
+        cls.metadata = UMetadata(cls.metadata_config)
 
         # run the ingestion workflow
         ingestion_workflow = MetadataWorkflow.create(cls.config)

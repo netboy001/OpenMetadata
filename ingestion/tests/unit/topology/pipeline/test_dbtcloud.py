@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,8 +20,8 @@ from unittest.mock import patch
 from metadata.generated.schema.api.data.createPipeline import CreatePipelineRequest
 from metadata.generated.schema.entity.data.pipeline import Pipeline, Task
 from metadata.generated.schema.entity.data.table import Table
-from metadata.generated.schema.entity.services.connections.metadata.openMetadataConnection import (
-    OpenMetadataConnection,
+from metadata.generated.schema.entity.services.connections.metadata.uMetadataConnection import (
+    UMetadataConnection,
 )
 from metadata.generated.schema.entity.services.pipelineService import (
     PipelineConnection,
@@ -29,7 +29,7 @@ from metadata.generated.schema.entity.services.pipelineService import (
     PipelineServiceType,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.generated.schema.type.basic import (
     EntityName,
@@ -41,7 +41,7 @@ from metadata.generated.schema.type.entityReference import EntityReference
 from metadata.generated.schema.type.pipelineObservability import PipelineObservability
 from metadata.generated.schema.type.usageDetails import UsageDetails, UsageStats
 from metadata.generated.schema.type.usageRequest import UsageRequest
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.pipeline.dbtcloud.metadata import DbtcloudSource
 from metadata.ingestion.source.pipeline.dbtcloud.models import (
     DBTJob,
@@ -414,9 +414,9 @@ mock_dbtcloud_config = {
     },
     "sink": {"type": "metadata-rest", "config": {}},
     "workflowConfig": {
-        "openMetadataServerConfig": {
+        "uMetadataServerConfig": {
             "hostPort": "http://localhost:8585/api",
-            "authProvider": "openmetadata",
+            "authProvider": "umetadata",
             "securityConfig": {
                 "jwtToken": "eyJraWQiOiJHYjM4OWEtOWY3Ni1nZGpzLWE5MmotMDI0MmJrOTQzNTYiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlzQm90IjpmYWxzZSwiaXNzIjoib3Blbi1tZXRhZGF0YS5vcmciLCJpYXQiOjE2NjM5Mzg0NjIsImVtYWlsIjoiYWRtaW5Ab3Blbm1ldGFkYXRhLm9yZyJ9.tS8um_5DKu7HgzGBzS1VTA5uUjKWOCU0B_j08WXBiEC0mr0zNREkqVfwFDD-d24HlNEbrqioLsBuFRiwIWKc1m_ZlVQbG7P36RUxhuv2vbSp80FKyNM-Tj93FDzq91jsyNmsQhyNv_fNr3TXfzzSPjHt8Go0FMMP66weoKMgW2PbXlhVKwEuXUHyakLLzewm9UMeQaEiRzhiTMU3UkLXcKbYEJJvfNFcLwSl9W8JCO_l0Yj3ud-qt_nQYEZwqW6u5nfdQllN133iikV4fM5QZsMCnm8Rq1mvLR0y9bmJiD7fwM1tmJ791TUWqmKaTnP49U493VanKpUAfzIiOiIbhg"
             },
@@ -459,7 +459,7 @@ MOCK_PIPELINE = Pipeline(
     id="2aaa012e-099a-11ed-861d-0242ac120002",
     name=EntityName(root="New job"),
     fullyQualifiedName="dbtcloud_pipeline_test.New job",
-    displayName="OpenMetadata DBTCloud Workflow",
+    displayName="UMetadata DBTCloud Workflow",
     description=Markdown(root="Example Job Description"),
     sourceUrl=SourceUrl(
         root="https://abc12.us1.dbt.com/deploy/70403103922125/projects/70403103926818/jobs/70403103936332"
@@ -509,21 +509,21 @@ class DBTCloudUnitTest(TestCase):
         super().__init__(methodName)
         test_connection.return_value = False
 
-        config = OpenMetadataWorkflowConfig.model_validate(mock_dbtcloud_config)
+        config = UMetadataWorkflowConfig.model_validate(mock_dbtcloud_config)
         self.dbtcloud = DbtcloudSource.create(
             mock_dbtcloud_config["source"],
-            config.workflowConfig.openMetadataServerConfig,
+            config.workflowConfig.uMetadataServerConfig,
         )
         self.dbtcloud.context.get().__dict__["pipeline"] = MOCK_PIPELINE.name.root
         self.dbtcloud.context.get().__dict__[
             "pipeline_service"
         ] = MOCK_PIPELINE_SERVICE.name.root
-        self.dbtcloud.metadata = OpenMetadata(
-            config.workflowConfig.openMetadataServerConfig
+        self.dbtcloud.metadata = UMetadata(
+            config.workflowConfig.uMetadataServerConfig
         )
-        self.metadata = OpenMetadata(
-            OpenMetadataConnection.model_validate(
-                mock_dbtcloud_config["workflowConfig"]["openMetadataServerConfig"]
+        self.metadata = UMetadata(
+            UMetadataConnection.model_validate(
+                mock_dbtcloud_config["workflowConfig"]["uMetadataServerConfig"]
             )
         )
 
@@ -590,7 +590,7 @@ class DBTCloudUnitTest(TestCase):
                 ),
             ],
         )
-        with patch.object(OpenMetadata, "get_by_name", return_value=return_value):
+        with patch.object(UMetadata, "get_by_name", return_value=return_value):
             got_usage = next(
                 self.dbtcloud.yield_pipeline_usage(EXPECTED_JOB_DETAILS)
             ).right
@@ -629,7 +629,7 @@ class DBTCloudUnitTest(TestCase):
                 dailyStats=UsageStats(count=10), date=self.dbtcloud.today
             ),
         )
-        with patch.object(OpenMetadata, "get_by_name", return_value=return_value):
+        with patch.object(UMetadata, "get_by_name", return_value=return_value):
             # Nothing is returned
             self.assertEqual(
                 len(list(self.dbtcloud.yield_pipeline_usage(EXPECTED_JOB_DETAILS))), 0
@@ -662,7 +662,7 @@ class DBTCloudUnitTest(TestCase):
                 dailyStats=UsageStats(count=0), date=self.dbtcloud.today
             ),
         )
-        with patch.object(OpenMetadata, "get_by_name", return_value=return_value):
+        with patch.object(UMetadata, "get_by_name", return_value=return_value):
             got_usage = next(
                 self.dbtcloud.yield_pipeline_usage(EXPECTED_JOB_DETAILS)
             ).right
@@ -722,7 +722,7 @@ class DBTCloudUnitTest(TestCase):
                 date=datetime.strftime(datetime.now() - timedelta(1), "%Y-%m-%d"),
             ),
         )
-        with patch.object(OpenMetadata, "get_by_name", return_value=return_value):
+        with patch.object(UMetadata, "get_by_name", return_value=return_value):
             got_usage = next(
                 self.dbtcloud.yield_pipeline_usage(EXPECTED_JOB_DETAILS)
             ).right
@@ -763,7 +763,7 @@ class DBTCloudUnitTest(TestCase):
                 date=datetime.strftime(datetime.now() - timedelta(1), "%Y-%m-%d"),
             ),
         )
-        with patch.object(OpenMetadata, "get_by_name", return_value=return_value):
+        with patch.object(UMetadata, "get_by_name", return_value=return_value):
             self.assertEqual(
                 len(list(self.dbtcloud.yield_pipeline_usage(EXPECTED_JOB_DETAILS))), 0
             )
@@ -777,7 +777,7 @@ class DBTCloudUnitTest(TestCase):
 
         # Mock metadata.get_by_name to raise an exception
         with patch.object(
-            OpenMetadata, "get_by_name", side_effect=Exception("Test error")
+            UMetadata, "get_by_name", side_effect=Exception("Test error")
         ):
             # Get the lineage details
             lineage_details = list(

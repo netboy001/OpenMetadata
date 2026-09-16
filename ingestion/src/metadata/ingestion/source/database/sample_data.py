@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -161,20 +161,20 @@ from metadata.generated.schema.type.schema import Topic as TopicSchema
 from metadata.ingestion.api.common import Entity
 from metadata.ingestion.api.models import Either
 from metadata.ingestion.api.steps import InvalidSourceException, Source
-from metadata.ingestion.models.data_insight import OMetaDataInsightSample
-from metadata.ingestion.models.life_cycle import OMetaLifeCycleData
-from metadata.ingestion.models.pipeline_status import OMetaPipelineStatus
-from metadata.ingestion.models.profile_data import OMetaTableProfileSampleData
+from metadata.ingestion.models.data_insight import UMetaDataInsightSample
+from metadata.ingestion.models.life_cycle import UMetaLifeCycleData
+from metadata.ingestion.models.pipeline_status import UMetaPipelineStatus
+from metadata.ingestion.models.profile_data import UMetaTableProfileSampleData
 from metadata.ingestion.models.table_metadata import ColumnDescription
 from metadata.ingestion.models.tests_data import (
-    OMetaLogicalTestSuiteSample,
-    OMetaTestCaseResolutionStatus,
-    OMetaTestCaseResultsSample,
-    OMetaTestCaseSample,
-    OMetaTestSuiteSample,
+    UMetaLogicalTestSuiteSample,
+    UMetaTestCaseResolutionStatus,
+    UMetaTestCaseResultsSample,
+    UMetaTestCaseSample,
+    UMetaTestSuiteSample,
 )
-from metadata.ingestion.models.user import OMetaUserProfile
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.models.user import UMetaUserProfile
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.parsers.schema_parsers import (
     InvalidSchemaTypeException,
     schema_parser_config_registry,
@@ -213,7 +213,7 @@ class InvalidSampleDataException(Exception):
     """
 
 
-def get_lineage_entity_ref(edge, metadata: OpenMetadata) -> Optional[EntityReference]:
+def get_lineage_entity_ref(edge, metadata: UMetadata) -> Optional[EntityReference]:
     edge_fqn = edge["fqn"]
     if edge["type"] == "table":
         table = metadata.get_by_name(entity=Table, fqn=edge_fqn)
@@ -251,7 +251,7 @@ class SampleDataSource(
     python objects to be sent to the Sink.
     """
 
-    def __init__(self, config: WorkflowSource, metadata: OpenMetadata):
+    def __init__(self, config: WorkflowSource, metadata: UMetadata):
         super().__init__()
         self.config = config
         self.service_connection = config.serviceConnection.root.config
@@ -697,27 +697,27 @@ class SampleDataSource(
                 encoding=UTF_8,
             )
         )
-        self.ometa_api_service_json = json.load(
+        self.umeta_api_service_json = json.load(
             open(  # pylint: disable=consider-using-with
-                sample_data_folder + "/ometa_api_service/service.json",
+                sample_data_folder + "/umeta_api_service/service.json",
                 "r",
                 encoding=UTF_8,
             )
         )
-        self.ometa_api_service = self.metadata.get_service_or_create(
+        self.umeta_api_service = self.metadata.get_service_or_create(
             entity=ApiService,
-            config=WorkflowSource(**self.ometa_api_service_json),
+            config=WorkflowSource(**self.umeta_api_service_json),
         )
-        self.ometa_api_collection = json.load(
+        self.umeta_api_collection = json.load(
             open(
-                sample_data_folder + "/ometa_api_service/ometa_api_collection.json",
+                sample_data_folder + "/umeta_api_service/umeta_api_collection.json",
                 "r",
                 encoding=UTF_8,
             )
         )
-        self.ometa_api_endpoint = json.load(
+        self.umeta_api_endpoint = json.load(
             open(
-                sample_data_folder + "/ometa_api_service/ometa_api_endpoint.json",
+                sample_data_folder + "/umeta_api_service/umeta_api_endpoint.json",
                 "r",
                 encoding=UTF_8,
             )
@@ -830,7 +830,7 @@ class SampleDataSource(
 
     @classmethod
     def create(
-        cls, config_dict, metadata: OpenMetadata, pipeline_name: Optional[str] = None
+        cls, config_dict, metadata: UMetadata, pipeline_name: Optional[str] = None
     ):
         """Create class instance"""
         config: WorkflowSource = WorkflowSource.model_validate(config_dict)
@@ -877,7 +877,7 @@ class SampleDataSource(
         yield from self.ingest_data_insights()
         yield from self.ingest_life_cycle()
         yield from self.ingest_api_service()
-        yield from self.ingest_ometa_api_service()
+        yield from self.ingest_umeta_api_service()
         self.modify_column_descriptions()
         yield from self.process_service_batch()
         yield from self.ingest_data_contracts()
@@ -1904,7 +1904,7 @@ class SampleDataSource(
             )
             yield Either(right=lineage)
 
-    def ingest_pipeline_status(self) -> Iterable[Either[OMetaPipelineStatus]]:
+    def ingest_pipeline_status(self) -> Iterable[Either[UMetaPipelineStatus]]:
         """
         Ingest sample pipeline status records with timestamps evenly distributed across 15 days.
         Maintains original execution durations and ensures valid runtime calculations.
@@ -1962,7 +1962,7 @@ class SampleDataSource(
                 status["executionId"] = f"run_{index + 1:03d}_{random_suffix}"
 
             yield Either(
-                right=OMetaPipelineStatus(
+                right=UMetaPipelineStatus(
                     pipeline_fqn=pipeline_fqn,
                     pipeline_status=PipelineStatus(**status),
                 )
@@ -2224,7 +2224,7 @@ class SampleDataSource(
             logger.debug(traceback.format_exc())
             logger.warning(f"Error ingesting nested containers: {exc}")
 
-    def ingest_users(self) -> Iterable[Either[OMetaUserProfile]]:
+    def ingest_users(self) -> Iterable[Either[UMetaUserProfile]]:
         """Ingest Sample User data"""
 
         try:
@@ -2259,13 +2259,13 @@ class SampleDataSource(
                 )
 
                 yield Either(
-                    right=OMetaUserProfile(user=user_metadata, teams=teams, roles=roles)
+                    right=UMetaUserProfile(user=user_metadata, teams=teams, roles=roles)
                 )
         except Exception as exc:
             logger.debug(traceback.format_exc())
             logger.error(f"Error ingesting users: {exc}")
 
-    def ingest_profiles(self) -> Iterable[Either[OMetaTableProfileSampleData]]:
+    def ingest_profiles(self) -> Iterable[Either[UMetaTableProfileSampleData]]:
         """Iterate over all the profile data and ingest them"""
         for table_profile in self.profiles["profiles"]:
             table = self.metadata.get_by_name(
@@ -2274,7 +2274,7 @@ class SampleDataSource(
             )
             for days, profile in enumerate(table_profile["profile"]):
                 try:
-                    table_profile = OMetaTableProfileSampleData(
+                    table_profile = UMetaTableProfileSampleData(
                         table=table,
                         profile=CreateTableProfileRequest(
                             tableProfile=TableProfile(
@@ -2331,11 +2331,11 @@ class SampleDataSource(
                     logger.debug(traceback.format_exc())
                     logger.warning(f"Error ingesting Profiles [{table_profile}]: {exc}")
 
-    def ingest_test_suite(self) -> Iterable[Either[OMetaTestSuiteSample]]:
+    def ingest_test_suite(self) -> Iterable[Either[UMetaTestSuiteSample]]:
         """Iterate over all the testSuite and testCase and ingest them"""
         for test_suite in self.tests_suites["tests"]:
             yield Either(
-                right=OMetaTestSuiteSample(
+                right=UMetaTestSuiteSample(
                     test_suite=CreateTestSuiteRequest(
                         name=test_suite["testSuiteName"],
                         description=test_suite["testSuiteDescription"],
@@ -2346,7 +2346,7 @@ class SampleDataSource(
 
     def ingest_logical_test_suite(
         self,
-    ) -> Iterable[Either[OMetaLogicalTestSuiteSample]]:
+    ) -> Iterable[Either[UMetaLogicalTestSuiteSample]]:
         """Iterate over all the logical testSuite and testCase and ingest them"""
         for logical_test_suite in self.logical_test_suites["tests"]:
             test_suite = CreateTestSuiteRequest(
@@ -2364,19 +2364,19 @@ class SampleDataSource(
                     test_cases.append(test_case)
 
             yield Either(
-                right=OMetaLogicalTestSuiteSample(
+                right=UMetaLogicalTestSuiteSample(
                     test_suite=test_suite, test_cases=test_cases
                 )
             )
 
-    def ingest_test_case(self) -> Iterable[Either[OMetaTestCaseSample]]:
+    def ingest_test_case(self) -> Iterable[Either[UMetaTestCaseSample]]:
         """Ingest test cases"""
         for test_suite in self.tests_suites["tests"]:
             suite = self.metadata.get_by_name(
                 fqn=test_suite["testSuiteName"], entity=TestSuite
             )
             for test_case in test_suite["testCases"]:
-                test_case_req = OMetaTestCaseSample(
+                test_case_req = UMetaTestCaseSample(
                     test_case=CreateTestCaseRequest(
                         name=test_case["name"],
                         description=test_case["description"],
@@ -2391,7 +2391,7 @@ class SampleDataSource(
                 )
                 yield Either(right=test_case_req)
 
-    def ingest_incidents(self) -> Iterable[Either[OMetaTestCaseResolutionStatus]]:
+    def ingest_incidents(self) -> Iterable[Either[UMetaTestCaseResolutionStatus]]:
         """
         Ingest incidents after the first test failures have been added.
 
@@ -2442,12 +2442,12 @@ class SampleDataSource(
                             )
 
                         yield Either(
-                            right=OMetaTestCaseResolutionStatus(
+                            right=UMetaTestCaseResolutionStatus(
                                 test_case_resolution=create_test_case_resolution
                             )
                         )
 
-    def ingest_test_case_results(self) -> Iterable[Either[OMetaTestCaseResultsSample]]:
+    def ingest_test_case_results(self) -> Iterable[Either[UMetaTestCaseResultsSample]]:
         """Iterate over all the testSuite and testCase and ingest them"""
         for test_case_results in self.tests_case_results["testCaseResults"]:
             case = self.metadata.get_by_name(
@@ -2457,7 +2457,7 @@ class SampleDataSource(
             )
             if case:
                 for days, result in enumerate(test_case_results["results"]):
-                    test_case_result_req = OMetaTestCaseResultsSample(
+                    test_case_result_req = UMetaTestCaseResultsSample(
                         test_case_results=TestCaseResult(
                             timestamp=Timestamp(
                                 int(
@@ -2494,7 +2494,7 @@ class SampleDataSource(
                     test_case_results["inspectionQuery"],
                 )
 
-    def ingest_data_insights(self) -> Iterable[Either[OMetaDataInsightSample]]:
+    def ingest_data_insights(self) -> Iterable[Either[UMetaDataInsightSample]]:
         """Iterate over all the data insights and ingest them"""
         data: Dict[str, List] = self.data_insight_data["reports"]
 
@@ -2509,7 +2509,7 @@ class SampleDataSource(
                     end_ts = int(datetime.now(timezone.utc).timestamp() * 1000)
                     tmstp = random.randint(start_ts, end_ts)
                     report_datum["data"]["lifeCycle"]["accessed"]["timestamp"] = tmstp
-                record = OMetaDataInsightSample(
+                record = UMetaDataInsightSample(
                     record=ReportData(
                         id=report_datum["id"],
                         reportDataType=report_datum["reportDataType"],
@@ -2524,7 +2524,7 @@ class SampleDataSource(
                 i += 1
                 yield Either(left=None, right=record)
 
-    def ingest_life_cycle(self) -> Iterable[Either[OMetaLifeCycleData]]:
+    def ingest_life_cycle(self) -> Iterable[Either[UMetaLifeCycleData]]:
         """Iterate over all the life cycle data and ingest them"""
         for table_life_cycle in self.life_cycle_data["lifeCycleData"]:
             life_cycle = table_life_cycle["lifeCycle"]
@@ -2583,7 +2583,7 @@ class SampleDataSource(
                     life_cycle["accessed"]["accessedBy"]["name"]
                 )
 
-            life_cycle_request = OMetaLifeCycleData(
+            life_cycle_request = UMetaLifeCycleData(
                 entity=Table,
                 entity_fqn=table_life_cycle["fqn"],
                 life_cycle=life_cycle_data,
@@ -2609,14 +2609,14 @@ class SampleDataSource(
             endpoint_request = CreateAPIEndpointRequest(**endpoint)
             yield Either(right=endpoint_request)
 
-    def ingest_ometa_api_service(self) -> Iterable[Either[Entity]]:
-        """Ingest users & tables ometa API services"""
+    def ingest_umeta_api_service(self) -> Iterable[Either[Entity]]:
+        """Ingest users & tables umeta API services"""
 
-        for collection in self.ometa_api_collection.get("collections"):
+        for collection in self.umeta_api_collection.get("collections"):
             collection_request = CreateAPICollectionRequest(**collection)
             yield Either(right=collection_request)
 
-        for endpoint in self.ometa_api_endpoint.get("endpoints"):
+        for endpoint in self.umeta_api_endpoint.get("endpoints"):
             endpoint_request = CreateAPIEndpointRequest(**endpoint)
             yield Either(right=endpoint_request)
 
@@ -2626,7 +2626,7 @@ class SampleDataSource(
         Args:
             service_idx: Service index
         """
-        service_name = f"openmetadata-{service_idx}"
+        service_name = f"umetadata-{service_idx}"
 
         try:
             # Create minimal Snowflake connection
@@ -2680,7 +2680,7 @@ class SampleDataSource(
             self.metadata.list_entities(
                 entity=Table,
                 limit=5,
-                params={"database": "openmetadata-0.openmetadata-db-0"},
+                params={"database": "umetadata-0.umetadata-db-0"},
             ).entities
         )
         destination_table = self.metadata.get_by_name(
@@ -2716,7 +2716,7 @@ class SampleDataSource(
             service_name: Service name
             db_idx: Database index
         """
-        db_name = f"openmetadata-db-{db_idx}"
+        db_name = f"umetadata-db-{db_idx}"
 
         try:
             # Create with minimal required fields
@@ -2740,7 +2740,7 @@ class SampleDataSource(
             database_fqn: Database FQN
             schema_idx: Schema index
         """
-        schema_name = f"openmetadata-schema-{schema_idx}"
+        schema_name = f"umetadata-schema-{schema_idx}"
 
         try:
             # Create with minimal required fields
@@ -2765,7 +2765,7 @@ class SampleDataSource(
         """
         # Create table requests
         for i in range(TABLES_PER_SCHEMA):
-            table_name = f"openmetadata-table-{i}"
+            table_name = f"umetadata-table-{i}"
 
             # Create with minimal required fields
             try:

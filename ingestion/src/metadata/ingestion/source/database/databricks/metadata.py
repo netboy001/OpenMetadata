@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -42,8 +42,8 @@ from metadata.generated.schema.type.basic import Markdown
 from metadata.generated.schema.type.entityReferenceList import EntityReferenceList
 from metadata.ingestion.api.models import Either
 from metadata.ingestion.api.steps import InvalidSourceException
-from metadata.ingestion.models.ometa_classification import OMetaTagAndClassification
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.models.umeta_classification import UMetaTagAndClassification
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.connections import get_connection
 from metadata.ingestion.source.database.column_type_parser import create_sqlalchemy_type
 from metadata.ingestion.source.database.common_db_source import (
@@ -84,7 +84,7 @@ from metadata.utils.sqlalchemy_utils import (
     get_table_comment_results,
     get_view_definition_wrapper,
 )
-from metadata.utils.tag_utils import get_ometa_tag_and_classification
+from metadata.utils.tag_utils import get_umeta_tag_and_classification
 
 logger = ingestion_logger()
 
@@ -648,7 +648,7 @@ class DatabricksSource(ExternalTableLineageMixin, CommonDbSourceService, MultiDB
     the legacy hive metastore method
     """
 
-    def __init__(self, config: WorkflowSource, metadata: OpenMetadata):
+    def __init__(self, config: WorkflowSource, metadata: UMetadata):
         super().__init__(config, metadata)
         self.is_older_version = False
         self._init_version()
@@ -675,7 +675,7 @@ class DatabricksSource(ExternalTableLineageMixin, CommonDbSourceService, MultiDB
 
     @classmethod
     def create(
-        cls, config_dict, metadata: OpenMetadata, pipeline_name: Optional[str] = None
+        cls, config_dict, metadata: UMetadata, pipeline_name: Optional[str] = None
     ):
         config: WorkflowSource = WorkflowSource.model_validate(config_dict)
         connection: DatabricksConnection = config.serviceConnection.root.config
@@ -789,7 +789,7 @@ class DatabricksSource(ExternalTableLineageMixin, CommonDbSourceService, MultiDB
             tag_dict[key] = [value]
 
     @staticmethod
-    def _ometa_tag_call_args(tag_name: str, tag_value: str | None) -> dict:
+    def _umeta_tag_call_args(tag_name: str, tag_value: str | None) -> dict:
         """Map a Databricks (tag_name, tag_value) pair onto OM's
         classification/tag pair, falling back to DATABRICKS_VALUELESS_CLASSIFICATION
         when tag_value is empty or whitespace-only."""
@@ -919,7 +919,7 @@ class DatabricksSource(ExternalTableLineageMixin, CommonDbSourceService, MultiDB
 
     def yield_database_tag(
         self, database_name: str
-    ) -> Iterable[Either[OMetaTagAndClassification]]:
+    ) -> Iterable[Either[UMetaTagAndClassification]]:
         """
         Method to yield database tags
         """
@@ -928,14 +928,14 @@ class DatabricksSource(ExternalTableLineageMixin, CommonDbSourceService, MultiDB
             for tag_name, tag_value in catalog_tags:
                 if not tag_name:
                     continue
-                yield from get_ometa_tag_and_classification(
+                yield from get_umeta_tag_and_classification(
                     tag_fqn=fqn.build(
                         self.metadata,
                         Database,
                         service_name=self.context.get().database_service,
                         database_name=database_name,
                     ),
-                    **self._ometa_tag_call_args(tag_name, tag_value),
+                    **self._umeta_tag_call_args(tag_name, tag_value),
                     metadata=self.metadata,
                     system_tags=True,
                 )
@@ -951,7 +951,7 @@ class DatabricksSource(ExternalTableLineageMixin, CommonDbSourceService, MultiDB
 
     def yield_tag(
         self, schema_name: str
-    ) -> Iterable[Either[OMetaTagAndClassification]]:
+    ) -> Iterable[Either[UMetaTagAndClassification]]:
         """
         Method to yield schema tags
         """
@@ -962,7 +962,7 @@ class DatabricksSource(ExternalTableLineageMixin, CommonDbSourceService, MultiDB
             for tag_name, tag_value in schema_tags:
                 if not tag_name:
                     continue
-                yield from get_ometa_tag_and_classification(
+                yield from get_umeta_tag_and_classification(
                     tag_fqn=fqn.build(
                         self.metadata,
                         DatabaseSchema,
@@ -970,7 +970,7 @@ class DatabricksSource(ExternalTableLineageMixin, CommonDbSourceService, MultiDB
                         database_name=self.context.get().database,
                         schema_name=schema_name,
                     ),
-                    **self._ometa_tag_call_args(tag_name, tag_value),
+                    **self._umeta_tag_call_args(tag_name, tag_value),
                     metadata=self.metadata,
                     system_tags=True,
                 )
@@ -986,7 +986,7 @@ class DatabricksSource(ExternalTableLineageMixin, CommonDbSourceService, MultiDB
 
     def yield_table_tags(
         self, table_name_and_type: Tuple[str, TableType]
-    ) -> Iterable[Either[OMetaTagAndClassification]]:
+    ) -> Iterable[Either[UMetaTagAndClassification]]:
         table_name, _ = table_name_and_type
         try:
             table_tags = self.table_tags.get(
@@ -1000,7 +1000,7 @@ class DatabricksSource(ExternalTableLineageMixin, CommonDbSourceService, MultiDB
             for tag_name, tag_value in table_tags:
                 if not tag_name:
                     continue
-                yield from get_ometa_tag_and_classification(
+                yield from get_umeta_tag_and_classification(
                     tag_fqn=fqn.build(
                         self.metadata,
                         Table,
@@ -1009,7 +1009,7 @@ class DatabricksSource(ExternalTableLineageMixin, CommonDbSourceService, MultiDB
                         schema_name=self.context.get().database_schema,
                         table_name=table_name,
                     ),
-                    **self._ometa_tag_call_args(tag_name, tag_value),
+                    **self._umeta_tag_call_args(tag_name, tag_value),
                     metadata=self.metadata,
                     system_tags=True,
                 )
@@ -1026,7 +1026,7 @@ class DatabricksSource(ExternalTableLineageMixin, CommonDbSourceService, MultiDB
                 for tag_name, tag_value in tags or []:
                     if not tag_name:
                         continue
-                    yield from get_ometa_tag_and_classification(
+                    yield from get_umeta_tag_and_classification(
                         tag_fqn=fqn.build(
                             self.metadata,
                             Column,
@@ -1036,7 +1036,7 @@ class DatabricksSource(ExternalTableLineageMixin, CommonDbSourceService, MultiDB
                             table_name=table_name,
                             column_name=column_name,
                         ),
-                        **self._ometa_tag_call_args(tag_name, tag_value),
+                        **self._umeta_tag_call_args(tag_name, tag_value),
                         metadata=self.metadata,
                         system_tags=True,
                     )

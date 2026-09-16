@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -49,7 +49,7 @@ from metadata.ingestion.connections.secrets import connection_with_options_secre
 from metadata.ingestion.connections.test_connections import (
     test_connection_db_schema_sources,
 )
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.database.trino.queries import TRINO_GET_DATABASE
 from metadata.utils.constants import THREE_MIN
 from metadata.utils.credentials import get_azure_access_token
@@ -73,7 +73,7 @@ class TrinoConnection(BaseConnection[TrinoConnectionConfig, Engine]):
         """
         # here we are creating a copy of connection, because we need to dynamically
         # add auth params to connectionArguments, which we do no intend to store
-        # in original connection object and in OpenMetadata database
+        # in original connection object and in UMetadata database
         from trino.sqlalchemy.dialect import TrinoDialect
 
         TrinoDialect.is_disconnect = _is_disconnect  # type: ignore
@@ -101,7 +101,7 @@ class TrinoConnection(BaseConnection[TrinoConnectionConfig, Engine]):
 
     def test_connection(
         self,
-        metadata: OpenMetadata,
+        metadata: UMetadata,
         automation_workflow: Optional[AutomationWorkflow] = None,
         timeout_seconds: Optional[int] = THREE_MIN,
     ) -> TestConnectionResult:

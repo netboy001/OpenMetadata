@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,7 +20,7 @@ from metadata.generated.schema.entity.services.connections.database.bigQueryConn
     BigQueryConnection,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.generated.schema.security.credentials.gcpValues import (
     GcpCredentialsValues,
@@ -74,12 +74,12 @@ def get_bigquery_client(
 
 
 def copy_service_config(
-    config: OpenMetadataWorkflowConfig, database_name: str
+    config: UMetadataWorkflowConfig, database_name: str
 ) -> BigQueryConnection:
     """Handles multiple project id in the service config and replace it with the database name
 
     Args:
-        config (OpenMetadataWorkflowConfig): openmetadata workflow config
+        config (UMetadataWorkflowConfig): umetadata workflow config
         database_name (str): database name
 
     Returns:

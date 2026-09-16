@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -10,7 +10,7 @@
 #  limitations under the License.
 
 """
-Test ometa to orm converter
+Test umeta to orm converter
 """
 
 from unittest.mock import patch
@@ -22,7 +22,7 @@ from metadata.generated.schema.entity.data.table import Column, DataType, Table
 from metadata.generated.schema.entity.services.databaseService import (
     DatabaseServiceType,
 )
-from metadata.profiler.orm.converter.base import ometa_to_sqa_orm
+from metadata.profiler.orm.converter.base import umeta_to_sqa_orm
 
 
 @patch("metadata.profiler.orm.converter.base.get_orm_schema", return_value="schema")
@@ -73,7 +73,7 @@ def test_snowflake_case_sensitive_orm(
         serviceType=DatabaseServiceType.Snowflake,
     )
 
-    orm_table = ometa_to_sqa_orm(table, None)
+    orm_table = umeta_to_sqa_orm(table, None)
 
     assert orm_table.__table_args__.get("quote")
     assert [
@@ -115,7 +115,7 @@ def test_metadata_column(mock_schema, mock_database):
         serviceType=DatabaseServiceType.BigQuery,
     )
 
-    orm_table = ometa_to_sqa_orm(table, None)
+    orm_table = umeta_to_sqa_orm(table, None)
 
     assert not orm_table.__table_args__.get("quote")
     assert [

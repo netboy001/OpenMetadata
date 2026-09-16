@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,9 +28,9 @@ from metadata.generated.schema.metadataIngestion.databaseServiceProfilerPipeline
     DatabaseServiceProfilerPipeline,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.profiler.api.models import ProfilerProcessorConfig, TableConfig
 from metadata.profiler.interface.profiler_interface import ProfilerInterface
 from metadata.profiler.processor.core import Profiler
@@ -64,9 +64,9 @@ class ProfilerSource(ProfilerSourceInterface):
     @inject
     def __init__(
         self,
-        config: OpenMetadataWorkflowConfig,
+        config: UMetadataWorkflowConfig,
         database: Database,
-        ometa_client: OpenMetadata,
+        umeta_client: UMetadata,
         global_profiler_configuration: ProfilerConfiguration,
         profiler_config_class: Inject[Type[ProfilerProcessorConfig]] = None,
     ):
@@ -80,7 +80,7 @@ class ProfilerSource(ProfilerSourceInterface):
         self.profiler_config = profiler_config_class.model_validate(
             config.processor.model_dump().get("config")
         )
-        self.ometa_client = ometa_client
+        self.umeta_client = umeta_client
         self._interface_type: str = config.source.type.lower()
         self._interface = None
 
@@ -100,7 +100,7 @@ class ProfilerSource(ProfilerSourceInterface):
         self._interface = interface
 
     def _copy_service_config(
-        self, config: OpenMetadataWorkflowConfig, database: Database
+        self, config: UMetadataWorkflowConfig, database: Database
     ) -> DatabaseConnection:
         """Make a copy of the service config and update the database name
 
@@ -144,7 +144,7 @@ class ProfilerSource(ProfilerSourceInterface):
 
         # NOTE: For some reason I do not understand, if we instantiate this on the __init__ method, we break the
         # autoclassification workflow. This should be fixed. There should not be an impact on AutoClassification.
-        # We have an issue to track this here: https://github.com/open-metadata/OpenMetadata/issues/21790
+        # We have an issue to track this here: https://github.com/u-metadata/UMetadata/issues/21790
         self.source_config = DatabaseServiceProfilerPipeline.model_validate(
             self.config.source.sourceConfig.config
         )
@@ -158,7 +158,7 @@ class ProfilerSource(ProfilerSourceInterface):
         # This is shared between the sampler and profiler interfaces
         sampler_interface: SamplerInterface = sampler_class.create(
             service_connection_config=self.service_conn_config,
-            ometa_client=self.ometa_client,
+            umeta_client=self.umeta_client,
             entity=entity,
             schema_entity=schema_entity,
             database_entity=database_entity,
@@ -178,7 +178,7 @@ class ProfilerSource(ProfilerSourceInterface):
             source_config=self.source_config,
             service_connection_config=self.service_conn_config,
             sampler=sampler_interface,
-            ometa_client=self.ometa_client,
+            umeta_client=self.umeta_client,
         )  # type: ignore
 
         self.interface = profiler_interface
@@ -201,7 +201,7 @@ class ProfilerSource(ProfilerSourceInterface):
 
         table_config = get_config_for_table(entity, profiler_config)
         schema_entity, database_entity, db_service = get_context_entities(
-            entity=entity, metadata=self.ometa_client
+            entity=entity, metadata=self.umeta_client
         )
         profiler_interface = self.create_profiler_interface(
             entity, table_config, schema_entity, database_entity
@@ -223,7 +223,7 @@ class ProfilerSource(ProfilerSourceInterface):
             else get_default_metrics(
                 metrics_registry=metrics_registry,
                 table=profiler_interface.table,
-                ometa_client=self.ometa_client,
+                umeta_client=self.umeta_client,
                 db_service=db_service,
             )
         )

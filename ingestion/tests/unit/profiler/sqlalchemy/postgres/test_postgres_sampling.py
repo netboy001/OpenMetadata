@@ -58,7 +58,7 @@ class SampleTest(TestCase):
 
         cls.sampler = SQASampler(
             service_connection_config=cls.psql_conn,
-            ometa_client=None,
+            umeta_client=None,
             entity=None,
         )
         cls.sqa_profiler_interface = SQAProfilerInterface(
@@ -78,7 +78,7 @@ class SampleTest(TestCase):
         """
         sampler = PostgresSampler(
             service_connection_config=self.psql_conn,
-            ometa_client=None,
+            umeta_client=None,
             entity=self.table_entity,
             sample_config=SampleConfig(
                 profileSampleType=ProfileSampleType.PERCENTAGE,
@@ -104,7 +104,7 @@ class SampleTest(TestCase):
         ]:
             sampler = PostgresSampler(
                 service_connection_config=self.psql_conn,
-                ometa_client=None,
+                umeta_client=None,
                 entity=self.table_entity,
                 sample_config=SampleConfig(
                     profileSampleType=ProfileSampleType.PERCENTAGE,
@@ -125,7 +125,7 @@ class SampleTest(TestCase):
         """
         sampler = PostgresSampler(
             service_connection_config=self.psql_conn,
-            ometa_client=None,
+            umeta_client=None,
             entity=self.table_entity,
             sample_config=SampleConfig(
                 profileSampleType=ProfileSampleType.PERCENTAGE, profileSample=50.0

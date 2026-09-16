@@ -1,10 +1,10 @@
-# OpenMetadata Cluster Sizing Runbook
+# UMetadata Cluster Sizing Runbook
 
-This runbook walks through benchmarking an OpenMetadata cluster from 10K to 5M entities, identifying where performance breaks, and applying the right configuration for your target scale.
+This runbook walks through benchmarking an UMetadata cluster from 10K to 5M entities, identifying where performance breaks, and applying the right configuration for your target scale.
 
 ## Prerequisites
 
-- OpenMetadata server running and accessible via HTTP
+- UMetadata server running and accessible via HTTP
 - Admin port exposed (optional, recommended for diagnostics — typically 8586)
 - Python 3 installed on the benchmark host (for JSON parsing)
 - `curl` and `bash` available
@@ -153,7 +153,7 @@ While the benchmark runs, monitor the server:
 
 ```bash
 # Watch server logs for errors
-docker logs -f openmetadata-server-1 2>&1 | grep -E "ERROR|WARN|OOM"
+docker logs -f umetadata-server-1 2>&1 | grep -E "ERROR|WARN|OOM"
 
 # Watch DB connection pool (if admin port exposed)
 watch -n 5 'curl -s http://localhost:8586/metrics | grep hikari'
@@ -257,7 +257,7 @@ environment:
 
 ```yaml
 # values.yaml
-openmetadata:
+umetadata:
   config:
     serverMaxThreads: 300
     enableVirtualThread: true
@@ -272,7 +272,7 @@ openmetadata:
   jvmOpts: "-Xmx4g -Xms4g"
 ```
 
-**Bare metal / `openmetadata.yaml`:**
+**Bare metal / `umetadata.yaml`:**
 
 ```yaml
 server:
@@ -407,7 +407,7 @@ Symptoms: Server process killed, connection refused mid-run.
 
 ```bash
 # Check if server was OOM-killed
-docker logs openmetadata-server-1 2>&1 | tail -50
+docker logs umetadata-server-1 2>&1 | tail -50
 dmesg | grep -i "oom\|killed"
 
 # Fix: Increase heap

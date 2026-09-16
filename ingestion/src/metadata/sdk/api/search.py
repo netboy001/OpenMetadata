@@ -21,8 +21,8 @@ from urllib.parse import urlencode
 
 from requests import Response
 
-from ..client import OpenMetadata
-from ..types import JsonDict, OMetaClient
+from ..client import UMetadata
+from ..types import JsonDict, UMetaClient
 
 T = TypeVar("T")
 R = TypeVar("R")
@@ -81,12 +81,12 @@ class RestClientProtocol(Protocol):
         ...
 
 
-def _http_get(client: OMetaClient, path: str, params: Mapping[str, Any]) -> JsonDict:
+def _http_get(client: UMetaClient, path: str, params: Mapping[str, Any]) -> JsonDict:
     query = _encode_params(params)
     resource = f"{path}?{query}" if query else path
     response = getattr(client, "client", None)
     if not isinstance(response, RestClientProtocol):
-        raise RuntimeError("OpenMetadata client does not expose a REST client")
+        raise RuntimeError("UMetadata client does not expose a REST client")
     rest_client: RestClientProtocol = response
     payload = rest_client.get(resource)
     if isinstance(payload, Response):
@@ -102,10 +102,10 @@ def _http_get(client: OMetaClient, path: str, params: Mapping[str, Any]) -> Json
     return payload
 
 
-def _http_post(client: OMetaClient, path: str, body: JsonDict) -> JsonDict:
+def _http_post(client: UMetaClient, path: str, body: JsonDict) -> JsonDict:
     response = getattr(client, "client", None)
     if not isinstance(response, RestClientProtocol):
-        raise RuntimeError("OpenMetadata client does not expose a REST client")
+        raise RuntimeError("UMetadata client does not expose a REST client")
     rest_client: RestClientProtocol = response
     payload = rest_client.post(path, json=body)
     if isinstance(payload, Response):
@@ -124,20 +124,20 @@ def _http_post(client: OMetaClient, path: str, body: JsonDict) -> JsonDict:
 class Search:
     """Static fluent API for search operations."""
 
-    _default_client: ClassVar[Optional[OMetaClient]] = None
+    _default_client: ClassVar[Optional[UMetaClient]] = None
 
     @classmethod
-    def set_default_client(cls, client: Union[OpenMetadata, OMetaClient]) -> None:
+    def set_default_client(cls, client: Union[UMetadata, UMetaClient]) -> None:
         """Set the default client for static methods."""
         cls._default_client = (
-            client.ometa if isinstance(client, OpenMetadata) else client
+            client.umeta if isinstance(client, UMetadata) else client
         )
 
     @classmethod
-    def _get_client(cls) -> OMetaClient:
-        """Return the active OpenMetadata client."""
+    def _get_client(cls) -> UMetaClient:
+        """Return the active UMetadata client."""
         if cls._default_client is None:
-            cls._default_client = OpenMetadata.get_default_client()
+            cls._default_client = UMetadata.get_default_client()
         return cls._default_client
 
     @classmethod

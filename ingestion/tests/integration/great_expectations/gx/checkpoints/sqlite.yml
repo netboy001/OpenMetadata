@@ -17,11 +17,11 @@ action_list:
     action:
       class_name: UpdateDataDocsAction
       site_names: []
-  - name: ometa_ingestion
+  - name: umeta_ingestion
     action:
       module_name: metadata.great_expectations.action
-      class_name: OpenMetadataValidationAction
-      config_file_path: ./ometa_config/
+      class_name: UMetadataValidationAction
+      config_file_path: ./umeta_config/
       database_service_name: test_sqlite
       database_name: default
 evaluation_parameters: {}

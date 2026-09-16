@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -24,7 +24,7 @@ from metadata.generated.schema.metadataIngestion.databaseServiceMetadataPipeline
     Incremental,
 )
 from metadata.generated.schema.type.basic import Timestamp
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.database.incremental_metadata_extraction import (
     MILLISECONDS_IN_ONE_DAY,
     IncrementalConfig,
@@ -65,7 +65,7 @@ class IncrementalConfigCreatorTest(TestCase):
         incremental_config_creator = IncrementalConfigCreator(
             incremental=None,
             pipeline_name="noop",
-            metadata=create_autospec(OpenMetadata),
+            metadata=create_autospec(UMetadata),
         )
 
         self.assertEqual(
@@ -77,7 +77,7 @@ class IncrementalConfigCreatorTest(TestCase):
         incremental_config_creator = IncrementalConfigCreator(
             incremental=Incremental(enabled=True),
             pipeline_name=None,
-            metadata=create_autospec(OpenMetadata),
+            metadata=create_autospec(UMetadata),
         )
 
         self.assertEqual(
@@ -91,7 +91,7 @@ class IncrementalConfigCreatorTest(TestCase):
         incremental_config_creator = IncrementalConfigCreator(
             incremental=Incremental(enabled=False),
             pipeline_name="noop",
-            metadata=create_autospec(OpenMetadata),
+            metadata=create_autospec(UMetadata),
         )
 
         self.assertEqual(
@@ -108,7 +108,7 @@ class IncrementalConfigCreatorTest(TestCase):
             incremental_config_creator = IncrementalConfigCreator(
                 incremental=Incremental(enabled=True),
                 pipeline_name="noop",
-                metadata=create_autospec(OpenMetadata),
+                metadata=create_autospec(UMetadata),
             )
 
             self.assertEqual(
@@ -133,7 +133,7 @@ class IncrementalConfigCreatorTest(TestCase):
             incremental_config_creator = IncrementalConfigCreator(
                 incremental=Incremental(enabled=True),
                 pipeline_name="noop",
-                metadata=create_autospec(OpenMetadata),
+                metadata=create_autospec(UMetadata),
             )
 
             self.assertEqual(
@@ -151,7 +151,7 @@ class IncrementalConfigCreatorTest(TestCase):
             incremental_config_creator = IncrementalConfigCreator(
                 incremental=INCREMENTAL_CONFIG_ENABLED["input"]["incremental_config"],
                 pipeline_name="noop",
-                metadata=create_autospec(OpenMetadata),
+                metadata=create_autospec(UMetadata),
             )
 
             self.assertEqual(

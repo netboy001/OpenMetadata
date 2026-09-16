@@ -1,6 +1,6 @@
 import pytest
 
-from _openmetadata_testutils.helpers.markers import xfail_param
+from _umetadata_testutils.helpers.markers import xfail_param
 from metadata.generated.schema.entity.data.table import TableData
 
 

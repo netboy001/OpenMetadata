@@ -1,0 +1,16 @@
+{
+  "$id": "https://u-metadata.org/schema/entity/configuration/uMetadataBaseUrlConfiguration.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "UMetadataBaseUrlConfiguration",
+  "description": "This schema defines the UMetadata base URL configuration",
+  "type": "object",
+  "javaType": "org.umetadata.schema.api.configuration.UMetadataBaseUrlConfiguration",
+  "properties": {
+    "uMetadataUrl": {
+      "description": "UMetadata Server Endpoint",
+      "type": "string",
+      "default": "http://localhost:8585"
+    }
+  },
+  "additionalProperties": false
+}

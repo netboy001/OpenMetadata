@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import MagicMock
 
-from metadata.ingestion.ometa.mixins.csv_mixin import CSVMixin
+from metadata.ingestion.umeta.mixins.csv_mixin import CSVMixin
 
 """
 Simple test for CSV operations to verify the implementation.
@@ -10,9 +10,9 @@ Tests the CSVMixin functionality directly.
 from unittest.mock import Mock
 
 from metadata.generated.schema.entity.data.glossary import Glossary
-from metadata.generated.schema.entity.services.connections.metadata.openMetadataConnection import (
+from metadata.generated.schema.entity.services.connections.metadata.uMetadataConnection import (
     AuthProvider,
-    OpenMetadataConnection,
+    UMetadataConnection,
 )
 
 
@@ -32,9 +32,9 @@ class TestCsvMixinOperations(unittest.TestCase):
         mock_response = "parent,name,description\n,term1,Test term"
         mock_client.get.return_value = mock_response
 
-        # Create OpenMetadata instance with mock client
-        config = OpenMetadataConnection(
-            hostPort="http://test", authProvider=AuthProvider.openmetadata
+        # Create UMetadata instance with mock client
+        config = UMetadataConnection(
+            hostPort="http://test", authProvider=AuthProvider.umetadata
         )
         # Use mocked client directly
         # Already set in setUp
@@ -58,9 +58,9 @@ class TestCsvMixinOperations(unittest.TestCase):
         mock_response = {"jobId": "export-job-123"}
         mock_client.get.return_value = mock_response
 
-        # Create OpenMetadata instance with mock client
-        config = OpenMetadataConnection(
-            hostPort="http://test", authProvider=AuthProvider.openmetadata
+        # Create UMetadata instance with mock client
+        config = UMetadataConnection(
+            hostPort="http://test", authProvider=AuthProvider.umetadata
         )
         # Use mocked client directly
         # Already set in setUp
@@ -84,9 +84,9 @@ class TestCsvMixinOperations(unittest.TestCase):
         mock_response = {"created": 5, "updated": 2}
         self.mock_client.put.return_value = mock_response
 
-        # Create OpenMetadata instance with mock client
-        config = OpenMetadataConnection(
-            hostPort="http://test", authProvider=AuthProvider.openmetadata
+        # Create UMetadata instance with mock client
+        config = UMetadataConnection(
+            hostPort="http://test", authProvider=AuthProvider.umetadata
         )
         # Use mocked client directly
         # Already set in setUp
@@ -112,9 +112,9 @@ class TestCsvMixinOperations(unittest.TestCase):
         mock_response = {"wouldCreate": 5, "wouldUpdate": 2}
         self.mock_client.put.return_value = mock_response
 
-        # Create OpenMetadata instance with mock client
-        config = OpenMetadataConnection(
-            hostPort="http://test", authProvider=AuthProvider.openmetadata
+        # Create UMetadata instance with mock client
+        config = UMetadataConnection(
+            hostPort="http://test", authProvider=AuthProvider.umetadata
         )
         # Use mocked client directly
         # Already set in setUp
@@ -140,9 +140,9 @@ class TestCsvMixinOperations(unittest.TestCase):
         mock_response = {"jobId": "import-job-456"}
         self.mock_client.put.return_value = mock_response
 
-        # Create OpenMetadata instance with mock client
-        config = OpenMetadataConnection(
-            hostPort="http://test", authProvider=AuthProvider.openmetadata
+        # Create UMetadata instance with mock client
+        config = UMetadataConnection(
+            hostPort="http://test", authProvider=AuthProvider.umetadata
         )
         # Use mocked client directly
         # Already set in setUp
@@ -172,9 +172,9 @@ class TestCsvMixinOperations(unittest.TestCase):
                 return Glossary
 
         # Setup mock client
-        mock_ometa = Mock()
-        mock_ometa.export_csv = Mock(return_value="csv,export,data")
-        TestEntity.set_default_client(mock_ometa)
+        mock_umeta = Mock()
+        mock_umeta.export_csv = Mock(return_value="csv,export,data")
+        TestEntity.set_default_client(mock_umeta)
 
         # Test export
         exporter = TestEntity.export_csv("test_glossary")
@@ -182,7 +182,7 @@ class TestCsvMixinOperations(unittest.TestCase):
 
         # Verify
         assert csv_data == "csv,export,data"
-        mock_ometa.export_csv.assert_called_once_with(
+        mock_umeta.export_csv.assert_called_once_with(
             entity=Glossary, name="test_glossary"
         )
 
@@ -197,9 +197,9 @@ class TestCsvMixinOperations(unittest.TestCase):
                 return Glossary
 
         # Setup mock client
-        mock_ometa = Mock()
-        mock_ometa.import_csv = Mock(return_value={"created": 3})
-        TestEntity.set_default_client(mock_ometa)
+        mock_umeta = Mock()
+        mock_umeta.import_csv = Mock(return_value={"created": 3})
+        TestEntity.set_default_client(mock_umeta)
 
         # Test import
         importer = TestEntity.import_csv("test_glossary")
@@ -209,6 +209,6 @@ class TestCsvMixinOperations(unittest.TestCase):
 
         # Verify
         assert result == {"created": 3}
-        mock_ometa.import_csv.assert_called_once_with(
+        mock_umeta.import_csv.assert_called_once_with(
             entity=Glossary, name="test_glossary", csv_data=csv_data, dry_run=False
         )

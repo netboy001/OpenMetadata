@@ -21,8 +21,8 @@ sink:
   config: {}
 workflowConfig:
   loggerLevel: DEBUG
-  openMetadataServerConfig:
+  uMetadataServerConfig:
     hostPort: "http://localhost:8585/api"
-    authProvider: "openmetadata"
+    authProvider: "umetadata"
     securityConfig:
       jwtToken: ${JWT_TOKEN}

@@ -17,8 +17,8 @@ class TestMetricEntity(unittest.TestCase):
 
     def setUp(self):
         """Set up test fixtures"""
-        self.mock_ometa = MagicMock()
-        Metrics.set_default_client(self.mock_ometa)
+        self.mock_umeta = MagicMock()
+        Metrics.set_default_client(self.mock_umeta)
 
         self.metric_id = "250e8400-e29b-41d4-a716-446655440000"
         self.metric_fqn = "service.metric.revenue_metric"
@@ -39,7 +39,7 @@ class TestMetricEntity(unittest.TestCase):
         expected_metric.metricType = MetricType.PERCENTAGE
         expected_metric.granularity = MetricGranularity.MONTH
 
-        self.mock_ometa.create_or_update.return_value = expected_metric
+        self.mock_umeta.create_or_update.return_value = expected_metric
 
         result = Metrics.create(create_request)
 
@@ -47,7 +47,7 @@ class TestMetricEntity(unittest.TestCase):
         self.assertEqual(result.name, "revenue_metric")
         self.assertEqual(result.metricType, MetricType.PERCENTAGE)
         self.assertEqual(result.granularity, MetricGranularity.MONTH)
-        self.mock_ometa.create_or_update.assert_called_once_with(create_request)
+        self.mock_umeta.create_or_update.assert_called_once_with(create_request)
 
     def test_retrieve_metric_by_id(self):
         """Test retrieving a metric by ID"""
@@ -56,13 +56,13 @@ class TestMetricEntity(unittest.TestCase):
         expected_metric.name = "revenue_metric"
         expected_metric.metricExpression = MagicMock()
 
-        self.mock_ometa.get_by_id.return_value = expected_metric
+        self.mock_umeta.get_by_id.return_value = expected_metric
 
         result = Metrics.retrieve(self.metric_id)
 
         self.assertEqual(str(result.id), self.metric_id)
         self.assertIsNotNone(result.metricExpression)
-        self.mock_ometa.get_by_id.assert_called_once_with(
+        self.mock_umeta.get_by_id.assert_called_once_with(
             entity=MetricEntity, entity_id=self.metric_id, fields=None
         )
 
@@ -87,7 +87,7 @@ class TestMetricEntity(unittest.TestCase):
         expected_metric.owner = owner
         expected_metric.relatedMetrics = [related_metric]
 
-        self.mock_ometa.get_by_id.return_value = expected_metric
+        self.mock_umeta.get_by_id.return_value = expected_metric
 
         result = Metrics.retrieve(self.metric_id, fields=fields)
 
@@ -102,12 +102,12 @@ class TestMetricEntity(unittest.TestCase):
         expected_metric.id = UUID(self.metric_id)
         expected_metric.fullyQualifiedName = self.metric_fqn
 
-        self.mock_ometa.get_by_name.return_value = expected_metric
+        self.mock_umeta.get_by_name.return_value = expected_metric
 
         result = Metrics.retrieve_by_name(self.metric_fqn)
 
         self.assertEqual(result.fullyQualifiedName, self.metric_fqn)
-        self.mock_ometa.get_by_name.assert_called_once_with(
+        self.mock_umeta.get_by_name.assert_called_once_with(
             entity=MetricEntity, fqn=self.metric_fqn, fields=None
         )
 
@@ -125,25 +125,25 @@ class TestMetricEntity(unittest.TestCase):
             if hasattr(metric_to_update, "id")
             else UUID(self.entity_id)
         )
-        self.mock_ometa.get_by_id.return_value = current_entity
+        self.mock_umeta.get_by_id.return_value = current_entity
 
         # Mock the patch to return the updated entity
-        self.mock_ometa.patch.return_value = metric_to_update
+        self.mock_umeta.patch.return_value = metric_to_update
 
         result = Metrics.update(metric_to_update)
 
         self.assertEqual(result.description, "Updated revenue metric")
         self.assertIsNotNone(result.metricExpression)
         # Verify get_by_id was called to fetch current state
-        self.mock_ometa.get_by_id.assert_called_once()
+        self.mock_umeta.get_by_id.assert_called_once()
         # Verify patch was called with source and destination
-        self.mock_ometa.patch.assert_called_once()
+        self.mock_umeta.patch.assert_called_once()
 
     def test_delete_metric(self):
         """Test deleting a metric"""
         Metrics.delete(self.metric_id, recursive=False, hard_delete=False)
 
-        self.mock_ometa.delete.assert_called_once_with(
+        self.mock_umeta.delete.assert_called_once_with(
             entity=MetricEntity,
             entity_id=self.metric_id,
             recursive=False,
@@ -163,7 +163,7 @@ class TestMetricEntity(unittest.TestCase):
         mock_response = MagicMock()
         mock_response.entities = [mock_metric1, mock_metric2]
 
-        self.mock_ometa.list_entities.return_value = mock_response
+        self.mock_umeta.list_entities.return_value = mock_response
 
         result = Metrics.list(limit=10)
 
@@ -180,16 +180,16 @@ class TestMetricEntity(unittest.TestCase):
         updated_metric.followers = user_ids
 
         # Mock the client.put and get_by_id calls
-        self.mock_ometa.client = MagicMock()
-        self.mock_ometa.client.put = MagicMock()
-        self.mock_ometa.get_suffix = MagicMock(return_value="/api/v1/metrics")
-        self.mock_ometa.get_by_id.return_value = updated_metric
+        self.mock_umeta.client = MagicMock()
+        self.mock_umeta.client.put = MagicMock()
+        self.mock_umeta.get_suffix = MagicMock(return_value="/api/v1/metrics")
+        self.mock_umeta.get_by_id.return_value = updated_metric
 
         result = Metrics.add_followers(self.metric_id, user_ids)
 
         self.assertEqual(result.followers, user_ids)
         # Verify client.put was called for each user
-        assert self.mock_ometa.client.put.call_count == len(user_ids)
+        assert self.mock_umeta.client.put.call_count == len(user_ids)
 
     def test_get_versions(self):
         """Test getting all versions of a metric"""
@@ -203,7 +203,7 @@ class TestMetricEntity(unittest.TestCase):
 
         mock_version_history = MagicMock()
         mock_version_history.versions = [version1, version2]
-        self.mock_ometa.get_list_entity_versions.return_value = mock_version_history
+        self.mock_umeta.get_list_entity_versions.return_value = mock_version_history
 
         result = Metrics.get_versions(self.metric_id)
 
@@ -219,9 +219,9 @@ class TestMetricEntity(unittest.TestCase):
         restored_metric.name = "revenue_metric"
 
         # Mock get_suffix to return proper endpoint
-        self.mock_ometa.get_suffix.return_value = "metrics"
+        self.mock_umeta.get_suffix.return_value = "metrics"
         # Mock the REST client's put method to return a dict
-        self.mock_ometa.client.put.return_value = {
+        self.mock_umeta.client.put.return_value = {
             "id": self.metric_id,
             "name": "revenue_metric",
             "deleted": False,
@@ -233,7 +233,7 @@ class TestMetricEntity(unittest.TestCase):
         self.assertIsNotNone(result)
         self.assertEqual(str(result.id.root), self.metric_id)
         self.assertFalse(result.deleted)
-        self.mock_ometa.client.put.assert_called_once_with(
+        self.mock_umeta.client.put.assert_called_once_with(
             "/metrics/restore", json={"id": self.metric_id}
         )
 
@@ -249,7 +249,7 @@ class TestMetricEntity(unittest.TestCase):
         current_metric.id = UUID(self.metric_id)
         current_metric.relatedMetrics = None
         current_metric.model_copy = MagicMock(return_value=current_metric)
-        self.mock_ometa.get_by_id.return_value = current_metric
+        self.mock_umeta.get_by_id.return_value = current_metric
 
         # Mock patch to return updated metric
         updated_metric = MagicMock(spec=MetricEntity)
@@ -258,28 +258,28 @@ class TestMetricEntity(unittest.TestCase):
             MagicMock(id=UUID(related_metric_ids[0])),
             MagicMock(id=UUID(related_metric_ids[1])),
         ]
-        self.mock_ometa.patch.return_value = updated_metric
+        self.mock_umeta.patch.return_value = updated_metric
 
         result = Metrics.add_related_metrics(self.metric_id, related_metric_ids)
 
         self.assertEqual(len(result.relatedMetrics), 2)
         # Verify get_by_id was called
-        self.mock_ometa.get_by_id.assert_called_once_with(
+        self.mock_umeta.get_by_id.assert_called_once_with(
             entity=MetricEntity, entity_id=self.metric_id, fields=["relatedMetrics"]
         )
         # Verify patch was called with source and destination
-        self.mock_ometa.patch.assert_called_once()
+        self.mock_umeta.patch.assert_called_once()
 
     def test_export_metrics_csv(self):
         """Test exporting metrics to CSV"""
         csv_data = "id,name,type,formula\n123,revenue,Percentage,SUM(revenue)"
-        self.mock_ometa.export_csv.return_value = csv_data
+        self.mock_umeta.export_csv.return_value = csv_data
 
         exporter = result = Metrics.export_csv("metric_export")
         result = exporter.execute()
 
         self.assertEqual(result, csv_data)
-        self.mock_ometa.export_csv.assert_called_once_with(
+        self.mock_umeta.export_csv.assert_called_once_with(
             entity=MetricEntity, name="metric_export"
         )
 
@@ -287,7 +287,7 @@ class TestMetricEntity(unittest.TestCase):
         """Test importing metrics from CSV"""
         csv_data = "id,name,type,formula\n123,revenue,Percentage,SUM(revenue)"
         import_status = "Successfully imported 1 metric"
-        self.mock_ometa.import_csv.return_value = import_status
+        self.mock_umeta.import_csv.return_value = import_status
 
         importer = Metrics.import_csv("import_name")
         importer.csv_data = csv_data
@@ -295,7 +295,7 @@ class TestMetricEntity(unittest.TestCase):
         result = importer.execute()
 
         self.assertEqual(result, import_status)
-        self.mock_ometa.import_csv.assert_called_once_with(
+        self.mock_umeta.import_csv.assert_called_once_with(
             entity=MetricEntity, name="import_name", csv_data=csv_data, dry_run=False
         )
 
@@ -307,7 +307,7 @@ class TestMetricEntity(unittest.TestCase):
         expected_metric.id = UUID(self.metric_id)
         expected_metric.dimensions = dimensions
 
-        self.mock_ometa.get_by_id.return_value = expected_metric
+        self.mock_umeta.get_by_id.return_value = expected_metric
 
         result = Metrics.retrieve(self.metric_id, fields=["dimensions"])
 

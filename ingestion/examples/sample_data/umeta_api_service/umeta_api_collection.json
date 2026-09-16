@@ -1,0 +1,14 @@
+{
+    "collections" : [
+        {
+            "name": "tables",
+            "service": "umeta_api_service",
+            "endpointURL": "https://docs.u-metadata.org/swagger.html#tag/Tables"
+        },
+        {
+            "name": "users",
+            "service": "umeta_api_service",
+            "endpointURL": "https://docs.u-metadata.org/swagger.html#tag/Users"
+        }
+    ]
+}

@@ -3,7 +3,7 @@ import sys
 import pytest
 from sqlalchemy import create_engine
 
-from _openmetadata_testutils.pydantic.test_utils import assert_equal_pydantic_objects
+from _umetadata_testutils.pydantic.test_utils import assert_equal_pydantic_objects
 from metadata.generated.schema.entity.data.table import ColumnProfile
 from metadata.ingestion.lineage.sql_lineage import search_cache
 from metadata.workflow.metadata import MetadataWorkflow

@@ -1,6 +1,6 @@
-# OpenMetadata Helm Chart Local Testing
+# UMetadata Helm Chart Local Testing
 
-Helper to test changes from https://github.com/open-metadata/openmetadata-helm-charts with local images while developing.
+Helper to test changes from https://github.com/u-metadata/umetadata-helm-charts with local images while developing.
 
 ## Prerequisites
 
@@ -36,7 +36,7 @@ docker-compose -f docker-compose-deps.yml logs -f
 
 # Verify services are running
 curl http://localhost:9200/_cluster/health
-docker exec openmetadata_postgres_test psql -U openmetadata_user -d openmetadata_db -c "SELECT 1"
+docker exec umetadata_postgres_test psql -U umetadata_user -d umetadata_db -c "SELECT 1"
 ```
 
 ### 2. Start Kubernetes Cluster
@@ -58,10 +58,10 @@ kubectl get nodes
 ```bash
 # Create secrets that the chart expects
 kubectl create secret generic postgres-secrets \
-  --from-literal=openmetadata-postgres-password=openmetadata_password
+  --from-literal=umetadata-postgres-password=umetadata_password
 
 kubectl create secret generic airflow-secrets \
-  --from-literal=openmetadata-airflow-password=admin
+  --from-literal=umetadata-airflow-password=admin
 ```
 
 ## Test Scenarios
@@ -72,18 +72,18 @@ Test the new K8s native pipeline execution without Airflow dependencies.
 
 ```bash
 # Use local chart directly, e.g.,
-CHART_PATH="/Users/pmbrull/github/openmetadata-helm-charts/charts/openmetadata"
+CHART_PATH="/Users/pmbrull/github/umetadata-helm-charts/charts/umetadata"
 
 # Install with K8s native configuration
-helm install openmetadata-k8s-test $CHART_PATH --values values-k8s-test.yaml
+helm install umetadata-k8s-test $CHART_PATH --values values-k8s-test.yaml
 
 # Check deployment status
 kubectl get pods -A
-kubectl get jobs -n openmetadata-pipelines-test
-kubectl get serviceaccounts,roles,rolebindings -n openmetadata-pipelines-test
+kubectl get jobs -n umetadata-pipelines-test
+kubectl get serviceaccounts,roles,rolebindings -n umetadata-pipelines-test
 
 # Check logs
-kubectl logs -l app.kubernetes.io/name=openmetadata -f
+kubectl logs -l app.kubernetes.io/name=umetadata -f
 
 # Test access
 minikube tunnel  # In separate terminal
@@ -96,14 +96,14 @@ Test that the new nested Airflow configuration still works.
 
 ```bash
 # Install with migrated Airflow configuration  
-helm install openmetadata-airflow-test $CHART_PATH \
+helm install umetadata-airflow-test $CHART_PATH \
   --values values-airflow-test.yaml \
   --timeout 10m \
   --wait
 
 # Check deployment
 kubectl get pods -A
-kubectl logs -l app.kubernetes.io/name=openmetadata -f
+kubectl logs -l app.kubernetes.io/name=umetadata -f
 ```
 
 ## Validation Checklist
@@ -115,11 +115,11 @@ kubectl logs -l app.kubernetes.io/name=openmetadata -f
 # Check all pods are running
 kubectl get pods -A
 
-# Check OpenMetadata pod logs
-kubectl logs deployment/openmetadata-k8s-test -f
+# Check UMetadata pod logs
+kubectl logs deployment/umetadata-k8s-test -f
 
 # Check database connectivity
-kubectl exec deployment/openmetadata-k8s-test -- curl -f http://postgres:5432 || echo "DB connection test"
+kubectl exec deployment/umetadata-k8s-test -- curl -f http://postgres:5432 || echo "DB connection test"
 ```
 
 2. **API Health**
@@ -136,25 +136,25 @@ curl http://localhost:8585/api/v1/system/config
 1. **RBAC Resources**
 ```bash
 # Check namespace creation
-kubectl get namespace openmetadata-pipelines-test
+kubectl get namespace umetadata-pipelines-test
 
 # Check service account
-kubectl get serviceaccount -n openmetadata-pipelines-test openmetadata-ingestion-test
+kubectl get serviceaccount -n umetadata-pipelines-test umetadata-ingestion-test
 
 # Check permissions
 kubectl auth can-i create jobs \
-  --as=system:serviceaccount:openmetadata-pipelines-test:openmetadata-ingestion-test \
-  -n openmetadata-pipelines-test
+  --as=system:serviceaccount:umetadata-pipelines-test:umetadata-ingestion-test \
+  -n umetadata-pipelines-test
 ```
 
 2. **Configuration Validation**
 ```bash
 # Check environment variables in pod
-kubectl exec deployment/openmetadata-k8s-test -- env | grep K8S_
+kubectl exec deployment/umetadata-k8s-test -- env | grep K8S_
 
 # Check secrets
-kubectl get secret openmetadata-k8s-test-pipeline-secret -o yaml
-kubectl get secret openmetadata-k8s-test-pipeline-secret -o jsonpath='{.data}' | base64 -d
+kubectl get secret umetadata-k8s-test-pipeline-secret -o yaml
+kubectl get secret umetadata-k8s-test-pipeline-secret -o jsonpath='{.data}' | base64 -d
 ```
 
 3. **Pipeline Job Testing**
@@ -165,21 +165,21 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: test-ingestion-job
-  namespace: openmetadata-pipelines-test
+  namespace: umetadata-pipelines-test
 spec:
   template:
     spec:
-      serviceAccountName: openmetadata-ingestion-test
+      serviceAccountName: umetadata-ingestion-test
       containers:
       - name: test
-        image: docker.getcollate.io/openmetadata/ingestion:latest
+        image: docker.getcollate.io/umetadata/ingestion:latest
         command: ["echo", "Test pipeline job works"]
       restartPolicy: Never
 EOF
 
 # Check job execution
-kubectl get jobs -n openmetadata-pipelines-test
-kubectl logs job/test-ingestion-job -n openmetadata-pipelines-test
+kubectl get jobs -n umetadata-pipelines-test
+kubectl logs job/test-ingestion-job -n umetadata-pipelines-test
 ```
 
 ### ✅ Failure Diagnostics Testing
@@ -192,26 +192,26 @@ apiVersion: batch/v1
 kind: Job  
 metadata:
   name: test-failing-job
-  namespace: openmetadata-pipelines-test
+  namespace: umetadata-pipelines-test
   labels:
     app.kubernetes.io/pipeline: test-pipeline
     app.kubernetes.io/run-id: test-123
 spec:
   template:
     spec:
-      serviceAccountName: openmetadata-ingestion-test
+      serviceAccountName: umetadata-ingestion-test
       containers:
       - name: main
-        image: docker.getcollate.io/openmetadata/ingestion:latest
+        image: docker.getcollate.io/umetadata/ingestion:latest
         command: ["sh", "-c", "echo 'Starting ingestion...'; sleep 10; echo 'Something went wrong!'; exit 1"]
       restartPolicy: Never
 EOF
 
 # Watch for diagnostic job creation
-kubectl get jobs -n openmetadata-pipelines-test -w
+kubectl get jobs -n umetadata-pipelines-test -w
 
 # Check diagnostic job logs
-kubectl logs -n openmetadata-pipelines-test -l app.kubernetes.io/component=diagnostics
+kubectl logs -n umetadata-pipelines-test -l app.kubernetes.io/component=diagnostics
 ```
 
 ### ✅ Configuration Migration Testing
@@ -231,11 +231,11 @@ kubectl apply --dry-run=client -f /tmp/k8s-manifest.yaml
 ```bash
 # Test old configuration format (should fail validation or show warnings)
 cat > /tmp/old-values.yaml << EOF
-openmetadata:
+umetadata:
   config:
     pipelineServiceClientConfig:
       enabled: true
-      className: "org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"
+      className: "org.umetadata.service.clients.pipeline.airflow.AirflowRESTClient"
       apiEndpoint: http://test
 EOF
 
@@ -248,16 +248,16 @@ helm template test-old $CHART_PATH --values /tmp/old-values.yaml
 # Get all resources
 kubectl get all -A
 
-# Describe OpenMetadata deployment
-kubectl describe deployment openmetadata-k8s-test
+# Describe UMetadata deployment
+kubectl describe deployment umetadata-k8s-test
 
 # Get events
 kubectl get events --sort-by='.lastTimestamp' -A
 
 # Check helm release
 helm list
-helm status openmetadata-k8s-test
-helm get values openmetadata-k8s-test
+helm status umetadata-k8s-test
+helm get values umetadata-k8s-test
 ```
 
 ## Cleanup
@@ -265,11 +265,11 @@ helm get values openmetadata-k8s-test
 ### Remove Test Deployments
 ```bash
 # Remove helm releases
-helm uninstall openmetadata-k8s-test
-helm uninstall openmetadata-airflow-test
+helm uninstall umetadata-k8s-test
+helm uninstall umetadata-airflow-test
 
 # Clean up namespaces
-kubectl delete namespace openmetadata-pipelines-test
+kubectl delete namespace umetadata-pipelines-test
 
 # Clean up secrets
 kubectl delete secret postgres-secrets airflow-secrets
@@ -281,9 +281,9 @@ kubectl delete secret postgres-secrets airflow-secrets
 
 1. ✅ **All pods running**: `kubectl get pods -A` shows all pods in `Running` state
 2. ✅ **Health check passing**: `curl http://localhost:8585/api/v1/system/health` returns 200
-3. ✅ **RBAC created**: K8s resources created in `openmetadata-pipelines-test` namespace
+3. ✅ **RBAC created**: K8s resources created in `umetadata-pipelines-test` namespace
 4. ✅ **Configuration loaded**: Environment variables properly set in pods
-5. ✅ **No errors in logs**: `kubectl logs deployment/openmetadata-k8s-test` shows successful startup
+5. ✅ **No errors in logs**: `kubectl logs deployment/umetadata-k8s-test` shows successful startup
 
 ### Performance Benchmarks
 

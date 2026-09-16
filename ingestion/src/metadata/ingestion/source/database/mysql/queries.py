@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,7 +28,7 @@ SELECT
 FROM {query_history_table}
 WHERE command_type = 'Query'
     AND event_time between '{start_time}' and '{end_time}'
-    AND argument NOT LIKE '/* {{"app": "OpenMetadata", %%}} */%%'
+    AND argument NOT LIKE '/* {{"app": "UMetadata", %%}} */%%'
     AND argument NOT LIKE '/* {{"app": "dbt", %%}} */%%'
     {filters}
 ORDER BY event_time desc
@@ -51,7 +51,7 @@ SELECT
     NULL `aborted`
 FROM {query_history_table}
 WHERE start_time between '{start_time}' and '{end_time}'
-    AND sql_text NOT LIKE '/* {{"app": "OpenMetadata", %%}} */%%'
+    AND sql_text NOT LIKE '/* {{"app": "UMetadata", %%}} */%%'
     AND sql_text NOT LIKE '/* {{"app": "dbt", %%}} */%%'
     {filters}
 ORDER BY start_time desc

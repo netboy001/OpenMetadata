@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -47,10 +47,10 @@ from metadata.ingestion.api.models import Either
 from metadata.ingestion.api.steps import InvalidSourceException
 from metadata.ingestion.models.custom_properties import (
     CustomPropertyDataTypes,
-    OMetaCustomProperties,
+    UMetaCustomProperties,
 )
-from metadata.ingestion.models.ometa_classification import OMetaTagAndClassification
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.models.umeta_classification import UMetaTagAndClassification
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.database.athena.client import AthenaLakeFormationClient
 from metadata.ingestion.source.database.athena.utils import (
     _get_column_type,
@@ -69,7 +69,7 @@ from metadata.ingestion.source.database.glue.models import DatabasePage
 from metadata.utils import fqn
 from metadata.utils.logger import ingestion_logger
 from metadata.utils.sqlalchemy_utils import get_all_table_ddls, get_table_ddl
-from metadata.utils.tag_utils import get_ometa_tag_and_classification
+from metadata.utils.tag_utils import get_umeta_tag_and_classification
 
 AthenaDialect._get_column_type = _get_column_type  # pylint: disable=protected-access
 AthenaDialect.get_columns = get_columns
@@ -110,7 +110,7 @@ class AthenaSource(ExternalTableLineageMixin, CommonDbSourceService):
 
     @classmethod
     def create(
-        cls, config_dict, metadata: OpenMetadata, pipeline_name: Optional[str] = None
+        cls, config_dict, metadata: UMetadata, pipeline_name: Optional[str] = None
     ):
         config: WorkflowSource = WorkflowSource.model_validate(config_dict)
         connection: AthenaConnection = config.serviceConnection.root.config
@@ -123,7 +123,7 @@ class AthenaSource(ExternalTableLineageMixin, CommonDbSourceService):
     def __init__(
         self,
         config: WorkflowSource,
-        metadata: OpenMetadata,
+        metadata: UMetadata,
     ):
         super().__init__(config, metadata)
         self.athena_lake_formation_client = AthenaLakeFormationClient(
@@ -242,7 +242,7 @@ class AthenaSource(ExternalTableLineageMixin, CommonDbSourceService):
 
     def yield_tag(
         self, schema_name: str
-    ) -> Iterable[Either[OMetaTagAndClassification]]:
+    ) -> Iterable[Either[UMetaTagAndClassification]]:
         """
         Method to yield schema tags
         """
@@ -252,7 +252,7 @@ class AthenaSource(ExternalTableLineageMixin, CommonDbSourceService):
                     name=schema_name
                 )
                 for tag in tags or []:
-                    yield from get_ometa_tag_and_classification(
+                    yield from get_umeta_tag_and_classification(
                         tag_fqn=fqn.build(
                             self.metadata,
                             DatabaseSchema,
@@ -276,7 +276,7 @@ class AthenaSource(ExternalTableLineageMixin, CommonDbSourceService):
 
     def yield_table_tags(
         self, table_name_and_type: Tuple[str, TableType]
-    ) -> Iterable[Either[OMetaTagAndClassification]]:
+    ) -> Iterable[Either[UMetaTagAndClassification]]:
         """
         Method to yield table and column tags
         """
@@ -292,7 +292,7 @@ class AthenaSource(ExternalTableLineageMixin, CommonDbSourceService):
 
                 # yield the table tags
                 for tag in table_tags.LFTagsOnTable or []:
-                    yield from get_ometa_tag_and_classification(
+                    yield from get_umeta_tag_and_classification(
                         tag_fqn=fqn.build(
                             self.metadata,
                             Table,
@@ -310,7 +310,7 @@ class AthenaSource(ExternalTableLineageMixin, CommonDbSourceService):
                 # yield the column tags
                 for column in table_tags.LFTagsOnColumns or []:
                     for tag in column.LFTags or []:
-                        yield from get_ometa_tag_and_classification(
+                        yield from get_umeta_tag_and_classification(
                             tag_fqn=fqn.build(
                                 self.metadata,
                                 Column,
@@ -397,7 +397,7 @@ class AthenaSource(ExternalTableLineageMixin, CommonDbSourceService):
             if sanitized_name not in self._processed_prop:
                 try:
                     self.metadata.create_or_update_custom_property(  # pyright: ignore[reportUnknownMemberType, reportUnusedCallResult]
-                        OMetaCustomProperties(
+                        UMetaCustomProperties(
                             entity_type=Table,
                             createCustomPropertyRequest=CreateCustomPropertyRequest(
                                 name=EntityName(sanitized_name),

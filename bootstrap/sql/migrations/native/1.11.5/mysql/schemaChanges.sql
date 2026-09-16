@@ -1,5 +1,5 @@
 -- DO NOT RENAME OR DELETE THIS FILE
--- Migrations are applied from Java code based on the version in the file name inside folder openmetadata-service/src/main/java/org/openmetadata/service/migration/mysql/v1114
+-- Migrations are applied from Java code based on the version in the file name inside folder umetadata-service/src/main/java/org/umetadata/service/migration/mysql/v1114
 
 -- Include `tag_usage.appliedAt` and `tag_usage.appliedBy` fields
 

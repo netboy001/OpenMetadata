@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -48,7 +48,7 @@ from metadata.generated.schema.entity.services.databaseService import (
     DatabaseServiceType,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.generated.schema.type.basic import (
     EntityName,
@@ -84,9 +84,9 @@ mock_unitycatalog_config = {
     },
     "sink": {"type": "metadata-rest", "config": {}},
     "workflowConfig": {
-        "openMetadataServerConfig": {
+        "uMetadataServerConfig": {
             "hostPort": "http://localhost:8585/api",
-            "authProvider": "openmetadata",
+            "authProvider": "umetadata",
             "securityConfig": {"jwtToken": "unity_catalog"},
         }
     },
@@ -100,7 +100,7 @@ MOCK_CATALOG_INFO: List[CatalogInfo] = [
         comment=None,
         connection_name=None,
         created_at=1687515910367,
-        created_by="test@open-metadata.org",
+        created_by="test@u-metadata.org",
         effective_predictive_optimization_flag=None,
         enable_predictive_optimization=None,
         full_name="demo",
@@ -108,7 +108,7 @@ MOCK_CATALOG_INFO: List[CatalogInfo] = [
         metastore_id="3849887a-24ae-4b8e-a470-9d953589f80e",
         name="demo",
         options=None,
-        owner="test@open-metadata.org",
+        owner="test@u-metadata.org",
         properties=None,
         provider_name=None,
         provisioning_info=None,
@@ -118,7 +118,7 @@ MOCK_CATALOG_INFO: List[CatalogInfo] = [
         storage_location=None,
         storage_root=None,
         updated_at=1687515910367,
-        updated_by="test@open-metadata.org",
+        updated_by="test@u-metadata.org",
     ),
     CatalogInfo(
         browse_only=False,
@@ -126,7 +126,7 @@ MOCK_CATALOG_INFO: List[CatalogInfo] = [
         comment="Main catalog (auto-created)",
         connection_name=None,
         created_at=1687515800742,
-        created_by="test@open-metadata.org",
+        created_by="test@u-metadata.org",
         effective_predictive_optimization_flag=None,
         enable_predictive_optimization=None,
         full_name="main",
@@ -134,7 +134,7 @@ MOCK_CATALOG_INFO: List[CatalogInfo] = [
         metastore_id="3849887a-24ae-4b8e-a470-9d953589f80e",
         name="main",
         options=None,
-        owner="test@open-metadata.org",
+        owner="test@u-metadata.org",
         properties=None,
         provider_name=None,
         provisioning_info=None,
@@ -144,7 +144,7 @@ MOCK_CATALOG_INFO: List[CatalogInfo] = [
         storage_location=None,
         storage_root=None,
         updated_at=1687515800742,
-        updated_by="test@open-metadata.org",
+        updated_by="test@u-metadata.org",
     ),
     CatalogInfo(
         browse_only=False,
@@ -152,7 +152,7 @@ MOCK_CATALOG_INFO: List[CatalogInfo] = [
         comment="",
         connection_name="postgres_connection",
         created_at=1722951879190,
-        created_by="test@open-metadata.org",
+        created_by="test@u-metadata.org",
         effective_predictive_optimization_flag=None,
         enable_predictive_optimization=None,
         full_name="postgres_catalog",
@@ -160,7 +160,7 @@ MOCK_CATALOG_INFO: List[CatalogInfo] = [
         metastore_id="3849887a-24ae-4b8e-a470-9d953589f80e",
         name="postgres_catalog",
         options={"database": "TESTDB"},
-        owner="test@open-metadata.org",
+        owner="test@u-metadata.org",
         properties=None,
         provider_name=None,
         provisioning_info=None,
@@ -170,7 +170,7 @@ MOCK_CATALOG_INFO: List[CatalogInfo] = [
         storage_location=None,
         storage_root=None,
         updated_at=1722951879190,
-        updated_by="test@open-metadata.org",
+        updated_by="test@u-metadata.org",
     ),
     CatalogInfo(
         browse_only=False,
@@ -205,18 +205,18 @@ MOCK_SCHEMA_INFO = [
         catalog_type="MANAGED_CATALOG",
         comment="Default schema (auto-created)",
         created_at=1687515910369,
-        created_by="test@open-metadata.org",
+        created_by="test@u-metadata.org",
         effective_predictive_optimization_flag=None,
         enable_predictive_optimization=None,
         full_name="demo.default",
         metastore_id="3849887a-24ae-4b8e-a470-9d953589f80e",
         name="default",
-        owner="test@open-metadata.org",
+        owner="test@u-metadata.org",
         properties=None,
         storage_location=None,
         storage_root=None,
         updated_at=1687515910369,
-        updated_by="test@open-metadata.org",
+        updated_by="test@u-metadata.org",
     ),
     SchemaInfo(
         catalog_name="demo",
@@ -241,18 +241,18 @@ MOCK_SCHEMA_INFO = [
         catalog_type="MANAGED_CATALOG",
         comment="",
         created_at=1687518049197,
-        created_by="test@open-metadata.org",
+        created_by="test@u-metadata.org",
         effective_predictive_optimization_flag=None,
         enable_predictive_optimization=None,
         full_name="demo.new_schema",
         metastore_id="3849887a-24ae-4b8e-a470-9d953589f80e",
         name="new_schema",
-        owner="test@open-metadata.org",
+        owner="test@u-metadata.org",
         properties={"owner": "root"},
         storage_location=None,
         storage_root=None,
         updated_at=1687518049197,
-        updated_by="test@open-metadata.org",
+        updated_by="test@u-metadata.org",
     ),
 ]
 
@@ -320,7 +320,7 @@ MOCK_TABLE_INFO = TableInfo(
     ],
     comment="this is a description for dataset input",
     created_at=1713519443052,
-    created_by="test@open-metadata.org",
+    created_by="test@u-metadata.org",
     data_access_configuration_id="00000000-0000-0000-0000-000000000000",
     data_source_format=DataSourceFormat.DELTA,
     deleted_at=None,
@@ -331,7 +331,7 @@ MOCK_TABLE_INFO = TableInfo(
     full_name="demo.default.complex_data",
     metastore_id="3849887a-24ae-4b8e-a470-9d953589f80e",
     name="complex_data",
-    owner="test@open-metadata.org",
+    owner="test@u-metadata.org",
     pipeline_id=None,
     properties={
         "delta.lastCommitTimestamp": "1713519423000",
@@ -352,7 +352,7 @@ MOCK_TABLE_INFO = TableInfo(
     table_id="fe201793-8483-4edd-90a7-d27332d1418a",
     table_type=DatabricksTableType.MANAGED,
     updated_at=1713519443052,
-    updated_by="test@open-metadata.org",
+    updated_by="test@u-metadata.org",
     view_definition=None,
     view_dependencies=None,
 )
@@ -587,12 +587,12 @@ class unitycatalogUnitTest(TestCase):
         mock_engine = MagicMock()
         mock_sqlalchemy_connection.return_value = mock_engine
 
-        self.config = OpenMetadataWorkflowConfig.model_validate(
+        self.config = UMetadataWorkflowConfig.model_validate(
             mock_unitycatalog_config
         )
         self.unitycatalog_source = UnitycatalogSource.create(
             mock_unitycatalog_config["source"],
-            self.config.workflowConfig.openMetadataServerConfig,
+            self.config.workflowConfig.uMetadataServerConfig,
         )
         self.unitycatalog_source.context.get().__dict__[
             "database"

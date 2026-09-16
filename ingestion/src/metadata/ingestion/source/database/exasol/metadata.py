@@ -9,7 +9,7 @@ from metadata.generated.schema.metadataIngestion.workflow import (
     Source as WorkflowSource,
 )
 from metadata.ingestion.api.steps import InvalidSourceException
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.database.common_db_source import CommonDbSourceService
 from metadata.utils.sqlalchemy_utils import get_all_table_ddls, get_table_ddl
 
@@ -20,7 +20,7 @@ Inspector.get_table_ddl = get_table_ddl
 class ExasolSource(CommonDbSourceService):
     @classmethod
     def create(
-        cls, config_dict, metadata: OpenMetadata, pipeline_name: Optional[str] = None
+        cls, config_dict, metadata: UMetadata, pipeline_name: Optional[str] = None
     ):
         config: WorkflowSource = WorkflowSource.model_validate(config_dict)
         if config.serviceConnection is None:

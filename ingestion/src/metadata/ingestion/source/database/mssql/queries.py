@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,7 +33,7 @@ MSSQL_SQL_STATEMENT = textwrap.dedent(
       INNER JOIN sys.databases db
         ON db.database_id = t.dbid
       WHERE s.last_execution_time between '{start_time}' and '{end_time}'
-          AND t.text NOT LIKE '/* {{"app": "OpenMetadata", %%}} */%%'
+          AND t.text NOT LIKE '/* {{"app": "UMetadata", %%}} */%%'
           AND t.text NOT LIKE '/* {{"app": "dbt", %%}} */%%'
           AND p.objtype != 'Prepared'
           {filters}
@@ -280,7 +280,7 @@ Q_HISTORY (database_name, query_text, start_time, end_time, duration,query_type,
   CROSS APPLY sys.dm_exec_sql_text(p.plan_handle) AS t
   INNER JOIN sys.databases db
     ON db.database_id = t.dbid
-  WHERE t.text NOT LIKE '/* {{"app": "OpenMetadata", %%}} */%%'
+  WHERE t.text NOT LIKE '/* {{"app": "UMetadata", %%}} */%%'
     AND t.text NOT LIKE '/* {{"app": "dbt", %%}} */%%'
     AND p.objtype NOT IN ('Prepared', 'Proc')
     AND s.last_execution_time > '{start_date}'

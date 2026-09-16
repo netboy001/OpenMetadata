@@ -1,12 +1,12 @@
-# OpenMetadata Migration System
+# UMetadata Migration System
 
-This document describes the migration system architecture and execution order for OpenMetadata database schema and data migrations.
+This document describes the migration system architecture and execution order for UMetadata database schema and data migrations.
 
 ## Migration System Overview
 
-OpenMetadata uses a hybrid migration system that combines:
+UMetadata uses a hybrid migration system that combines:
 1. **Legacy Flyway migrations** (being phased out)
-2. **Native OpenMetadata migrations** (current system)
+2. **Native UMetadata migrations** (current system)
 3. **Extension migrations** (for custom/plugin functionality)
 
 ## Migration Execution Order
@@ -20,7 +20,7 @@ The migration system executes in a specific order to ensure database consistency
    ├── v002__*.sql
    └── ...
 
-2. Native OpenMetadata Migrations
+2. Native UMetadata Migrations
    ├── 1.1.0/
    ├── 1.1.1/
    ├── 1.2.0/
@@ -94,12 +94,12 @@ bootstrap/sql/migrations/
 
 - `MigrationWorkflow`: Orchestrates the entire migration process
 - `FlywayMigrationFile`: Adapter for legacy Flyway migrations
-- `MigrationFile`: Handler for native OpenMetadata migrations
+- `MigrationFile`: Handler for native UMetadata migrations
 - `MigrationProcess`: Executes individual migration steps
 
 ## SQL Statement Parsing
 
-**Important**: While OpenMetadata has removed Flyway as the migration framework, we still use **Flyway's SQL parsers** for reliable statement splitting:
+**Important**: While UMetadata has removed Flyway as the migration framework, we still use **Flyway's SQL parsers** for reliable statement splitting:
 
 - **MySQL**: Uses `org.flywaydb.database.mysql.MySQLParser`
 - **PostgreSQL**: Uses `org.flywaydb.database.postgresql.PostgreSQLParser`
@@ -150,7 +150,7 @@ If migrations fail:
 ## Configuration
 
 Migration paths are configured in `MigrationConfiguration`:
-- `nativePath`: Path to native OpenMetadata migrations
+- `nativePath`: Path to native UMetadata migrations
 - `flywayPath`: Path to legacy Flyway migrations  
 - `extensionPath`: Path to extension migrations
 

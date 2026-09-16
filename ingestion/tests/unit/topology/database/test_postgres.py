@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,7 +33,7 @@ from metadata.generated.schema.entity.services.databaseService import (
     DatabaseServiceType,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.generated.schema.type.entityReference import EntityReference
 from metadata.generated.schema.type.filterPattern import FilterPattern
@@ -76,9 +76,9 @@ mock_postgres_config = {
         "config": {},
     },
     "workflowConfig": {
-        "openMetadataServerConfig": {
+        "uMetadataServerConfig": {
             "hostPort": "http://localhost:8585/api",
-            "authProvider": "openmetadata",
+            "authProvider": "umetadata",
             "securityConfig": {"jwtToken": "postgres"},
         }
     },
@@ -111,9 +111,9 @@ mock_postgres_usage_config = {
         "config": {},
     },
     "workflowConfig": {
-        "openMetadataServerConfig": {
+        "uMetadataServerConfig": {
             "hostPort": "http://localhost:8585/api",
-            "authProvider": "openmetadata",
+            "authProvider": "umetadata",
             "securityConfig": {"jwtToken": "postgres"},
         }
     },
@@ -147,9 +147,9 @@ mock_postgres_usage_config_custom_source = {
         "config": {},
     },
     "workflowConfig": {
-        "openMetadataServerConfig": {
+        "uMetadataServerConfig": {
             "hostPort": "http://localhost:8585/api",
-            "authProvider": "openmetadata",
+            "authProvider": "umetadata",
             "securityConfig": {"jwtToken": "postgres"},
         }
     },
@@ -318,10 +318,10 @@ class PostgresUnitTest(TestCase):
     def __init__(self, methodName, test_connection) -> None:
         super().__init__(methodName)
         test_connection.return_value = False
-        self.config = OpenMetadataWorkflowConfig.model_validate(mock_postgres_config)
+        self.config = UMetadataWorkflowConfig.model_validate(mock_postgres_config)
         self.postgres_source = PostgresSource.create(
             mock_postgres_config["source"],
-            self.config.workflowConfig.openMetadataServerConfig,
+            self.config.workflowConfig.uMetadataServerConfig,
         )
 
         self.postgres_source.context.get().__dict__[
@@ -334,7 +334,7 @@ class PostgresUnitTest(TestCase):
             "database_schema"
         ] = MOCK_DATABASE_SCHEMA.name.root
 
-        self.usage_config = OpenMetadataWorkflowConfig.model_validate(
+        self.usage_config = UMetadataWorkflowConfig.model_validate(
             mock_postgres_usage_config
         )
         with patch(
@@ -342,7 +342,7 @@ class PostgresUnitTest(TestCase):
         ):
             self.postgres_usage_source = PostgresUsageSource.create(
                 mock_postgres_usage_config["source"],
-                self.usage_config.workflowConfig.openMetadataServerConfig,
+                self.usage_config.workflowConfig.uMetadataServerConfig,
             )
 
     def test_datatype(self):
@@ -449,12 +449,12 @@ class PostgresUnitTest(TestCase):
         with patch(
             "metadata.ingestion.source.database.postgres.usage.PostgresUsageSource.test_connection"
         ):
-            custom_config = OpenMetadataWorkflowConfig.model_validate(
+            custom_config = UMetadataWorkflowConfig.model_validate(
                 mock_postgres_usage_config_custom_source
             )
             custom_usage_source = PostgresUsageSource.create(
                 mock_postgres_usage_config_custom_source["source"],
-                custom_config.workflowConfig.openMetadataServerConfig,
+                custom_config.workflowConfig.uMetadataServerConfig,
             )
 
             # Mock the engine with time column check

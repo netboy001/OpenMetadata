@@ -1,11 +1,11 @@
-"""Configuration helpers for the OpenMetadata SDK."""
+"""Configuration helpers for the UMetadata SDK."""
 from __future__ import annotations
 
 import os
 from typing import Optional
 
-from metadata.generated.schema.security.client.openMetadataJWTClientConfig import (
-    OpenMetadataJWTClientConfig,
+from metadata.generated.schema.security.client.uMetadataJWTClientConfig import (
+    UMetadataJWTClientConfig,
 )
 from metadata.generated.schema.security.ssl import (
     validateSSLClientConfig,
@@ -13,8 +13,8 @@ from metadata.generated.schema.security.ssl import (
 )
 
 
-class OpenMetadataConfig:
-    """Configuration for OpenMetadata SDK."""
+class UMetadataConfig:
+    """Configuration for UMetadata SDK."""
 
     server_url: str
     jwt_token: Optional[str]
@@ -40,38 +40,38 @@ class OpenMetadataConfig:
         self.client_timeout = client_timeout
 
     @classmethod
-    def builder(cls) -> "OpenMetadataConfigBuilder":
+    def builder(cls) -> "UMetadataConfigBuilder":
         """Create a configuration builder."""
-        return OpenMetadataConfigBuilder()
+        return UMetadataConfigBuilder()
 
     @classmethod
-    def from_env(cls) -> "OpenMetadataConfig":
+    def from_env(cls) -> "UMetadataConfig":
         """Create configuration from environment variables.
 
         Reads from:
-        - OPENMETADATA_HOST or OPENMETADATA_SERVER_URL: Server URL
-        - OPENMETADATA_JWT_TOKEN or OPENMETADATA_API_KEY: Authentication token
-        - OPENMETADATA_VERIFY_SSL: SSL verification (default: false)
-        - OPENMETADATA_CA_BUNDLE: CA bundle path
-        - OPENMETADATA_CLIENT_TIMEOUT: Client timeout in seconds (default: 30)
+        - UMETADATA_HOST or UMETADATA_SERVER_URL: Server URL
+        - UMETADATA_JWT_TOKEN or UMETADATA_API_KEY: Authentication token
+        - UMETADATA_VERIFY_SSL: SSL verification (default: false)
+        - UMETADATA_CA_BUNDLE: CA bundle path
+        - UMETADATA_CLIENT_TIMEOUT: Client timeout in seconds (default: 30)
         """
-        server_url = os.environ.get("OPENMETADATA_HOST") or os.environ.get(
-            "OPENMETADATA_SERVER_URL"
+        server_url = os.environ.get("UMETADATA_HOST") or os.environ.get(
+            "UMETADATA_SERVER_URL"
         )
         if not server_url:
             raise ValueError(
-                "Server URL must be provided via 'OPENMETADATA_HOST' or "
-                + "'OPENMETADATA_SERVER_URL' environment variable"
+                "Server URL must be provided via 'UMETADATA_HOST' or "
+                + "'UMETADATA_SERVER_URL' environment variable"
             )
 
-        jwt_token = os.environ.get("OPENMETADATA_JWT_TOKEN") or os.environ.get(
-            "OPENMETADATA_API_KEY"
+        jwt_token = os.environ.get("UMETADATA_JWT_TOKEN") or os.environ.get(
+            "UMETADATA_API_KEY"
         )
         verify_ssl = (
-            os.environ.get("OPENMETADATA_VERIFY_SSL", "false").lower() == "true"
+            os.environ.get("UMETADATA_VERIFY_SSL", "false").lower() == "true"
         )
-        ca_bundle = os.environ.get("OPENMETADATA_CA_BUNDLE")
-        client_timeout = int(os.environ.get("OPENMETADATA_CLIENT_TIMEOUT", "30"))
+        ca_bundle = os.environ.get("UMETADATA_CA_BUNDLE")
+        client_timeout = int(os.environ.get("UMETADATA_CLIENT_TIMEOUT", "30"))
 
         return cls(
             server_url=server_url,
@@ -81,13 +81,13 @@ class OpenMetadataConfig:
             client_timeout=client_timeout,
         )
 
-    def to_ometa_config(self) -> OpenMetadataJWTClientConfig:
+    def to_umeta_config(self) -> UMetadataJWTClientConfig:
         """Translate the SDK config into the ingestion client's config model."""
         token = self.jwt_token or self.api_key
         if token is None:
             raise ValueError("JWT token or API key is required to authenticate")
 
-        return OpenMetadataJWTClientConfig.model_validate({"jwtToken": token})
+        return UMetadataJWTClientConfig.model_validate({"jwtToken": token})
 
     def to_ssl_config(self) -> verifySSLConfig.SslConfig | None:
         """Build an optional SSL configuration block."""
@@ -103,8 +103,8 @@ class OpenMetadataConfig:
         return verifySSLConfig.SslConfig(ssl_payload)
 
 
-class OpenMetadataConfigBuilder:
-    """Builder for :class:`OpenMetadataConfig`."""
+class UMetadataConfigBuilder:
+    """Builder for :class:`UMetadataConfig`."""
 
     def __init__(self) -> None:
         self._server_url: Optional[str] = None
@@ -114,42 +114,42 @@ class OpenMetadataConfigBuilder:
         self._ca_bundle: Optional[str] = None
         self._client_timeout: int = 30
 
-    def server_url(self, url: str) -> "OpenMetadataConfigBuilder":
+    def server_url(self, url: str) -> "UMetadataConfigBuilder":
         """Set server URL."""
         self._server_url = url
         return self
 
-    def jwt_token(self, token: str) -> "OpenMetadataConfigBuilder":
+    def jwt_token(self, token: str) -> "UMetadataConfigBuilder":
         """Set JWT token."""
         self._jwt_token = token
         return self
 
-    def api_key(self, key: str) -> "OpenMetadataConfigBuilder":
+    def api_key(self, key: str) -> "UMetadataConfigBuilder":
         """Set API key (alias for ``jwt_token``)."""
         self._api_key = key
         return self
 
-    def verify_ssl(self, verify: bool) -> "OpenMetadataConfigBuilder":
+    def verify_ssl(self, verify: bool) -> "UMetadataConfigBuilder":
         """Configure SSL verification."""
         self._verify_ssl = verify
         return self
 
-    def ca_bundle(self, bundle: str) -> "OpenMetadataConfigBuilder":
+    def ca_bundle(self, bundle: str) -> "UMetadataConfigBuilder":
         """Set CA bundle path."""
         self._ca_bundle = bundle
         return self
 
-    def client_timeout(self, timeout: int) -> "OpenMetadataConfigBuilder":
+    def client_timeout(self, timeout: int) -> "UMetadataConfigBuilder":
         """Set client timeout in seconds."""
         self._client_timeout = timeout
         return self
 
-    def build(self) -> OpenMetadataConfig:
+    def build(self) -> UMetadataConfig:
         """Build configuration."""
         if not self._server_url:
             raise ValueError("Server URL is required")
 
-        return OpenMetadataConfig(
+        return UMetadataConfig(
             server_url=self._server_url,
             jwt_token=self._jwt_token,
             api_key=self._api_key,

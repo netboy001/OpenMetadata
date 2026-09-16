@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -30,8 +30,8 @@ from metadata.generated.schema.entity.services.ingestionPipelines.status import 
 )
 from metadata.ingestion.api.models import Either, Entity
 from metadata.ingestion.models.barrier import Barrier
-from metadata.ingestion.models.custom_properties import OMetaCustomProperties
-from metadata.ingestion.models.ometa_classification import OMetaTagAndClassification
+from metadata.ingestion.models.custom_properties import UMetaCustomProperties
+from metadata.ingestion.models.umeta_classification import UMetaTagAndClassification
 from metadata.ingestion.models.patch_request import PatchRequest
 from metadata.ingestion.models.topology import (
     NodeStage,
@@ -42,8 +42,8 @@ from metadata.ingestion.models.topology import (
     get_topology_node,
     get_topology_root,
 )
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
-from metadata.ingestion.ometa.utils import model_str
+from metadata.ingestion.umeta.umeta_api import UMetadata
+from metadata.ingestion.umeta.utils import model_str
 from metadata.utils.custom_thread_pool import CustomThreadPoolExecutor
 from metadata.utils.execution_time_tracker import ExecutionTimeTrackerContextMap
 from metadata.utils.logger import ingestion_logger
@@ -69,7 +69,7 @@ class TopologyRunnerMixin(Generic[C]):
 
     topology: ServiceTopology
     context: TopologyContextManager
-    metadata: OpenMetadata
+    metadata: UMetadata
 
     # The cache will have the shape {`child_stage.type_`: {`name`: `hash`}}
     cache = defaultdict(dict)
@@ -489,7 +489,7 @@ class TopologyRunnerMixin(Generic[C]):
                 # Safe access to Entity Request name
                 raise MissingExpectedEntityAckException(
                     f"We are trying to create a [{stage.type_.__name__}] with FQN [{entity_fqn}],"
-                    " but we got no Entity back from the API. Checking for errors in the OpenMetadata Sink could help"
+                    " but we got no Entity back from the API. Checking for errors in the UMetadata Sink could help"
                     " validate if the Entity was properly created or not."
                 )
 
@@ -514,14 +514,14 @@ class TopologyRunnerMixin(Generic[C]):
     @yield_and_update_context.register
     def _(
         self,
-        right: OMetaTagAndClassification,
+        right: UMetaTagAndClassification,
         stage: NodeStage,
         entity_request: Either[C],
     ) -> Iterable[Either[Entity]]:
         """
         Tag implementation for the context information.
 
-        We need the full OMetaTagAndClassification in the context
+        We need the full UMetaTagAndClassification in the context
         to build the TagLabels during the ingestion. We need to bundle
         both CreateClassificationRequest and CreateTagRequest.
         """
@@ -532,7 +532,7 @@ class TopologyRunnerMixin(Generic[C]):
     @yield_and_update_context.register
     def _(
         self,
-        right: OMetaCustomProperties,
+        right: UMetaCustomProperties,
         stage: NodeStage,
         entity_request: Either[C],
     ) -> Iterable[Either[Entity]]:

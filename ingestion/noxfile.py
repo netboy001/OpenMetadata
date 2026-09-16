@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -45,9 +45,9 @@ def lint(session):
     # so no need to specify them here
     session.install(".[dev]")
     # Configuration from pyproject.toml is taken into account out of the box
-    session.run("black", "--check", ".", "../openmetadata-airflow-apis/")
-    session.run("isort", "--check-only", ".", "../openmetadata-airflow-apis/")
-    session.run("pycln", "--diff", ".", "../openmetadata-airflow-apis/")
+    session.run("black", "--check", ".", "../umetadata-airflow-apis/")
+    session.run("isort", "--check-only", ".", "../umetadata-airflow-apis/")
+    session.run("pycln", "--diff", ".", "../umetadata-airflow-apis/")
     # TODO: It remains to adapt the command from the Makefile:
     # 	PYTHONPATH="${PYTHONPATH}:$(INGESTION_DIR)/plugins" pylint --errors-only
     # 	--rcfile=$(INGESTION_DIR)/pyproject.toml --fail-under=10 $(PY_SOURCE)/metadata
@@ -67,8 +67,8 @@ def unit(session):
     # TODO: We need to remove ignored test once they can be run properly within nox
     # Run unit tests
     ignored_tests = [
-        "test_ometa_endpoints.py",
-        "test_ometa_mlmodel.py",
+        "test_umeta_endpoints.py",
+        "test_umeta_mlmodel.py",
         "test_dbt.py",
         "test_sample_usage.py",
         "test_ssl_manager.py",

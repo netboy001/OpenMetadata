@@ -63,18 +63,18 @@ class TestGetConnectionURL(unittest.TestCase):
 
     def test_get_connection_url_mysql(self):
         connection = MysqlConnectionConfig(
-            username="openmetadata_user",
-            authType=BasicAuth(password="openmetadata_password"),
+            username="umetadata_user",
+            authType=BasicAuth(password="umetadata_password"),
             hostPort="localhost:3306",
-            databaseSchema="openmetadata_db",
+            databaseSchema="umetadata_db",
         )
         engine_connection = MySQLConnection(connection).client
         self.assertEqual(
             str(engine_connection.url),
-            "mysql+pymysql://openmetadata_user:openmetadata_password@localhost:3306/openmetadata_db",
+            "mysql+pymysql://umetadata_user:umetadata_password@localhost:3306/umetadata_db",
         )
         connection = MysqlConnectionConfig(
-            username="openmetadata_user",
+            username="umetadata_user",
             authType=AzureConfigurationSource(
                 azureConfig=AzureCredentials(
                     clientId="clientid",
@@ -84,7 +84,7 @@ class TestGetConnectionURL(unittest.TestCase):
                 )
             ),
             hostPort="localhost:3306",
-            databaseSchema="openmetadata_db",
+            databaseSchema="umetadata_db",
         )
         with patch.object(
             ClientSecretCredential,
@@ -94,23 +94,23 @@ class TestGetConnectionURL(unittest.TestCase):
             engine_connection = MySQLConnection(connection).client
             self.assertEqual(
                 str(engine_connection.url),
-                "mysql+pymysql://openmetadata_user:mocked_token@localhost:3306/openmetadata_db",
+                "mysql+pymysql://umetadata_user:mocked_token@localhost:3306/umetadata_db",
             )
 
     def test_get_connection_url_postgres(self):
         connection = PostgresConnectionConfig(
-            username="openmetadata_user",
-            authType=BasicAuth(password="openmetadata_password"),
+            username="umetadata_user",
+            authType=BasicAuth(password="umetadata_password"),
             hostPort="localhost:3306",
-            database="openmetadata_db",
+            database="umetadata_db",
         )
         engine_connection = PostgresConnection(connection).client
         self.assertEqual(
             str(engine_connection.url),
-            "postgresql+psycopg2://openmetadata_user:openmetadata_password@localhost:3306/openmetadata_db",
+            "postgresql+psycopg2://umetadata_user:umetadata_password@localhost:3306/umetadata_db",
         )
         connection = PostgresConnectionConfig(
-            username="openmetadata_user",
+            username="umetadata_user",
             authType=AzureConfigurationSource(
                 azureConfig=AzureCredentials(
                     clientId="clientid",
@@ -120,7 +120,7 @@ class TestGetConnectionURL(unittest.TestCase):
                 )
             ),
             hostPort="localhost:3306",
-            database="openmetadata_db",
+            database="umetadata_db",
         )
         with patch.object(
             ClientSecretCredential,
@@ -130,5 +130,5 @@ class TestGetConnectionURL(unittest.TestCase):
             engine_connection = PostgresConnection(connection).client
             self.assertEqual(
                 str(engine_connection.url),
-                "postgresql+psycopg2://openmetadata_user:mocked_token@localhost:3306/openmetadata_db",
+                "postgresql+psycopg2://umetadata_user:mocked_token@localhost:3306/umetadata_db",
             )

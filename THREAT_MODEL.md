@@ -1,20 +1,20 @@
-# OpenMetadata Threat Model
+# UMetadata Threat Model
 
-This document outlines the security threat model for OpenMetadata, a unified metadata platform for data discovery, observability, and governance.
+This document outlines the security threat model for UMetadata, a unified metadata platform for data discovery, observability, and governance.
 
 ## Important Scope Notice
 
-**OpenMetadata is a metadata-only platform**. It does not:
+**UMetadata is a metadata-only platform**. It does not:
 - Store, process, or transmit actual data
 - Execute queries against production data sources
 - Modify data in connected systems
 - Provide direct data access capabilities
 
-OpenMetadata exclusively manages metadata - information *about* data, such as table schemas, column descriptions, data lineage, ownership, and quality metrics. This metadata-only architecture significantly reduces the attack surface and potential impact of security incidents.
+UMetadata exclusively manages metadata - information *about* data, such as table schemas, column descriptions, data lineage, ownership, and quality metrics. This metadata-only architecture significantly reduces the attack surface and potential impact of security incidents.
 
 ## Overview
 
-While OpenMetadata does not handle actual data, it only manages  metadata that provides insights into an organization's data architecture, which requires appropriate security controls. This threat model identifies potential risks specific to a metadata management platform.
+While UMetadata does not handle actual data, it only manages  metadata that provides insights into an organization's data architecture, which requires appropriate security controls. This threat model identifies potential risks specific to a metadata management platform.
 
 ## Asset Inventory
 
@@ -41,7 +41,7 @@ While OpenMetadata does not handle actual data, it only manages  metadata that p
    - Search queries and access patterns
 
 4. **Platform Components**
-   - OpenMetadata Server (REST APIs)
+   - UMetadata Server (REST APIs)
    - Web UI (React application)
    - Ingestion Framework (metadata collectors)
    - Backend Database (MySQL/PostgreSQL)
@@ -125,7 +125,7 @@ While OpenMetadata does not handle actual data, it only manages  metadata that p
 ### 4. Availability Threats
 
 **T4.1: Service Disruption**
-- Risk: OpenMetadata platform unavailability
+- Risk: UMetadata platform unavailability
 - Impact: Inability to discover or govern data assets
 - Attack Vectors:
   - DoS attacks
@@ -158,7 +158,7 @@ While OpenMetadata does not handle actual data, it only manages  metadata that p
 ## Mitigations
 
 ### M1: Access Control
-- Make sure OpenMetadata hosted as your organization's internal tooling. You don't need to expose to public internet. Lock it behind your company's VPN
+- Make sure UMetadata hosted as your organization's internal tooling. You don't need to expose to public internet. Lock it behind your company's VPN
 - Implement Role-Based Access Control (RBAC) for metadata domains
 - Use team-based metadata visibility
 - Regular access review and certification
@@ -235,15 +235,15 @@ Even with mitigations, these risks remain:
 
 ## Compliance Considerations
 
-While OpenMetadata doesn't store actual data, consider:
+While UMetadata doesn't store actual data, consider:
 - **Metadata Privacy**: Some metadata might be considered sensitive
 - **Access Logging**: Required for compliance audits
 - **Change Tracking**: Metadata modification history
-- **Data Governance**: Using OpenMetadata to support compliance programs
+- **Data Governance**: Using UMetadata to support compliance programs
 
 ## Incident Response
 
-For security incidents involving OpenMetadata:
+For security incidents involving UMetadata:
 1. Contain: Isolate affected systems
 2. Assess: Determine scope of metadata exposure
 3. Notify: Inform stakeholders of potential information disclosure
@@ -252,11 +252,11 @@ For security incidents involving OpenMetadata:
 
 ## Conclusion
 
-OpenMetadata's metadata-only architecture inherently limits security risks compared to data platforms. The primary concern is unauthorized information disclosure about data architecture rather than data breach. By implementing appropriate access controls and monitoring, organizations can safely leverage OpenMetadata for data discovery and governance while maintaining security.
+UMetadata's metadata-only architecture inherently limits security risks compared to data platforms. The primary concern is unauthorized information disclosure about data architecture rather than data breach. By implementing appropriate access controls and monitoring, organizations can safely leverage UMetadata for data discovery and governance while maintaining security.
 
 ## References
 
-- [OpenMetadata Security Documentation](https://docs.open-metadata.org/deployment/security)
+- [UMetadata Security Documentation](https://docs.u-metadata.org/deployment/security)
 - [OWASP Top 10](https://owasp.org/www-project-top-ten/)
 - [CIS Controls](https://www.cisecurity.org/controls)
 

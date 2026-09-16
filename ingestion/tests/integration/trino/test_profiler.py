@@ -5,8 +5,8 @@ from typing import List
 
 import pytest
 
-from _openmetadata_testutils.dict import merge
-from _openmetadata_testutils.pydantic.test_utils import assert_equal_pydantic_objects
+from _umetadata_testutils.dict import merge
+from _umetadata_testutils.pydantic.test_utils import assert_equal_pydantic_objects
 from metadata.generated.schema.entity.data.table import (
     ColumnProfile,
     Table,

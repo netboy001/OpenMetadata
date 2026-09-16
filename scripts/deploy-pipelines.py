@@ -1,7 +1,7 @@
 """
 Deploy Ingestion Pipelines Script
 
-This script uses the OpenMetadata client to:
+This script uses the UMetadata client to:
 1. Paginate over ingestion pipelines in groups of 20
 2. Fetch the IDs of those IngestionPipelines  
 3. Send bulk deploy requests to api/v1/services/ingestionPipelines/bulk/deploy
@@ -15,8 +15,8 @@ import sys
 from typing import Dict, List
 from uuid import UUID
 
-from metadata.generated.schema.entity.services.connections.metadata.openMetadataConnection import (
-    OpenMetadataConnection,
+from metadata.generated.schema.entity.services.connections.metadata.uMetadataConnection import (
+    UMetadataConnection,
 )
 from metadata.generated.schema.entity.services.ingestionPipelines.ingestionPipeline import (
     IngestionPipeline,
@@ -24,11 +24,11 @@ from metadata.generated.schema.entity.services.ingestionPipelines.ingestionPipel
 from metadata.generated.schema.entity.services.ingestionPipelines.pipelineServiceClientResponse import (
     PipelineServiceClientResponse,
 )
-from metadata.generated.schema.security.client.openMetadataJWTClientConfig import (
-    OpenMetadataJWTClientConfig,
+from metadata.generated.schema.security.client.uMetadataJWTClientConfig import (
+    UMetadataJWTClientConfig,
 )
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
-from metadata.ingestion.ometa.utils import model_str
+from metadata.ingestion.umeta.umeta_api import UMetadata
+from metadata.ingestion.umeta.utils import model_str
 
 # Configure logging
 logging.basicConfig(
@@ -43,28 +43,28 @@ class PipelineDeployer:
     
     def __init__(self, server_url: str, jwt_token: str):
         """
-        Initialize the PipelineDeployer with OpenMetadata connection
+        Initialize the PipelineDeployer with UMetadata connection
         
         Args:
-            server_url: OpenMetadata server URL
+            server_url: UMetadata server URL
             jwt_token: JWT token for authentication
         """
         # Remove trailing slash if present
         self.server_url = server_url.rstrip('/')
         
-        # Configure OpenMetadata connection
-        server_config = OpenMetadataConnection(
+        # Configure UMetadata connection
+        server_config = UMetadataConnection(
             hostPort=self.server_url,
-            authProvider="openmetadata",
-            securityConfig=OpenMetadataJWTClientConfig(jwtToken=jwt_token),
+            authProvider="umetadata",
+            securityConfig=UMetadataJWTClientConfig(jwtToken=jwt_token),
         )
         
-        self.metadata = OpenMetadata(server_config)
-        logger.info(f"Connected to OpenMetadata server: {server_url}")
+        self.metadata = UMetadata(server_config)
+        logger.info(f"Connected to UMetadata server: {server_url}")
     
     def bulk_deploy_pipelines(self, pipeline_ids: List[str]) -> List[PipelineServiceClientResponse]:
         """
-        Send bulk deploy request to OpenMetadata API
+        Send bulk deploy request to UMetadata API
         
         Args:
             pipeline_ids: List of pipeline UUIDs to deploy
@@ -213,12 +213,12 @@ class PipelineDeployer:
 def main():
     """Main function to run the pipeline deployment script"""
     parser = argparse.ArgumentParser(
-        description="Deploy all ingestion pipelines using OpenMetadata bulk deploy API"
+        description="Deploy all ingestion pipelines using UMetadata bulk deploy API"
     )
     parser.add_argument(
         "--server-url",
         required=True,
-        help="OpenMetadata server URL (e.g., http://localhost:8585/api/)"
+        help="UMetadata server URL (e.g., http://localhost:8585/api/)"
     )
     parser.add_argument(
         "--jwt-token", 

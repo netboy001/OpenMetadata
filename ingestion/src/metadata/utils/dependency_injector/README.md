@@ -1,6 +1,6 @@
-# OpenMetadata Dependency Injection System
+# UMetadata Dependency Injection System
 
-This module provides a type-safe dependency injection system for OpenMetadata that uses Python's type hints to automatically inject dependencies into functions and methods.
+This module provides a type-safe dependency injection system for UMetadata that uses Python's type hints to automatically inject dependencies into functions and methods.
 
 ## Features
 

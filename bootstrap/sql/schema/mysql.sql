@@ -604,13 +604,13 @@ CREATE TABLE `mlmodel_service_entity` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `openmetadata_settings`
+-- Table structure for table `umetadata_settings`
 --
 
-DROP TABLE IF EXISTS `openmetadata_settings`;
+DROP TABLE IF EXISTS `umetadata_settings`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `openmetadata_settings` (
+CREATE TABLE `umetadata_settings` (
   `id` mediumint NOT NULL AUTO_INCREMENT,
   `configType` varchar(36) NOT NULL,
   `json` json NOT NULL,

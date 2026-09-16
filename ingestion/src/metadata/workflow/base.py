@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -24,8 +24,8 @@ from metadata.config.common import WorkflowExecutionError
 from metadata.generated.schema.api.services.ingestionPipelines.createIngestionPipeline import (
     CreateIngestionPipelineRequest,
 )
-from metadata.generated.schema.entity.services.connections.metadata.openMetadataConnection import (
-    OpenMetadataConnection,
+from metadata.generated.schema.entity.services.connections.metadata.uMetadataConnection import (
+    UMetadataConnection,
 )
 from metadata.generated.schema.entity.services.ingestionPipelines.ingestionPipeline import (
     AirflowConfig,
@@ -42,8 +42,8 @@ from metadata.generated.schema.metadataIngestion.workflow import (
 from metadata.generated.schema.tests.testSuite import ServiceType
 from metadata.generated.schema.type.entityReference import EntityReference
 from metadata.ingestion.api.step import Step, Summary
-from metadata.ingestion.ometa.client_utils import create_ometa_client
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.client_utils import create_umeta_client
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.timer.repeated_timer import RepeatedTimer
 from metadata.utils import fqn
 from metadata.utils.class_helper import (
@@ -83,8 +83,8 @@ class BaseWorkflow(ABC, WorkflowStatusMixin):
 
     config: Union[Any, Dict]
     _run_id: Optional[str] = None
-    metadata: OpenMetadata
-    metadata_config: OpenMetadataConnection
+    metadata: UMetadata
+    metadata_config: UMetadataConnection
     service_type: ServiceType
 
     def __init__(
@@ -110,9 +110,9 @@ class BaseWorkflow(ABC, WorkflowStatusMixin):
 
         set_loggers_level(self.workflow_config.loggerLevel.value)
 
-        # We create the ometa client at the workflow level and pass it to the steps
-        self.metadata = create_ometa_client(
-            self.workflow_config.openMetadataServerConfig,
+        # We create the umeta client at the workflow level and pass it to the steps
+        self.metadata = create_umeta_client(
+            self.workflow_config.uMetadataServerConfig,
             user_agent=self._build_user_agent(),
         )
 
@@ -140,15 +140,15 @@ class BaseWorkflow(ABC, WorkflowStatusMixin):
 
     def _build_user_agent(self) -> Optional[str]:  # noqa: UP045
         """
-        HTTP User-Agent identifying this workflow's requests to the OpenMetadata server.
+        HTTP User-Agent identifying this workflow's requests to the UMetadata server.
         Subclasses override this to provide more specific identifiers. Best-effort: the
         version is dropped if it cannot be resolved, but a stable identifier is kept.
         """
         try:
-            return f"openmetadata-ingestion (v{get_client_version()})"
+            return f"umetadata-ingestion (v{get_client_version()})"
         except Exception as exc:
             logger.debug(f"Could not resolve the ingestion client version: {exc}")
-            return "openmetadata-ingestion"
+            return "umetadata-ingestion"
 
     @property
     def ingestion_pipeline(self) -> Optional[IngestionPipeline]:

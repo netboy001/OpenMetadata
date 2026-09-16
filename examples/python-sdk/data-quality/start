@@ -12,8 +12,8 @@ help_function()
   This script downloads the docker compose of a given release and merges it with \`docker-compose.override.yml\`
 
   Options:
-   -s services. Space separated list of services to boot from the compose file. Options: [jupyter, dwh, ingestion, openmetadata-server] Default: none.
-   -v OpenMetadata version: Default [1.10.4]
+   -s services. Space separated list of services to boot from the compose file. Options: [jupyter, dwh, ingestion, umetadata-server] Default: none.
+   -v UMetadata version: Default [1.10.4]
    -d Download: [true, false]. Forces downloading the OM docker compose if already downloaded. Default [false]
    -h For usage help
   "
@@ -34,13 +34,13 @@ done
 version="${version:=1.10.4}"
 download="${download:=false}"
 
-if [[ ! -f openmetadata-compose.yml ]] || [[ "$download" == "true" ]]; then
-  source="https://github.com/open-metadata/OpenMetadata/releases/download/${version}-release/docker-compose.yml"
-  echo "Downloading openmetadata-compose.yml from $source"
-  curl -fsSL $source -o openmetadata-compose.yml
+if [[ ! -f umetadata-compose.yml ]] || [[ "$download" == "true" ]]; then
+  source="https://github.com/u-metadata/UMetadata/releases/download/${version}-release/docker-compose.yml"
+  echo "Downloading umetadata-compose.yml from $source"
+  curl -fsSL $source -o umetadata-compose.yml
 fi
 
-docker compose -f openmetadata-compose.yml -f docker-compose.yml up $services -d
+docker compose -f umetadata-compose.yml -f docker-compose.yml up $services -d
 
 if [[ "$services" != "*jupyter*" ]] && [[ "$services" != "" ]]; then
   exit 0
@@ -53,7 +53,7 @@ done
 
 url=""
 while [[ "$url" == "" ]]; do
-  url="$(docker compose -f openmetadata-compose.yml -f docker-compose.yml exec jupyter bash -c "jupyter server list | grep /home/jovyan | sed \"s/\$(hostname)/localhost/g\" | awk 'NR==1 { print \$1 }'")"
+  url="$(docker compose -f umetadata-compose.yml -f docker-compose.yml exec jupyter bash -c "jupyter server list | grep /home/jovyan | sed \"s/\$(hostname)/localhost/g\" | awk 'NR==1 { print \$1 }'")"
 done
 
 echo "You can access \`jupyter\` instance at $url"

@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -130,7 +130,7 @@ def _composer_access_hint(host: str, auth_config: GcpServiceAccount, verify: boo
     client surfaces as an unhelpful JSON parse error. Decision order:
 
       1. Classic IAP redirect detected -> the environment requires OIDC ID-token
-         auth, which OpenMetadata does not support; recommend IAM-based access.
+         auth, which UMetadata does not support; recommend IAM-based access.
       2. Composer Management API reachable and env found -> the SA has project
          access but not Airflow access; name the env and the missing role.
       3. Anything else -> generic missing-IAM-permission hint.
@@ -139,7 +139,7 @@ def _composer_access_hint(host: str, auth_config: GcpServiceAccount, verify: boo
     if _detect_composer_iap_model(host, verify) == "classic":
         hint = (
             "This Composer environment is protected by classic IAP, which requires OIDC ID-token "
-            "authentication that OpenMetadata does not support. Use a Composer 2/3 environment with "
+            "authentication that UMetadata does not support. Use a Composer 2/3 environment with "
             "IAM-based web server access control, or expose the Airflow REST API without classic IAP."
         )
     else:
@@ -295,7 +295,7 @@ def _detect_composer_iap_model(host: str, verify: bool) -> Optional[str]:  # noq
     """
     Identify which Composer access-control variant we're talking to:
       - "classic": redirect points at accounts.google.com/o/oauth2/auth?client_id=...
-        (classic IAP — requires OIDC ID tokens, which OpenMetadata does not support)
+        (classic IAP — requires OIDC ID tokens, which UMetadata does not support)
       - "composer_managed": redirect points at composer.cloud.google.com/_signin
         (Composer 2/3 IAM-based access — works with plain access tokens)
       - None: probe failed or response wasn't a redirect
@@ -386,7 +386,7 @@ def _probe_self_hosted(host: Optional[str], auth_config, verify: bool, original_
                 "uncheck 'Verify SSL' for this service."
             )
         except requests.exceptions.ConnectionError:
-            hint = f"Could not establish a TCP connection to {host}. Check DNS, firewall rules, and that the host is reachable from the OpenMetadata server."
+            hint = f"Could not establish a TCP connection to {host}. Check DNS, firewall rules, and that the host is reachable from the UMetadata server."
     return hint
 
 

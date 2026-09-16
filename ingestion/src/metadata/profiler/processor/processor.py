@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,13 +21,13 @@ from metadata.generated.schema.metadataIngestion.databaseServiceProfilerPipeline
     DatabaseServiceProfilerPipeline,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.ingestion.api.models import Either
 from metadata.ingestion.api.parser import parse_workflow_config_gracefully
 from metadata.ingestion.api.step import Step
 from metadata.ingestion.api.steps import Processor
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.profiler.api.models import ProfilerProcessorConfig, ProfilerResponse
 from metadata.profiler.processor.core import Profiler
 from metadata.profiler.source.model import ProfilerSourceAndEntity
@@ -41,13 +41,13 @@ from metadata.utils.dependency_injector.dependency_injector import (
 class ProfilerProcessor(Processor):
     """
     This processor is in charge of getting the profiler source and entity coming from
-    the OpenMetadataSource and compute the metrics.
+    the UMetadataSource and compute the metrics.
     """
 
     @inject
     def __init__(
         self,
-        config: OpenMetadataWorkflowConfig,
+        config: UMetadataWorkflowConfig,
         profiler_config_class: Inject[Type[ProfilerProcessorConfig]] = None,
     ):
         if profiler_config_class is None:
@@ -99,7 +99,7 @@ class ProfilerProcessor(Processor):
 
     @classmethod
     def create(
-        cls, config_dict: dict, _: OpenMetadata, pipeline_name: Optional[str] = None
+        cls, config_dict: dict, _: UMetadata, pipeline_name: Optional[str] = None
     ) -> "Step":
         config = parse_workflow_config_gracefully(config_dict)
         return cls(config=config)

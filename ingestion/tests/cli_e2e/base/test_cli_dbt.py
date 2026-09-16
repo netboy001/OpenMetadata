@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -49,7 +49,7 @@ class CliDBTBase(TestCase):
         @pytest.mark.order(3)
         def test_entities(self) -> None:
             for table_fqn in self.fqn_dbt_tables():
-                table: Table = self.openmetadata.get_by_name(
+                table: Table = self.umetadata.get_by_name(
                     entity=Table, fqn=table_fqn, fields=["*"]
                 )
                 data_model = table.dataModel
@@ -67,7 +67,7 @@ class CliDBTBase(TestCase):
         # 4. run tests on dbt test cases and test results
         @pytest.mark.order(4)
         def test_dbt_test_cases(self) -> None:
-            test_case_entity_list = self.openmetadata.list_entities(
+            test_case_entity_list = self.umetadata.list_entities(
                 entity=TestDefinition,
                 params={"testPlatform": TestPlatform.dbt.value},
             )

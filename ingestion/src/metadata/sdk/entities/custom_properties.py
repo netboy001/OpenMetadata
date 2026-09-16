@@ -9,8 +9,8 @@ from metadata.generated.schema.entity.data.glossary import Glossary
 from metadata.generated.schema.entity.data.table import Table
 from metadata.generated.schema.type import basic
 from metadata.ingestion.models.custom_pydantic import BaseModel
-from metadata.sdk.client import OpenMetadata
-from metadata.sdk.types import OMetaClient, UuidLike
+from metadata.sdk.client import UMetadata
+from metadata.sdk.types import UMetaClient, UuidLike
 
 TEntity = TypeVar("TEntity", bound=BaseModel)  # pylint: disable=invalid-name
 
@@ -24,13 +24,13 @@ class CustomPropertyUpdater(Generic[TEntity]):
     is_fqn: bool = False
     properties: Dict[str, Any] = field(default_factory=dict)
     clear_all_flag: bool = False
-    _client_override: Optional[OMetaClient] = field(
+    _client_override: Optional[UMetaClient] = field(
         default=None, init=False, repr=False
     )
 
     @staticmethod
-    def _get_client() -> OMetaClient:
-        return OpenMetadata.get_default_client()
+    def _get_client() -> UMetaClient:
+        return UMetadata.get_default_client()
 
     # ------------------------------------------------------------------
     # Mutation helpers
@@ -57,7 +57,7 @@ class CustomPropertyUpdater(Generic[TEntity]):
         self.clear_all_flag = True
         return self
 
-    def use_client(self, client: OMetaClient) -> "CustomPropertyUpdater[TEntity]":
+    def use_client(self, client: UMetaClient) -> "CustomPropertyUpdater[TEntity]":
         """Provide an explicit client (useful for patched tests)."""
         self._client_override = client
         return self

@@ -1,28 +1,28 @@
-"""OpenMetadata SDK Client - Main client class."""
+"""UMetadata SDK Client - Main client class."""
 from __future__ import annotations
 
 from typing import ClassVar, Optional, cast
 
-from metadata.generated.schema.entity.services.connections.metadata.openMetadataConnection import (
+from metadata.generated.schema.entity.services.connections.metadata.uMetadataConnection import (
     AuthProvider,
-    OpenMetadataConnection,
-    OpenmetadataType,
+    UMetadataConnection,
+    UmetadataType,
 )
 from metadata.generated.schema.security.ssl.verifySSLConfig import VerifySSL
-from metadata.ingestion.ometa.ometa_api import OpenMetadata as OMeta
-from metadata.sdk.config import OpenMetadataConfig
-from metadata.sdk.types import OMetaClient
+from metadata.ingestion.umeta.umeta_api import UMetadata as UMeta
+from metadata.sdk.config import UMetadataConfig
+from metadata.sdk.types import UMetaClient
 
 
-class OpenMetadata:
-    """Main SDK client for OpenMetadata."""
+class UMetadata:
+    """Main SDK client for UMetadata."""
 
-    _instance: ClassVar[Optional["OpenMetadata"]] = None
-    _default_client: ClassVar[Optional[OMetaClient]] = None
+    _instance: ClassVar[Optional["UMetadata"]] = None
+    _default_client: ClassVar[Optional[UMetaClient]] = None
 
-    def __init__(self, config: OpenMetadataConfig):
-        """Initialize OpenMetadata client."""
-        self.config: OpenMetadataConfig = config
+    def __init__(self, config: UMetadataConfig):
+        """Initialize UMetadata client."""
+        self.config: UMetadataConfig = config
 
         # Convert boolean verify_ssl to enum
         if not config.verify_ssl:
@@ -32,55 +32,55 @@ class OpenMetadata:
         else:
             verify_ssl = VerifySSL.ignore
 
-        # Create OpenMetadataConnection from config
+        # Create UMetadataConnection from config
         ssl_config = config.to_ssl_config()
 
-        om_connection = OpenMetadataConnection.model_construct(
+        om_connection = UMetadataConnection.model_construct(
             hostPort=config.server_url,
-            authProvider=AuthProvider.openmetadata,
-            securityConfig=config.to_ometa_config(),
+            authProvider=AuthProvider.umetadata,
+            securityConfig=config.to_umeta_config(),
             verifySSL=verify_ssl,
             sslConfig=ssl_config,
-            type=OpenmetadataType.OpenMetadata,
-            clusterName="openmetadata",
+            type=UmetadataType.UMetadata,
+            clusterName="umetadata",
         )
 
-        self._ometa: OMetaClient = cast(OMetaClient, OMeta(config=om_connection))
+        self._umeta: UMetaClient = cast(UMetaClient, UMeta(config=om_connection))
 
     @classmethod
-    def initialize(cls, config: OpenMetadataConfig) -> "OpenMetadata":
+    def initialize(cls, config: UMetadataConfig) -> "UMetadata":
         """Initialize the default client instance."""
         cls._instance = cls(config)
-        cls._default_client = cls._instance.ometa
+        cls._default_client = cls._instance.umeta
         return cls._instance
 
     @classmethod
-    def get_instance(cls) -> "OpenMetadata":
+    def get_instance(cls) -> "UMetadata":
         """Get the default client instance."""
         if cls._instance is None:
             raise RuntimeError(
-                "OpenMetadata client not initialized. Call initialize() first"
+                "UMetadata client not initialized. Call initialize() first"
             )
         return cls._instance
 
     @classmethod
-    def get_default_client(cls) -> OMetaClient:
-        """Get the default OMeta client for internal use."""
+    def get_default_client(cls) -> UMetaClient:
+        """Get the default UMeta client for internal use."""
         if cls._default_client is None:
             raise RuntimeError(
-                "OpenMetadata client not initialized. Call initialize() first"
+                "UMetadata client not initialized. Call initialize() first"
             )
         return cls._default_client
 
     @property
-    def ometa(self) -> OMetaClient:
-        """Get the underlying OMeta client."""
-        return self._ometa
+    def umeta(self) -> UMetaClient:
+        """Get the underlying UMeta client."""
+        return self._umeta
 
     def close(self):
         """Close the client connection."""
-        if hasattr(self._ometa, "close"):
-            self._ometa.close()
+        if hasattr(self._umeta, "close"):
+            self._umeta.close()
 
     @classmethod
     def reset(cls) -> None:

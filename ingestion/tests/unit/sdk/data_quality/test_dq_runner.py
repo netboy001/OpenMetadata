@@ -14,8 +14,8 @@ from metadata.generated.schema.entity.data.table import Column, DataType, Table
 from metadata.generated.schema.entity.services.connections.database.mysqlConnection import (
     MysqlConnection,
 )
-from metadata.generated.schema.entity.services.connections.metadata.openMetadataConnection import (
-    OpenMetadataConnection,
+from metadata.generated.schema.entity.services.connections.metadata.uMetadataConnection import (
+    UMetadataConnection,
 )
 from metadata.generated.schema.entity.services.databaseService import (
     DatabaseConnection,
@@ -23,10 +23,10 @@ from metadata.generated.schema.entity.services.databaseService import (
     DatabaseServiceType,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
-from metadata.generated.schema.security.client.openMetadataJWTClientConfig import (
-    OpenMetadataJWTClientConfig,
+from metadata.generated.schema.security.client.uMetadataJWTClientConfig import (
+    UMetadataJWTClientConfig,
 )
 from metadata.generated.schema.tests.testDefinition import TestDefinition
 from metadata.generated.schema.type.basic import (
@@ -36,8 +36,8 @@ from metadata.generated.schema.type.basic import (
     TestCaseEntityName,
 )
 from metadata.generated.schema.type.entityReference import EntityReference
-from metadata.ingestion.ometa.client import APIError
-from metadata.sdk import OpenMetadata
+from metadata.ingestion.umeta.client import APIError
+from metadata.sdk import UMetadata
 from metadata.sdk.data_quality import (
     ColumnValuesToBeNotNull,
     TableColumnCountToBeBetween,
@@ -100,11 +100,11 @@ def mock_service(mock_connection):
 
 @pytest.fixture
 def mock_client(mock_table, mock_service):
-    """Mock OMeta client"""
+    """Mock UMeta client"""
     mock = MagicMock()
-    mock.config = OpenMetadataConnection(
+    mock.config = UMetadataConnection(
         hostPort="http://localhost:8585/api",
-        securityConfig=OpenMetadataJWTClientConfig(jwtToken="the-jwt-token"),
+        securityConfig=UMetadataJWTClientConfig(jwtToken="the-jwt-token"),
     )
     mock.get_by_name.side_effect = (mock_table,)
     mock.get_by_id.side_effect = (mock_service,)
@@ -124,8 +124,8 @@ def mock_test_definition():
 @pytest.fixture
 def mock_metadata(mock_client) -> MagicMock:
     """Mock metadata"""
-    metadata = create_autospec(OpenMetadata, instance=True)
-    metadata.ometa = mock_client
+    metadata = create_autospec(UMetadata, instance=True)
+    metadata.umeta = mock_client
     return metadata
 
 
@@ -186,7 +186,7 @@ def test_runner_initialization(mock_get_client):
                     response=Mock(status_code=404),
                 ),
             ),
-            "not found in OpenMetadata",
+            "not found in UMetadata",
         ),
         (
             APIError(
@@ -236,7 +236,7 @@ def test_run_executes_workflow(
     mock_builder_class, mock_workflow_class, mock_get_client
 ):
     """Test that run() creates and executes workflow"""
-    mock_config = MagicMock(spec=OpenMetadataWorkflowConfig)
+    mock_config = MagicMock(spec=UMetadataWorkflowConfig)
     mock_config.model_dump.return_value = {"test": "config"}
 
     mock_builder = MagicMock()
@@ -260,7 +260,7 @@ def test_run_executes_workflow(
 @patch("metadata.sdk.data_quality.runner.TestSuiteWorkflow")
 def test_run_uses_config_builder(mock_workflow_class, mock_get_client):
     """Test that run() uses WorkflowConfigBuilder correctly"""
-    mock_config = MagicMock(spec=OpenMetadataWorkflowConfig)
+    mock_config = MagicMock(spec=UMetadataWorkflowConfig)
     mock_config.model_dump.return_value = {"test": "config"}
 
     mock_processor = MagicMock()
@@ -287,7 +287,7 @@ def test_run_captures_results_from_processor(
     mock_capturer_class, mock_builder_class, mock_workflow_class, mock_get_client
 ):
     """Test that run() captures results from ResultCapturingProcessor"""
-    mock_config = MagicMock(spec=OpenMetadataWorkflowConfig)
+    mock_config = MagicMock(spec=UMetadataWorkflowConfig)
     mock_config.model_dump.return_value = {"test": "config"}
 
     mock_builder = MagicMock()
@@ -339,7 +339,7 @@ processor:
             value: "10"
 workflowConfig:
   loggerLevel: INFO
-  openMetadataServerConfig:
+  uMetadataServerConfig:
     hostPort: http://localhost:8585/api
     authProvider: basic
 """

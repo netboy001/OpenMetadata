@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,15 +27,15 @@ from metadata.generated.schema.entity.services.ingestionPipelines.status import 
     StepSummary,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.generated.schema.type.basic import Map, Timestamp
 from metadata.ingestion.api.step import Step, Summary
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
-from metadata.utils.logger import ometa_logger
+from metadata.ingestion.umeta.umeta_api import UMetadata
+from metadata.utils.logger import umeta_logger
 from metadata.workflow.context.context_manager import ContextManager
 
-logger = ometa_logger()
+logger = umeta_logger()
 
 
 class WorkflowResultStatus(Enum):
@@ -51,9 +51,9 @@ class WorkflowStatusMixin:
     To be inherited by the Base Workflow
     """
 
-    config: OpenMetadataWorkflowConfig
+    config: UMetadataWorkflowConfig
     _run_id: Optional[str] = None
-    metadata: OpenMetadata
+    metadata: UMetadata
     _start_ts: int
     ingestion_pipeline: Optional[IngestionPipeline]
 

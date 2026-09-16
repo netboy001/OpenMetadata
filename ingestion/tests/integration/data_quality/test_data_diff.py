@@ -13,8 +13,8 @@ from sqlalchemy.dialects import postgresql
 from sqlalchemy.engine import Connection, make_url
 from sqlalchemy.sql import sqltypes
 
-from _openmetadata_testutils.postgres.conftest import postgres_container
-from _openmetadata_testutils.pydantic.test_utils import assert_equal_pydantic_objects
+from _umetadata_testutils.postgres.conftest import postgres_container
+from _umetadata_testutils.pydantic.test_utils import assert_equal_pydantic_objects
 from metadata.data_quality.api.models import TestCaseDefinition
 from metadata.generated.schema.entity.data.table import (
     ProfileSampleType,
@@ -31,7 +31,7 @@ from metadata.generated.schema.tests.basic import (
     TestResultValue,
 )
 from metadata.generated.schema.tests.testCase import TestCase, TestCaseParameterValue
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.workflow.data_quality import TestSuiteWorkflow
 
 if not sys.version_info >= (3, 9):
@@ -546,7 +546,7 @@ def test_error_paths(
     ingest_postgres_metadata,
     ingest_mysql_service: DatabaseService,
     postgres_service: DatabaseService,
-    patched_metadata: OpenMetadata,
+    patched_metadata: UMetadata,
     sink_config,
     workflow_config,
     run_workflow,
@@ -719,13 +719,13 @@ def patched_metadata(metadata, postgres_service, ingest_mysql_service, monkeypat
         return inner
 
     monkeypatch.setattr(
-        "metadata.ingestion.ometa.ometa_api.OpenMetadata.get_by_name",
-        override_result_by_fqn(OpenMetadata.get_by_name),
+        "metadata.ingestion.umeta.umeta_api.UMetadata.get_by_name",
+        override_result_by_fqn(UMetadata.get_by_name),
     )
 
     monkeypatch.setattr(
-        "metadata.ingestion.ometa.ometa_api.OpenMetadata.get_by_id",
-        override_result_by_fqn(OpenMetadata.get_by_id),
+        "metadata.ingestion.umeta.umeta_api.UMetadata.get_by_id",
+        override_result_by_fqn(UMetadata.get_by_id),
     )
 
     return metadata

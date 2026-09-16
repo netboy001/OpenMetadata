@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,7 +27,7 @@ from unittest.mock import Mock
 from metadata.generated.schema.entity.teams.team import Team
 from metadata.generated.schema.entity.teams.user import User
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.generated.schema.type.basic import (
     Email,
@@ -116,9 +116,9 @@ def build_test_workflow_config(
         "sink": {"type": "metadata-rest", "config": {}},
         "workflowConfig": {
             "loggerLevel": "DEBUG",
-            "openMetadataServerConfig": {
+            "uMetadataServerConfig": {
                 "hostPort": "http://localhost:8585/api",
-                "authProvider": "openmetadata",
+                "authProvider": "umetadata",
                 "securityConfig": {"jwtToken": "test-token"},
             },
         },
@@ -164,7 +164,7 @@ class TestOwnerConfig(TestCase):
         self.mock_metadata = self._create_mock_metadata()
 
     def _create_mock_metadata(self) -> Mock:
-        """Create mock OpenMetadata API with test users and teams"""
+        """Create mock UMetadata API with test users and teams"""
         mock_om = Mock()
 
         mock_users = {
@@ -272,7 +272,7 @@ class TestOwnerConfig(TestCase):
             "postgres-test-01-basic", owner_config
         )
 
-        config = OpenMetadataWorkflowConfig.model_validate(workflow_config)
+        config = UMetadataWorkflowConfig.model_validate(workflow_config)
 
         assert config.source.sourceConfig.config.ownerConfig is not None
         assert (
@@ -310,7 +310,7 @@ class TestOwnerConfig(TestCase):
             "postgres-test-02-fqn", owner_config
         )
 
-        config = OpenMetadataWorkflowConfig.model_validate(workflow_config)
+        config = UMetadataWorkflowConfig.model_validate(workflow_config)
 
         assert config.source.sourceConfig.config.ownerConfig is not None
         schema_config = config.source.sourceConfig.config.ownerConfig.databaseSchema
@@ -345,7 +345,7 @@ class TestOwnerConfig(TestCase):
             "postgres-test-03-multiple-users", owner_config
         )
 
-        config = OpenMetadataWorkflowConfig.model_validate(workflow_config)
+        config = UMetadataWorkflowConfig.model_validate(workflow_config)
 
         assert config.source.sourceConfig.config.ownerConfig is not None
         db_config = config.source.sourceConfig.config.ownerConfig.database
@@ -383,7 +383,7 @@ class TestOwnerConfig(TestCase):
             "postgres-test-04-validation", owner_config
         )
 
-        config = OpenMetadataWorkflowConfig.model_validate(workflow_config)
+        config = UMetadataWorkflowConfig.model_validate(workflow_config)
 
         assert config.source.sourceConfig.config.ownerConfig is not None
 
@@ -416,7 +416,7 @@ class TestOwnerConfig(TestCase):
             "postgres-test-05-inheritance-on", owner_config
         )
 
-        config = OpenMetadataWorkflowConfig.model_validate(workflow_config)
+        config = UMetadataWorkflowConfig.model_validate(workflow_config)
 
         assert config.source.sourceConfig.config.ownerConfig is not None
         assert config.source.sourceConfig.config.ownerConfig.enableInheritance is True
@@ -450,7 +450,7 @@ class TestOwnerConfig(TestCase):
             "postgres-test-06-inheritance-off", owner_config
         )
 
-        config = OpenMetadataWorkflowConfig.model_validate(workflow_config)
+        config = UMetadataWorkflowConfig.model_validate(workflow_config)
 
         assert config.source.sourceConfig.config.ownerConfig is not None
         assert config.source.sourceConfig.config.ownerConfig.enableInheritance is False
@@ -483,7 +483,7 @@ class TestOwnerConfig(TestCase):
             "postgres-test-07-partial", owner_config
         )
 
-        config = OpenMetadataWorkflowConfig.model_validate(workflow_config)
+        config = UMetadataWorkflowConfig.model_validate(workflow_config)
 
         assert config.source.sourceConfig.config.ownerConfig is not None
         table_config = config.source.sourceConfig.config.ownerConfig.table
@@ -528,7 +528,7 @@ class TestOwnerConfig(TestCase):
             "postgres-test-08-complex", owner_config
         )
 
-        config = OpenMetadataWorkflowConfig.model_validate(workflow_config)
+        config = UMetadataWorkflowConfig.model_validate(workflow_config)
 
         assert config.source.sourceConfig.config.ownerConfig is not None
         assert config.source.sourceConfig.config.ownerConfig.enableInheritance is True
@@ -569,7 +569,7 @@ class TestOwnerConfig(TestCase):
             "postgres-test-formats", owner_config
         )
 
-        config = OpenMetadataWorkflowConfig.model_validate(workflow_config)
+        config = UMetadataWorkflowConfig.model_validate(workflow_config)
 
         assert config.source.sourceConfig.config.ownerConfig is not None
 
@@ -594,6 +594,6 @@ class TestOwnerConfig(TestCase):
             {},
         )
 
-        config = OpenMetadataWorkflowConfig.model_validate(workflow_config)
+        config = UMetadataWorkflowConfig.model_validate(workflow_config)
 
         assert config.source.sourceConfig.config is not None

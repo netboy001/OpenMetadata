@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -35,8 +35,8 @@ from metadata.generated.schema.type.tableQuery import TableQuery
 from metadata.ingestion.api.models import Either
 from metadata.ingestion.lineage.models import Dialect
 from metadata.ingestion.lineage.sql_lineage import get_lineage_by_query
-from metadata.ingestion.models.ometa_lineage import OMetaLineageRequest
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.models.umeta_lineage import UMetaLineageRequest
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.models import TableView
 from metadata.utils import fqn
 from metadata.utils.db_utils import get_view_lineage
@@ -109,7 +109,7 @@ def is_lineage_query(query_type: str, query_text: str) -> bool:
 
 
 def _yield_procedure_lineage(
-    metadata: OpenMetadata,
+    metadata: UMetadata,
     service_name: str,
     dialect: Dialect,
     processCrossDatabaseLineage: bool,
@@ -165,7 +165,7 @@ def _yield_procedure_lineage(
 def procedure_lineage_processor(
     procedure_and_queries: List[ProcedureAndQuery],
     queue: Queue,
-    metadata: OpenMetadata,
+    metadata: UMetadata,
     service_name: str,
     dialect: Dialect,
     processCrossDatabaseLineage: bool,
@@ -196,7 +196,7 @@ def procedure_lineage_processor(
                 if lineage and lineage.right is not None:
                     queue.put(
                         Either(
-                            right=OMetaLineageRequest(
+                            right=UMetaLineageRequest(
                                 override_lineage=False,
                                 lineage_request=lineage.right,
                                 entity=StoredProcedure,
@@ -276,7 +276,7 @@ def process_chunk_in_subprocess(chunk, processor_fn, queue, *args):
         return False
 
 
-def _query_already_processed(metadata: OpenMetadata, table_query: TableQuery) -> bool:
+def _query_already_processed(metadata: UMetadata, table_query: TableQuery) -> bool:
     """
     Check if a query has already been processed by validating if exists
     in ES with lineageProcessed as True
@@ -290,7 +290,7 @@ def _query_already_processed(metadata: OpenMetadata, table_query: TableQuery) ->
 def query_lineage_processor(
     table_queries: List[TableQuery],
     queue: Queue,
-    metadata: OpenMetadata,
+    metadata: UMetadata,
     dialect: Dialect,
     graph: nx.DiGraph,
     processCrossDatabaseLineage: bool,
@@ -343,7 +343,7 @@ def query_lineage_processor(
 def view_lineage_processor(
     views: List[TableView],
     queue: Queue,
-    metadata: OpenMetadata,
+    metadata: UMetadata,
     service_name: str,
     connectionType: str,
     processCrossDatabaseLineage: bool,
@@ -382,7 +382,7 @@ def view_lineage_processor(
                     )
                     queue.put(
                         Either(
-                            right=OMetaLineageRequest(
+                            right=UMetaLineageRequest(
                                 lineage_request=lineage.right,
                                 override_lineage=overrideViewLineage,
                                 entity_fqn=view_fqn,

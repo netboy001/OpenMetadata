@@ -101,7 +101,7 @@ def print_last_run_logs() -> None:
     """
     try:
         logs = requests.get(
-            f"{AIRFLOW_URL}/api/v2/openmetadata/last_dag_logs?dag_id=sample_data&task_id=ingest_using_recipe",
+            f"{AIRFLOW_URL}/api/v2/umetadata/last_dag_logs?dag_id=sample_data&task_id=ingest_using_recipe",
             headers=get_auth_headers(),
             timeout=REQUESTS_TIMEOUT
         ).text

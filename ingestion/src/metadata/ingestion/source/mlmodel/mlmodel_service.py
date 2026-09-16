@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -40,14 +40,14 @@ from metadata.ingestion.api.models import Either
 from metadata.ingestion.api.steps import Source
 from metadata.ingestion.api.topology_runner import TopologyRunnerMixin
 from metadata.ingestion.models.delete_entity import DeleteEntity
-from metadata.ingestion.models.ometa_lineage import OMetaLineageRequest
+from metadata.ingestion.models.umeta_lineage import UMetaLineageRequest
 from metadata.ingestion.models.topology import (
     NodeStage,
     ServiceTopology,
     TopologyContextManager,
     TopologyNode,
 )
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.connections import get_connection, test_connection_common
 from metadata.utils import fqn
 from metadata.utils.helpers import retry_with_docker_host
@@ -123,7 +123,7 @@ class MlModelServiceSource(TopologyRunnerMixin, Source, ABC):
     def __init__(
         self,
         config: WorkflowSource,
-        metadata: OpenMetadata,
+        metadata: UMetadata,
     ):
         super().__init__()
         self.config = config
@@ -249,7 +249,7 @@ class MlModelServiceSource(TopologyRunnerMixin, Source, ABC):
 
     def yield_mlmodel_lineage(
         self, mlmodel_details: Any
-    ) -> Iterable[Either[OMetaLineageRequest]]:
+    ) -> Iterable[Either[UMetaLineageRequest]]:
         """
         Yields lineage if config is enabled.
         We will look for the data in all the services we have informed.
@@ -264,14 +264,14 @@ class MlModelServiceSource(TopologyRunnerMixin, Source, ABC):
 
     def yield_lineage_request(
         self, lineage: Optional[Either[AddLineageRequest]] = None
-    ) -> Iterable[Either[OMetaLineageRequest]]:
+    ) -> Iterable[Either[UMetaLineageRequest]]:
         """
         Method to yield lineage request
         """
         if lineage:
             if lineage.right is not None:
                 yield Either(
-                    right=OMetaLineageRequest(
+                    right=UMetaLineageRequest(
                         lineage_request=lineage.right,
                         override_lineage=(
                             self.source_config.overrideLineage

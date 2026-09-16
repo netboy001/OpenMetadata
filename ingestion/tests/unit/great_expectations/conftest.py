@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,13 +17,13 @@ from unittest import mock
 
 from pytest import fixture
 
-from metadata.great_expectations.utils.ometa_config_handler import (
+from metadata.great_expectations.utils.umeta_config_handler import (
     create_jinja_environment,
 )
 
 
-def mocked_ometa_object():
-    """Mocked function for `_create_ometa_connection`."""
+def mocked_umeta_object():
+    """Mocked function for `_create_umeta_connection`."""
 
     class FQDN:
         def __init__(self):
@@ -37,25 +37,25 @@ def mocked_ometa_object():
     class ListEntities:
         entities = [Entity("list_entities")]
 
-    class OmetaMock:
+    class UmetaMock:
         def get_by_name(self, *args, **kwargs):
             return Entity("get_by_name")
 
         def list_entities(self, *args, **kwargs):
             return ListEntities()
 
-    return OmetaMock()
+    return UmetaMock()
 
 
 @fixture(scope="module")
-def mocked_ometa():
-    """Mocks OMeta obkect"""
-    from metadata.great_expectations.action import OpenMetadataValidationAction
+def mocked_umeta():
+    """Mocks UMeta obkect"""
+    from metadata.great_expectations.action import UMetadataValidationAction
 
     with mock.patch.object(
-        OpenMetadataValidationAction,
-        "_create_ometa_connection",
-        side_effect=mocked_ometa_object,
+        UMetadataValidationAction,
+        "_create_umeta_connection",
+        side_effect=mocked_umeta_object,
     ) as mocked_obj:
         yield mocked_obj
 

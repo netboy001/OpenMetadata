@@ -17,10 +17,10 @@ BRIGHT_GREEN='\033[1;32m'
 BRIGHT_CYAN='\033[1;36m'
 NC='\033[0m' # No Color
 
-# Get the script's base directory (assuming it's inside OpenMetadata repo)
+# Get the script's base directory (assuming it's inside UMetadata repo)
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-OPENMETADATA_BASE="$(dirname "$SCRIPT_DIR")"  # Adjust if script is placed deeper
-UI_RESOURCES_PATH="$OPENMETADATA_BASE/OpenMetadata/openmetadata-ui/src/main/resources/ui"
+UMETADATA_BASE="$(dirname "$SCRIPT_DIR")"  # Adjust if script is placed deeper
+UI_RESOURCES_PATH="$UMETADATA_BASE/UMetadata/umetadata-ui/src/main/resources/ui"
 
 # Check if a file path is provided
 if [[ -z "$1" ]]; then
@@ -30,12 +30,12 @@ fi
 
 FILE_PATH="$1"
 
-echo -e "${BRIGHT_CYAN}Detected OpenMetadata base path: $OPENMETADATA_BASE${NC}"
-echo -e "${BRIGHT_CYAN}Changing directory to OpenMetadata UI resources...${NC}"
+echo -e "${BRIGHT_CYAN}Detected UMetadata base path: $UMETADATA_BASE${NC}"
+echo -e "${BRIGHT_CYAN}Changing directory to UMetadata UI resources...${NC}"
 
 # Change to the UI resources directory
 cd "$UI_RESOURCES_PATH" || { 
-    echo -e "${BRIGHT_RED}Failed to change directory to OpenMetadata UI resources.${NC}"; 
+    echo -e "${BRIGHT_RED}Failed to change directory to UMetadata UI resources.${NC}"; 
     exit 1
 }
 

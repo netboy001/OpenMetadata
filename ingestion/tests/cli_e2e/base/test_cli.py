@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,7 +26,7 @@ import yaml
 from metadata.config.common import load_config_file
 from metadata.generated.schema.entity.teams.user import AuthenticationMechanism, User
 from metadata.ingestion.api.status import Status
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.utils.constants import UTF_8
 from metadata.workflow.metadata import MetadataWorkflow
 
@@ -43,7 +43,7 @@ class CliBase(ABC):
     CLI Base class
     """
 
-    openmetadata: OpenMetadata
+    umetadata: UMetadata
     test_file_path: str
     config_file_path: str
     ingestion_bot_jwt_token: Optional[str] = None
@@ -70,14 +70,14 @@ class CliBase(ABC):
         return stderr.decode("utf-8")
 
     def retrieve_lineage(self, entity_fqn: str) -> dict:
-        return self.openmetadata.client.get(
+        return self.umetadata.client.get(
             f"/lineage/table/name/{entity_fqn}?upstreamDepth=3&downstreamDepth=3"
         )
 
     @classmethod
     def set_ingestion_bot_jwt_token(cls) -> None:
-        ingestion_bot: User = cls.openmetadata.get_by_name(User, "ingestion-bot")
-        ingestion_bot_auth: AuthenticationMechanism = cls.openmetadata.get_by_id(
+        ingestion_bot: User = cls.umetadata.get_by_name(User, "ingestion-bot")
+        ingestion_bot_auth: AuthenticationMechanism = cls.umetadata.get_by_id(
             AuthenticationMechanism, ingestion_bot.id
         )
         cls.ingestion_bot_jwt_token = (
@@ -89,7 +89,7 @@ class CliBase(ABC):
             return config
 
         server_config = deepcopy(config)
-        server_config["workflowConfig"]["openMetadataServerConfig"][
+        server_config["workflowConfig"]["uMetadataServerConfig"][
             "securityConfig"
         ] = {
             "jwtToken": self.ingestion_bot_jwt_token,
@@ -140,7 +140,7 @@ class CliBase(ABC):
         output_clean_ansi = re.compile(r"\x1b[^m]*m")
         output_clean = output_clean_ansi.sub("", output_clean)
         regex = (
-            r".*OpenMetadata Status:%(log)s(.*?)%(log)sExecution.*Summary.*" % REGEX_AUX
+            r".*UMetadata Status:%(log)s(.*?)%(log)sExecution.*Summary.*" % REGEX_AUX
         )
         output_clean_regex = re.findall(regex, output_clean.strip())[0].strip()
         try:

@@ -1,6 +1,6 @@
 # Distributed Indexing Load Test Scripts
 
-Scripts for generating test data and triggering reindexing to load-test the OpenMetadata search indexing pipeline.
+Scripts for generating test data and triggering reindexing to load-test the UMetadata search indexing pipeline.
 
 ## Quick Start
 
@@ -107,7 +107,7 @@ Any `--entity-type NUM` flag overrides the preset for that entity type:
 
 | Flag | Default | Description |
 |------|---------|-------------|
-| `--server URL` | `http://localhost:8585` | Target OpenMetadata server |
+| `--server URL` | `http://localhost:8585` | Target UMetadata server |
 | `--workers NUM` | 20 | Concurrent HTTP workers |
 | `--quick` | - | Quick mode preset (~10K entities) |
 | `--scale PRESET` | - | Scale preset (small/medium/large/xlarge) |

@@ -32,14 +32,14 @@ from metadata.generated.schema.entity.services.ingestionPipelines.status import 
     StepSummary,
 )
 from metadata.generated.schema.metadataIngestion.application import (
-    OpenMetadataApplicationConfig,
+    UMetadataApplicationConfig,
 )
 from metadata.generated.schema.metadataIngestion.workflow import (
-    OpenMetadataWorkflowConfig,
+    UMetadataWorkflowConfig,
 )
 from metadata.generated.schema.type.basic import Timestamp
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
-from metadata.utils.logger import ometa_logger, set_loggers_level
+from metadata.ingestion.umeta.umeta_api import UMetadata
+from metadata.utils.logger import umeta_logger, set_loggers_level
 
 
 class FailureDiagnostics(BaseModel):
@@ -81,7 +81,7 @@ TERMINAL_PIPELINE_STATES = {
     PipelineState.failed,
     PipelineState.partialSuccess,
 }
-logger = ometa_logger()
+logger = umeta_logger()
 
 
 def get_kubernetes_client() -> Optional[client.CoreV1Api]:
@@ -112,8 +112,8 @@ def get_kubernetes_client() -> Optional[client.CoreV1Api]:
 
 
 LABEL_JOB_NAME = "job-name"
-LABEL_OMJOB_NAME = "omjob.pipelines.openmetadata.org/name"
-LABEL_POD_TYPE = "omjob.pipelines.openmetadata.org/pod-type"
+LABEL_OMJOB_NAME = "omjob.pipelines.umetadata.org/name"
+LABEL_POD_TYPE = "omjob.pipelines.umetadata.org/pod-type"
 LABEL_APP_RUN_ID = "app.kubernetes.io/run-id"
 POD_TYPE_MAIN = "main"
 
@@ -383,27 +383,27 @@ def create_workflow_config(config: str, pipeline_run_id: str):
         pipeline_run_id: Pipeline run identifier
 
     Returns:
-        Union[OpenMetadataApplicationConfig, OpenMetadataWorkflowConfig]: Parsed workflow config
+        Union[UMetadataApplicationConfig, UMetadataWorkflowConfig]: Parsed workflow config
     """
     raw_workflow_config = yaml.safe_load(config)
     raw_workflow_config["pipelineRunId"] = pipeline_run_id
 
     if raw_workflow_config.get("sourcePythonClass"):
-        logger.info("Creating OpenMetadataApplicationConfig")
-        return OpenMetadataApplicationConfig.model_validate(raw_workflow_config)
+        logger.info("Creating UMetadataApplicationConfig")
+        return UMetadataApplicationConfig.model_validate(raw_workflow_config)
     else:
-        logger.info("Creating OpenMetadataWorkflowConfig")
-        return OpenMetadataWorkflowConfig.model_validate(raw_workflow_config)
+        logger.info("Creating UMetadataWorkflowConfig")
+        return UMetadataWorkflowConfig.model_validate(raw_workflow_config)
 
 
 def get_or_create_pipeline_status(
-    metadata: OpenMetadata, workflow_config
+    metadata: UMetadata, workflow_config
 ) -> PipelineStatus:
     """
     Retrieve existing pipeline status or create a new one.
 
     Args:
-        metadata: OpenMetadata API client
+        metadata: UMetadata API client
         workflow_config: Workflow configuration object
         pipeline_run_id: Pipeline run identifier
 
@@ -556,7 +556,7 @@ def main():
     logic.
 
     In this callback we just care about:
-    - instantiating the ometa client
+    - instantiating the umeta client
     - getting the IngestionPipeline FQN
     - if exists, update with `Failed` status
     """
@@ -578,9 +578,9 @@ def main():
     # Create workflow configuration
     workflow_config = create_workflow_config(config, pipeline_run_id)
 
-    # Initialize OpenMetadata client
-    metadata = OpenMetadata(
-        config=workflow_config.workflowConfig.openMetadataServerConfig
+    # Initialize UMetadata client
+    metadata = UMetadata(
+        config=workflow_config.workflowConfig.uMetadataServerConfig
     )
 
     # Update pipeline status if all required fields are present
@@ -622,7 +622,7 @@ def main():
                     f"Failed to gather or add diagnostics, continuing with status update: {e}"
                 )
 
-        # Send updated status to OpenMetadata - this is the critical operation that must succeed
+        # Send updated status to UMetadata - this is the critical operation that must succeed
         try:
             metadata.create_or_update_pipeline_status(
                 workflow_config.ingestionPipelineFQN, pipeline_status
@@ -632,7 +632,7 @@ def main():
             )
         except Exception as e:
             logger.error(
-                f"CRITICAL: Failed to send pipeline status update to OpenMetadata: {e}"
+                f"CRITICAL: Failed to send pipeline status update to UMetadata: {e}"
             )
             raise
     else:

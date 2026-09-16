@@ -31,8 +31,8 @@ class TestImprovedTableEntity(unittest.TestCase):
     def test_create_table(self, mock_get_client):
         """Test creating a table with the improved SDK"""
         # Arrange
-        mock_ometa = MagicMock()
-        mock_get_client.return_value = mock_ometa
+        mock_umeta = MagicMock()
+        mock_get_client.return_value = mock_umeta
 
         columns = [
             Column(name="id", dataType=DataType.INT),
@@ -48,7 +48,7 @@ class TestImprovedTableEntity(unittest.TestCase):
         expected_table.name = "test_table"
         expected_table.columns = columns
 
-        mock_ometa.create_or_update.return_value = expected_table
+        mock_umeta.create_or_update.return_value = expected_table
 
         # Import the improved entity
         from metadata.sdk import Tables
@@ -59,14 +59,14 @@ class TestImprovedTableEntity(unittest.TestCase):
         # Assert
         self.assertEqual(result.name, "test_table")
         self.assertEqual(len(result.columns), 2)
-        mock_ometa.create_or_update.assert_called_once_with(create_request)
+        mock_umeta.create_or_update.assert_called_once_with(create_request)
 
     @patch("metadata.sdk.entities.tables.Tables._get_client")
     def test_retrieve_table(self, mock_get_client):
         """Test retrieving a table by ID"""
         # Arrange
-        mock_ometa = MagicMock()
-        mock_get_client.return_value = mock_ometa
+        mock_umeta = MagicMock()
+        mock_get_client.return_value = mock_umeta
 
         table_id = "550e8400-e29b-41d4-a716-446655440000"
 
@@ -75,7 +75,7 @@ class TestImprovedTableEntity(unittest.TestCase):
         expected_table.name = "test_table"
         expected_table.description = "Test table"
 
-        mock_ometa.get_by_id.return_value = expected_table
+        mock_umeta.get_by_id.return_value = expected_table
 
         from metadata.sdk import Tables
 
@@ -85,14 +85,14 @@ class TestImprovedTableEntity(unittest.TestCase):
         # Assert
         self.assertEqual(str(result.id), table_id)
         self.assertEqual(result.name, "test_table")
-        mock_ometa.get_by_id.assert_called_once()
+        mock_umeta.get_by_id.assert_called_once()
 
     @patch("metadata.sdk.entities.tables.Tables._get_client")
     def test_delete_table(self, mock_get_client):
         """Test deleting a table"""
         # Arrange
-        mock_ometa = MagicMock()
-        mock_get_client.return_value = mock_ometa
+        mock_umeta = MagicMock()
+        mock_get_client.return_value = mock_umeta
 
         table_id = "550e8400-e29b-41d4-a716-446655440000"
 
@@ -102,7 +102,7 @@ class TestImprovedTableEntity(unittest.TestCase):
         Tables.delete(table_id, recursive=True, hard_delete=False)
 
         # Assert
-        mock_ometa.delete.assert_called_once_with(
+        mock_umeta.delete.assert_called_once_with(
             entity=TableEntity, entity_id=table_id, recursive=True, hard_delete=False
         )
 
@@ -110,8 +110,8 @@ class TestImprovedTableEntity(unittest.TestCase):
     def _skip_test_list_tables(self, mock_get_client):
         """Test listing tables"""
         # Arrange
-        mock_ometa = MagicMock()
-        mock_get_client.return_value = mock_ometa
+        mock_umeta = MagicMock()
+        mock_get_client.return_value = mock_umeta
 
         mock_response = MagicMock()
         mock_response.entities = [
@@ -119,7 +119,7 @@ class TestImprovedTableEntity(unittest.TestCase):
             MagicMock(spec=TableEntity, name="table2"),
         ]
 
-        mock_ometa.list_entities.return_value = mock_response
+        mock_umeta.list_entities.return_value = mock_response
 
         from metadata.sdk import Tables
 
@@ -138,8 +138,8 @@ class TestImprovedDatabaseEntity(unittest.TestCase):
     def test_create_database(self, mock_get_client):
         """Test creating a database"""
         # Arrange
-        mock_ometa = MagicMock()
-        mock_get_client.return_value = mock_ometa
+        mock_umeta = MagicMock()
+        mock_get_client.return_value = mock_umeta
 
         create_request = CreateDatabaseRequest(
             name="analytics", service="postgres-prod", description="Analytics database"
@@ -149,7 +149,7 @@ class TestImprovedDatabaseEntity(unittest.TestCase):
         expected_database.id = UUID("650e8400-e29b-41d4-a716-446655440000")
         expected_database.name = "analytics"
 
-        mock_ometa.create_or_update.return_value = expected_database
+        mock_umeta.create_or_update.return_value = expected_database
 
         from metadata.sdk import Databases
 
@@ -158,14 +158,14 @@ class TestImprovedDatabaseEntity(unittest.TestCase):
 
         # Assert
         self.assertEqual(result.name, "analytics")
-        mock_ometa.create_or_update.assert_called_once_with(create_request)
+        mock_umeta.create_or_update.assert_called_once_with(create_request)
 
     @patch("metadata.sdk.entities.databases.Databases._get_client")
     def test_retrieve_database_by_name(self, mock_get_client):
         """Test retrieving a database by name"""
         # Arrange
-        mock_ometa = MagicMock()
-        mock_get_client.return_value = mock_ometa
+        mock_umeta = MagicMock()
+        mock_get_client.return_value = mock_umeta
 
         fqn = "postgres-prod.analytics"
 
@@ -173,7 +173,7 @@ class TestImprovedDatabaseEntity(unittest.TestCase):
         expected_database.fullyQualifiedName = fqn
         expected_database.name = "analytics"
 
-        mock_ometa.get_by_name.return_value = expected_database
+        mock_umeta.get_by_name.return_value = expected_database
 
         from metadata.sdk import Databases
 
@@ -182,14 +182,14 @@ class TestImprovedDatabaseEntity(unittest.TestCase):
 
         # Assert
         self.assertEqual(result.fullyQualifiedName, fqn)
-        mock_ometa.get_by_name.assert_called_once()
+        mock_umeta.get_by_name.assert_called_once()
 
     @patch("metadata.sdk.entities.databases.Databases._get_client")
     def test_update_database(self, mock_get_client):
         """Test updating a database"""
         # Arrange
-        mock_ometa = MagicMock()
-        mock_get_client.return_value = mock_ometa
+        mock_umeta = MagicMock()
+        mock_get_client.return_value = mock_umeta
 
         database_id = "650e8400-e29b-41d4-a716-446655440000"
 
@@ -200,9 +200,9 @@ class TestImprovedDatabaseEntity(unittest.TestCase):
         # Mock get_by_id to return current state
         current_db = MagicMock(spec=DatabaseEntity)
         current_db.id = database_to_update.id
-        mock_ometa.get_by_id.return_value = current_db
+        mock_umeta.get_by_id.return_value = current_db
         # Mock patch to return updated entity
-        mock_ometa.patch.return_value = database_to_update
+        mock_umeta.patch.return_value = database_to_update
 
         from metadata.sdk import Databases
 
@@ -211,8 +211,8 @@ class TestImprovedDatabaseEntity(unittest.TestCase):
 
         # Assert
         self.assertEqual(result.description, "Updated database")
-        mock_ometa.get_by_id.assert_called_once()
-        mock_ometa.patch.assert_called_once()
+        mock_umeta.get_by_id.assert_called_once()
+        mock_umeta.patch.assert_called_once()
 
 
 class TestImprovedDashboardEntity(unittest.TestCase):
@@ -222,8 +222,8 @@ class TestImprovedDashboardEntity(unittest.TestCase):
     def _skip_test_create_dashboard(self, mock_get_client):
         """Test creating a dashboard"""
         # Arrange
-        mock_ometa = MagicMock()
-        mock_get_client.return_value = mock_ometa
+        mock_umeta = MagicMock()
+        mock_get_client.return_value = mock_umeta
 
         create_request = CreateDashboardRequest(
             name="sales-dashboard",
@@ -237,7 +237,7 @@ class TestImprovedDashboardEntity(unittest.TestCase):
         expected_dashboard.name = "sales-dashboard"
         expected_dashboard.displayName = "Sales Dashboard"
 
-        mock_ometa.create_or_update.return_value = expected_dashboard
+        mock_umeta.create_or_update.return_value = expected_dashboard
 
         from metadata.sdk import Dashboards
 
@@ -247,7 +247,7 @@ class TestImprovedDashboardEntity(unittest.TestCase):
         # Assert
         self.assertEqual(result.name, "sales-dashboard")
         self.assertEqual(result.displayName, "Sales Dashboard")
-        mock_ometa.create_or_update.assert_called_once()
+        mock_umeta.create_or_update.assert_called_once()
 
 
 class TestImprovedPipelineEntity(unittest.TestCase):
@@ -257,8 +257,8 @@ class TestImprovedPipelineEntity(unittest.TestCase):
     def test_create_pipeline(self, mock_get_client):
         """Test creating a pipeline"""
         # Arrange
-        mock_ometa = MagicMock()
-        mock_get_client.return_value = mock_ometa
+        mock_umeta = MagicMock()
+        mock_get_client.return_value = mock_umeta
 
         create_request = CreatePipelineRequest(
             name="etl-daily", service="airflow-prod", displayName="Daily ETL"
@@ -268,7 +268,7 @@ class TestImprovedPipelineEntity(unittest.TestCase):
         expected_pipeline.id = UUID("450e8400-e29b-41d4-a716-446655440000")
         expected_pipeline.name = "etl-daily"
 
-        mock_ometa.create_or_update.return_value = expected_pipeline
+        mock_umeta.create_or_update.return_value = expected_pipeline
 
         from metadata.sdk import Pipelines
 
@@ -277,14 +277,14 @@ class TestImprovedPipelineEntity(unittest.TestCase):
 
         # Assert
         self.assertEqual(result.name, "etl-daily")
-        mock_ometa.create_or_update.assert_called_once()
+        mock_umeta.create_or_update.assert_called_once()
 
     @patch("metadata.sdk.entities.pipelines.Pipelines._get_client")
     def test_retrieve_pipeline_with_tasks(self, mock_get_client):
         """Test retrieving pipeline with tasks"""
         # Arrange
-        mock_ometa = MagicMock()
-        mock_get_client.return_value = mock_ometa
+        mock_umeta = MagicMock()
+        mock_get_client.return_value = mock_umeta
 
         pipeline_id = "450e8400-e29b-41d4-a716-446655440000"
 
@@ -295,7 +295,7 @@ class TestImprovedPipelineEntity(unittest.TestCase):
         expected_pipeline.id = UUID(pipeline_id)
         expected_pipeline.tasks = [task1, task2]
 
-        mock_ometa.get_by_id.return_value = expected_pipeline
+        mock_umeta.get_by_id.return_value = expected_pipeline
 
         from metadata.sdk import Pipelines
 
@@ -314,8 +314,8 @@ class TestImprovedTeamEntity(unittest.TestCase):
     def test_create_team(self, mock_get_client):
         """Test creating a team"""
         # Arrange
-        mock_ometa = MagicMock()
-        mock_get_client.return_value = mock_ometa
+        mock_umeta = MagicMock()
+        mock_get_client.return_value = mock_umeta
 
         create_request = CreateTeamRequest(
             name="data-engineering",
@@ -327,7 +327,7 @@ class TestImprovedTeamEntity(unittest.TestCase):
         expected_team.id = UUID("350e8400-e29b-41d4-a716-446655440000")
         expected_team.name = "data-engineering"
 
-        mock_ometa.create_or_update.return_value = expected_team
+        mock_umeta.create_or_update.return_value = expected_team
 
         from metadata.sdk import Teams
 
@@ -336,7 +336,7 @@ class TestImprovedTeamEntity(unittest.TestCase):
 
         # Assert
         self.assertEqual(result.name, "data-engineering")
-        mock_ometa.create_or_update.assert_called_once()
+        mock_umeta.create_or_update.assert_called_once()
 
 
 class TestImprovedUserEntity(unittest.TestCase):
@@ -346,8 +346,8 @@ class TestImprovedUserEntity(unittest.TestCase):
     def test_create_user(self, mock_get_client):
         """Test creating a user"""
         # Arrange
-        mock_ometa = MagicMock()
-        mock_get_client.return_value = mock_ometa
+        mock_umeta = MagicMock()
+        mock_get_client.return_value = mock_umeta
 
         create_request = CreateUserRequest(
             name="john.doe", email="john.doe@company.com", displayName="John Doe"
@@ -358,7 +358,7 @@ class TestImprovedUserEntity(unittest.TestCase):
         expected_user.name = "john.doe"
         expected_user.email = "john.doe@company.com"
 
-        mock_ometa.create_or_update.return_value = expected_user
+        mock_umeta.create_or_update.return_value = expected_user
 
         from metadata.sdk import Users
 
@@ -368,14 +368,14 @@ class TestImprovedUserEntity(unittest.TestCase):
         # Assert
         self.assertEqual(result.name, "john.doe")
         self.assertEqual(result.email, "john.doe@company.com")
-        mock_ometa.create_or_update.assert_called_once()
+        mock_umeta.create_or_update.assert_called_once()
 
     @patch("metadata.sdk.entities.users.Users._get_client")
     def test_delete_user(self, mock_get_client):
         """Test deleting a user"""
         # Arrange
-        mock_ometa = MagicMock()
-        mock_get_client.return_value = mock_ometa
+        mock_umeta = MagicMock()
+        mock_get_client.return_value = mock_umeta
 
         user_id = "250e8400-e29b-41d4-a716-446655440000"
 
@@ -385,7 +385,7 @@ class TestImprovedUserEntity(unittest.TestCase):
         Users.delete(user_id, hard_delete=True)
 
         # Assert
-        mock_ometa.delete.assert_called_once_with(
+        mock_umeta.delete.assert_called_once_with(
             entity=UserEntity, entity_id=user_id, recursive=False, hard_delete=True
         )
 

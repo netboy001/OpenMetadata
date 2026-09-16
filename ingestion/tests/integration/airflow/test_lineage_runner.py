@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,8 +19,8 @@ from unittest.mock import patch
 from airflow import DAG
 from airflow.operators.bash import BashOperator
 
-from _openmetadata_testutils.ometa import int_admin_ometa
-from airflow_provider_openmetadata.lineage.runner import AirflowLineageRunner
+from _umetadata_testutils.umeta import int_admin_umeta
+from airflow_provider_umetadata.lineage.runner import AirflowLineageRunner
 from metadata.generated.schema.api.data.createDatabase import CreateDatabaseRequest
 from metadata.generated.schema.api.data.createDatabaseSchema import (
     CreateDatabaseSchemaRequest,
@@ -62,7 +62,7 @@ class TestAirflowLineageRuner(TestCase):
     Validate AirflowLineageRunner
     """
 
-    metadata = int_admin_ometa()
+    metadata = int_admin_umeta()
 
     service = CreateDatabaseServiceRequest(
         name=DB_SERVICE_NAME,

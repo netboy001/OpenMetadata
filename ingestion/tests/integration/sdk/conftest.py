@@ -9,8 +9,8 @@ from sqlalchemy import Integer, MetaData, String
 from sqlalchemy import Table as SQATable
 from sqlalchemy import create_engine
 
-from _openmetadata_testutils.ometa import int_admin_ometa
-from _openmetadata_testutils.postgres.conftest import postgres_container
+from _umetadata_testutils.umeta import int_admin_umeta
+from _umetadata_testutils.postgres.conftest import postgres_container
 from metadata.generated.schema.api.data.createDatabase import CreateDatabaseRequest
 from metadata.generated.schema.api.data.createDatabaseSchema import (
     CreateDatabaseSchemaRequest,
@@ -29,13 +29,13 @@ from metadata.generated.schema.entity.services.databaseService import (
     DatabaseService,
     DatabaseServiceType,
 )
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.workflow.metadata import MetadataWorkflow
 
 
 @pytest.fixture(scope="module")
 def metadata():
-    return int_admin_ometa()
+    return int_admin_umeta()
 
 
 @pytest.fixture(scope="module")
@@ -211,7 +211,7 @@ def ingest_metadata(metadata, db_service, schema, test_data):
         "sink": {"type": "metadata-rest", "config": {}},
         "workflowConfig": {
             "loggerLevel": "INFO",
-            "openMetadataServerConfig": metadata.config.model_dump(),
+            "uMetadataServerConfig": metadata.config.model_dump(),
         },
     }
 
@@ -237,13 +237,13 @@ def patch_passwords(db_service, monkeymodule):
         return inner
 
     monkeymodule.setattr(
-        "metadata.ingestion.ometa.ometa_api.OpenMetadata.get_by_name",
-        override_password(OpenMetadata.get_by_name),
+        "metadata.ingestion.umeta.umeta_api.UMetadata.get_by_name",
+        override_password(UMetadata.get_by_name),
     )
 
     monkeymodule.setattr(
-        "metadata.ingestion.ometa.ometa_api.OpenMetadata.get_by_id",
-        override_password(OpenMetadata.get_by_id),
+        "metadata.ingestion.umeta.umeta_api.UMetadata.get_by_id",
+        override_password(UMetadata.get_by_id),
     )
 
 

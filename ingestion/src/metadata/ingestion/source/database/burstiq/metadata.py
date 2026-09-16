@@ -2,14 +2,14 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 """
-BurstIQ LifeGraph source module for OpenMetadata
+BurstIQ LifeGraph source module for UMetadata
 """
 import traceback
 from typing import Any, Iterable, List, Optional, Tuple
@@ -35,8 +35,8 @@ from metadata.generated.schema.entity.data.table import (
 from metadata.generated.schema.entity.services.connections.database.burstIQConnection import (
     BurstIQConnection,
 )
-from metadata.generated.schema.entity.services.connections.metadata.openMetadataConnection import (
-    OpenMetadataConnection,
+from metadata.generated.schema.entity.services.connections.metadata.uMetadataConnection import (
+    UMetadataConnection,
 )
 from metadata.generated.schema.entity.services.ingestionPipelines.status import (
     StackTraceError,
@@ -54,8 +54,8 @@ from metadata.generated.schema.type.basic import (
 )
 from metadata.ingestion.api.models import Either
 from metadata.ingestion.api.steps import InvalidSourceException
-from metadata.ingestion.models.ometa_classification import OMetaTagAndClassification
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.models.umeta_classification import UMetaTagAndClassification
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.database.burstiq.client import BurstIQClient
 from metadata.ingestion.source.database.burstiq.connection import get_connection
 from metadata.ingestion.source.database.burstiq.models import BurstIQDictionary
@@ -73,7 +73,7 @@ class Burstiqsource(DatabaseServiceSource):
     Database metadata from BurstIQ LifeGraph
     """
 
-    def __init__(self, config: WorkflowSource, metadata: OpenMetadata):
+    def __init__(self, config: WorkflowSource, metadata: UMetadata):
         super().__init__()
         self.config = config
         self.metadata = metadata
@@ -94,7 +94,7 @@ class Burstiqsource(DatabaseServiceSource):
     def create(
         cls,
         config_dict,
-        metadata: OpenMetadataConnection,
+        metadata: UMetadataConnection,
         pipeline_name: Optional[str] = None,
     ):
         config: WorkflowSource = WorkflowSource.model_validate(config_dict)
@@ -268,7 +268,7 @@ class Burstiqsource(DatabaseServiceSource):
         self, attribute, table_name: str
     ) -> Optional[Column]:
         """
-        Process a single BurstIQ attribute and convert it to an OpenMetadata Column
+        Process a single BurstIQ attribute and convert it to an UMetadata Column
 
         Args:
             attribute: BurstIQ attribute object
@@ -278,7 +278,7 @@ class Burstiqsource(DatabaseServiceSource):
             Column object or None if processing fails
         """
         try:
-            # Map BurstIQ data types to OpenMetadata data types
+            # Map BurstIQ data types to UMetadata data types
             datatype_str, array_element_type = self._map_burstiq_datatype(
                 attribute.datatype
             )
@@ -332,7 +332,7 @@ class Burstiqsource(DatabaseServiceSource):
         self, table_name: str, dictionary: BurstIQDictionary
     ) -> Iterable[Column]:
         """
-        Process BurstIQ dictionary attributes and convert them to OpenMetadata columns
+        Process BurstIQ dictionary attributes and convert them to UMetadata columns
 
         Args:
             table_name: Name of the table
@@ -348,17 +348,17 @@ class Burstiqsource(DatabaseServiceSource):
 
     def _map_burstiq_datatype(self, burstiq_type: str) -> Tuple[str, Optional[str]]:
         """
-        Map BurstIQ data types to OpenMetadata/SQL data types
+        Map BurstIQ data types to UMetadata/SQL data types
 
         Args:
             burstiq_type: BurstIQ data type (e.g., INTEGER, STRING, DATETIME, BOOLEAN_ARRAY, etc.)
 
         Returns:
             Tuple of (mapped_data_type, array_element_type)
-            - mapped_data_type: The OpenMetadata data type
+            - mapped_data_type: The UMetadata data type
             - array_element_type: The element type for arrays (None for non-array types)
         """
-        # BurstIQ to OpenMetadata datatype mapping
+        # BurstIQ to UMetadata datatype mapping
         type_mapping = {
             "STRING": "STRING",
             "INTEGER": "INT",
@@ -540,7 +540,7 @@ class Burstiqsource(DatabaseServiceSource):
 
     def yield_tag(
         self, schema_name: str
-    ) -> Iterable[Either[OMetaTagAndClassification]]:
+    ) -> Iterable[Either[UMetaTagAndClassification]]:
         """
         BurstIQ does not support tags at this time
         """

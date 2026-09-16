@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -12,7 +12,7 @@
 Unit tests for PinotDB column type mapping.
 
 Verifies that Pinot scalar types resolve to the correct
-OpenMetadata DataType string via get_type_custom + ColumnTypeParser.
+UMetadata DataType string via get_type_custom + ColumnTypeParser.
 Complex types (struct, map, array) are excluded: ARRAY requires a
 constructor argument and their BLOB/ARRAY mappings are covered by
 the generic column_type_parser tests.
@@ -24,7 +24,7 @@ from metadata.ingestion.source.database.pinotdb.metadata import get_type_custom
 
 
 def _resolve(pinot_type: str) -> str:
-    """Return the OpenMetadata type string for a given Pinot type name."""
+    """Return the UMetadata type string for a given Pinot type name."""
     sqa_class = get_type_custom(pinot_type, None)
     assert sqa_class is not None, f"get_type_custom returned None for '{pinot_type}'"
     return ColumnTypeParser.get_column_type(sqa_class())

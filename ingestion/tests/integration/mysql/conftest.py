@@ -5,7 +5,7 @@ import pytest
 from sqlalchemy import create_engine
 from testcontainers.mysql import MySqlContainer
 
-from _openmetadata_testutils.helpers.docker import try_bind
+from _umetadata_testutils.helpers.docker import try_bind
 from metadata.generated.schema.api.services.createDatabaseService import (
     CreateDatabaseServiceRequest,
 )
@@ -54,7 +54,7 @@ def mysql_container(tmp_path_factory):
         engine.dispose()
         assert_dangling_connections(container, 1)
         yield container
-        # Needs to be handled for Test Cases https://github.com/open-metadata/OpenMetadata/issues/21187
+        # Needs to be handled for Test Cases https://github.com/u-metadata/UMetadata/issues/21187
         assert_dangling_connections(container, 9)
 
 

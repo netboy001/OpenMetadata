@@ -47,9 +47,9 @@ sink:
 
 workflowConfig:
   loggerLevel: INFO  # DEBUG, INFO, WARN or ERROR
-  openMetadataServerConfig:
+  uMetadataServerConfig:
     hostPort: http://localhost:8585/api
-    authProvider: openmetadata
+    authProvider: umetadata
     securityConfig:
       jwtToken: <your-jwt-token-here>
 
@@ -57,10 +57,10 @@ workflowConfig:
 # metadata ingest -c /path/to/confluent_cdc.yaml
 
 # Prerequisites:
-# 1. OpenMetadata server running at http://localhost:8585
-# 2. MySQL database service already ingested into OpenMetadata
-# 3. Postgres database service already ingested into OpenMetadata
-# 4. Kafka messaging service already ingested into OpenMetadata
+# 1. UMetadata server running at http://localhost:8585
+# 2. MySQL database service already ingested into UMetadata
+# 3. Postgres database service already ingested into UMetadata
+# 4. Kafka messaging service already ingested into UMetadata
 # 5. Kafka Connect connectors configured and running
 #
 # The connector will create:

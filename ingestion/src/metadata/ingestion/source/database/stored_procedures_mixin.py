@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,7 +31,7 @@ from metadata.generated.schema.metadataIngestion.databaseServiceQueryLineagePipe
 from metadata.ingestion.api.models import Either
 from metadata.ingestion.api.status import Status
 from metadata.ingestion.lineage.models import ConnectionTypeDialectMapper
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.ingestion.source.database.lineage_processors import (
     ProcedureAndQuery,
     QueryByProcedure,
@@ -67,7 +67,7 @@ class StoredProcedureLineageMixin(ABC):
     source_config: DatabaseServiceQueryLineagePipeline
     engine: Engine
     stored_procedure_query_lineage: bool
-    metadata: OpenMetadata
+    metadata: UMetadata
 
     @abstractmethod
     def get_stored_procedure_sql_statement(self) -> str:

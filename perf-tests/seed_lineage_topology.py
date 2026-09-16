@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-Seed a synthetic table-lineage topology into a running OpenMetadata instance.
+Seed a synthetic table-lineage topology into a running UMetadata instance.
 
 The script is intentionally self-contained so it can be run by anyone with:
-- a reachable OpenMetadata instance
+- a reachable UMetadata instance
 - a JWT or personal access token
 - Python 3 standard library only
 """
@@ -51,7 +51,7 @@ def stringify_param(value: Any) -> str:
     return str(value)
 
 
-class OpenMetadataClient:
+class UMetadataClient:
     def __init__(self, base_url: str, token: str | None, timeout_secs: int) -> None:
         self.api_base = base_url.rstrip("/") + "/api/v1"
         self.token = token
@@ -142,17 +142,17 @@ class OpenMetadataClient:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Seed a synthetic lineage topology into a running OpenMetadata instance."
+        description="Seed a synthetic lineage topology into a running UMetadata instance."
     )
     parser.add_argument(
         "--base-url",
         default="http://localhost:8585",
-        help="OpenMetadata server root URL (default: http://localhost:8585)",
+        help="UMetadata server root URL (default: http://localhost:8585)",
     )
     parser.add_argument(
         "--token",
-        default=os.environ.get("OPENMETADATA_JWT_TOKEN") or os.environ.get("OM_TOKEN"),
-        help="JWT or personal access token. Defaults to OPENMETADATA_JWT_TOKEN or OM_TOKEN.",
+        default=os.environ.get("UMETADATA_JWT_TOKEN") or os.environ.get("OM_TOKEN"),
+        help="JWT or personal access token. Defaults to UMETADATA_JWT_TOKEN or OM_TOKEN.",
     )
     parser.add_argument(
         "--depth",
@@ -270,7 +270,7 @@ def glossary_tag_label(term_fqn: str) -> dict[str, Any]:
     }
 
 
-def ensure_classification(client: OpenMetadataClient, name: str) -> None:
+def ensure_classification(client: UMetadataClient, name: str) -> None:
     status, _ = client.get_json(
         f"/classifications/name/{path_name(name)}",
         allow_not_found=True,
@@ -286,7 +286,7 @@ def ensure_classification(client: OpenMetadataClient, name: str) -> None:
         )
 
 
-def ensure_tag(client: OpenMetadataClient, classification: str, tag_name: str) -> str:
+def ensure_tag(client: UMetadataClient, classification: str, tag_name: str) -> str:
     tag_fqn = f"{classification}.{tag_name}"
     status, _ = client.get_json(f"/tags/name/{path_name(tag_fqn)}", allow_not_found=True)
     if status == 404:
@@ -304,7 +304,7 @@ def ensure_tag(client: OpenMetadataClient, classification: str, tag_name: str) -
 
 
 def ensure_glossary_term(
-    client: OpenMetadataClient,
+    client: UMetadataClient,
     glossary_name: str,
     term_name: str,
 ) -> str:
@@ -341,7 +341,7 @@ def ensure_glossary_term(
     return term["fullyQualifiedName"]
 
 
-def create_service(client: OpenMetadataClient, namespace: str, args: argparse.Namespace) -> dict[str, Any]:
+def create_service(client: UMetadataClient, namespace: str, args: argparse.Namespace) -> dict[str, Any]:
     service_name = f"svc_{namespace}"
     log(f"[seed] creating database service {service_name}")
     return client.post_json(
@@ -363,7 +363,7 @@ def create_service(client: OpenMetadataClient, namespace: str, args: argparse.Na
     )
 
 
-def create_database(client: OpenMetadataClient, namespace: str, service_fqn: str) -> dict[str, Any]:
+def create_database(client: UMetadataClient, namespace: str, service_fqn: str) -> dict[str, Any]:
     database_name = f"db_{namespace}"
     log(f"[seed] creating database {database_name}")
     return client.post_json(
@@ -375,7 +375,7 @@ def create_database(client: OpenMetadataClient, namespace: str, service_fqn: str
     )
 
 
-def create_schema(client: OpenMetadataClient, namespace: str, database_fqn: str) -> dict[str, Any]:
+def create_schema(client: UMetadataClient, namespace: str, database_fqn: str) -> dict[str, Any]:
     schema_name = f"sch_{namespace}"
     log(f"[seed] creating schema {schema_name}")
     return client.post_json(
@@ -388,7 +388,7 @@ def create_schema(client: OpenMetadataClient, namespace: str, database_fqn: str)
 
 
 def create_table(
-    client: OpenMetadataClient,
+    client: UMetadataClient,
     schema_fqn: str,
     table_name: str,
     tag_fqn: str,
@@ -425,7 +425,7 @@ def create_table(
     )
 
 
-def add_lineage(client: OpenMetadataClient, from_table: TableRef, to_table: TableRef) -> None:
+def add_lineage(client: UMetadataClient, from_table: TableRef, to_table: TableRef) -> None:
     client.put_json(
         "/lineage",
         {
@@ -451,7 +451,7 @@ def add_lineage(client: OpenMetadataClient, from_table: TableRef, to_table: Tabl
 
 
 def wait_for_lineage(
-    client: OpenMetadataClient,
+    client: UMetadataClient,
     root_fqn: str,
     depth: int,
     expected_nodes: int,
@@ -505,13 +505,13 @@ def main() -> int:
     args = parse_args()
     if not args.token:
         raise SystemExit(
-            "A token is required. Set OPENMETADATA_JWT_TOKEN or pass --token explicitly."
+            "A token is required. Set UMETADATA_JWT_TOKEN or pass --token explicitly."
         )
 
     output_dir = ensure_output_dir(args.output_dir)
     namespace = build_namespace(args)
     glossary_name = args.glossary_name or f"gl_{namespace}"
-    client = OpenMetadataClient(args.base_url, args.token, args.request_timeout_secs)
+    client = UMetadataClient(args.base_url, args.token, args.request_timeout_secs)
 
     started_at = utc_now()
     expected_nodes = args.depth * args.width

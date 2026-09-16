@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/open-metadata/OpenMetadata/blob/main/ingestion/LICENSE
+#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -196,7 +196,7 @@ def replace_special_with(raw: str, replacement: str) -> str:
 
 def get_standard_chart_type(raw_chart_type: str) -> ChartType:
     """
-    Get standard chart type supported by OpenMetadata based on raw chart type input
+    Get standard chart type supported by UMetadata based on raw chart type input
     :param raw_chart_type: raw chart type to be standardize
     :return: standard chart type
     """

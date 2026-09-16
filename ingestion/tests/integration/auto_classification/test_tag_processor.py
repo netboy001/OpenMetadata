@@ -1,7 +1,7 @@
 import pytest
 from dirty_equals import Contains, HasAttributes, IsInstance
 
-from _openmetadata_testutils.ometa import int_admin_ometa
+from _umetadata_testutils.umeta import int_admin_umeta
 from metadata.generated.schema.api.services.createDatabaseService import (
     CreateDatabaseServiceRequest,
 )
@@ -26,7 +26,7 @@ from metadata.generated.schema.metadataIngestion.databaseServiceMetadataPipeline
 )
 from metadata.generated.schema.type.filterPattern import FilterPattern
 from metadata.generated.schema.type.tagLabel import TagLabel
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
+from metadata.ingestion.umeta.umeta_api import UMetadata
 from metadata.workflow.classification import AutoClassificationWorkflow
 from metadata.workflow.metadata import MetadataWorkflow
 
@@ -74,20 +74,20 @@ def load_metadata(run_workflow, ingestion_config) -> MetadataWorkflow:
 
 
 @pytest.fixture(scope="module")
-def bot_metadata(metadata) -> OpenMetadata:
-    """Get the bot ometa"""
+def bot_metadata(metadata) -> UMetadata:
+    """Get the bot umeta"""
     automator_bot: User = metadata.get_by_name(entity=User, fqn="ingestion-bot")
     automator_bot_auth: AuthenticationMechanism = metadata.get_by_id(
         entity=AuthenticationMechanism, entity_id=automator_bot.id
     )
 
-    return int_admin_ometa(jwt=automator_bot_auth.config.JWTToken.get_secret_value())
+    return int_admin_umeta(jwt=automator_bot_auth.config.JWTToken.get_secret_value())
 
 
 @pytest.fixture(scope="module")
 def bot_workflow_config(bot_metadata, workflow_config):
     bot_workflow_config = workflow_config.copy()
-    bot_workflow_config["openMetadataServerConfig"] = bot_metadata.config.model_dump()
+    bot_workflow_config["uMetadataServerConfig"] = bot_metadata.config.model_dump()
     return bot_workflow_config
 
 
@@ -128,7 +128,7 @@ def run_autoclassification(
 
 def test_it_returns_the_expected_classifications(
     db_service: DatabaseService,
-    metadata: OpenMetadata,
+    metadata: UMetadata,
     run_autoclassification: AutoClassificationWorkflow,
 ) -> None:
     (
