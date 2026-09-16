@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/ai/aiGovernancePolicy.json",
+  "$id": "https://wondersgroup.com/schema/entity/ai/aiGovernancePolicy.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "AIGovernancePolicy",
   "$comment": "@om-entity-type",

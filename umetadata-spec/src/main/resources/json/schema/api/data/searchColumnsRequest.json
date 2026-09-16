@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/api/data/searchColumnsRequest.json",
+  "$id": "https://wondersgroup.com/schema/api/data/searchColumnsRequest.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "SearchColumnsRequest",
   "description": "Request to search and group columns by name across different entity types.",

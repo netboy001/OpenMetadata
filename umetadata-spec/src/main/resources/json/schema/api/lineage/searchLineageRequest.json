@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/api/lineage/searchLineageRequest.json",
+  "$id": "https://wondersgroup.com/schema/api/lineage/searchLineageRequest.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "SearchLineageRequest",
   "description": "Search Lineage Request Schema to find linage from Elastic Search.",

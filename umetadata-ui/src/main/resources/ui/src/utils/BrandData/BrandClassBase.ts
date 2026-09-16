@@ -28,12 +28,12 @@ class BrandClassBase {
   public getReleaseLink(version: string) {
     const versionWithV = 'v' + version;
 
-    return `https://u-metadata.org/product-updates#${versionWithV}`;
+    return `https://wondersgroup.com/product-updates#${versionWithV}`;
   }
 
   public getBlogLink(_version: string) {
     // Since medium doens't follow any fixed structure we will just return the blog link
-    return 'https://blog.u-metadata.org/announcing-umetadata-1-8-948eb14d41c7';
+    return 'https://blog.wondersgroup.com/announcing-umetadata-1-8-948eb14d41c7';
   }
 
   public getWelcomeScreenImg() {

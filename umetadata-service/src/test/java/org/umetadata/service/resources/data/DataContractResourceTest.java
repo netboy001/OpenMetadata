@@ -2395,7 +2395,7 @@ public class DataContractResourceTest extends EntityResourceTest<DataContract, C
     Table table = createUniqueTable(test.getDisplayName());
 
     // Get admin user entity reference
-    Map<String, String> authHeaders = SecurityUtil.authHeaders("admin@u-metadata.org");
+    Map<String, String> authHeaders = SecurityUtil.authHeaders("admin@wondersgroup.com");
     WebTarget userTarget = getResource("users").path("name").path("admin");
     Response response = SecurityUtil.addHeaders(userTarget, authHeaders).get();
     User adminUser = TestUtils.readResponse(response, User.class, Status.OK.getStatusCode());
@@ -2427,7 +2427,7 @@ public class DataContractResourceTest extends EntityResourceTest<DataContract, C
     DataContract created = createDataContract(create);
 
     // Get admin user entity reference
-    Map<String, String> authHeaders = SecurityUtil.authHeaders("admin@u-metadata.org");
+    Map<String, String> authHeaders = SecurityUtil.authHeaders("admin@wondersgroup.com");
     WebTarget userTarget = getResource("users").path("name").path("admin");
     Response response = SecurityUtil.addHeaders(userTarget, authHeaders).get();
     User adminUser = TestUtils.readResponse(response, User.class, Status.OK.getStatusCode());
@@ -2454,7 +2454,7 @@ public class DataContractResourceTest extends EntityResourceTest<DataContract, C
     Table table = createUniqueTable(test.getDisplayName());
 
     // Get admin user entity reference
-    Map<String, String> authHeaders = SecurityUtil.authHeaders("admin@u-metadata.org");
+    Map<String, String> authHeaders = SecurityUtil.authHeaders("admin@wondersgroup.com");
     WebTarget userTarget = getResource("users").path("name").path("admin");
     Response response = SecurityUtil.addHeaders(userTarget, authHeaders).get();
     User adminUser = TestUtils.readResponse(response, User.class, Status.OK.getStatusCode());
@@ -2489,7 +2489,7 @@ public class DataContractResourceTest extends EntityResourceTest<DataContract, C
     Table table = createUniqueTable(test.getDisplayName());
 
     // Get user entity references
-    Map<String, String> authHeaders = SecurityUtil.authHeaders("admin@u-metadata.org");
+    Map<String, String> authHeaders = SecurityUtil.authHeaders("admin@wondersgroup.com");
     WebTarget userTarget = getResource("users").path("name").path("admin");
     Response response = SecurityUtil.addHeaders(userTarget, authHeaders).get();
     User adminUser = TestUtils.readResponse(response, User.class, Status.OK.getStatusCode());

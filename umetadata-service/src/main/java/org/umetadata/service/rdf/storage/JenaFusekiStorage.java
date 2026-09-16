@@ -29,15 +29,15 @@ import org.umetadata.schema.api.configuration.rdf.RdfConfiguration;
 @Slf4j
 public class JenaFusekiStorage implements RdfStorageInterface {
 
-  private static final String KNOWLEDGE_GRAPH = "https://u-metadata.org/graph/knowledge";
-  private static final String METADATA_GRAPH = "https://u-metadata.org/graph/metadata";
+  private static final String KNOWLEDGE_GRAPH = "https://wondersgroup.com/graph/knowledge";
+  private static final String METADATA_GRAPH = "https://wondersgroup.com/graph/metadata";
 
   private final RDFConnection connection;
   private final String baseUri;
 
   public JenaFusekiStorage(RdfConfiguration config) {
     this.baseUri =
-        config.getBaseUri() != null ? config.getBaseUri().toString() : "https://u-metadata.org/";
+        config.getBaseUri() != null ? config.getBaseUri().toString() : "https://wondersgroup.com/";
 
     String endpoint =
         config.getRemoteEndpoint() != null && !config.getRemoteEndpoint().toString().isEmpty()

@@ -231,7 +231,7 @@ def set_google_credentials(
 
     raise InvalidGcpConfigException(
         f"Error trying to set GCP credentials with {gcp_credentials}."
-        " Check https://docs.u-metadata.org/connectors/database/bigquery "
+        " Check https://docs.wondersgroup.com/connectors/database/bigquery "
     )
 
 

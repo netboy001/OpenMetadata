@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/api/lineage/openlineage/openLineageRunEvent.json",
+  "$id": "https://wondersgroup.com/schema/api/lineage/openlineage/openLineageRunEvent.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "OpenLineageRunEvent",
   "description": "OpenLineage RunEvent representing a job execution with its inputs and outputs.",

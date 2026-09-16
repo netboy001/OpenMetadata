@@ -124,19 +124,19 @@ public final class TestUtils {
   // Setting length at +256 since this is the length of the longest EntityName for Test Suites
   public static String LONG_ENTITY_NAME = "a".repeat(256 + 1);
   public static final Map<String, String> ADMIN_AUTH_HEADERS =
-      authHeaders(ADMIN_USER_NAME + "@u-metadata.org");
+      authHeaders(ADMIN_USER_NAME + "@wondersgroup.com");
   public static final String GOVERNANCE_BOT = "governance-bot";
   public static final Map<String, String> GOVERNANCE_BOT_AUTH_HEADERS =
-      authHeaders(GOVERNANCE_BOT + "@u-metadata.org");
+      authHeaders(GOVERNANCE_BOT + "@wondersgroup.com");
   public static final String INGESTION_BOT = "ingestion-bot";
   public static final Map<String, String> INGESTION_BOT_AUTH_HEADERS =
-      authHeaders(INGESTION_BOT + "@u-metadata.org");
+      authHeaders(INGESTION_BOT + "@wondersgroup.com");
   public static final String TEST_USER_NAME = "test";
   public static final Map<String, String> TEST_AUTH_HEADERS =
-      authHeaders(TEST_USER_NAME + "@u-metadata.org");
+      authHeaders(TEST_USER_NAME + "@wondersgroup.com");
   public static final String USER_WITH_CREATE_PERMISSION_NAME = "testWithCreateUserPermission";
   public static final Map<String, String> USER_WITH_CREATE_HEADERS =
-      authHeaders(USER_WITH_CREATE_PERMISSION_NAME + "@u-metadata.org");
+      authHeaders(USER_WITH_CREATE_PERMISSION_NAME + "@wondersgroup.com");
 
   public static final UUID NON_EXISTENT_ENTITY = UUID.randomUUID();
 

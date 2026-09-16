@@ -6,7 +6,7 @@ In this section, we provide guides and references to use the Metabase connector.
 
 We will extract the metadata using the <a href="https://help.qlik.com/en-US/sense-developer/May2023/Subsystems/EngineAPI/Content/Sense_EngineAPI/introducing-engine-API.htm" target="_blank">Qlik Sense Engine JSON API</a>.
 
-You can find further information on the Qlik Sense connector in the <a href="https://docs.u-metadata.org/connectors/dashboard/qliksense" target="_blank">docs</a>.
+You can find further information on the Qlik Sense connector in the <a href="https://docs.wondersgroup.com/connectors/dashboard/qliksense" target="_blank">docs</a>.
 
 ## Connection Details
 

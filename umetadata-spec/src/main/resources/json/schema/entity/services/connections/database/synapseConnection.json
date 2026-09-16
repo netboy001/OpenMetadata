@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/services/connections/database/synapseConnection.json",
+  "$id": "https://wondersgroup.com/schema/entity/services/connections/database/synapseConnection.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "SynapseConnection",
   "description": "Synapse Database Connection Config",

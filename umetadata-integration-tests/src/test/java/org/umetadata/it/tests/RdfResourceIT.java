@@ -46,7 +46,7 @@ public class RdfResourceIT {
   static void enableRdf() {
     RdfConfiguration rdfConfig = new RdfConfiguration();
     rdfConfig.setEnabled(true);
-    rdfConfig.setBaseUri(java.net.URI.create("https://u-metadata.org/"));
+    rdfConfig.setBaseUri(java.net.URI.create("https://wondersgroup.com/"));
     rdfConfig.setStorageType(RdfConfiguration.StorageType.FUSEKI);
     rdfConfig.setRemoteEndpoint(java.net.URI.create(TestSuiteBootstrap.getFusekiEndpoint()));
     rdfConfig.setUsername("admin");

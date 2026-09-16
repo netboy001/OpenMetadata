@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/services/connections/llm/anthropicConnection.json",
+  "$id": "https://wondersgroup.com/schema/entity/services/connections/llm/anthropicConnection.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "AnthropicConnection",
   "description": "Anthropic (Claude) LLM Service Connection Config",

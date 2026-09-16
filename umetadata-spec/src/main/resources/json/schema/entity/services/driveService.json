@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/services/driveService.json",
+  "$id": "https://wondersgroup.com/schema/entity/services/driveService.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Drive Service",
   "description": "This schema defines the Drive Service entity, such as Google Drive.",

@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/applications/appRunRecord.json",
+  "$id": "https://wondersgroup.com/schema/entity/applications/appRunRecord.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "AppRunRecord",
   "javaType": "org.umetadata.schema.entity.app.AppRunRecord",

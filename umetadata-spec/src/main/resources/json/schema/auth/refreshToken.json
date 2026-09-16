@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/auth/refreshToken.json",
+  "$id": "https://wondersgroup.com/schema/auth/refreshToken.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "RefreshToken",
   "description": "This schema defines Refresh Token Schema.",

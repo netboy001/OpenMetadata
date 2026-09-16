@@ -4,7 +4,7 @@ In this section, we provide guides and references to use the Doris connector.
 
 ## Requirements
 
-You can find further information on the Doris connector in the <a href="https://docs.u-metadata.org/connectors/database/doris" target="_blank">docs</a>.
+You can find further information on the Doris connector in the <a href="https://docs.wondersgroup.com/connectors/database/doris" target="_blank">docs</a>.
 
 ## Connection Details
 

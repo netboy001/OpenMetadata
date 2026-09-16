@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/datacontract/dataContractResult.json",
+  "$id": "https://wondersgroup.com/schema/entity/datacontract/dataContractResult.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "DataContractResult",
   "description": "Schema to capture data contract execution results over time.",

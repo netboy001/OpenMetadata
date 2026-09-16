@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/api/lineage/nodeInformation.json",
+  "$id": "https://wondersgroup.com/schema/api/lineage/nodeInformation.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "NodeInformation",
   "javaType": "org.umetadata.schema.type.lineage.NodeInformation",

@@ -230,7 +230,7 @@ authorizerConfiguration:
   containerRequestFilter: ${AUTHORIZER_REQUEST_FILTER:-org.umetadata.service.security.JwtFilter}
   adminPrincipals: ${AUTHORIZER_ADMIN_PRINCIPALS:-[admin]}
   allowedEmailRegistrationDomains: ${AUTHORIZER_ALLOWED_REGISTRATION_DOMAIN:-["all"]}
-  principalDomain: ${AUTHORIZER_PRINCIPAL_DOMAIN:-"u-metadata.org"}
+  principalDomain: ${AUTHORIZER_PRINCIPAL_DOMAIN:-"wondersgroup.com"}
   allowedDomains: ${AUTHORIZER_ALLOWED_DOMAINS:-[]}
   enforcePrincipalDomain: ${AUTHORIZER_ENFORCE_PRINCIPAL_DOMAIN:-false}
   enableSecureSocketConnection : ${AUTHORIZER_ENABLE_SECURE_SOCKET:-false}
@@ -341,7 +341,7 @@ authenticationConfiguration:
 jwtTokenConfiguration:
   rsapublicKeyFilePath: ${RSA_PUBLIC_KEY_FILE_PATH:-"./conf/public_key.der"}
   rsaprivateKeyFilePath: ${RSA_PRIVATE_KEY_FILE_PATH:-"./conf/private_key.der"}
-  jwtissuer: ${JWT_ISSUER:-"u-metadata.org"}
+  jwtissuer: ${JWT_ISSUER:-"wondersgroup.com"}
   keyId: ${JWT_KEY_ID:-"Gb389a-9f76-gdjs-a92j-0242bk94356"}
 
 elasticsearch:
@@ -573,7 +573,7 @@ operationalConfig:
 
 rdf:
   enabled: ${RDF_ENABLED:-false}
-  baseUri: ${RDF_BASE_URI:-"https://u-metadata.org/"}
+  baseUri: ${RDF_BASE_URI:-"https://wondersgroup.com/"}
   storageType: ${RDF_STORAGE_TYPE:-"FUSEKI"}
   remoteEndpoint: ${RDF_ENDPOINT:-"http://localhost:3030/umetadata"}
   username: ${RDF_REMOTE_USERNAME:-"admin"}

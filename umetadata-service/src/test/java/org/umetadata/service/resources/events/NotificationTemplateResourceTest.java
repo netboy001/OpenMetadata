@@ -422,7 +422,7 @@ public class NotificationTemplateResourceTest
             + "You're receiving this message as part of your UMetadata change notification subscription."
             + "</td></tr>"
             + "<tr><td class=\"p-sm\" align=\"left\" style=\"padding:0 24px 32px 24px; font-family:-apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; font-size:12px; line-height:18px; color:#6b7280;\">"
-            + "Need a hand? The <a href=\"https://docs.u-metadata.org\" target=\"_blank\" style=\"color:#6b4cf6; text-decoration:underline;\">UMetadata docs</a> and <a href=\"https://u-metadata.org/community\" target=\"_blank\" style=\"color:#6b4cf6; text-decoration:underline;\">community</a> are ready to help."
+            + "Need a hand? The <a href=\"https://docs.wondersgroup.com\" target=\"_blank\" style=\"color:#6b4cf6; text-decoration:underline;\">UMetadata docs</a> and <a href=\"https://wondersgroup.com/community\" target=\"_blank\" style=\"color:#6b4cf6; text-decoration:underline;\">community</a> are ready to help."
             + "</td></tr></table>"
             + "<!--[if (gte mso 9)|(IE)]></td></tr></table><![endif]-->"
             + "</td></tr></table>"
@@ -1533,7 +1533,7 @@ public class NotificationTemplateResourceTest
     CreateUser createUser =
         new CreateUser()
             .withName("userWithEditUserNotificationTemplate")
-            .withEmail("userWithEditUserNotificationTemplate@u-metadata.org")
+            .withEmail("userWithEditUserNotificationTemplate@wondersgroup.com")
             .withRoles(List.of(role.getId()))
             .withIsBot(false);
 

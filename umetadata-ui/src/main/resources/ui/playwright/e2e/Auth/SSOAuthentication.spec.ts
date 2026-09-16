@@ -756,7 +756,7 @@ test.describe('SSO Authentication with Mock OIDC Provider', () => {
           const header = toBase64Url({ alg: 'RS256', typ: 'JWT' });
           const payload = toBase64Url({
             sub: 'admin',
-            email: 'admin@u-metadata.org',
+            email: 'admin@wondersgroup.com',
             exp: Math.floor(Date.now() / 1000) - 3600,
           });
           const expiredJwt = `${header}.${payload}.fakesig`;

@@ -128,7 +128,7 @@ public class OpenLineageResourceTest extends UMetadataApplicationTest {
   private void checkAuthorization(
       String userName, OpenLineageRunEvent event, boolean shouldThrowException)
       throws HttpResponseException {
-    Map<String, String> authHeaders = authHeaders(userName + "@u-metadata.org");
+    Map<String, String> authHeaders = authHeaders(userName + "@wondersgroup.com");
 
     if (shouldThrowException) {
       assertResponse(

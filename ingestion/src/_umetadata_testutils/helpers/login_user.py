@@ -16,7 +16,7 @@ class BearerAuth(AuthBase):
 def login_user(client: FastHttpSession) -> BearerAuth:
     resp = client.post(
         "/api/v1/users/login",
-        json={"email": "admin@u-metadata.org", "password": "YWRtaW4="},
+        json={"email": "admin@wondersgroup.com", "password": "YWRtaW4="},
     )
     token = resp.json().get("accessToken")
     return BearerAuth(token)

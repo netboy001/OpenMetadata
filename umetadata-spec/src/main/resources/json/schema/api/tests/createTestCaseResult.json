@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/tests/createTestCaseResult.json",
+  "$id": "https://wondersgroup.com/schema/tests/createTestCaseResult.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "CreateTestCaseResult",
   "description": "Schema to create a new test case result .",

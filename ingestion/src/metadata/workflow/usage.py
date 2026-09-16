@@ -46,7 +46,7 @@ class UsageWorkflow(IngestionWorkflow):
             raise WorkflowExecutionError(
                 "ServiceName is required field for executing the Usage Workflow. "
                 "You can find more information on how to build the YAML "
-                "configuration here: https://docs.u-metadata.org/connectors"
+                "configuration here: https://docs.wondersgroup.com/connectors"
             )
 
         source_class = self.import_source_class()

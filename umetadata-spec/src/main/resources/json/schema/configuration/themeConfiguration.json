@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/configuration/themeConfiguration.json",
+  "$id": "https://wondersgroup.com/schema/entity/configuration/themeConfiguration.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "ThemeConfiguration",
   "description": "This schema defines the Theme Configuration for UI elements.",

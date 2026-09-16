@@ -19573,7 +19573,7 @@
         }
       },
       "unrendered_config": {},
-      "url": "https://docs.u-metadata.org/api/v1/tables",
+      "url": "https://docs.wondersgroup.com/api/v1/tables",
       "depends_on": {
         "macros": [],
         "nodes": [
@@ -19629,7 +19629,7 @@
         }
       },
       "unrendered_config": {},
-      "url": "https://docs.u-metadata.org/api/v1/tables",
+      "url": "https://docs.wondersgroup.com/api/v1/tables",
       "depends_on": {
         "macros": [],
         "nodes": [

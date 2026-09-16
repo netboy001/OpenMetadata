@@ -1,5 +1,5 @@
 {
-    "$id": "https://u-metadata.org/schema/entity/services/connections/database/common/jwtAuth.json",
+    "$id": "https://wondersgroup.com/schema/entity/services/connections/database/common/jwtAuth.json",
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "JWT Auth",
     "description": "Common Database Connection Config",

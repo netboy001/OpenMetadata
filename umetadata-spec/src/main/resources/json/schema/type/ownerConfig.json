@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/type/ownerConfig.json",
+  "$id": "https://wondersgroup.com/schema/type/ownerConfig.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Owner Configuration",
   "description": "Configuration for assigning owners to ingested entities following topology hierarchy with inheritance support",

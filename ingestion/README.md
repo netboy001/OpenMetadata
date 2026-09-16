@@ -11,7 +11,7 @@ UMetadata Ingestion is a simple framework to build connectors and ingest metadat
 
 ### Docs
 
-Please refer to the documentation here https://docs.u-metadata.org/connectors
+Please refer to the documentation here https://docs.wondersgroup.com/connectors
 
 <img referrerpolicy="no-referrer-when-downgrade" src="https://static.scarf.sh/a.png?x-pxid=c1a30c7c-6dc7-4928-95bf-6ee08ca6aa6a" />
 

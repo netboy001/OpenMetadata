@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/applications/configuration/external/automator/removeDataProductAction.json",
+  "$id": "https://wondersgroup.com/schema/entity/applications/configuration/external/automator/removeDataProductAction.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "RemoveDataProductAction",
   "description": "Remove a Data Product to the selected assets.",

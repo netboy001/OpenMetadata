@@ -7,7 +7,7 @@ UMetadata is integrated with kafkaconnect up to version <a href="https://docs.ka
 
 The ingestion framework uses <a href="https://libraries.io/pypi/kafka-connect-py" target="_blank">kafkaconnect python client</a> to connect to the kafkaconnect instance and perform the API calls.
 
-You can find further information on the kafkaconnect connector in the <a href="https://docs.u-metadata.org/connectors/pipeline/kafkaconnect" target="_blank">docs</a>.
+You can find further information on the kafkaconnect connector in the <a href="https://docs.wondersgroup.com/connectors/pipeline/kafkaconnect" target="_blank">docs</a>.
 
 ## Connection Details
 $$section

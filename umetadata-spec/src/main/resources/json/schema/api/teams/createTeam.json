@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/api/teams/createTeam.json",
+  "$id": "https://wondersgroup.com/schema/api/teams/createTeam.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "CreateTeamRequest",
   "description": "Team entity",

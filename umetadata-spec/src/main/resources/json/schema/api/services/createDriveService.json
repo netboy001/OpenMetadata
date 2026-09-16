@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/api/services/createDriveService.json",
+  "$id": "https://wondersgroup.com/schema/api/services/createDriveService.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "CreateDriveServiceRequest",
   "description": "Create Drive Service entity request",

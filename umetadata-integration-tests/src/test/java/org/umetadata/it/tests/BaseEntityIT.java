@@ -4509,16 +4509,16 @@ public abstract class BaseEntityIT<T extends EntityInterface, K> {
 
   private String getBotToken() {
     return org.umetadata.it.auth.JwtAuthProvider.tokenFor(
-        "ingestion-bot@u-metadata.org",
-        "ingestion-bot@u-metadata.org",
+        "ingestion-bot@wondersgroup.com",
+        "ingestion-bot@wondersgroup.com",
         new String[] {"bot"},
         3600);
   }
 
   private String getDataConsumerToken() {
     return org.umetadata.it.auth.JwtAuthProvider.tokenFor(
-        "data-consumer@u-metadata.org",
-        "data-consumer@u-metadata.org",
+        "data-consumer@wondersgroup.com",
+        "data-consumer@wondersgroup.com",
         new String[] {"DataConsumer"},
         3600);
   }

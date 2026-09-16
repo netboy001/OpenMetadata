@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/type/pipelineRuntimeTrend.json",
+  "$id": "https://wondersgroup.com/schema/type/pipelineRuntimeTrend.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Pipeline Runtime Trend",
   "description": "Day-wise pipeline runtime trend showing max, min, and average runtime",

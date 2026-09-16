@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/services/connections/database/prestoConnection.json",
+  "$id": "https://wondersgroup.com/schema/entity/services/connections/database/prestoConnection.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "PrestoConnection",
   "description": "Presto Database Connection Config",

@@ -66,13 +66,13 @@ jest.mock('../../../../utils/BrandData/BrandClassBase', () => ({
     getReleaseLink: jest
       .fn()
       .mockImplementation(
-        (version) => `https://u-metadata.org/product-updates#v${version}`
+        (version) => `https://wondersgroup.com/product-updates#v${version}`
       ),
     getBlogLink: jest
       .fn()
       .mockImplementation(
         () =>
-          'https://blog.u-metadata.org/announcing-umetadata-1-8-948eb14d41c7'
+          'https://blog.wondersgroup.com/announcing-umetadata-1-8-948eb14d41c7'
       ),
   },
 }));
@@ -165,7 +165,7 @@ describe('WhatsNewAlert', () => {
     expect(releaseNotesLink).toBeInTheDocument();
     expect(releaseNotesLink.closest('a')).toHaveAttribute(
       'href',
-      'https://u-metadata.org/product-updates#v1.2.0'
+      'https://wondersgroup.com/product-updates#v1.2.0'
     );
     expect(releaseNotesLink.closest('a')).toHaveAttribute('target', '_blank');
     expect(releaseNotesLink.closest('a')).toHaveAttribute(
@@ -188,7 +188,7 @@ describe('WhatsNewAlert', () => {
     expect(blogLink).toBeInTheDocument();
     expect(blogLink.closest('a')).toHaveAttribute(
       'href',
-      'https://blog.u-metadata.org/announcing-umetadata-1-8-948eb14d41c7'
+      'https://blog.wondersgroup.com/announcing-umetadata-1-8-948eb14d41c7'
     );
     expect(blogLink.closest('a')).toHaveAttribute('target', '_blank');
     expect(blogLink.closest('a')).toHaveAttribute('rel', 'noopener noreferrer');

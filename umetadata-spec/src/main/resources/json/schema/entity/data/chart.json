@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/data/chart.json",
+  "$id": "https://wondersgroup.com/schema/entity/data/chart.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Chart",
   "$comment": "@om-entity-type",

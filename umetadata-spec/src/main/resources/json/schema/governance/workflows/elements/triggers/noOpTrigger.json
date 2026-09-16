@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/governance/workflows/elements/triggers/noOpTrigger.json",
+  "$id": "https://wondersgroup.com/schema/governance/workflows/elements/triggers/noOpTrigger.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "NoOpTrigger",
   "description": "NoOp Trigger.",

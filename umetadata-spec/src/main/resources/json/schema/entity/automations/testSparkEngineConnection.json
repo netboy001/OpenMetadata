@@ -1,5 +1,5 @@
 {
-    "$id": "https://u-metadata.org/schema/entity/automations/testSparkEngineConnection.json",
+    "$id": "https://wondersgroup.com/schema/entity/automations/testSparkEngineConnection.json",
     "$schema": "http://json-schema.org/draft-07/schema#", 
     "title": "TestSparkEngineConnectionRequest",
     "javaType": "org.umetadata.schema.entity.automations.TestSparkEngineConnectionRequest",

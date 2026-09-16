@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/events/subscriptionStatus.json",
+  "$id": "https://wondersgroup.com/schema/entity/events/subscriptionStatus.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "SubscriptionStatus",
   "description": "Current status of the subscription, including details on the last successful and failed attempts, and retry information.",

@@ -433,7 +433,7 @@ public class TestCaseResourceTest extends EntityResourceTest<TestCase, CreateTes
         userResourceTest.createEntity(
             new CreateUser()
                 .withName("user-table-edit-tests")
-                .withEmail("user-table-edit-tests@u-metadata.org")
+                .withEmail("user-table-edit-tests@wondersgroup.com")
                 .withRoles(List.of(ROLE_TABLE_EDIT_TESTS.getId())),
             ADMIN_AUTH_HEADERS);
 
@@ -441,7 +441,7 @@ public class TestCaseResourceTest extends EntityResourceTest<TestCase, CreateTes
         userResourceTest.createEntity(
             new CreateUser()
                 .withName("user-table-create-tests")
-                .withEmail("user-table-create-tests@u-metadata.org")
+                .withEmail("user-table-create-tests@wondersgroup.com")
                 .withRoles(List.of(ROLE_TABLE_CREATE_TESTS.getId())),
             ADMIN_AUTH_HEADERS);
 
@@ -449,7 +449,7 @@ public class TestCaseResourceTest extends EntityResourceTest<TestCase, CreateTes
         userResourceTest.createEntity(
             new CreateUser()
                 .withName("user-test-case-create")
-                .withEmail("user-test-case-create@u-metadata.org")
+                .withEmail("user-test-case-create@wondersgroup.com")
                 .withRoles(List.of(ROLE_TEST_CASE_CREATE.getId())),
             ADMIN_AUTH_HEADERS);
 
@@ -457,7 +457,7 @@ public class TestCaseResourceTest extends EntityResourceTest<TestCase, CreateTes
         userResourceTest.createEntity(
             new CreateUser()
                 .withName("user-test-case-update")
-                .withEmail("user-test-case-update@u-metadata.org")
+                .withEmail("user-test-case-update@wondersgroup.com")
                 .withRoles(List.of(ROLE_TEST_CASE_UPDATE.getId())),
             ADMIN_AUTH_HEADERS);
 
@@ -465,7 +465,7 @@ public class TestCaseResourceTest extends EntityResourceTest<TestCase, CreateTes
         userResourceTest.createEntity(
             new CreateUser()
                 .withName("user-no-perms")
-                .withEmail("user-no-perms@u-metadata.org")
+                .withEmail("user-no-perms@wondersgroup.com")
                 .withRoles(List.of(ROLE_NO_PERMS.getId())),
             ADMIN_AUTH_HEADERS);
 
@@ -473,7 +473,7 @@ public class TestCaseResourceTest extends EntityResourceTest<TestCase, CreateTes
         userResourceTest.createEntity(
             new CreateUser()
                 .withName("user-table-owner")
-                .withEmail("user-table-owner@u-metadata.org")
+                .withEmail("user-table-owner@wondersgroup.com")
                 .withRoles(List.of(ROLE_TABLE_OWNER_EDIT_TESTS.getId())),
             ADMIN_AUTH_HEADERS);
 
@@ -481,7 +481,7 @@ public class TestCaseResourceTest extends EntityResourceTest<TestCase, CreateTes
         userResourceTest.createEntity(
             new CreateUser()
                 .withName("user-test-case-all-ops")
-                .withEmail("user-test-case-all-ops@u-metadata.org")
+                .withEmail("user-test-case-all-ops@wondersgroup.com")
                 .withRoles(List.of(ROLE_TEST_CASE_ALL_OPS.getId())),
             ADMIN_AUTH_HEADERS);
 
@@ -527,7 +527,7 @@ public class TestCaseResourceTest extends EntityResourceTest<TestCase, CreateTes
         userResourceTest.createEntity(
             new CreateUser()
                 .withName("user-test-case-owner-view")
-                .withEmail("user-test-case-owner-view@u-metadata.org")
+                .withEmail("user-test-case-owner-view@wondersgroup.com")
                 .withRoles(List.of(roleTestCaseOwnerView.getId())),
             ADMIN_AUTH_HEADERS);
   }

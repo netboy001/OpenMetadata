@@ -161,7 +161,7 @@ class PermissionsResourceTest extends UMetadataApplicationTest {
     // Only admin can get another user's permission (this is tested in other tests)
     // Getting as a data consumer, data steward's permissions should fail
     Map<String, String> authHeaders =
-        SecurityUtil.authHeaders(DATA_CONSUMER_USER_NAME + "@u-metadata.org");
+        SecurityUtil.authHeaders(DATA_CONSUMER_USER_NAME + "@wondersgroup.com");
     assertResponse(
         () -> getPermissions(DATA_STEWARD_USER_NAME, authHeaders),
         FORBIDDEN,
@@ -179,7 +179,7 @@ class PermissionsResourceTest extends UMetadataApplicationTest {
   void testGetDataStewardPermissionsForRole() throws Exception {
 
     Map<String, String> authHeaders =
-        SecurityUtil.authHeaders(DATA_STEWARD_USER_NAME + "@u-metadata.org");
+        SecurityUtil.authHeaders(DATA_STEWARD_USER_NAME + "@wondersgroup.com");
     EntityRepository mockRepository = Mockito.mock(EntityRepository.class);
 
     User mockUser = new User();
@@ -249,7 +249,7 @@ class PermissionsResourceTest extends UMetadataApplicationTest {
     //
     TableResourceTest tableResourceTest = new TableResourceTest();
     Map<String, String> authHeaders =
-        SecurityUtil.authHeaders(DATA_CONSUMER_USER_NAME + "@u-metadata.org");
+        SecurityUtil.authHeaders(DATA_CONSUMER_USER_NAME + "@wondersgroup.com");
 
     ResourcePermissionsBuilder permissionsBuilder = new ResourcePermissionsBuilder();
     permissionsBuilder.setPermission(
@@ -286,7 +286,7 @@ class PermissionsResourceTest extends UMetadataApplicationTest {
     //
     TableResourceTest tableResourceTest = new TableResourceTest();
     Map<String, String> authHeaders =
-        SecurityUtil.authHeaders(DATA_CONSUMER_USER_NAME + "@u-metadata.org");
+        SecurityUtil.authHeaders(DATA_CONSUMER_USER_NAME + "@wondersgroup.com");
 
     // Create an entity with data consumer as owner
     CreateTable createTable =
@@ -504,7 +504,7 @@ class PermissionsResourceTest extends UMetadataApplicationTest {
     // Create test user
     User testUser = createUser("test-debug-own-user");
     Map<String, String> userAuthHeaders =
-        SecurityUtil.authHeaders(testUser.getName() + "@u-metadata.org");
+        SecurityUtil.authHeaders(testUser.getName() + "@wondersgroup.com");
 
     // User should be able to debug their own permissions
     WebTarget target = getResource("permissions/debug/user/" + testUser.getName());
@@ -524,7 +524,7 @@ class PermissionsResourceTest extends UMetadataApplicationTest {
     User testUser1 = createUser("test-debug-user1");
     User testUser2 = createUser("test-debug-user2");
     Map<String, String> user1AuthHeaders =
-        SecurityUtil.authHeaders(testUser1.getName() + "@u-metadata.org");
+        SecurityUtil.authHeaders(testUser1.getName() + "@wondersgroup.com");
 
     // User1 should not be able to debug user2's permissions
     WebTarget target = getResource("permissions/debug/user/" + testUser2.getName());
@@ -539,7 +539,7 @@ class PermissionsResourceTest extends UMetadataApplicationTest {
     // Create test user
     User testUser = createUser("test-debug-me-user");
     Map<String, String> userAuthHeaders =
-        SecurityUtil.authHeaders(testUser.getName() + "@u-metadata.org");
+        SecurityUtil.authHeaders(testUser.getName() + "@wondersgroup.com");
 
     // User should be able to debug their own permissions via /me endpoint
     WebTarget target = getResource("permissions/debug/me");
@@ -582,7 +582,7 @@ class PermissionsResourceTest extends UMetadataApplicationTest {
     // Create test user
     User testUser = createUser("test-debug-eval-own-user");
     Map<String, String> userAuthHeaders =
-        SecurityUtil.authHeaders(testUser.getName() + "@u-metadata.org");
+        SecurityUtil.authHeaders(testUser.getName() + "@wondersgroup.com");
 
     // User should be able to debug their own permission evaluation
     WebTarget target =
@@ -610,7 +610,7 @@ class PermissionsResourceTest extends UMetadataApplicationTest {
     User testUser1 = createUser("test-debug-eval-user1");
     User testUser2 = createUser("test-debug-eval-user2");
     Map<String, String> user1AuthHeaders =
-        SecurityUtil.authHeaders(testUser1.getName() + "@u-metadata.org");
+        SecurityUtil.authHeaders(testUser1.getName() + "@wondersgroup.com");
 
     // User1 should not be able to debug user2's permission evaluation
     WebTarget target =

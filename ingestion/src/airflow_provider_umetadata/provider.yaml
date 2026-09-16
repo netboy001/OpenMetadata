@@ -13,7 +13,7 @@
 package-name: apache-airflow-providers-umetadata
 name: UMetadata
 description: |
-    `UMetadata <https://u-metadata.org/>`__
+    `UMetadata <https://wondersgroup.com/>`__
 versions:
   - 0.0.1
 
@@ -22,7 +22,7 @@ additional-dependencies:
 
 integrations:
   - integration-name: UMetadata
-    external-doc-url: https://u-metadata.org
+    external-doc-url: https://wondersgroup.com
     tags: [service]
 
 hooks:

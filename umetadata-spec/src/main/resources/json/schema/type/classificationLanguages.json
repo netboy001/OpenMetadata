@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/type/classificationLanguages.json",
+  "$id": "https://wondersgroup.com/schema/type/classificationLanguages.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "ClassificationLanguage",
   "description": "Supported languages for auto classification recognizers (ISO 639-1 codes). Use 'any' to apply all recognizers regardless of their configured language.",

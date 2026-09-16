@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/api/data/createMetric.json",
+  "$id": "https://wondersgroup.com/schema/api/data/createMetric.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "CreateMetricRequest",
   "description": "Create Metric entity request",

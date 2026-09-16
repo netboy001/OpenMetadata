@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/events/failedEventResponse.json",
+  "$id": "https://wondersgroup.com/schema/events/failedEventResponse.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "FailedEvents",
   "description": "Failed Events Schema",

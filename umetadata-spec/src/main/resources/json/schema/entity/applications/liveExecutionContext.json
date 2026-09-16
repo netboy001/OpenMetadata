@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/applications/liveExecutionContext.json",
+  "$id": "https://wondersgroup.com/schema/entity/applications/liveExecutionContext.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "JobRun",
   "javaType": "org.umetadata.schema.entity.app.LiveExecutionContext",

@@ -90,7 +90,7 @@ We execute a query on query history table of the respective data source to perfo
 
 For example: `query_text not ilike '--- metabase query %'`
 
-Checkout <a href="https://docs.u-metadata.org/connectors/ingestion/workflows/usage/filter-query-set" target="_blank">this</a> document for further examples on filter conditions.
+Checkout <a href="https://docs.wondersgroup.com/connectors/ingestion/workflows/usage/filter-query-set" target="_blank">this</a> document for further examples on filter conditions.
 $$
 
 $$section

@@ -6,7 +6,7 @@ In this section, we provide guides and references to use the Superset connector.
 
 We support extracting Superset metadata either by using its API (which only works for instances without SSO) or by directly extracting the metadata from its database (MySQL or Postgres).
 
-You can find further information on the Superset connector in the <a href="https://docs.u-metadata.org/connectors/dashboard/superset" target="_blank">docs</a>.
+You can find further information on the Superset connector in the <a href="https://docs.wondersgroup.com/connectors/dashboard/superset" target="_blank">docs</a>.
 
 ## Superset Connection Details
 

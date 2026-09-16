@@ -3162,7 +3162,7 @@ public abstract class EntityResourceTest<T extends EntityInterface, K extends Cr
         patchEntityAndCheck(
             entity,
             originalJson,
-            authHeaders(USER1.getName() + "@u-metadata.org"),
+            authHeaders(USER1.getName() + "@wondersgroup.com"),
             MINOR_UPDATE,
             change);
 
@@ -5470,7 +5470,7 @@ public abstract class EntityResourceTest<T extends EntityInterface, K extends Cr
       boolean shouldThrowException)
       throws IOException {
     String originalJson = JsonUtils.pojoToJson(entity);
-    Map<String, String> authHeaders = authHeaders(userName + "@u-metadata.org");
+    Map<String, String> authHeaders = authHeaders(userName + "@wondersgroup.com");
     if (shouldThrowException) {
       assertResponse(
           () -> patchEntity(entity.getId(), originalJson, entity, authHeaders),
@@ -7509,7 +7509,7 @@ public abstract class EntityResourceTest<T extends EntityInterface, K extends Cr
     UMetadataConfig config =
         UMetadataConfig.builder()
             .serverUrl(serverUrl)
-            .apiKey("admin@u-metadata.org")
+            .apiKey("admin@wondersgroup.com")
             .testMode(true)
             .build();
     UMetadataClient sdkClient = new UMetadataClient(config);
@@ -7551,7 +7551,7 @@ public abstract class EntityResourceTest<T extends EntityInterface, K extends Cr
     UMetadataConfig config =
         UMetadataConfig.builder()
             .serverUrl(serverUrl)
-            .apiKey("admin@u-metadata.org")
+            .apiKey("admin@wondersgroup.com")
             .testMode(true)
             .build();
     UMetadataClient sdkClient = new UMetadataClient(config);
@@ -7639,7 +7639,7 @@ public abstract class EntityResourceTest<T extends EntityInterface, K extends Cr
     UMetadataConfig config =
         UMetadataConfig.builder()
             .serverUrl(serverUrl)
-            .apiKey("admin@u-metadata.org")
+            .apiKey("admin@wondersgroup.com")
             .testMode(true)
             .build();
     UMetadataClient sdkClient = new UMetadataClient(config);
@@ -7827,7 +7827,7 @@ public abstract class EntityResourceTest<T extends EntityInterface, K extends Cr
     UMetadataConfig config =
         UMetadataConfig.builder()
             .serverUrl(serverUrl)
-            .apiKey("admin@u-metadata.org")
+            .apiKey("admin@wondersgroup.com")
             .testMode(true)
             .build();
     UMetadataClient sdkClient = new UMetadataClient(config);
@@ -7988,7 +7988,7 @@ public abstract class EntityResourceTest<T extends EntityInterface, K extends Cr
     UMetadataConfig config =
         UMetadataConfig.builder()
             .serverUrl(serverUrl)
-            .apiKey("admin@u-metadata.org")
+            .apiKey("admin@wondersgroup.com")
             .testMode(true)
             .build();
     UMetadataClient sdkClient = new UMetadataClient(config);

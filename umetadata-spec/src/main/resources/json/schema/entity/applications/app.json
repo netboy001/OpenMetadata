@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/applications/app.json",
+  "$id": "https://wondersgroup.com/schema/entity/applications/app.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "App",
   "javaType": "org.umetadata.schema.entity.app.App",

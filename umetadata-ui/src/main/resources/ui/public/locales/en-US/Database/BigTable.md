@@ -23,9 +23,9 @@ To execute the metadata extraction and Usage workflow successfully, the user or 
 - `bigtable.tables.list`
 - `bigtable.tables.readRows` 
 
-You can visit <a href="https://docs.u-metadata.org/connectors/database/bigtable/roles" target="_blank">this</a> documentation on how you can create a custom role in GCP and assign the above permissions to the role & service account!
+You can visit <a href="https://docs.wondersgroup.com/connectors/database/bigtable/roles" target="_blank">this</a> documentation on how you can create a custom role in GCP and assign the above permissions to the role & service account!
 
-You can find further information on the BigTable connector in the <a href="https://docs.u-metadata.org/connectors/database/bigtable" target="_blank">docs</a>.
+You can find further information on the BigTable connector in the <a href="https://docs.wondersgroup.com/connectors/database/bigtable" target="_blank">docs</a>.
 
 ## Connection Details
 

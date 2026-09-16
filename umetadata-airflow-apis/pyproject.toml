@@ -34,8 +34,8 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://u-metadata.org/"
-Documentation = "https://docs.u-metadata.org/"
+Homepage = "https://wondersgroup.com/"
+Documentation = "https://docs.wondersgroup.com/"
 Source = "https://github.com/u-metadata/UMetadata"
 
 

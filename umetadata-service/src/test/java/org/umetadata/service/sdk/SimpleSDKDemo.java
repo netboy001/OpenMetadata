@@ -32,7 +32,7 @@ public class SimpleSDKDemo extends UMetadataApplicationTest {
         new UMetadataClient(
             UMetadataConfig.builder()
                 .serverUrl(serverUrl)
-                .apiKey(authHeaders("admin@u-metadata.org").get("Authorization"))
+                .apiKey(authHeaders("admin@wondersgroup.com").get("Authorization"))
                 .connectTimeout(30000) // 30 seconds in milliseconds
                 .readTimeout(60000) // 60 seconds in milliseconds
                 .build());

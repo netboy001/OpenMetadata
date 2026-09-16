@@ -10,7 +10,7 @@ $$note
 Note that the ingestion of the Kafka topics' schema is done separately by configuring the **Schema Registry URL**. However, only the **Bootstrap Servers** information is mandatory to extract basic metadata.
 $$
 
-You can find further information on the Kafka connector in the <a href="https://docs.u-metadata.org/connectors/messaging/kafka" target="_blank">docs</a>.
+You can find further information on the Kafka connector in the <a href="https://docs.wondersgroup.com/connectors/messaging/kafka" target="_blank">docs</a>.
 
 ## Connection Details
 

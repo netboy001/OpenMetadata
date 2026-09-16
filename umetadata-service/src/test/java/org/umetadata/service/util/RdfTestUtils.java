@@ -66,7 +66,7 @@ public class RdfTestUtils {
 
     String sparql =
         String.format(
-            "PREFIX om: <https://u-metadata.org/ontology/> "
+            "PREFIX om: <https://wondersgroup.com/ontology/> "
                 + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> "
                 + "PREFIX dcat: <http://www.w3.org/ns/dcat#> "
                 + "PREFIX foaf: <http://xmlns.com/foaf/0.1/> "
@@ -99,7 +99,7 @@ public class RdfTestUtils {
       // First try a more specific query
       String debugQuery =
           String.format(
-              "PREFIX om: <https://u-metadata.org/ontology/> "
+              "PREFIX om: <https://wondersgroup.com/ontology/> "
                   + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> "
                   + "SELECT ?g ?entity ?type ?fqn ?label WHERE { "
                   + "  GRAPH ?g { "
@@ -155,7 +155,7 @@ public class RdfTestUtils {
 
       String broadQuery =
           String.format(
-              "PREFIX om: <https://u-metadata.org/ontology/> "
+              "PREFIX om: <https://wondersgroup.com/ontology/> "
                   + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> "
                   + "PREFIX skos: <http://www.w3.org/2004/02/skos/core#> "
                   + "SELECT ?g ?entity ?fqn ?label WHERE { "
@@ -199,7 +199,7 @@ public class RdfTestUtils {
 
     String sparql =
         String.format(
-            "PREFIX om: <https://u-metadata.org/ontology/> "
+            "PREFIX om: <https://wondersgroup.com/ontology/> "
                 + "ASK { "
                 + "  ?from om:%s ?to . "
                 + "  ?from om:fullyQualifiedName %s . "
@@ -231,12 +231,12 @@ public class RdfTestUtils {
     }
 
     // Build entity URIs
-    String fromUri = "https://u-metadata.org/entity/" + from.getType() + "/" + from.getId();
-    String toUri = "https://u-metadata.org/entity/" + to.getType() + "/" + to.getId();
+    String fromUri = "https://wondersgroup.com/entity/" + from.getType() + "/" + from.getId();
+    String toUri = "https://wondersgroup.com/entity/" + to.getType() + "/" + to.getId();
 
     String sparql =
         String.format(
-            "PREFIX om: <https://u-metadata.org/ontology/> "
+            "PREFIX om: <https://wondersgroup.com/ontology/> "
                 + "ASK { "
                 + "  GRAPH ?g { "
                 + "    <%s> om:%s <%s> . "
@@ -250,7 +250,7 @@ public class RdfTestUtils {
     if (!exists) {
       sparql =
           String.format(
-              "PREFIX om: <https://u-metadata.org/ontology/> "
+              "PREFIX om: <https://wondersgroup.com/ontology/> "
                   + "ASK { "
                   + "  GRAPH ?g { "
                   + "    <%s> om:%s <%s> . "
@@ -342,12 +342,12 @@ public class RdfTestUtils {
 
       // Tags are stored as URIs using hash-based identifiers (matching RdfTagUpdater logic)
       String tagHash = Integer.toHexString(tag.getTagFQN().hashCode());
-      String tagUri = "https://u-metadata.org/entity/"
+      String tagUri = "https://wondersgroup.com/entity/"
               + java.net.URLEncoder.encode(tagHash, java.nio.charset.StandardCharsets.UTF_8);
 
       // Due to the FQN vs UUID mismatch, we only verify that the tag exists somewhere
       String sparql = String.format(
-          "PREFIX om: <https://u-metadata.org/ontology/> "
+          "PREFIX om: <https://wondersgroup.com/ontology/> "
               + "ASK { "
               + "  GRAPH ?g { "
               + "    ?entity om:%s <%s> . "
@@ -360,7 +360,7 @@ public class RdfTestUtils {
       if (!exists) {
         // Log debug info to help troubleshoot
         String debugSparql = String.format(
-            "PREFIX om: <https://u-metadata.org/ontology/> "
+            "PREFIX om: <https://wondersgroup.com/ontology/> "
                 + "SELECT ?entity WHERE { "
                 + "  GRAPH ?g { "
                 + "    ?entity om:%s ?tag . "
@@ -422,11 +422,11 @@ public class RdfTestUtils {
     }
 
     // Build owner URI
-    String ownerUri = "https://u-metadata.org/entity/" + owner.getType() + "/" + owner.getId();
+    String ownerUri = "https://wondersgroup.com/entity/" + owner.getType() + "/" + owner.getId();
 
     String sparql =
         String.format(
-            "PREFIX om: <https://u-metadata.org/ontology/> "
+            "PREFIX om: <https://wondersgroup.com/ontology/> "
                 + "ASK { "
                 + "  GRAPH ?g { "
                 + "    ?entity om:hasOwner <%s> ; "
@@ -457,7 +457,7 @@ public class RdfTestUtils {
 
     String sparql =
         String.format(
-            "PREFIX om: <https://u-metadata.org/ontology/> "
+            "PREFIX om: <https://wondersgroup.com/ontology/> "
                 + "ASK { "
                 + "  GRAPH ?g { "
                 + "    ?entity om:fullyQualifiedName %s . "

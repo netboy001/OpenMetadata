@@ -64,7 +64,7 @@ Create or modify your IntelliJ run configuration for `UMetadataApplication` with
 ```
 RDF_ENABLED=true
 RDF_STORAGE_TYPE=FUSEKI
-RDF_BASE_URI=https://u-metadata.org/
+RDF_BASE_URI=https://wondersgroup.com/
 RDF_ENDPOINT=http://localhost:3030/umetadata
 RDF_REMOTE_USERNAME=admin
 RDF_REMOTE_PASSWORD=admin
@@ -80,7 +80,7 @@ RDF_DATASET=umetadata
 
 Example environment variables string:
 ```
-RDF_ENABLED=true;RDF_STORAGE_TYPE=FUSEKI;RDF_BASE_URI=https://u-metadata.org/;RDF_ENDPOINT=http://localhost:3030/umetadata;RDF_REMOTE_USERNAME=admin;RDF_REMOTE_PASSWORD=admin;RDF_DATASET=umetadata
+RDF_ENABLED=true;RDF_STORAGE_TYPE=FUSEKI;RDF_BASE_URI=https://wondersgroup.com/;RDF_ENDPOINT=http://localhost:3030/umetadata;RDF_REMOTE_USERNAME=admin;RDF_REMOTE_PASSWORD=admin;RDF_DATASET=umetadata
 ```
 
 ### Step 4: Start UMetadata Server
@@ -110,7 +110,7 @@ The RDF configuration section in `umetadata.yaml`:
 ```yaml
 rdf:
   enabled: ${RDF_ENABLED:-false}
-  baseUri: ${RDF_BASE_URI:-"https://u-metadata.org/"}
+  baseUri: ${RDF_BASE_URI:-"https://wondersgroup.com/"}
   storageType: ${RDF_STORAGE_TYPE:-"FUSEKI"}
   remoteEndpoint: ${RDF_ENDPOINT:-"http://localhost:3030/umetadata"}
   username: ${RDF_REMOTE_USERNAME:-"admin"}
@@ -124,7 +124,7 @@ rdf:
 |----------|-------------|---------|
 | `RDF_ENABLED` | Enable/disable RDF support | `false` |
 | `RDF_STORAGE_TYPE` | Storage backend type | `FUSEKI` |
-| `RDF_BASE_URI` | Base URI for RDF resources | `https://u-metadata.org/` |
+| `RDF_BASE_URI` | Base URI for RDF resources | `https://wondersgroup.com/` |
 | `RDF_ENDPOINT` | Fuseki SPARQL endpoint URL | `http://localhost:3030/umetadata` |
 | `RDF_REMOTE_USERNAME` | Fuseki admin username | `admin` |
 | `RDF_REMOTE_PASSWORD` | Fuseki admin password | `admin` |

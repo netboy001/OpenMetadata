@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/api/data/moveGlossaryTermRequest.json",
+  "$id": "https://wondersgroup.com/schema/api/data/moveGlossaryTermRequest.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "MoveGlossaryTermRequest",
   "description": "Request schema for moving a glossary term to a new parent or glossary.",

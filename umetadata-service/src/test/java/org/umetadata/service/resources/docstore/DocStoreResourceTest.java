@@ -352,7 +352,7 @@ public class DocStoreResourceTest extends EntityResourceTest<Document, CreateDoc
                 kp.getId(),
                 originalJson,
                 kp,
-                SecurityUtil.authHeaders(randomUserName + "@u-metadata.org")),
+                SecurityUtil.authHeaders(randomUserName + "@wondersgroup.com")),
         FORBIDDEN,
         permissionNotAllowed(randomUserName, List.of(MetadataOperation.EDIT_ALL)));
 
@@ -390,7 +390,7 @@ public class DocStoreResourceTest extends EntityResourceTest<Document, CreateDoc
                 kp.getId(),
                 originalJson,
                 kp,
-                SecurityUtil.authHeaders(randomUserName + "@u-metadata.org")),
+                SecurityUtil.authHeaders(randomUserName + "@wondersgroup.com")),
         FORBIDDEN,
         permissionNotAllowed(randomUserName, List.of(MetadataOperation.EDIT_ALL)));
 

@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/security/scim/scimConfiguration.json",
+  "$id": "https://wondersgroup.com/schema/security/scim/scimConfiguration.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "SCIM Configuration",
   "description": "SCIM configuration for automatic provisioning through identity providers like Azure AD or Okta.",

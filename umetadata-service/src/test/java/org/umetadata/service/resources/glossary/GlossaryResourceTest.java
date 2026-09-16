@@ -1041,7 +1041,7 @@ public class GlossaryResourceTest extends EntityResourceTest<Glossary, CreateGlo
     List<String> createRecords =
         listOf(
             String.format(
-                ",g1,dsp1,\"dsc1,1\",h1;h2;h3,g1.g1t1;g2.g2t1,term1;http://term1,PII.None,user:%s,user:%s,%s,\"#FF5733\",https://example.com/icon1.png,\"glossaryTermDateCp:18-09-2024;glossaryTermDateTimeCp:18-09-2024 01:09:34;glossaryTermDurationCp:PT5H30M10S;glossaryTermEmailCp:admin@u-metadata.org;glossaryTermEntRefCp:team:\"\"%s\"\";glossaryTermEntRefListCp:user:\"\"%s\"\"|user:\"\"%s\"\"\"",
+                ",g1,dsp1,\"dsc1,1\",h1;h2;h3,g1.g1t1;g2.g2t1,term1;http://term1,PII.None,user:%s,user:%s,%s,\"#FF5733\",https://example.com/icon1.png,\"glossaryTermDateCp:18-09-2024;glossaryTermDateTimeCp:18-09-2024 01:09:34;glossaryTermDurationCp:PT5H30M10S;glossaryTermEmailCp:admin@wondersgroup.com;glossaryTermEntRefCp:team:\"\"%s\"\";glossaryTermEntRefListCp:user:\"\"%s\"\"|user:\"\"%s\"\"\"",
                 reviewerRef.get(0), user1, "Approved", team11, user1, user2),
             String.format(
                 ",g2,dsp2,dsc3,h1;h3;h3,g1.g1t1;g2.g2t1,term2;https://term2,PII.NonSensitive,,user:%s,%s,\"#00FF00\",https://example.com/icon2.svg,\"glossaryTermEnumCpMulti:val1|val2|val3|val4|val5;glossaryTermEnumCpSingle:single1;glossaryTermIntegerCp:7777;glossaryTermMarkdownCp:# Sample Markdown Text;glossaryTermNumberCp:123456;\"\"glossaryTermQueryCp:select col,row from table where id ='30';\"\";glossaryTermStringCp:sample string content;glossaryTermTimeCp:10:08:45;glossaryTermTimeIntervalCp:1726142300000:17261420000;glossaryTermTimestampCp:1726142400000\"",
@@ -1054,7 +1054,7 @@ public class GlossaryResourceTest extends EntityResourceTest<Glossary, CreateGlo
     List<String> updateRecords =
         listOf(
             String.format(
-                ",g1,dsp1,new-dsc1,h1;h2;h3,g1.g1t1;g2.g2t1;importExportTest.g2,term1;http://term1,PII.None,user:%s,user:%s,%s,\"#0000FF\",https://example.com/updated-icon1.png,\"glossaryTermDateCp:18-09-2024;glossaryTermDateTimeCp:18-09-2024 01:09:34;glossaryTermDurationCp:PT5H30M10S;glossaryTermEmailCp:admin@u-metadata.org;glossaryTermEntRefCp:team:\"\"%s\"\";glossaryTermEntRefListCp:user:\"\"%s\"\"|user:\"\"%s\"\"\"",
+                ",g1,dsp1,new-dsc1,h1;h2;h3,g1.g1t1;g2.g2t1;importExportTest.g2,term1;http://term1,PII.None,user:%s,user:%s,%s,\"#0000FF\",https://example.com/updated-icon1.png,\"glossaryTermDateCp:18-09-2024;glossaryTermDateTimeCp:18-09-2024 01:09:34;glossaryTermDurationCp:PT5H30M10S;glossaryTermEmailCp:admin@wondersgroup.com;glossaryTermEntRefCp:team:\"\"%s\"\";glossaryTermEntRefListCp:user:\"\"%s\"\"|user:\"\"%s\"\"\"",
                 reviewerRef.getFirst(), user1, "Approved", team11, user1, user2),
             String.format(
                 ",g2,dsp2,new-dsc3,h1;h3;h3,g1.g1t1;g2.g2t1;importExportTest.g1,term2;https://term2,PII.NonSensitive,user:%s,user:%s,%s,\"#FFFF00\",,\"glossaryTermEnumCpMulti:val1|val2|val3|val4|val5;glossaryTermEnumCpSingle:single1;glossaryTermIntegerCp:7777;glossaryTermMarkdownCp:# Sample Markdown Text;glossaryTermNumberCp:123456;\"\"glossaryTermQueryCp:select col,row from table where id ='30';\"\";glossaryTermStringCp:sample string content;glossaryTermTimeCp:10:08:45;glossaryTermTimeIntervalCp:1726142300000:17261420000;glossaryTermTimestampCp:1726142400000\"",

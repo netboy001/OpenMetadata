@@ -1,5 +1,5 @@
 {
-    "$id": "https://u-metadata.org/schema/entity/services/connections/dashboard/qlikSenseConnection.json",
+    "$id": "https://wondersgroup.com/schema/entity/services/connections/dashboard/qlikSenseConnection.json",
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "QlikSenseConnection",
     "description": "Qlik Sense Connection Config",

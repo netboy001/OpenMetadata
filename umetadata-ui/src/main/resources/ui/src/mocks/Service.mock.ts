@@ -348,10 +348,10 @@ export const MOCK_METADATA_SERVICE: MetadataService = {
       fullyQualifiedName: 'mayur',
       displayName: 'Mayur Singal',
       deleted: false,
-      href: 'http://sandbox-beta.u-metadata.org/api/v1/users/7a12b462-36c7-488a-b4c2-9756918704cb',
+      href: 'http://sandbox-beta.wondersgroup.com/api/v1/users/7a12b462-36c7-488a-b4c2-9756918704cb',
     },
   ],
-  href: 'http://sandbox-beta.u-metadata.org/api/v1/services/databaseServices/9b09f404-7713-4f04-b7db-95111bac0c59',
+  href: 'http://sandbox-beta.wondersgroup.com/api/v1/services/databaseServices/9b09f404-7713-4f04-b7db-95111bac0c59',
   changeDescription: {
     fieldsAdded: [],
     fieldsUpdated: [

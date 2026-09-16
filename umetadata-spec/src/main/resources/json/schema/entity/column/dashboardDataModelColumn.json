@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/column/dashboardDataModelColumn.json",
+  "$id": "https://wondersgroup.com/schema/entity/column/dashboardDataModelColumn.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Dashboard Data Model Column Type",
   "$comment": "@om-entity-type",

@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/settings/profilerConfiguration.json",
+  "$id": "https://wondersgroup.com/schema/settings/profilerConfiguration.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "ProfilerConfiguration",
   "description": "This schema defines the profiler configuration. It is used to configure globally the metrics to compute for specific data types.",

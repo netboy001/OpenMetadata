@@ -10,7 +10,7 @@ import lombok.Getter;
 @Builder
 public class SqlMappingContext {
 
-  private static final String DEFAULT_PREFIX = "https://u-metadata.org/ontology/";
+  private static final String DEFAULT_PREFIX = "https://wondersgroup.com/ontology/";
 
   @Builder.Default private final Map<String, TableMapping> tableMappings = new HashMap<>();
 
@@ -21,7 +21,7 @@ public class SqlMappingContext {
   public static SqlMappingContext createDefault() {
     SqlMappingContext context = SqlMappingContext.builder().build();
 
-    context.addPrefix("om", "https://u-metadata.org/ontology/");
+    context.addPrefix("om", "https://wondersgroup.com/ontology/");
     context.addPrefix("prov", "http://www.w3.org/ns/prov#");
     context.addPrefix("dcat", "http://www.w3.org/ns/dcat#");
     context.addPrefix("dct", "http://purl.org/dc/terms/");

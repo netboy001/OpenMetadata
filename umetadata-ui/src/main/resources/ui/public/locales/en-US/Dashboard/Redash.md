@@ -6,7 +6,7 @@ In this section, we provide guides and references to use the Redash connector.
 
 We connect to Redash through the <a href="https://redash.io/help/user-guide/integrations-and-api/api" target="_blank">API</a> endpoint, so the user we use in the configuration to ingest data must have enough permissions to view all the data. For more info about the permissions, please visit Redash documentation <a href="https://redash.io/help/user-guide/users/permissions-groups" target="_blank">here</a>.
 
-You can find further information on the Redash connector in the <a href="https://docs.u-metadata.org/connectors/dashboard/redash" target="_blank">docs</a>.
+You can find further information on the Redash connector in the <a href="https://docs.wondersgroup.com/connectors/dashboard/redash" target="_blank">docs</a>.
 
 ## Connection Details
 

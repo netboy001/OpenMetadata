@@ -110,7 +110,7 @@ if [[ $startFuseki == "true" ]]; then
     # Set RDF environment variables
     export RDF_ENABLED=true
     export RDF_STORAGE_TYPE=FUSEKI
-    export RDF_BASE_URI="https://u-metadata.org/"
+    export RDF_BASE_URI="https://wondersgroup.com/"
     export RDF_ENDPOINT="http://localhost:3030/umetadata"
     export RDF_REMOTE_USERNAME="admin"
     export RDF_REMOTE_PASSWORD="admin"

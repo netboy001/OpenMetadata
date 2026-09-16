@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/data/storedProcedure.json",
+  "$id": "https://wondersgroup.com/schema/entity/data/storedProcedure.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "StoredProcedure",
   "$comment": "@om-entity-type",

@@ -1,5 +1,5 @@
 {
-    "$id": "https://u-metadata.org/schema/dataInsight/custom/summaryCard.json",
+    "$id": "https://wondersgroup.com/schema/dataInsight/custom/summaryCard.json",
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "SummaryCard",
     "description": "Summary Card",

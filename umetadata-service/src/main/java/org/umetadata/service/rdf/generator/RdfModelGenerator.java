@@ -33,7 +33,7 @@ import org.apache.jena.vocabulary.XSD;
 @Slf4j
 public class RdfModelGenerator {
 
-  private static final String BASE_URI = "https://u-metadata.org/";
+  private static final String BASE_URI = "https://wondersgroup.com/";
   private static final String ONTOLOGY_URI = BASE_URI + "ontology/";
   private static final ObjectMapper MAPPER = new ObjectMapper();
 

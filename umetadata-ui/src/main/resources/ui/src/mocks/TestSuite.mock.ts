@@ -498,7 +498,7 @@ export const MOCK_TABLE_ROW_INSERTED_COUNT_TO_BE_BETWEEN = {
   version: 0.1,
   updatedAt: 1675211404184,
   updatedBy: 'admin',
-  href: 'http://sandbox-beta.u-metadata.org/api/v1/dataQuality/testDefinitions/756c7770-0af3-49a9-9905-75a2886e5eec',
+  href: 'http://sandbox-beta.wondersgroup.com/api/v1/dataQuality/testDefinitions/756c7770-0af3-49a9-9905-75a2886e5eec',
   deleted: false,
 };
 
@@ -563,7 +563,7 @@ export const MOCK_TABLE_COLUMN_NAME_TO_EXIST = {
   version: 0.1,
   updatedAt: 1672236872076,
   updatedBy: 'admin',
-  href: 'http://sandbox-beta.u-metadata.org/api/v1/dataQuality/testDefinitions/6d4e4673-fd7f-4b37-811e-7645c3c17e93',
+  href: 'http://sandbox-beta.wondersgroup.com/api/v1/dataQuality/testDefinitions/6d4e4673-fd7f-4b37-811e-7645c3c17e93',
   deleted: false,
 };
 

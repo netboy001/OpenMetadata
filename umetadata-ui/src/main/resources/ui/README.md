@@ -25,9 +25,9 @@ Using the command below, spin up the server locally from the directory `umetadat
 ./bin/umetadata-server-start.sh conf/umetadata.yaml
 ```
 
-> If you don't have distributions generated or don't see `target` directory inside the `umetadata-dist` then follow [this](https://docs.u-metadata.org/developers/contribute/build-code-and-run-tests/umetadata-server#create-a-distribution-packaging) guide to create a distribution.
+> If you don't have distributions generated or don't see `target` directory inside the `umetadata-dist` then follow [this](https://docs.wondersgroup.com/developers/contribute/build-code-and-run-tests/umetadata-server#create-a-distribution-packaging) guide to create a distribution.
 >
-> Since typescript is heavily used in the UMetadata project, we generate the typescript types and the interface from JSON schema. We use the `QuickType` tool to generate the typescript types and interfaces. You can view the complete instructions [here](https://docs.u-metadata.org/developers/contribute/build-code-and-run-tests/generate-typescript-types-from-json-schema).
+> Since typescript is heavily used in the UMetadata project, we generate the typescript types and the interface from JSON schema. We use the `QuickType` tool to generate the typescript types and interfaces. You can view the complete instructions [here](https://docs.wondersgroup.com/developers/contribute/build-code-and-run-tests/generate-typescript-types-from-json-schema).
 
 Alternatively, you can connect to an already started UMetadata Server to develop UI by setting the `DEV_SERVER_TARGET` environment variable.
 ```shell

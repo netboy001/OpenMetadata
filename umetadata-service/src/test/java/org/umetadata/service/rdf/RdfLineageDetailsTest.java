@@ -18,7 +18,7 @@ import org.umetadata.schema.type.LineageDetails;
  */
 class RdfLineageDetailsTest {
 
-  private static final String BASE_URI = "https://u-metadata.org/";
+  private static final String BASE_URI = "https://wondersgroup.com/";
 
   @Nested
   @DisplayName("P0-2: Lineage Details Structure Tests")
@@ -193,10 +193,10 @@ class RdfLineageDetailsTest {
     @DisplayName("Should support finding upstream tables via SPARQL")
     void testUpstreamTableQuery() {
       String query =
-          "PREFIX om: <https://u-metadata.org/ontology/> "
+          "PREFIX om: <https://wondersgroup.com/ontology/> "
               + "PREFIX prov: <http://www.w3.org/ns/prov#> "
               + "SELECT ?upstreamTable ?sqlQuery WHERE { "
-              + "  <https://u-metadata.org/entity/table/target-uuid> prov:wasDerivedFrom ?upstreamTable . "
+              + "  <https://wondersgroup.com/entity/table/target-uuid> prov:wasDerivedFrom ?upstreamTable . "
               + "  OPTIONAL { "
               + "    ?upstreamTable om:hasLineageDetails ?details . "
               + "    ?details om:sqlQuery ?sqlQuery . "
@@ -212,12 +212,12 @@ class RdfLineageDetailsTest {
     @DisplayName("Should support finding tables transformed by pipeline via SPARQL")
     void testPipelineLineageQuery() {
       String query =
-          "PREFIX om: <https://u-metadata.org/ontology/> "
+          "PREFIX om: <https://wondersgroup.com/ontology/> "
               + "PREFIX prov: <http://www.w3.org/ns/prov#> "
               + "SELECT ?sourceTable ?targetTable WHERE { "
               + "  ?targetTable prov:wasDerivedFrom ?sourceTable . "
               + "  ?sourceTable om:hasLineageDetails ?details . "
-              + "  ?details prov:wasGeneratedBy <https://u-metadata.org/entity/pipeline/my-pipeline> . "
+              + "  ?details prov:wasGeneratedBy <https://wondersgroup.com/entity/pipeline/my-pipeline> . "
               + "}";
 
       assertTrue(query.contains("prov:wasGeneratedBy"));
@@ -228,7 +228,7 @@ class RdfLineageDetailsTest {
     @DisplayName("Should support column-level lineage queries via SPARQL")
     void testColumnLineageQuery() {
       String query =
-          "PREFIX om: <https://u-metadata.org/ontology/> "
+          "PREFIX om: <https://wondersgroup.com/ontology/> "
               + "SELECT ?sourceColumn ?transformation WHERE { "
               + "  ?entity om:hasLineageDetails ?details . "
               + "  ?details om:hasColumnLineage ?colLineage . "
@@ -247,7 +247,7 @@ class RdfLineageDetailsTest {
     @DisplayName("Should support finding lineage by source type via SPARQL")
     void testLineageSourceQuery() {
       String query =
-          "PREFIX om: <https://u-metadata.org/ontology/> "
+          "PREFIX om: <https://wondersgroup.com/ontology/> "
               + "SELECT ?entity ?upstream WHERE { "
               + "  ?entity om:hasLineageDetails ?details . "
               + "  ?details om:lineageSource \"DbtLineage\" . "
@@ -263,10 +263,10 @@ class RdfLineageDetailsTest {
     void testTransitiveLineageQuery() {
       // Query to find all upstream tables (direct and indirect) of a given table
       String query =
-          "PREFIX om: <https://u-metadata.org/ontology/> "
+          "PREFIX om: <https://wondersgroup.com/ontology/> "
               + "PREFIX prov: <http://www.w3.org/ns/prov#> "
               + "SELECT ?upstream WHERE { "
-              + "  <https://u-metadata.org/entity/table/target-uuid> prov:wasDerivedFrom+ ?upstream . "
+              + "  <https://wondersgroup.com/entity/table/target-uuid> prov:wasDerivedFrom+ ?upstream . "
               + "}";
 
       // Note: The + operator requires property path support
@@ -287,15 +287,15 @@ class RdfLineageDetailsTest {
       // The delete/insert pattern ensures idempotency
       String deleteQuery =
           String.format(
-              "DELETE WHERE { GRAPH <https://u-metadata.org/graph/knowledge> { "
-                  + "<%sentity/table/%s> <https://u-metadata.org/ontology/UPSTREAM> <%sentity/table/%s> . "
+              "DELETE WHERE { GRAPH <https://wondersgroup.com/graph/knowledge> { "
+                  + "<%sentity/table/%s> <https://wondersgroup.com/ontology/UPSTREAM> <%sentity/table/%s> . "
                   + "} }",
               BASE_URI, fromId, BASE_URI, toId);
 
       String insertQuery =
           String.format(
-              "INSERT DATA { GRAPH <https://u-metadata.org/graph/knowledge> { "
-                  + "<%sentity/table/%s> <https://u-metadata.org/ontology/UPSTREAM> <%sentity/table/%s> . "
+              "INSERT DATA { GRAPH <https://wondersgroup.com/graph/knowledge> { "
+                  + "<%sentity/table/%s> <https://wondersgroup.com/ontology/UPSTREAM> <%sentity/table/%s> . "
                   + "} }",
               BASE_URI, fromId, BASE_URI, toId);
 

@@ -125,7 +125,7 @@ public class DataInsightChartResourceTest
       String ruleName,
       boolean shouldThrowException)
       throws ParseException {
-    Map<String, String> authHeaders = authHeaders(username + "@u-metadata.org");
+    Map<String, String> authHeaders = authHeaders(username + "@wondersgroup.com");
     WebTarget target = getCollection().path("/aggregate");
 
     target =

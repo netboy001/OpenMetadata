@@ -95,7 +95,7 @@ public class McpIntegrationTest extends UMetadataApplicationTest {
     UMetadataApplicationConfig config = APP.getConfiguration();
     try {
       User adminUser =
-          new User().withName("admin").withEmail("admin@u-metadata.org").withIsAdmin(true);
+          new User().withName("admin").withEmail("admin@wondersgroup.com").withIsAdmin(true);
       JWTTokenGenerator.getInstance()
           .init(
               config.getAuthenticationConfiguration().getTokenValidationAlgorithm(),

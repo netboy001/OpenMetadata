@@ -27,7 +27,7 @@ Ensure that your token has the necessary permissions to:
 - Access project metadata
 - Read notebook contents and outputs
 
-You can find further information on the Hex connector in the <a href="https://docs.u-metadata.org/connectors/dashboard/hex" target="_blank">docs</a>.
+You can find further information on the Hex connector in the <a href="https://docs.wondersgroup.com/connectors/dashboard/hex" target="_blank">docs</a>.
 
 ## Connection Details
 

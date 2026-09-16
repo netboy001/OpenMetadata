@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/type/patternRecognizer.json",
+  "$id": "https://wondersgroup.com/schema/type/patternRecognizer.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "PatternRecognizer",
   "description": "Pattern-based recognizer using regular expressions",

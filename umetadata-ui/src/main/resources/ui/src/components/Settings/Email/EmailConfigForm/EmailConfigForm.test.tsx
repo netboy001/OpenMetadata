@@ -30,7 +30,7 @@ const mockOnSubmit = jest.fn();
 
 const emailConfigValues = {
   emailingEntity: 'UMetadata',
-  supportUrl: 'https://slack.u-metadata.org',
+  supportUrl: 'https://slack.wondersgroup.com',
   enableSmtpServer: false,
   senderMail: 'test@gmail.com',
   serverEndpoint: 'http://localhost:3000',

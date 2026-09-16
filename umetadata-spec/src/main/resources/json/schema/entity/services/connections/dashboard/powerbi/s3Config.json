@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/services/connections/dashboard/powerbi/s3Config.json",
+  "$id": "https://wondersgroup.com/schema/entity/services/connections/dashboard/powerbi/s3Config.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "S3Config",
   "description": "S3 storage config for pbit files",

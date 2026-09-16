@@ -71,7 +71,7 @@ A support Url link is created in the mails to allow the users to reach in case o
 
 If you have your internal channels / groups this can be updated here.
 
-Default: `https://slack.u-metadata.org`.
+Default: `https://slack.wondersgroup.com`.
 
 $$
 

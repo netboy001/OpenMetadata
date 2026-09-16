@@ -1,6 +1,6 @@
 # Spline
 
-In this section, we provide guides and references to use the Spline connector. You can view the full documentation for Spline <a href="https://docs.u-metadata.org/connectors/pipeline/spline" target="_blank">here</a>.
+In this section, we provide guides and references to use the Spline connector. You can view the full documentation for Spline <a href="https://docs.wondersgroup.com/connectors/pipeline/spline" target="_blank">here</a>.
 
 ## Requirements
 

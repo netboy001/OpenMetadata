@@ -34,7 +34,7 @@ const mockSecurityConfig: securityConfigAPI.SecurityConfiguration = {
     className: 'org.umetadata.service.security.DefaultAuthorizer',
     containerRequestFilter: 'org.umetadata.service.security.JwtFilter',
     adminPrincipals: ['admin'],
-    principalDomain: 'u-metadata.org',
+    principalDomain: 'wondersgroup.com',
     enforcePrincipalDomain: false,
     enableSecureSocketConnection: false,
   },

@@ -59,7 +59,7 @@ generate_temp_schema() {
         return 1
     fi
     
-    jq '(."$id" |= sub("https://u-metadata.org/schema";"";"i"))' "$input_schema" > "$output_schema"
+    jq '(."$id" |= sub("https://wondersgroup.com/schema";"";"i"))' "$input_schema" > "$output_schema"
 }
 
 # Function to generate TypeScript types from JSON schema

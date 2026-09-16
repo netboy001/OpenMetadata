@@ -75,7 +75,7 @@ public final class RdfTestUtils {
 
     String sparql =
         String.format(
-            "PREFIX om: <https://u-metadata.org/ontology/> "
+            "PREFIX om: <https://wondersgroup.com/ontology/> "
                 + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> "
                 + "PREFIX dcat: <http://www.w3.org/ns/dcat#> "
                 + "PREFIX foaf: <http://xmlns.com/foaf/0.1/> "
@@ -118,7 +118,7 @@ public final class RdfTestUtils {
   public static void verifyEntityNotInRdf(String entityFqn) {
     String sparql =
         String.format(
-            "PREFIX om: <https://u-metadata.org/ontology/> "
+            "PREFIX om: <https://wondersgroup.com/ontology/> "
                 + "ASK { "
                 + "  GRAPH ?g { "
                 + "    ?entity om:fullyQualifiedName %s . "
@@ -139,7 +139,7 @@ public final class RdfTestUtils {
   public static void verifyEntityUpdatedInRdf(EntityInterface entity) {
     String sparql =
         String.format(
-            "PREFIX om: <https://u-metadata.org/ontology/> "
+            "PREFIX om: <https://wondersgroup.com/ontology/> "
                 + "ASK { "
                 + "  GRAPH ?g { "
                 + "    ?entity om:fullyQualifiedName %s ; "
@@ -172,7 +172,7 @@ public final class RdfTestUtils {
 
     String sparql =
         String.format(
-            "PREFIX om: <https://u-metadata.org/ontology/> "
+            "PREFIX om: <https://wondersgroup.com/ontology/> "
                 + "ASK { "
                 + "  GRAPH ?g { "
                 + "    <%s> om:%s <%s> . "
@@ -185,7 +185,7 @@ public final class RdfTestUtils {
     if (!exists) {
       sparql =
           String.format(
-              "PREFIX om: <https://u-metadata.org/ontology/> "
+              "PREFIX om: <https://wondersgroup.com/ontology/> "
                   + "ASK { "
                   + "  GRAPH ?g { "
                   + "    <%s> om:%s <%s> . "
@@ -244,7 +244,7 @@ public final class RdfTestUtils {
 
     String sparql =
         String.format(
-            "PREFIX om: <https://u-metadata.org/ontology/> "
+            "PREFIX om: <https://wondersgroup.com/ontology/> "
                 + "ASK { "
                 + "  GRAPH ?g { "
                 + "    ?entity om:hasOwner <%s> ; "
@@ -274,7 +274,7 @@ public final class RdfTestUtils {
 
       String sparql =
           String.format(
-              "PREFIX om: <https://u-metadata.org/ontology/> "
+              "PREFIX om: <https://wondersgroup.com/ontology/> "
                   + "ASK { "
                   + "  GRAPH ?g { "
                   + "    ?entity om:%s ?tag ; "
@@ -361,7 +361,7 @@ public final class RdfTestUtils {
    * Build entity URI from EntityReference.
    */
   private static String buildEntityUri(EntityReference ref) {
-    return "https://u-metadata.org/entity/" + ref.getType() + "/" + ref.getId();
+    return "https://wondersgroup.com/entity/" + ref.getType() + "/" + ref.getId();
   }
 
   /**
@@ -370,7 +370,7 @@ public final class RdfTestUtils {
   private static void logDebugInfo(EntityInterface entity, String rdfType) {
     String debugQuery =
         String.format(
-            "PREFIX om: <https://u-metadata.org/ontology/> "
+            "PREFIX om: <https://wondersgroup.com/ontology/> "
                 + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> "
                 + "SELECT ?g ?entity ?type ?fqn ?label WHERE { "
                 + "  GRAPH ?g { "

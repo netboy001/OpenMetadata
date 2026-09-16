@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/api/scimPatchOp.json",
+  "$id": "https://wondersgroup.com/schema/api/scimPatchOp.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "ScimPatchOp",
   "description": "SCIM PatchOp request as per RFC 7644",

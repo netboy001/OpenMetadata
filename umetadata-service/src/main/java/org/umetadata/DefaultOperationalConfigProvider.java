@@ -37,7 +37,7 @@ public class DefaultOperationalConfigProvider {
     return new SmtpSettings()
         .withPassword(StringUtils.EMPTY)
         .withEmailingEntity("UMetadata")
-        .withSupportUrl("https://slack.u-metadata.org")
+        .withSupportUrl("https://slack.wondersgroup.com")
         .withEnableSmtpServer(Boolean.FALSE)
         .withTransportationStrategy(SmtpSettings.TransportationStrategy.SMTP_TLS)
         .withTemplates(SmtpSettings.Templates.UMETADATA);

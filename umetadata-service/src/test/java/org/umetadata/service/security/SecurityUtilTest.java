@@ -282,34 +282,34 @@ class SecurityUtilTest {
 
   @Test
   void testIsUMetadataIssuedTokenRequiresMatchingIssuerAndKeyId() {
-    Map<String, Claim> claims = Map.of(SecurityUtil.ISSUER_CLAIM, stringClaim("u-metadata.org"));
+    Map<String, Claim> claims = Map.of(SecurityUtil.ISSUER_CLAIM, stringClaim("wondersgroup.com"));
 
     assertTrue(
-        SecurityUtil.isUMetadataIssuedToken(claims, "om-key", "u-metadata.org", "om-key"));
+        SecurityUtil.isUMetadataIssuedToken(claims, "om-key", "wondersgroup.com", "om-key"));
 
     assertFalse(
         SecurityUtil.isUMetadataIssuedToken(
-            claims, "attacker-key", "u-metadata.org", "om-key"));
+            claims, "attacker-key", "wondersgroup.com", "om-key"));
 
     assertFalse(
         SecurityUtil.isUMetadataIssuedToken(
             Map.of(SecurityUtil.ISSUER_CLAIM, stringClaim("evil.com")),
             "om-key",
-            "u-metadata.org",
+            "wondersgroup.com",
             "om-key"));
 
     assertFalse(
-        SecurityUtil.isUMetadataIssuedToken(Map.of(), "om-key", "u-metadata.org", "om-key"));
+        SecurityUtil.isUMetadataIssuedToken(Map.of(), "om-key", "wondersgroup.com", "om-key"));
   }
 
   @Test
   void testIsUMetadataIssuedTokenFalseWhenServerHasNoSigningIdentity() {
     Map<String, Claim> spoofed =
-        Map.of(SecurityUtil.ISSUER_CLAIM, stringClaim("u-metadata.org"));
+        Map.of(SecurityUtil.ISSUER_CLAIM, stringClaim("wondersgroup.com"));
 
     assertFalse(SecurityUtil.isUMetadataIssuedToken(spoofed, "om-key", null, "om-key"));
     assertFalse(
-        SecurityUtil.isUMetadataIssuedToken(spoofed, "om-key", "u-metadata.org", null));
+        SecurityUtil.isUMetadataIssuedToken(spoofed, "om-key", "wondersgroup.com", null));
     assertFalse(SecurityUtil.isUMetadataIssuedToken(spoofed, "om-key", "", ""));
   }
 

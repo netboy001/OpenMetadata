@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/services/apiService.json",
+  "$id": "https://wondersgroup.com/schema/entity/services/apiService.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Api Service",
   "description": "This schema defines the API Service entity, to capture metadata from any REST API Services.",

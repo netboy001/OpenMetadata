@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/dataInsight/type/pageViewsByEntities.json",
+  "$id": "https://wondersgroup.com/schema/dataInsight/type/pageViewsByEntities.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "PageViewsByEntities",
   "description": "pageViewsByEntities data blob",

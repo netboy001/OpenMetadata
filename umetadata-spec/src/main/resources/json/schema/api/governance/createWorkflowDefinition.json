@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/api/governance/createWorkflowDefinition.json",
+  "$id": "https://wondersgroup.com/schema/api/governance/createWorkflowDefinition.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "CreateWorkflowDefinitionRequest",
   "description": "Create Workflow Definition entity request",

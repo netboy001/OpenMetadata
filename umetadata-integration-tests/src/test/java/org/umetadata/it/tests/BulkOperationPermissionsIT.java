@@ -522,16 +522,16 @@ public class BulkOperationPermissionsIT {
 
   private static String getBotToken() {
     return JwtAuthProvider.tokenFor(
-        "ingestion-bot@u-metadata.org",
-        "ingestion-bot@u-metadata.org",
+        "ingestion-bot@wondersgroup.com",
+        "ingestion-bot@wondersgroup.com",
         new String[] {"bot"},
         3600);
   }
 
   private static String getDataConsumerToken() {
     return JwtAuthProvider.tokenFor(
-        "data-consumer@u-metadata.org",
-        "data-consumer@u-metadata.org",
+        "data-consumer@wondersgroup.com",
+        "data-consumer@wondersgroup.com",
         new String[] {"DataConsumer"},
         3600);
   }

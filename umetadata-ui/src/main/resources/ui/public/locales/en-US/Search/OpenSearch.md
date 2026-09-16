@@ -1,12 +1,12 @@
 # OpenSearch
 
-In this section, we provide guides and references to use the OpenSearch connector. You can view the full documentation for OpenSearch <a href="https://docs.u-metadata.org/connectors/search/opensearch" target="_blank">here</a>.
+In this section, we provide guides and references to use the OpenSearch connector. You can view the full documentation for OpenSearch <a href="https://docs.wondersgroup.com/connectors/search/opensearch" target="_blank">here</a>.
 
 ## Requirements
 
 We extract OpenSearch's metadata by using its <a href="https://opensearch.org/docs/latest/api-reference/" target="_blank">API</a>. To run this ingestion, you just need a user with permissions to the OpenSearch instance.
 
-You can find further information on the OpenSearch connector in the <a href="https://docs.u-metadata.org/connectors/search/opensearch" target="_blank">docs</a>.
+You can find further information on the OpenSearch connector in the <a href="https://docs.wondersgroup.com/connectors/search/opensearch" target="_blank">docs</a>.
 
 ## Connection Details
 

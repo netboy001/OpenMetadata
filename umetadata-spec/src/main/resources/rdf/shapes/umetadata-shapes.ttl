@@ -1,5 +1,5 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
-@prefix om: <https://u-metadata.org/ontology/> .
+@prefix om: <https://wondersgroup.com/ontology/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix dcat: <http://www.w3.org/ns/dcat#> .
@@ -162,7 +162,7 @@ om:LineageShape a sh:NodeShape ;
         sh:message "Data asset cannot have cyclic lineage (be both upstream and downstream of the same asset)"@en ;
         sh:prefixes [ sh:declare [
             sh:prefix "om" ;
-            sh:namespace "https://u-metadata.org/ontology/"^^xsd:anyURI ;
+            sh:namespace "https://wondersgroup.com/ontology/"^^xsd:anyURI ;
         ] ] ;
         sh:select """
             SELECT $this ?other
@@ -279,7 +279,7 @@ om:TeamHierarchyShape a sh:NodeShape ;
         sh:message "Team cannot be its own parent"@en ;
         sh:prefixes [ sh:declare [
             sh:prefix "om" ;
-            sh:namespace "https://u-metadata.org/ontology/"^^xsd:anyURI ;
+            sh:namespace "https://wondersgroup.com/ontology/"^^xsd:anyURI ;
         ] ] ;
         sh:select """
             SELECT $this

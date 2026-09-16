@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/api/automations/createWorkflow.json",
+  "$id": "https://wondersgroup.com/schema/api/automations/createWorkflow.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "CreateWorkflowRequest",
   "description": "A unit of work that will be triggered as an API call to the UMetadata server.",

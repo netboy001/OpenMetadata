@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/governance/workflows/elements/nodes/automatedTask/dataCompletenessTask.json",
+  "$id": "https://wondersgroup.com/schema/governance/workflows/elements/nodes/automatedTask/dataCompletenessTask.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "DataCompletenessTaskDefinition",
   "description": "Evaluates entity data completeness based on field presence and outputs quality bands.",

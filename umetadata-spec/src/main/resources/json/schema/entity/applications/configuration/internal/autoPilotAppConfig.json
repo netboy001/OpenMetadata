@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/applications/configuration/internal/autoPilotAppConfig.json",
+  "$id": "https://wondersgroup.com/schema/entity/applications/configuration/internal/autoPilotAppConfig.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "AutoPilotAppConfig",
   "description": "Configuration for the AutoPilot Application.",

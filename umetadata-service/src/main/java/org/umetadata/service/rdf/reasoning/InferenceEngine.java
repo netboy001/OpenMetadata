@@ -68,7 +68,7 @@ public class InferenceEngine {
    * prefixed names.
    */
   private List<Rule> createCustomRules() {
-    String om = "https://u-metadata.org/ontology/";
+    String om = "https://wondersgroup.com/ontology/";
     String rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 
     // Build rules with full URIs

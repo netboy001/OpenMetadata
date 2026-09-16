@@ -27,7 +27,7 @@ export class ApiServiceClass extends EntityClass {
         type: 'Rest',
         openAPISchemaConnection: {
           openAPISchemaURL:
-            'https://sandbox-beta.u-metadata.org/swagger.json',
+            'https://sandbox-beta.wondersgroup.com/swagger.json',
         },
       },
     },

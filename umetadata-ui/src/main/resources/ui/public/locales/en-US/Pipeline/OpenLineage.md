@@ -1,6 +1,6 @@
 # OpenLineage
 
-In this section, we provide guides and references to use the OpenLineage connector. You can view the full documentation <a href="https://docs.u-metadata.org/connectors/pipeline/openlineage" target="_blank">here</a>.
+In this section, we provide guides and references to use the OpenLineage connector. You can view the full documentation <a href="https://docs.wondersgroup.com/connectors/pipeline/openlineage" target="_blank">here</a>.
 
 ## Requirements
 

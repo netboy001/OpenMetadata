@@ -42,7 +42,7 @@ test.describe('API docs should work properly', () => {
     ).toBeVisible();
     await expect(
       page.getByRole('link', {
-        name: 'https://u-metadata.org',
+        name: 'https://wondersgroup.com',
         exact: true,
       })
     ).toBeVisible();

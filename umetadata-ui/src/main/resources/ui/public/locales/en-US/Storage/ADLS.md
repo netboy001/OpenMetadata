@@ -2,7 +2,7 @@
 
 In this section, we provide guides and references to use the ADLS connector.
 
-By default, the ADLS connector will ingest only top-level containers (Buckets). If you want to extract any information from within and their data models, you can follow the <a href="https://docs.u-metadata.org/connectors/storage" target="_blank">docs</a>.
+By default, the ADLS connector will ingest only top-level containers (Buckets). If you want to extract any information from within and their data models, you can follow the <a href="https://docs.wondersgroup.com/connectors/storage" target="_blank">docs</a>.
 
 ## Requirements
 
@@ -14,7 +14,7 @@ To extract metadata from Azure ADLS (Storage Account - StorageV2), you will need
 - Storage Blob Data Contributor
 - Storage Queue Data Contributor
 
-You can find further information on the Kafka connector in the <a href="https://docs.u-metadata.org/connectors/storage/adls" target="_blank">docs</a>.
+You can find further information on the Kafka connector in the <a href="https://docs.wondersgroup.com/connectors/storage/adls" target="_blank">docs</a>.
 
 ## Connection Details
 

@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/feed/customProperty.json",
+  "$id": "https://wondersgroup.com/schema/entity/feed/customProperty.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "CustomPropertyFeedInfo",
   "javaType": "org.umetadata.schema.entity.feed.CustomPropertyFeedInfo",

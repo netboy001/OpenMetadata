@@ -52,7 +52,7 @@ public class RdfTagUpdater {
       // Build SPARQL update with properly escaped string literals
       String sparqlUpdate =
           String.format(
-              "PREFIX om: <https://u-metadata.org/ontology/> "
+              "PREFIX om: <https://wondersgroup.com/ontology/> "
                   + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> "
                   + "PREFIX skos: <http://www.w3.org/2004/02/skos/core#> "
                   + "INSERT DATA { "
@@ -100,7 +100,7 @@ public class RdfTagUpdater {
 
       String sparqlUpdate =
           String.format(
-              "PREFIX om: <https://u-metadata.org/ontology/> "
+              "PREFIX om: <https://wondersgroup.com/ontology/> "
                   + "DELETE WHERE { <%s> om:hasTag <%s> }",
               targetUri, tagUri);
 
@@ -123,7 +123,7 @@ public class RdfTagUpdater {
     // Extract entity type and ID from FQN
     String[] parts = FullyQualifiedName.split(fqn);
     if (parts.length == 0) {
-      return "https://u-metadata.org/entity/unknown/"
+      return "https://wondersgroup.com/entity/unknown/"
           + URLEncoder.encode(hash, StandardCharsets.UTF_8);
     }
 
@@ -132,7 +132,7 @@ public class RdfTagUpdater {
 
     // Use hash as a stable identifier for the entity
     return String.format(
-        "https://u-metadata.org/%s/%s",
+        "https://wondersgroup.com/%s/%s",
         entityType, URLEncoder.encode(hash, StandardCharsets.UTF_8));
   }
 

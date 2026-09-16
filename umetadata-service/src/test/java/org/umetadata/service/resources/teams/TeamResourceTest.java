@@ -373,7 +373,7 @@ public class TeamResourceTest extends EntityResourceTest<Team, CreateTeam> {
                 team.getId(),
                 originalJson,
                 team,
-                SecurityUtil.authHeaders(randomUserName + "@u-metadata.org")),
+                SecurityUtil.authHeaders(randomUserName + "@wondersgroup.com")),
         FORBIDDEN,
         permissionNotAllowed(randomUserName, List.of(MetadataOperation.EDIT_USERS)));
 
@@ -384,7 +384,7 @@ public class TeamResourceTest extends EntityResourceTest<Team, CreateTeam> {
     patchEntityAndCheck(
         team,
         originalJson,
-        SecurityUtil.authHeaders(teamManagerUser.getName() + "@u-metadata.org"),
+        SecurityUtil.authHeaders(teamManagerUser.getName() + "@wondersgroup.com"),
         MINOR_UPDATE,
         change);
   }

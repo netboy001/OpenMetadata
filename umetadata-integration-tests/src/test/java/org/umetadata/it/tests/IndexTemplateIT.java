@@ -350,7 +350,7 @@ public class IndexTemplateIT {
   void testSyncTemplateEndpointRequiresAdmin(TestNamespace ns) throws Exception {
     String serverUrl = SdkClients.getServerUrl();
     String nonAdminToken =
-        SdkClients.createClient("test@u-metadata.org", "test@u-metadata.org", new String[] {})
+        SdkClients.createClient("test@wondersgroup.com", "test@wondersgroup.com", new String[] {})
             .getConfig()
             .getAccessToken();
 

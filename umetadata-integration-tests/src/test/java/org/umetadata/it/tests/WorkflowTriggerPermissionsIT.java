@@ -262,8 +262,8 @@ public class WorkflowTriggerPermissionsIT {
 
   private static String dataConsumerToken() {
     return JwtAuthProvider.tokenFor(
-        "data-consumer@u-metadata.org",
-        "data-consumer@u-metadata.org",
+        "data-consumer@wondersgroup.com",
+        "data-consumer@wondersgroup.com",
         new String[] {"DataConsumer"},
         TOKEN_TTL_SECONDS);
   }

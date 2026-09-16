@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/teams/persona.json",
+  "$id": "https://wondersgroup.com/schema/entity/teams/persona.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Persona",
   "description": "This schema defines the Persona entity. A `Persona` is a job function associated with a user. An Example, Data Engineer or Data Consumer is a Persona of a user in Metadata world.",

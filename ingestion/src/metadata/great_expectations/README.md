@@ -32,4 +32,4 @@ securityConfig:
     - b
 ```
 
-If you are using a specific security config for your u metadata server you can check [this page](https://docs.u-metadata.org/deploy/secure-umetadata) for the implementation details and what parameters to add to your config file.
+If you are using a specific security config for your u metadata server you can check [this page](https://docs.wondersgroup.com/deploy/secure-umetadata) for the implementation details and what parameters to add to your config file.

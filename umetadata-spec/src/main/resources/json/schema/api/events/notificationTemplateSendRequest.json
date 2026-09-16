@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/api/events/notificationTemplateSendRequest.json",
+  "$id": "https://wondersgroup.com/schema/api/events/notificationTemplateSendRequest.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "NotificationTemplateSendRequest",
   "description": "Request to render and send a notification template with mock data to external destinations.",

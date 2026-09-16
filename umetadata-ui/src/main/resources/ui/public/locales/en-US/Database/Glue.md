@@ -8,7 +8,7 @@ The Glue connector ingests metadata through AWS <a href="https://boto3.amazonaws
 
 The user must have `glue:GetDatabases` and `glue:GetTables` permissions for the ingestion to run successfully.
 
-You can find further information on the Glue connector in the <a href="https://docs.u-metadata.org/connectors/database/glue" target="_blank">docs</a>.
+You can find further information on the Glue connector in the <a href="https://docs.wondersgroup.com/connectors/database/glue" target="_blank">docs</a>.
 
 ## Connection Details
 

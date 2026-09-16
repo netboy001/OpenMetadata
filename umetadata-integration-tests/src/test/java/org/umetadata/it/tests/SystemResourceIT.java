@@ -1658,7 +1658,7 @@ public class SystemResourceIT {
                     .withContainerRequestFilter("org.umetadata.service.security.JwtFilter")
                     .withAdminPrincipals(Set.of("admin"))
                     .withAllowedEmailRegistrationDomains(Set.of("all"))
-                    .withPrincipalDomain("u-metadata.org")
+                    .withPrincipalDomain("wondersgroup.com")
                     .withAllowedDomains(new HashSet<>())
                     .withEnforcePrincipalDomain(false)
                     .withEnableSecureSocketConnection(false)

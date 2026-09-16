@@ -21,7 +21,7 @@ public class QLeverStorage implements RdfStorageInterface {
 
   public QLeverStorage(RdfConfiguration config) {
     this.baseUri =
-        config.getBaseUri() != null ? config.getBaseUri().toString() : "https://u-metadata.org/";
+        config.getBaseUri() != null ? config.getBaseUri().toString() : "https://wondersgroup.com/";
     this.endpoint = config.getRemoteEndpoint() != null ? config.getRemoteEndpoint().toString() : "";
 
     LOG.warn("QLever storage is not yet implemented. Using as placeholder.");

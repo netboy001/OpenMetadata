@@ -4,7 +4,7 @@ In this section, we provide guides and references to use the UMetadata connector
 
 ## Requirements
 <!-- to be updated -->
-You can find further information on the Kafka connector in the <a href="https://docs.u-metadata.org/connectors/metadata/umetadata" target="_blank">docs</a>.
+You can find further information on the Kafka connector in the <a href="https://docs.wondersgroup.com/connectors/metadata/umetadata" target="_blank">docs</a>.
 
 ## Connection Details
 

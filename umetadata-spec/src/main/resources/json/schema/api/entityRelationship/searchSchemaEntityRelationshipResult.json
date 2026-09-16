@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/api/entityRelationship/searchSchemaEntityRelationshipResult.json",
+  "$id": "https://wondersgroup.com/schema/api/entityRelationship/searchSchemaEntityRelationshipResult.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "SearchSchemaEntityRelationshipResult",
   "description": "Paginated response for Search Schema Entity Relationship, including ER diagram data and paging metadata.",

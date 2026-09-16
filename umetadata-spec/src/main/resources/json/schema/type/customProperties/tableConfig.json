@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/type/customProperties/tableConfig.json",
+  "$id": "https://wondersgroup.com/schema/type/customProperties/tableConfig.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "TableConfig",
   "description": "Custom property configuration for table-type property where all column data types are strings.",

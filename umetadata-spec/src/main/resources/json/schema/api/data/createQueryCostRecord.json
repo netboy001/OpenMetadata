@@ -1,5 +1,5 @@
 {
-    "$id": "https://u-metadata.org/schema/api/data/createQueryCostRecord.json",
+    "$id": "https://wondersgroup.com/schema/api/data/createQueryCostRecord.json",
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "CreateQueryCostRecordRequest",
     "description": "CreateQuery Cost Record",

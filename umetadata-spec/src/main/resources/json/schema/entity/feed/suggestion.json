@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/feed/thread.json",
+  "$id": "https://wondersgroup.com/schema/entity/feed/thread.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Suggestion",
   "description": "This schema defines the Suggestion entity. A suggestion can be applied to an asset to give the owner context about possible changes or improvements to descriptions, tags,...",

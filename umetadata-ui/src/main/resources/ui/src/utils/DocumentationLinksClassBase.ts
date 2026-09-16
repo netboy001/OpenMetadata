@@ -12,7 +12,7 @@
  */
 
 class DocumentationLinksClassBase {
-  docsBaseURL = 'https://docs.u-metadata.org/';
+  docsBaseURL = 'https://docs.wondersgroup.com/';
 
   protected updateDocsBaseURL(url: string) {
     this.docsBaseURL = url;
@@ -53,7 +53,7 @@ class DocumentationLinksClassBase {
       AUTO_CLASSIFICATION_DOCS: `${this.docsBaseURL}how-to-guides/data-governance/classification/auto`,
       OMD_SLACK_LINK:
         'https://join.slack.com/t/umetadata/shared_invite/zt-1r1kv175f-9qM5eTB39MF6U2DBhZhWow',
-      OMD_REPOSITORY_LINK: 'https://star-us.u-metadata.org/',
+      OMD_REPOSITORY_LINK: 'https://star-us.wondersgroup.com/',
       TOTAL_DATA_ASSETS_WIDGET_DOCS: `${this.docsBaseURL}how-to-guides/data-insights/service-insights#total-data-assets`,
       DESCRIPTION_COVERAGE_WIDGET_DOCS: `${this.docsBaseURL}how-to-guides/data-insights/service-insights#description-coverage`,
       OWNERSHIP_COVERAGE_WIDGET_DOCS: `${this.docsBaseURL}how-to-guides/data-insights/service-insights#ownership-coverage`,

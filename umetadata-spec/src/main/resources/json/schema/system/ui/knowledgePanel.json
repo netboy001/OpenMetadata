@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/system/ui/knowledgePanel.json",
+  "$id": "https://wondersgroup.com/schema/system/ui/knowledgePanel.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Team",
   "description": "This schema defines the KnowledgePanel entity. A Knowledge panel is an information box used for UX customization in UMetadata.",

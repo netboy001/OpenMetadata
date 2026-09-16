@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/applications/mcp/mcpToolCallUsage.json",
+  "$id": "https://wondersgroup.com/schema/entity/applications/mcp/mcpToolCallUsage.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "McpToolCallUsage",
   "description": "Single MCP tool-call usage record. One row written per tool invocation to the apps_extension_time_series table with extension='limits' (reusing the existing per-app usage extension; rows are isolated by appName='McpApplication'). Used to surface MCP traffic as a product growth metric. Not billed, no enforcement.",

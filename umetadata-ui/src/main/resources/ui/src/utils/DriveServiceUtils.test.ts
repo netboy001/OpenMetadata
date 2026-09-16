@@ -34,7 +34,7 @@ jest.mock('../constants/Services.constant', () => ({
 jest.mock(
   '../jsons/connectionSchemas/connections/drive/customDriveConnection.json',
   () => ({
-    $id: 'https://u-metadata.org/schema/entity/services/connections/drive/customDriveConnection.json',
+    $id: 'https://wondersgroup.com/schema/entity/services/connections/drive/customDriveConnection.json',
     title: 'CustomDriveConnection',
     type: 'object',
     properties: {
@@ -52,7 +52,7 @@ jest.mock(
 jest.mock(
   '../jsons/connectionSchemas/connections/drive/googleDriveConnection.json',
   () => ({
-    $id: 'https://u-metadata.org/schema/entity/services/connections/drive/googleDriveConnection.json',
+    $id: 'https://wondersgroup.com/schema/entity/services/connections/drive/googleDriveConnection.json',
     title: 'GoogleDriveConnection',
     type: 'object',
     properties: {

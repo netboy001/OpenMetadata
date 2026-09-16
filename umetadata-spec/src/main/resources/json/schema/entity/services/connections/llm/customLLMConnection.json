@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/services/connections/llm/customLLMConnection.json",
+  "$id": "https://wondersgroup.com/schema/entity/services/connections/llm/customLLMConnection.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "CustomLLMConnection",
   "description": "Custom LLM Service Connection Config for self-hosted or custom LLM providers",

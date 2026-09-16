@@ -923,7 +923,7 @@ test.describe('SSO Back Navigation', () => {
       className: 'org.umetadata.service.security.DefaultAuthorizer',
       containerRequestFilter: 'org.umetadata.service.security.JwtFilter',
       adminPrincipals: ['admin'],
-      principalDomain: 'u-metadata.org',
+      principalDomain: 'wondersgroup.com',
       enforcePrincipalDomain: false,
       enableSecureSocketConnection: false,
     },
@@ -984,7 +984,7 @@ test.describe('SSO Back Navigation', () => {
               containerRequestFilter:
                 'org.umetadata.service.security.JwtFilter',
               adminPrincipals: ['admin'],
-              principalDomain: 'u-metadata.org',
+              principalDomain: 'wondersgroup.com',
               enforcePrincipalDomain: false,
               enableSecureSocketConnection: false,
             },

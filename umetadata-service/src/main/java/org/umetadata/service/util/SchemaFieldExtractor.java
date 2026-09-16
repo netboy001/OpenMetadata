@@ -633,8 +633,8 @@ public class SchemaFieldExtractor {
     }
 
     private String mapUrlToResourcePath(String url) {
-      if (url.startsWith("https://u-metadata.org/schema/")) {
-        String relativePath = url.substring("https://u-metadata.org/schema/".length());
+      if (url.startsWith("https://wondersgroup.com/schema/")) {
+        String relativePath = url.substring("https://wondersgroup.com/schema/".length());
         return "json/schema/" + relativePath;
       } else {
         throw new RuntimeException("Unsupported URL: " + url);

@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/type/csvImportResult.json",
+  "$id": "https://wondersgroup.com/schema/type/csvImportResult.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "BulkOperationResult",
   "description": "Represents result of bulk Operation performed on entities.",

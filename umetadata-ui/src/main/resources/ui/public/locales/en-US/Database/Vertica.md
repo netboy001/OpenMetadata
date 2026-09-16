@@ -44,7 +44,7 @@ To run the profiler, it's not enough to have `USAGE` permissions to the schema a
 GRANT SELECT ON ALL TABLES IN SCHEMA <schema> TO umetadata;
 ```
 
-You can find further information on the Vertica connector in the <a href="https://docs.u-metadata.org/connectors/database/vertica" target="_blank">docs</a>.
+You can find further information on the Vertica connector in the <a href="https://docs.wondersgroup.com/connectors/database/vertica" target="_blank">docs</a>.
 
 ## Connection Details
 

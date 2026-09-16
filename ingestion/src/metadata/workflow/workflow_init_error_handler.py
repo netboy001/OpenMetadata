@@ -32,12 +32,12 @@ EXAMPLES_WORKFLOW_PATH: Path = Path(__file__).parent / "../examples" / "workflow
 
 
 URLS: Dict[PipelineType, str] = {
-    PipelineType.metadata: "https://docs.u-metadata.org/connectors/ingestion/workflows/metadata",
-    PipelineType.profiler: "https://docs.u-metadata.org/connectors/ingestion/workflows/profiler",
-    PipelineType.TestSuite: "https://docs.u-metadata.org/connectors/ingestion/workflows/data-quality",
-    PipelineType.lineage: "https://docs.u-metadata.org/connectors/ingestion/workflows/lineage",
-    PipelineType.usage: "https://docs.u-metadata.org/connectors/ingestion/workflows/usage",
-    PipelineType.dbt: "https://docs.u-metadata.org/connectors/ingestion/workflows/dbt",
+    PipelineType.metadata: "https://docs.wondersgroup.com/connectors/ingestion/workflows/metadata",
+    PipelineType.profiler: "https://docs.wondersgroup.com/connectors/ingestion/workflows/profiler",
+    PipelineType.TestSuite: "https://docs.wondersgroup.com/connectors/ingestion/workflows/data-quality",
+    PipelineType.lineage: "https://docs.wondersgroup.com/connectors/ingestion/workflows/lineage",
+    PipelineType.usage: "https://docs.wondersgroup.com/connectors/ingestion/workflows/usage",
+    PipelineType.dbt: "https://docs.wondersgroup.com/connectors/ingestion/workflows/dbt",
 }
 
 
@@ -144,7 +144,7 @@ class WorkflowInitErrorHandler:
         """
         log_ansi_encoded_string(
             message=f"\nFor more information, please visit: {URLS[pipeline_type]}"
-            + "\nOr join us in Slack: https://slack.u-metadata.org/"
+            + "\nOr join us in Slack: https://slack.wondersgroup.com/"
         )
 
     @staticmethod

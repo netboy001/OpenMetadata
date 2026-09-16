@@ -18,7 +18,7 @@ For example, to include only those Containers whose name starts with the word `d
 
 For example, to exclude all Containers with the name containing the word `demo`, add regex pattern in the exclude field as `.*demo.*`.
 
-Checkout <a href="https://docs.u-metadata.org/connectors/ingestion/workflows/metadata/filter-patterns/database#database-filter-pattern" target="_blank">this</a> document for further examples on filter patterns.
+Checkout <a href="https://docs.wondersgroup.com/connectors/ingestion/workflows/metadata/filter-patterns/database#database-filter-pattern" target="_blank">this</a> document for further examples on filter patterns.
 $$
 
 $$section

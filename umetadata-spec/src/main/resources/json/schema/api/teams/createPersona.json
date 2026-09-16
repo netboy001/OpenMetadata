@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/api/teams/createPersona.json",
+  "$id": "https://wondersgroup.com/schema/api/teams/createPersona.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "CreatePersonaRequest",
   "description": "Persona entity",

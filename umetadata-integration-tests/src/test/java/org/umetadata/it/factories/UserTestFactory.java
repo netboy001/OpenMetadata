@@ -58,13 +58,13 @@ public class UserTestFactory {
    * Get the DataConsumer user (predefined in the system).
    */
   public static User getDataConsumer(TestNamespace ns) {
-    return getOrCreateUser("data-consumer@u-metadata.org");
+    return getOrCreateUser("data-consumer@wondersgroup.com");
   }
 
   /**
    * Get the DataSteward user (predefined in the system).
    */
   public static User getDataSteward(TestNamespace ns) {
-    return getOrCreateUser("data-steward@u-metadata.org");
+    return getOrCreateUser("data-steward@wondersgroup.com");
   }
 }

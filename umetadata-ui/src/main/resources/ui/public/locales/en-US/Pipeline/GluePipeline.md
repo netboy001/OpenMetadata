@@ -13,7 +13,7 @@ The user must have the following permissions for the ingestion to run successful
 - `glue:GetWorkflow`
 - `glue:GetJobRuns`
 
-You can find further information on the Kafka connector in the <a href="https://docs.u-metadata.org/connectors/pipeline/gluepipeline" target="_blank">docs</a>.
+You can find further information on the Kafka connector in the <a href="https://docs.wondersgroup.com/connectors/pipeline/gluepipeline" target="_blank">docs</a>.
 
 ## Connection Details
 

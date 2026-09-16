@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/api/createBot.json",
+  "$id": "https://wondersgroup.com/schema/api/createBot.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "AddGlossaryToAssetsRequest",
   "description": "Create Request for adding a glossary to assets",

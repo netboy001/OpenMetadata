@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/applications/configuration/external/automator/mlTaggingAction.json",
+  "$id": "https://wondersgroup.com/schema/entity/applications/configuration/external/automator/mlTaggingAction.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "MLTaggingAction",
   "description": "ML Tagging action configuration for external automator.",

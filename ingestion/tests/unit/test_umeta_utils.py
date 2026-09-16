@@ -271,9 +271,9 @@ class UMetaUtilsTest(TestCase):
         # Simulate a real UMetadata JWT token payload
         payload = {
             "sub": "ingestion-bot",
-            "iss": "u-metadata.org",
+            "iss": "wondersgroup.com",
             "iat": 1663938462,
-            "email": "ingestion-bot@u-metadata.org",
+            "email": "ingestion-bot@wondersgroup.com",
             "isBot": False,
         }
 
@@ -289,8 +289,8 @@ class UMetaUtilsTest(TestCase):
 
         self.assertIsNotNone(result)
         self.assertEqual(result["sub"], "ingestion-bot")
-        self.assertEqual(result["iss"], "u-metadata.org")
-        self.assertEqual(result["email"], "ingestion-bot@u-metadata.org")
+        self.assertEqual(result["iss"], "wondersgroup.com")
+        self.assertEqual(result["email"], "ingestion-bot@wondersgroup.com")
         self.assertEqual(result["isBot"], False)
 
     def test_get_entity_hierarchy_returns_dict(self):

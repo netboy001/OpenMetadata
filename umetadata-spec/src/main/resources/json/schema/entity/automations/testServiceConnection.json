@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/automations/workflow/testServiceConnection.json",
+  "$id": "https://wondersgroup.com/schema/entity/automations/workflow/testServiceConnection.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "TestServiceConnectionRequest",
   "javaType": "org.umetadata.schema.entity.automations.TestServiceConnectionRequest",

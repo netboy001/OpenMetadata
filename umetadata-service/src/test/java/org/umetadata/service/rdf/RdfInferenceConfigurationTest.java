@@ -23,7 +23,7 @@ import org.umetadata.service.rdf.reasoning.InferenceEngine.ReasoningLevel;
  */
 class RdfInferenceConfigurationTest {
 
-  private static final String OM_NS = "https://u-metadata.org/ontology/";
+  private static final String OM_NS = "https://wondersgroup.com/ontology/";
 
   private Model baseModel;
   private Model ontologyModel;

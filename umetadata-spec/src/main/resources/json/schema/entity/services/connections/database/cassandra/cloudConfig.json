@@ -1,5 +1,5 @@
 {
-    "$id": "https://u-metadata.org/schema/entity/services/connections/database/cassandra/cloudConfig.json",
+    "$id": "https://wondersgroup.com/schema/entity/services/connections/database/cassandra/cloudConfig.json",
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "Cloud Config",
     "description": "Configuration for connecting to DataStax Astra DB in the cloud.",

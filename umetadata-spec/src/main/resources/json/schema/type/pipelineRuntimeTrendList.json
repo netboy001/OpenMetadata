@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/type/pipelineRuntimeTrendList.json",
+  "$id": "https://wondersgroup.com/schema/type/pipelineRuntimeTrendList.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Pipeline Runtime Trend List",
   "description": "List of pipeline runtime trends over a time period",

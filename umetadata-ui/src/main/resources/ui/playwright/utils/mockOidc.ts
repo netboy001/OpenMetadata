@@ -140,5 +140,5 @@ export const MOCK_OIDC_DISCOVERY_URL = `${MOCK_OIDC_BASE_URL}/.well-known/openid
 // verify OIDC self-signup persists the mapped email claim (issue #29189).
 export const MOCK_OIDC_MAPPED_CLAIM_ACCOUNT = {
   sub: 'claim-user',
-  email: 'claim.user.mapped@u-metadata.org',
+  email: 'claim.user.mapped@wondersgroup.com',
 };

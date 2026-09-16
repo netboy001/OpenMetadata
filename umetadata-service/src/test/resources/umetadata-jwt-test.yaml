@@ -56,7 +56,7 @@ authorizerConfiguration:
   containerRequestFilter: ${AUTHORIZER_REQUEST_FILTER:-org.umetadata.service.security.JwtFilter}
   adminPrincipals: ${AUTHORIZER_ADMIN_PRINCIPALS:-[admin]}
   allowedEmailRegistrationDomains: ${AUTHORIZER_ALLOWED_REGISTRATION_DOMAIN:-["all"]}
-  principalDomain: ${AUTHORIZER_PRINCIPAL_DOMAIN:-"u-metadata.org"}
+  principalDomain: ${AUTHORIZER_PRINCIPAL_DOMAIN:-"wondersgroup.com"}
   allowedDomains: ${AUTHORIZER_ALLOWED_DOMAINS:-[]}
   enforcePrincipalDomain: ${AUTHORIZER_ENFORCE_PRINCIPAL_DOMAIN:-false}
   enableSecureSocketConnection : ${AUTHORIZER_ENABLE_SECURE_SOCKET:-false}
@@ -102,7 +102,7 @@ authenticationConfiguration:
 jwtTokenConfiguration:
   rsapublicKeyFilePath: "src/test/resources/public_key.der"
   rsaprivateKeyFilePath: "src/test/resources/private_key.der"
-  jwtissuer: "u-metadata.org"
+  jwtissuer: "wondersgroup.com"
   keyId: "Gb389a-9f76-gdjs-a92j-0242bk94356"
 
 eventMonitoringConfiguration:

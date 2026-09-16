@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/settings/entityRuleSettings.json",
+  "$id": "https://wondersgroup.com/schema/settings/entityRuleSettings.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "EntityRuleSettings",
   "type": "object",

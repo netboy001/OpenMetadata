@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/dataInsight/dataInsightChartResult.json",
+  "$id": "https://wondersgroup.com/schema/dataInsight/dataInsightChartResult.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "DataInsightChartResult",
   "description": "DataInsightChartResult represents data that will be consumed by a specific chart",

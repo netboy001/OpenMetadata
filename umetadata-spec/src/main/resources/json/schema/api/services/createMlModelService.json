@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/api/services/createMlmodelService.json",
+  "$id": "https://wondersgroup.com/schema/api/services/createMlmodelService.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "CreateMlModelServiceRequest",
   "description": "Create MlModel service entity request",

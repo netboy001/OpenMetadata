@@ -475,7 +475,7 @@ public class SubscriptionUtil {
     // Validate the URI to prevent SSRF attacks
     URLValidator.validateURL(uri);
 
-    Map<String, String> authHeaders = SecurityUtil.authHeaders("admin@u-metadata.org");
+    Map<String, String> authHeaders = SecurityUtil.authHeaders("admin@wondersgroup.com");
     WebTarget target = client.target(uri);
 
     // Add query parameters if they exist
@@ -643,7 +643,7 @@ public class SubscriptionUtil {
   }
 
   public static Invocation.Builder getTarget(Client client, Webhook webhook, String json) {
-    Map<String, String> authHeaders = SecurityUtil.authHeaders("admin@u-metadata.org");
+    Map<String, String> authHeaders = SecurityUtil.authHeaders("admin@wondersgroup.com");
     WebTarget target = client.target(webhook.getEndpoint());
     target = addQueryParams(target, webhook.getQueryParams());
     Invocation.Builder result = SecurityUtil.addHeaders(target, authHeaders);

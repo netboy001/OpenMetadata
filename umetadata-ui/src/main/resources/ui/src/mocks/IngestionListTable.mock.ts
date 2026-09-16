@@ -116,7 +116,7 @@ export const mockESIngestionData: IngestionPipeline = {
     description: 'Service Used for creating UMetadata Ingestion Pipelines.',
     displayName: 'UMetadata Service',
     deleted: false,
-    href: 'http://sandbox-beta.u-metadata.org/api/v1/services/databaseServices/d520c9bb-a517-4f1e-8962-d8518de71279',
+    href: 'http://sandbox-beta.wondersgroup.com/api/v1/services/databaseServices/d520c9bb-a517-4f1e-8962-d8518de71279',
   },
   pipelineStatuses: {
     runId: '8bd07fbd-a356-45c1-8621-7bb6a4dff5b2',
@@ -128,7 +128,7 @@ export const mockESIngestionData: IngestionPipeline = {
   loggerLevel: LogLevels.Info,
   deployed: true,
   enabled: false,
-  href: 'http://sandbox-beta.u-metadata.org/api/v1/services/ingestionPipelines/5ff66f1c-9809-4333-836e-ba4dadda11f2',
+  href: 'http://sandbox-beta.wondersgroup.com/api/v1/services/ingestionPipelines/5ff66f1c-9809-4333-836e-ba4dadda11f2',
   version: 0.5,
   updatedAt: 1687854372726,
   updatedBy: 'teddy',

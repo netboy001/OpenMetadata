@@ -189,7 +189,7 @@ import org.quartz.SchedulerException;
             contact =
                 @Contact(
                     name = "UMetadata",
-                    url = "https://u-metadata.org",
+                    url = "https://wondersgroup.com",
                     email = "umetadata-dev@googlegroups.com"),
             license =
                 @License(name = "Apache 2.0", url = "https://www.apache.org/licenses/LICENSE-2.0")),

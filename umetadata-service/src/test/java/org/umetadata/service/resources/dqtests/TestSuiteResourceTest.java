@@ -146,7 +146,7 @@ public class TestSuiteResourceTest extends EntityResourceTest<TestSuite, CreateT
         userResourceTest.createEntity(
             new CreateUser()
                 .withName("user-test-case-owner-view-report")
-                .withEmail("user-test-case-owner-view-report@u-metadata.org")
+                .withEmail("user-test-case-owner-view-report@wondersgroup.com")
                 .withRoles(List.of(roleTestCaseOwnerView.getId()))
                 .withTeams(List.of(isolatedTeam.getId())),
             ADMIN_AUTH_HEADERS);

@@ -74,12 +74,12 @@ describe('GithubStarCard', () => {
     expect(links).toHaveLength(2);
     expect(links[0]).toHaveAttribute(
       'href',
-      'https://star-us.u-metadata.org/'
+      'https://star-us.wondersgroup.com/'
     );
     expect(links[0]).toHaveAttribute('target', '_blank');
     expect(links[1]).toHaveAttribute(
       'href',
-      'https://star-us.u-metadata.org/'
+      'https://star-us.wondersgroup.com/'
     );
     expect(links[1]).toHaveAttribute('target', '_blank');
   });

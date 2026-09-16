@@ -192,7 +192,7 @@ public class LineageResourceTest extends UMetadataApplicationTest {
 
   private void checkAuthorization(String userName, boolean shouldThrowException)
       throws HttpResponseException {
-    Map<String, String> authHeaders = authHeaders(userName + "@u-metadata.org");
+    Map<String, String> authHeaders = authHeaders(userName + "@wondersgroup.com");
 
     if (shouldThrowException) {
       assertResponse(
@@ -206,8 +206,8 @@ public class LineageResourceTest extends UMetadataApplicationTest {
       return;
     }
 
-    addEdge(TABLES.get(1), TABLES.get(2), null, authHeaders(userName + "@u-metadata.org"));
-    deleteEdge(TABLES.get(1), TABLES.get(2), authHeaders(userName + "@u-metadata.org"));
+    addEdge(TABLES.get(1), TABLES.get(2), null, authHeaders(userName + "@wondersgroup.com"));
+    deleteEdge(TABLES.get(1), TABLES.get(2), authHeaders(userName + "@wondersgroup.com"));
   }
 
   @Order(2)

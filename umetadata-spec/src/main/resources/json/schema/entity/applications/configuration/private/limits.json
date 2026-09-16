@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/applications/configuration/private/appLimitsConfig.json",
+  "$id": "https://wondersgroup.com/schema/entity/applications/configuration/private/appLimitsConfig.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "AppLimitsConfig",
   "description": "Private Configuration for the App Limits.",

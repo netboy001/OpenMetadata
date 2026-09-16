@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/api/data/bulkColumnUpdateRequest.json",
+  "$id": "https://wondersgroup.com/schema/api/data/bulkColumnUpdateRequest.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "BulkColumnUpdateRequest",
   "description": "Bulk update request for updating column metadata (description, display name, tags, glossary terms) across entities. Supports two modes: 1) Search-based: provide columnName and filters to find and update all matching columns, 2) Explicit: provide specific list of column FQNs to update.",

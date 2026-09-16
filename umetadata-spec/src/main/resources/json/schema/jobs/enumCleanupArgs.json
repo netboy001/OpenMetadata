@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/jobs/enumCleanupArgs.json",
+  "$id": "https://wondersgroup.com/schema/jobs/enumCleanupArgs.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "EnumCleanupArgs",
   "description": "Arguments for enum removal job.",

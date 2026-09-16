@@ -4,7 +4,7 @@ In this section, we provide guides and references to use the PinotDB connector.
 
 ## Requirements
 
-You can find further information on the PinotDB connector in the <a href="https://docs.u-metadata.org/connectors/database/pinotdb" target="_blank">docs</a>.
+You can find further information on the PinotDB connector in the <a href="https://docs.wondersgroup.com/connectors/database/pinotdb" target="_blank">docs</a>.
 
 ## Connection Details
 

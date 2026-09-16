@@ -204,7 +204,7 @@ export const MOCK_ASSIGNEE_DATA = {
                   'Organization under which all the other team hierarchy is created',
                 displayName: 'Organization',
                 deleted: false,
-                href: 'http://sandbox-beta.u-metadata.org/api/v1/teams/9efbccd7-3d0b-485d-89c4-ac0f8fc80da5',
+                href: 'http://sandbox-beta.wondersgroup.com/api/v1/teams/9efbccd7-3d0b-485d-89c4-ac0f8fc80da5',
               },
             ],
             personas: [],

@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/auth/personalAccessToken.json",
+  "$id": "https://wondersgroup.com/schema/auth/personalAccessToken.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "PersonalAccessToken",
   "description": "This schema defines Personal Access Token Schema.",

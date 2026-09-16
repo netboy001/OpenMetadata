@@ -77,7 +77,7 @@ export class ApiCollectionClass extends EntityClass {
           type: 'Rest',
           openAPISchemaConnection: {
             openAPISchemaURL:
-              'https://sandbox-beta.u-metadata.org/swagger.json',
+              'https://sandbox-beta.wondersgroup.com/swagger.json',
           },
         },
       },
@@ -92,7 +92,7 @@ export class ApiCollectionClass extends EntityClass {
     this.apiEndpoint = {
       name: this.apiEndpointName,
       apiCollection: `${this.service.name}.${this.entity.name}`,
-      endpointURL: 'https://sandbox-beta.u-metadata.org/swagger.json',
+      endpointURL: 'https://sandbox-beta.wondersgroup.com/swagger.json',
       requestSchema: {
         schemaType: 'JSON',
         schemaFields: [

@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/api/data/bulkUpdateDashboard.json",
+  "$id": "https://wondersgroup.com/schema/api/data/bulkUpdateDashboard.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "BulkUpdateDashboard",
   "description": "Schema for bulk updating multiple dashboards with differential updates",

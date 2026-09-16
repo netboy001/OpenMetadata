@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/api/entityRelationship/relationshipRef.json",
+  "$id": "https://wondersgroup.com/schema/api/entityRelationship/relationshipRef.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "RelationshipRef",
   "description": "Relationship Reference to an Entity.",

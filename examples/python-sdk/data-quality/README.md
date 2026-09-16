@@ -22,7 +22,7 @@ The initial setup will require that you run `./start [-v <version>]`. It will fe
 Once the whole system is running, you can start following these instructions:
 
 1. Go to your [UMetadata](http://localhost:8585/) instance and login
-   - Email: admin@u-metadata.org
+   - Email: admin@wondersgroup.com
    - Password: admin
 2. Create a database service to our Postgres Database
    1. Navigate to [Databases](http://localhost:8585/settings/services/databases) (Settings -> Services -> Databases)

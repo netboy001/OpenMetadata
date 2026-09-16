@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/type/contextRecognizer.json",
+  "$id": "https://wondersgroup.com/schema/type/contextRecognizer.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "ContextRecognizer",
   "description": "Context-aware recognizer using surrounding text",

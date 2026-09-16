@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/type/entityProfile.json",
+  "$id": "https://wondersgroup.com/schema/type/entityProfile.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "EntityProfile",
   "description": "This schema defines the type to capture the full table Entity profile.",

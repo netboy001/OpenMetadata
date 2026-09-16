@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/applications/configuration/external/collateAITierAgentAppConfig.json",
+  "$id": "https://wondersgroup.com/schema/entity/applications/configuration/external/collateAITierAgentAppConfig.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "CollateAITierAgentAppConfig.json",
   "description": "Configuration for the Collate AI Quality Agent.",

@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/metadataIngestion/storage/storageMetadataHttpConfig.json",
+  "$id": "https://wondersgroup.com/schema/metadataIngestion/storage/storageMetadataHttpConfig.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Storage Metadata Http Config",
   "description": "Storage Metadata Manifest file HTTP path config.",

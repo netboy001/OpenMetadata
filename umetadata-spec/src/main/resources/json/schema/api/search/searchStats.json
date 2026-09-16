@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/api/search/searchStats.json",
+  "$id": "https://wondersgroup.com/schema/api/search/searchStats.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "SearchStatsResponse",
   "description": "Response containing search cluster statistics and index details.",

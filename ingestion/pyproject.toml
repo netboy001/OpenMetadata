@@ -16,8 +16,8 @@ description = "Ingestion Framework for UMetadata"
 requires-python = ">=3.9"
 
 [project.urls]
-Homepage = "https://u-metadata.org/"
-Documentation = "https://docs.u-metadata.org/"
+Homepage = "https://wondersgroup.com/"
+Documentation = "https://docs.wondersgroup.com/"
 Source = "https://github.com/u-metadata/UMetadata"
 
 [tool.setuptools.dynamic]

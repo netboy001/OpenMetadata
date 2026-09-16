@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/type/pipelineExecutionTrend.json",
+  "$id": "https://wondersgroup.com/schema/type/pipelineExecutionTrend.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Pipeline Execution Trend",
   "description": "Day-wise pipeline execution trend showing succeeded and failed counts",

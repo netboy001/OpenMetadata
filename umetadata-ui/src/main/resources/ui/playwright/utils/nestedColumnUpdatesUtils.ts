@@ -483,7 +483,7 @@ export const createApiEndpointEntity = async (
             type: 'Rest',
             openAPISchemaConnection: {
               openAPISchemaURL:
-                'https://sandbox-beta.u-metadata.org/swagger.json',
+                'https://sandbox-beta.wondersgroup.com/swagger.json',
             },
           },
         },
@@ -552,7 +552,7 @@ export const createApiEndpointEntity = async (
         name: endpointName,
         displayName: endpointName,
         apiCollection: `${serviceName}.${collectionName}`,
-        endpointURL: 'https://sandbox-beta.u-metadata.org/swagger.json',
+        endpointURL: 'https://sandbox-beta.wondersgroup.com/swagger.json',
         description:
           'API Endpoint with duplicate nested column names for testing.',
         requestSchema: {

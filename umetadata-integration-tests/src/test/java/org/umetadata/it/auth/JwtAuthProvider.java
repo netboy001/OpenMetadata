@@ -34,7 +34,7 @@ public class JwtAuthProvider {
     Instant now = Instant.now();
     com.auth0.jwt.JWTCreator.Builder b =
         JWT.create()
-            .withIssuer("u-metadata.org")
+            .withIssuer("wondersgroup.com")
             .withKeyId("test-key")
             .withIssuedAt(java.util.Date.from(now))
             .withExpiresAt(java.util.Date.from(now.plusSeconds(ttlSeconds)))

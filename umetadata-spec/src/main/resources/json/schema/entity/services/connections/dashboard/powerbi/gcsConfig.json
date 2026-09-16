@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/services/connections/dashboard/powerbi/gcsConfig.json",
+  "$id": "https://wondersgroup.com/schema/entity/services/connections/dashboard/powerbi/gcsConfig.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "GCSConfig",
   "description": "GCS storage config for pbit files",

@@ -76,7 +76,7 @@ def run_restore(
         bold=True,
         message="WARNING: restore is deprecated starting 1.4.0. Use database native tools to restore."
         "For more information, please visit: "
-        "https://docs.u-metadata.org/v1.4.x/deployment/backup-restore-metadata",
+        "https://docs.wondersgroup.com/v1.4.x/deployment/backup-restore-metadata",
     )
     log_ansi_encoded_string(
         color=ANSI.GREEN,

@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/api/data/columnGridResponse.json",
+  "$id": "https://wondersgroup.com/schema/api/data/columnGridResponse.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "ColumnGridResponse",
   "description": "Response containing all unique columns grouped by metadata similarity for grid-based editing.",

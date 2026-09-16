@@ -115,7 +115,7 @@ public final class WebhookRecipient extends Recipient {
     target = addQueryParameters(target, webhook.getQueryParams());
 
     // Add authentication headers
-    Map<String, String> authHeaders = SecurityUtil.authHeaders("admin@u-metadata.org");
+    Map<String, String> authHeaders = SecurityUtil.authHeaders("admin@wondersgroup.com");
     Builder requestBuilder = SecurityUtil.addHeaders(target, authHeaders);
 
     // Add webhook-specific headers (custom headers + HMAC signature)

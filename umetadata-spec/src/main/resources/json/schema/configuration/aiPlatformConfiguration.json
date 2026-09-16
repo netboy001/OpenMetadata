@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/configuration/aiPlatformConfiguration.json",
+  "$id": "https://wondersgroup.com/schema/configuration/aiPlatformConfiguration.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "AiPlatformConfiguration",
   "description": "This schema defines the JWT Configuration.",

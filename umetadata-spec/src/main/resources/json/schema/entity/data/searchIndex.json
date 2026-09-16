@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/data/SearchIndex.json",
+  "$id": "https://wondersgroup.com/schema/entity/data/SearchIndex.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "SearchIndex",
   "$comment": "@om-entity-type",

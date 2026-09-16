@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/configuration/workflowSettings.json",
+  "$id": "https://wondersgroup.com/schema/configuration/workflowSettings.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "WorkflowSettings",
   "description": "This schema defines the Workflow Settings.",

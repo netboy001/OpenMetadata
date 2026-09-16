@@ -27,7 +27,7 @@ Below defined policy grants the permissions to list all tables in DynamoDB:
 
 For more information on Dynamodb permissions visit the <a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/api-permissions-reference.html" target="_blank">AWS DynamoDB official documentation</a>.
 
-You can find further information on the DynamoDB connector in the <a href="https://docs.u-metadata.org/connectors/database/dynamodb" target="_blank">docs</a>.
+You can find further information on the DynamoDB connector in the <a href="https://docs.wondersgroup.com/connectors/database/dynamodb" target="_blank">docs</a>.
 
 ## Connection Details
 

@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/api/events/notificationTemplateValidationResponse.json",
+  "$id": "https://wondersgroup.com/schema/api/events/notificationTemplateValidationResponse.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "NotificationTemplateValidationResponse",
   "description": "Response from notification template validation",

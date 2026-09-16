@@ -6,7 +6,7 @@ In this section, we provide guides and references to use the Metabase connector.
 
 We will extract the metadata using the <a href="https://www.metabase.com/docs/latest/api-documentation" target="_blank">Metabase API</a>.
 
-You can find further information on the Metabase connector in the <a href="https://docs.u-metadata.org/connectors/dashboard/metabase" target="_blank">docs</a>.
+You can find further information on the Metabase connector in the <a href="https://docs.wondersgroup.com/connectors/dashboard/metabase" target="_blank">docs</a>.
 
 ## Connection Details
 

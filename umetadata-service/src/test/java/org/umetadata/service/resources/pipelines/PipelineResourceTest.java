@@ -259,7 +259,7 @@ public class PipelineResourceTest extends EntityResourceTest<Pipeline, CreatePip
             .withService(AIRFLOW_REFERENCE.getFullyQualifiedName())
             .withDescription("description");
     createAndCheckEntity(request, ADMIN_AUTH_HEADERS);
-    String pipelineURL = "https://airflow.u-metadata.org/tree?dag_id=airflow_redshift_usage";
+    String pipelineURL = "https://airflow.wondersgroup.com/tree?dag_id=airflow_redshift_usage";
     Integer pipelineConcurrency = 110;
     Date startDate = new DateTime("2021-11-13T20:20:39+00:00").toDate();
 
@@ -586,14 +586,14 @@ public class PipelineResourceTest extends EntityResourceTest<Pipeline, CreatePip
     fieldAdded(change, "description", "newDescription");
     fieldAdded(change, "tasks", TASKS);
     fieldAdded(change, "concurrency", 5);
-    fieldUpdated(change, "sourceUrl", "http://localhost:8080", "https://airflow.u-metadata.org");
+    fieldUpdated(change, "sourceUrl", "http://localhost:8080", "https://airflow.wondersgroup.com");
     pipeline =
         updateAndCheckEntity(
             request
                 .withDescription("newDescription")
                 .withTasks(TASKS)
                 .withConcurrency(5)
-                .withSourceUrl("https://airflow.u-metadata.org"),
+                .withSourceUrl("https://airflow.wondersgroup.com"),
             OK,
             ADMIN_AUTH_HEADERS,
             MINOR_UPDATE,

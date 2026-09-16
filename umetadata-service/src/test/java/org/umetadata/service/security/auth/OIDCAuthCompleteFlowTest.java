@@ -158,7 +158,7 @@ public class OIDCAuthCompleteFlowTest extends UMetadataApplicationTest {
     authorizerConfig.put("adminPrincipals", Arrays.asList("admin"));
     authorizerConfig.put("testPrincipals", new ArrayList<>());
     authorizerConfig.put("allowedEmailRegistrationDomains", Arrays.asList("all"));
-    authorizerConfig.put("principalDomain", "u-metadata.org");
+    authorizerConfig.put("principalDomain", "wondersgroup.com");
     authorizerConfig.put("allowedDomains", new ArrayList<>());
     authorizerConfig.put("enforcePrincipalDomain", false);
     authorizerConfig.put("enableSecureSocketConnection", false);

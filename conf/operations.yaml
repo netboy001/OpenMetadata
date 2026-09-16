@@ -1,6 +1,6 @@
 email:
   emailingEntity: ${OM_EMAIL_ENTITY:-"UMetadata"}
-  supportUrl: ${OM_SUPPORT_URL:-"https://slack.u-metadata.org"}
+  supportUrl: ${OM_SUPPORT_URL:-"https://slack.wondersgroup.com"}
   enableSmtpServer : ${AUTHORIZER_ENABLE_SMTP:-false}
   senderMail: ${UMETADATA_SMTP_SENDER_MAIL:-"sender@gmail.com"}
   serverEndpoint: ${SMTP_SERVER_ENDPOINT:-"smtp.gmail.com"}

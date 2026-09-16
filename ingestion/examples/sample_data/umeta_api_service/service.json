@@ -5,7 +5,7 @@
 		"config": {
 			"type": "Rest",
 			"openAPISchemaConnection": {
-				"openAPISchemaURL": "https://docs.u-metadata.org/swagger.html"
+				"openAPISchemaURL": "https://docs.wondersgroup.com/swagger.html"
 			},
     		"token":"token"
 		}

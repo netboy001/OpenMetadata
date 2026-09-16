@@ -12,7 +12,7 @@ GRANT SELECT ON TABLE svv_table_info to test_user;
 
 Si vous voulez exécuter le profilage et les testes vous devez vous assurer que l'utilisateur utilisé pour le service petu exécuter des requêtes `SELECT` sur les tables et vues. Pour plus d'information vous pouvez visiter la documentation Redshift [ici](https://docs.aws.amazon.com/redshift/latest/dg/c_visibility-of-data.html).
 
-Vous pourrez également trouver plus de détails dans la [section Redshift](https://docs.u-metadata.org/connectors/database/redshift) de la documentation.
+Vous pourrez également trouver plus de détails dans la [section Redshift](https://docs.wondersgroup.com/connectors/database/redshift) de la documentation.
 
 ## Connection Details
 

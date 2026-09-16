@@ -9,7 +9,7 @@ For Connecting to Amundsen, need to make sure to pass the Host and Port with pre
 2. `neo4j`
 3. `neo4j+ssc`
 
-You can find further information on the Amundsen connector in the <a href="https://docs.u-metadata.org/connectors/metadata/amundsen" target="_blank">docs</a>.
+You can find further information on the Amundsen connector in the <a href="https://docs.wondersgroup.com/connectors/metadata/amundsen" target="_blank">docs</a>.
 
 ## Connection Details
 

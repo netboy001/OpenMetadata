@@ -13,12 +13,12 @@
 
 export const CP_BASE_VALUES = {
   string: 'gsdgfsdg',
-  email: 'admin@u-metadata.org',
+  email: 'admin@wondersgroup.com',
   markdown: '<p>HEre</p><p>new desc</p>',
   sqlQuery: 'Select * from TABLE',
   duration: 'P1Y3M4D1H3M4S',
   hyperlinkCp: {
-    url: 'https://u-metadata.org',
+    url: 'https://wondersgroup.com',
     displayText: 'Test Link',
   },
   integer: 65,

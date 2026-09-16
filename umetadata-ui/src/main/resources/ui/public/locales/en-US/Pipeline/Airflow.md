@@ -6,12 +6,12 @@ In this section, we provide guides and references to use the Airflow connector.
 
 We support different approaches to extracting metadata from Airflow:
 1. **Airflow Connector**: which we will configure in this section and requires access to the underlying database.
-2. **Airflow Lineage Backend**: which can be configured in your Airflow instance. You can read more about the Lineage Backend <a href="https://docs.u-metadata.org/connectors/pipeline/airflow/lineage-backend" target="_blank">here</a>.
-3. **Airflow Lineage Operator**: To send metadata directly from your Airflow DAGs. You can read more about the Lineage Operator <a href="https://docs.u-metadata.org/connectors/pipeline/airflow/lineage-operator" target="_blank">here</a>.
+2. **Airflow Lineage Backend**: which can be configured in your Airflow instance. You can read more about the Lineage Backend <a href="https://docs.wondersgroup.com/connectors/pipeline/airflow/lineage-backend" target="_blank">here</a>.
+3. **Airflow Lineage Operator**: To send metadata directly from your Airflow DAGs. You can read more about the Lineage Operator <a href="https://docs.wondersgroup.com/connectors/pipeline/airflow/lineage-operator" target="_blank">here</a>.
 
 From the UMetadata UI, you have access to the strategy number 1.
 
-You can find further information on the Airflow connector in the <a href="https://docs.u-metadata.org/connectors/pipeline/airflow" target="_blank">docs</a>.
+You can find further information on the Airflow connector in the <a href="https://docs.wondersgroup.com/connectors/pipeline/airflow" target="_blank">docs</a>.
 
 ## Connection Details
 
@@ -33,7 +33,7 @@ $$section
 
 Select your underlying database connection. We support the <a href="https://airflow.apache.org/docs/apache-airflow/stable/howto/set-up-database.html" target="_blank">official</a> backends from Airflow.
 
-Note that the **Backend Connection** is only used to extract metadata from a DAG running directly in your instance, for example to get the metadata out of <a href="https://docs.u-metadata.org/connectors/pipeline/airflow/gcp" target="_blank">GCS Composer</a>.
+Note that the **Backend Connection** is only used to extract metadata from a DAG running directly in your instance, for example to get the metadata out of <a href="https://docs.wondersgroup.com/connectors/pipeline/airflow/gcp" target="_blank">GCS Composer</a>.
 
 $$
 
@@ -42,7 +42,7 @@ $$
 The REST API connection calls the Airflow web server over HTTP/HTTPS and does not require direct access to Airflow's metadata database. This makes it the right choice for managed deployments (Astronomer, GCP Cloud Composer, MWAA) and for any self-hosted Airflow where direct DB access is not available or desired.
 
 $$note
-The REST API connection fetches DAG topology, task structure, schedules, and run statuses. **Lineage is not captured through this connection.** To get table-level and column-level lineage in UMetadata, you must separately install the <a href="https://docs.u-metadata.org/connectors/pipeline/airflow/lineage-backend" target="_blank">UMetadata Lineage Backend</a> in Airflow (strategy 2) or use the <a href="https://docs.u-metadata.org/connectors/pipeline/airflow/lineage-operator" target="_blank">Lineage Operator</a> in your DAGs (strategy 3). Once those emit OpenLineage events, lineage edges will appear automatically in UMetadata.
+The REST API connection fetches DAG topology, task structure, schedules, and run statuses. **Lineage is not captured through this connection.** To get table-level and column-level lineage in UMetadata, you must separately install the <a href="https://docs.wondersgroup.com/connectors/pipeline/airflow/lineage-backend" target="_blank">UMetadata Lineage Backend</a> in Airflow (strategy 2) or use the <a href="https://docs.wondersgroup.com/connectors/pipeline/airflow/lineage-operator" target="_blank">Lineage Operator</a> in your DAGs (strategy 3). Once those emit OpenLineage events, lineage edges will appear automatically in UMetadata.
 $$
 
 ### Host URL Format by Deployment

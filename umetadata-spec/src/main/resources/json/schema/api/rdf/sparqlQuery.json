@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/api/rdf/sparqlQuery.json",
+  "$id": "https://wondersgroup.com/schema/api/rdf/sparqlQuery.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "SparqlQuery",
   "description": "SPARQL query request",

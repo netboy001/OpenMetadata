@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/services/connections/database/bigTableConnection.json",
+  "$id": "https://wondersgroup.com/schema/entity/services/connections/database/bigTableConnection.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "BigTableConnection",
   "description": "Google BigTable Connection Config",

@@ -1,5 +1,5 @@
 {
-    "$id": "https://u-metadata.org/schema/entity/applications/reverseMetadata/reverseIngestionResponse.json",
+    "$id": "https://wondersgroup.com/schema/entity/applications/reverseMetadata/reverseIngestionResponse.json",
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "ReverseIngestionResponse",
     "javaType": "org.umetadata.schema.entity.services.ingestionPipelines.ReverseIngestionResponse",

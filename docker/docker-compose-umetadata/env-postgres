@@ -12,7 +12,7 @@ AUTHORIZER_REQUEST_FILTER="org.umetadata.service.security.JwtFilter"
 AUTHORIZER_ADMIN_PRINCIPALS=[admin]
 AUTHORIZER_ALLOWED_REGISTRATION_DOMAIN=["all"]
 AUTHORIZER_INGESTION_PRINCIPALS=[ingestion-bot]
-AUTHORIZER_PRINCIPAL_DOMAIN="u-metadata.org"
+AUTHORIZER_PRINCIPAL_DOMAIN="wondersgroup.com"
 AUTHORIZER_ENFORCE_PRINCIPAL_DOMAIN="false"
 AUTHORIZER_ENABLE_SECURE_SOCKET="false"
 AUTHENTICATION_PROVIDER="basic"
@@ -68,7 +68,7 @@ AUTHENTICATION_ENABLE_SELF_SIGNUP="true"
 # JWT Configuration
 RSA_PUBLIC_KEY_FILE_PATH="./conf/public_key.der"
 RSA_PRIVATE_KEY_FILE_PATH="./conf/private_key.der"
-JWT_ISSUER="u-metadata.org"
+JWT_ISSUER="wondersgroup.com"
 JWT_KEY_ID="Gb389a-9f76-gdjs-a92j-0242bk94356"
 # UMetadata Server Pipeline Service Client Configuration
 PIPELINE_SERVICE_CLIENT_ENDPOINT="http://ingestion:8080"
@@ -130,7 +130,7 @@ OM_SM_ACCESS_KEY_ID=""
 OM_SM_ACCESS_KEY=""
 #email configuration:
 OM_EMAIL_ENTITY="UMetadata"
-OM_SUPPORT_URL="https://slack.u-metadata.org"
+OM_SUPPORT_URL="https://slack.wondersgroup.com"
 AUTHORIZER_ENABLE_SMTP="false"
 UMETADATA_SERVER_URL="http://localhost:8585"
 UMETADATA_SMTP_SENDER_MAIL=""

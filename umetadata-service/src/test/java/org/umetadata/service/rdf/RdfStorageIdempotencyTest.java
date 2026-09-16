@@ -16,7 +16,7 @@ import org.umetadata.service.rdf.storage.RdfStorageInterface.RelationshipData;
  */
 class RdfStorageIdempotencyTest {
 
-  private static final String BASE_URI = "https://u-metadata.org/";
+  private static final String BASE_URI = "https://wondersgroup.com/";
 
   @Test
   @DisplayName("storeRelationship should use DELETE/INSERT pattern for idempotency")
@@ -35,12 +35,12 @@ class RdfStorageIdempotencyTest {
         String.format(
             "PREFIX om: <%sontology/> "
                 + "DELETE DATA { "
-                + "  GRAPH <https://u-metadata.org/graph/knowledge> { "
+                + "  GRAPH <https://wondersgroup.com/graph/knowledge> { "
                 + "    <%sentity/%s/%s> om:%s <%sentity/%s/%s> . "
                 + "  } "
                 + "}; "
                 + "INSERT DATA { "
-                + "  GRAPH <https://u-metadata.org/graph/knowledge> { "
+                + "  GRAPH <https://wondersgroup.com/graph/knowledge> { "
                 + "    <%sentity/%s/%s> om:%s <%sentity/%s/%s> . "
                 + "  } "
                 + "}",
@@ -85,7 +85,7 @@ class RdfStorageIdempotencyTest {
 
     // Build the expected query patterns
     StringBuilder deletePattern = new StringBuilder();
-    deletePattern.append("DELETE DATA { GRAPH <https://u-metadata.org/graph/knowledge> { ");
+    deletePattern.append("DELETE DATA { GRAPH <https://wondersgroup.com/graph/knowledge> { ");
     for (RelationshipData rel : relationships) {
       deletePattern.append(
           String.format(
@@ -101,7 +101,7 @@ class RdfStorageIdempotencyTest {
     deletePattern.append("} }");
 
     StringBuilder insertPattern = new StringBuilder();
-    insertPattern.append("INSERT DATA { GRAPH <https://u-metadata.org/graph/knowledge> { ");
+    insertPattern.append("INSERT DATA { GRAPH <https://wondersgroup.com/graph/knowledge> { ");
     for (RelationshipData rel : relationships) {
       insertPattern.append(
           String.format(
@@ -148,10 +148,10 @@ class RdfStorageIdempotencyTest {
     // Simulate the query that would be executed
     String deleteInsertQuery =
         String.format(
-            "DELETE DATA { GRAPH <https://u-metadata.org/graph/knowledge> { "
+            "DELETE DATA { GRAPH <https://wondersgroup.com/graph/knowledge> { "
                 + "<%sentity/table/%s> om:CONTAINS <%sentity/database/%s> . "
                 + "} }; "
-                + "INSERT DATA { GRAPH <https://u-metadata.org/graph/knowledge> { "
+                + "INSERT DATA { GRAPH <https://wondersgroup.com/graph/knowledge> { "
                 + "<%sentity/table/%s> om:CONTAINS <%sentity/database/%s> . "
                 + "} }",
             BASE_URI, tableId, BASE_URI, databaseId, BASE_URI, tableId, BASE_URI, databaseId);

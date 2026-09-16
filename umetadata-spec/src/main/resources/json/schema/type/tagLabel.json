@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/type/tagLabel.json",
+  "$id": "https://wondersgroup.com/schema/type/tagLabel.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "TagLabel",
   "description": "This schema defines the type for labeling an entity with a Tag.",

@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/type/layerPaging.json",
+  "$id": "https://wondersgroup.com/schema/type/layerPaging.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "LayerPaging",
   "description": "Layer Paging Information for Entity Relationships and Lineage.",

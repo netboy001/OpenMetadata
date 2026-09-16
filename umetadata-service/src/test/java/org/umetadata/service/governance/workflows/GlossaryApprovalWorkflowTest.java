@@ -359,7 +359,7 @@ public class GlossaryApprovalWorkflowTest extends UMetadataApplicationTest {
 
     // Get reviewer headers for resolving the task
     Map<String, String> reviewerHeaders =
-        authHeaders(reviewerUser.getName() + "@u-metadata.org");
+        authHeaders(reviewerUser.getName() + "@wondersgroup.com");
 
     // Find the open approval task for the term via API
     String about = String.format("<#E::glossaryTerm::%s>", term.getFullyQualifiedName());

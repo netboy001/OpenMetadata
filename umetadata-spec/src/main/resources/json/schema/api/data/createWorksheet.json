@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/api/data/createWorksheet.json",
+  "$id": "https://wondersgroup.com/schema/api/data/createWorksheet.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "CreateWorksheetRequest",
   "description": "Create Worksheet entity request",

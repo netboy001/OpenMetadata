@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/type/workflowTriggerFields.json",
+  "$id": "https://wondersgroup.com/schema/type/workflowTriggerFields.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "WorkflowTriggerFields",
   "description": "Fields that can trigger workflow execution when changed",

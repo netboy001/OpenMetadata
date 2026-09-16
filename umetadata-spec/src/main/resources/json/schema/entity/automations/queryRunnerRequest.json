@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/automations/queryRunnerRequest.json",
+  "$id": "https://wondersgroup.com/schema/entity/automations/queryRunnerRequest.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "QueryRunnerRequest",
   "javaType": "org.umetadata.schema.entity.automations.QueryRunnerRequest",

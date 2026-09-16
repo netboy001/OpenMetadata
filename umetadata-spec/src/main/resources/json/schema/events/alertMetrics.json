@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/events/alertMetrics.json",
+  "$id": "https://wondersgroup.com/schema/events/alertMetrics.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "AlertMetrics",
   "description": "Alert Metrics Schema",

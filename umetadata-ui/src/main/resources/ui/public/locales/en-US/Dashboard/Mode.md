@@ -6,7 +6,7 @@ In this section, we provide guides and references to use the Mode connector.
 
 UMetadata relies on Mode's API, which is exclusive to members of the Mode Business Workspace. This means that only resources that belong to a Mode Business Workspace can be accessed via the API.
 
-You can find further information on the Mode connector in the <a href="https://docs.u-metadata.org/connectors/dashboard/mode" target="_blank">docs</a>.
+You can find further information on the Mode connector in the <a href="https://docs.wondersgroup.com/connectors/dashboard/mode" target="_blank">docs</a>.
 
 ## Connection Details
 

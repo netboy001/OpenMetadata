@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/security/ssl/validateSSLClientConfig.json",
+  "$id": "https://wondersgroup.com/schema/security/ssl/validateSSLClientConfig.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Validate SSL Client Config",
   "description": "UMetadata Client configured to validate SSL certificates.",

@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/email/emailTemplatePlaceholder.json",
+  "$id": "https://wondersgroup.com/schema/email/emailTemplatePlaceholder.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Email Template Placeholder",
   "description": "Schema defining placeholders used in email templates.",

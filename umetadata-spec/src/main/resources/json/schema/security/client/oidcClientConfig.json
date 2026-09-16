@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/security/client/oidcClientConfig.json",
+  "$id": "https://wondersgroup.com/schema/security/client/oidcClientConfig.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "OidcClientConfig",
   "description": "Oidc client security configs.",

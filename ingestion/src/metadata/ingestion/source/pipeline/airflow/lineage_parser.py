@@ -205,7 +205,7 @@ def _parse_xlets(xlet: Any) -> None:
     message=textwrap.dedent(
         """
     Please update your inlets/outlets to follow 
-    https://docs.u-metadata.org/connectors/pipeline/airflow/configuring-lineage
+    https://docs.wondersgroup.com/connectors/pipeline/airflow/configuring-lineage
     """
     ),
     release="1.4.0",

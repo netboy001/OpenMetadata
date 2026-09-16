@@ -4,7 +4,7 @@ In this section, we provide guides and references to use the StarRocks connector
 
 ## Requirements
 
-You can find further information on the StarRocks connector in the [docs](https://docs.u-metadata.org/connectors/database/starrocks).
+You can find further information on the StarRocks connector in the [docs](https://docs.wondersgroup.com/connectors/database/starrocks).
 
 ## Connection Details
 

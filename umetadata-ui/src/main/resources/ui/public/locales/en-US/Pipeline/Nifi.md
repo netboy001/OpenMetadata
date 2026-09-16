@@ -6,7 +6,7 @@ UMetadata supports 2 types of connection for the Nifi connector:
 - **Basic Authentication**: use username/password to authenticate to Nifi. 
 - **Client Certificate Authentication**: use CA, client certificate and client key files to authenticate
 
-You can find further information on the Nifi connector in the <a href="https://docs.u-metadata.org/connectors/pipeline/nifi" target="_blank">docs</a>.
+You can find further information on the Nifi connector in the <a href="https://docs.wondersgroup.com/connectors/pipeline/nifi" target="_blank">docs</a>.
 
 ## Connection Details
 $$section

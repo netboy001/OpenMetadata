@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/api/data/columnGroupUpdateRequest.json",
+  "$id": "https://wondersgroup.com/schema/api/data/columnGroupUpdateRequest.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "ColumnGroupUpdateRequest",
   "description": "Request to update metadata for a specific group of columns.",

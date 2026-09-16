@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/ai/agentExecution.json",
+  "$id": "https://wondersgroup.com/schema/entity/ai/agentExecution.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "AgentExecution",
   "$comment": "@om-entity-type",

@@ -5,7 +5,7 @@ In this section, we provide guides and references to use the BurstIQ connector.
 
 To extract metadata from BurstIQ LifeGraph, the user used in the connection needs to have privileges to read all the metadata in BurstIQ LifeGraph.
 
-You can find further information on the BurstIQ connector in the <a href="https://docs.u-metadata.org/connectors/database/burstiq" target="_blank">docs</a>.
+You can find further information on the BurstIQ connector in the <a href="https://docs.wondersgroup.com/connectors/database/burstiq" target="_blank">docs</a>.
 
 ## Connection Details
 

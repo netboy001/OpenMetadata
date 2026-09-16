@@ -3,12 +3,12 @@
         {
             "name": "tables",
             "service": "umeta_api_service",
-            "endpointURL": "https://docs.u-metadata.org/swagger.html#tag/Tables"
+            "endpointURL": "https://docs.wondersgroup.com/swagger.html#tag/Tables"
         },
         {
             "name": "users",
             "service": "umeta_api_service",
-            "endpointURL": "https://docs.u-metadata.org/swagger.html#tag/Users"
+            "endpointURL": "https://docs.wondersgroup.com/swagger.html#tag/Users"
         }
     ]
 }

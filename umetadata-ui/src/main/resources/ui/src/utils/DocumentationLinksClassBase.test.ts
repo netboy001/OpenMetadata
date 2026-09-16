@@ -21,7 +21,7 @@ describe('DocumentationLinksClassBase', () => {
 
   it('should return the default docsBaseURL', () => {
     expect(documentationLinksClassBase.getDocsBaseURL()).toBe(
-      'https://docs.u-metadata.org/'
+      'https://docs.wondersgroup.com/'
     );
   });
 
@@ -29,82 +29,82 @@ describe('DocumentationLinksClassBase', () => {
     const docsURLs = documentationLinksClassBase.getDocsURLS();
 
     expect(docsURLs.WORKFLOWS_PROFILER_DOCS).toBe(
-      'https://docs.u-metadata.org/how-to-guides/data-quality-observability/profiler/workflow'
+      'https://docs.wondersgroup.com/how-to-guides/data-quality-observability/profiler/workflow'
     );
     expect(docsURLs.GLOSSARIES_DOCS).toBe(
-      'https://docs.u-metadata.org/main-concepts/metadata-standard/schemas/entity/data/glossary'
+      'https://docs.wondersgroup.com/main-concepts/metadata-standard/schemas/entity/data/glossary'
     );
     expect(docsURLs.CONNECTORS_DOCS).toBe(
-      'https://docs.u-metadata.org/connectors'
+      'https://docs.wondersgroup.com/connectors'
     );
     expect(docsURLs.WORKFLOWS_METADATA_DOCS).toBe(
-      'https://docs.u-metadata.org/connectors/ingestion/workflows/metadata'
+      'https://docs.wondersgroup.com/connectors/ingestion/workflows/metadata'
     );
     expect(docsURLs.INGESTION_FRAMEWORK_DEPLOYMENT_DOCS).toBe(
-      'https://docs.u-metadata.org/deployment/ingestion'
+      'https://docs.wondersgroup.com/deployment/ingestion'
     );
     expect(docsURLs.BOTS_DOCS).toBe(
-      'https://docs.u-metadata.org/main-concepts/metadata-standard/schemas/entity/bot'
+      'https://docs.wondersgroup.com/main-concepts/metadata-standard/schemas/entity/bot'
     );
     expect(docsURLs.TEAMS_DOCS).toBe(
-      'https://docs.u-metadata.org/how-to-guides/admin-guide/teams-and-users/team-structure-umetadata'
+      'https://docs.wondersgroup.com/how-to-guides/admin-guide/teams-and-users/team-structure-umetadata'
     );
     expect(docsURLs.ADD_CUSTOM_PROPERTIES_DOCS).toBe(
-      'https://docs.u-metadata.org/how-to-guides/guide-for-data-users/custom'
+      'https://docs.wondersgroup.com/how-to-guides/guide-for-data-users/custom'
     );
     expect(docsURLs.ROLE_DOCS).toBe(
-      'https://docs.u-metadata.org/main-concepts/metadata-standard/schemas/entity/teams/role'
+      'https://docs.wondersgroup.com/main-concepts/metadata-standard/schemas/entity/teams/role'
     );
     expect(docsURLs.DATA_INSIGHT_DOCS).toBe(
-      'https://docs.u-metadata.org/how-to-guides/data-insights'
+      'https://docs.wondersgroup.com/how-to-guides/data-insights'
     );
     expect(docsURLs.INGESTION_DOCS).toBe(
-      'https://docs.u-metadata.org/connectors/ingestion/workflows'
+      'https://docs.wondersgroup.com/connectors/ingestion/workflows'
     );
     expect(docsURLs.USAGE_DOCS).toBe(
-      'https://docs.u-metadata.org/connectors/ingestion/workflows/usage'
+      'https://docs.wondersgroup.com/connectors/ingestion/workflows/usage'
     );
     expect(docsURLs.LOCAL_DEPLOYMENT).toBe(
-      'https://docs.u-metadata.org/quick-start/local-docker-deployment'
+      'https://docs.wondersgroup.com/quick-start/local-docker-deployment'
     );
     expect(docsURLs.DATA_INSIGHTS_PIPELINE_DOCS).toBe(
-      'https://docs.u-metadata.org/how-to-guides/data-insights/ingestion'
+      'https://docs.wondersgroup.com/how-to-guides/data-insights/ingestion'
     );
     expect(docsURLs.ELASTIC_SEARCH_RE_INDEX_PIPELINE_DOCS).toBe(
-      'https://docs.u-metadata.org/main-concepts/metadata-standard/schemas/entity/services/connections/metadata/metadataesconnection'
+      'https://docs.wondersgroup.com/main-concepts/metadata-standard/schemas/entity/services/connections/metadata/metadataesconnection'
     );
     expect(docsURLs.ALERTS_DOCS).toBe(
-      'https://docs.u-metadata.org/how-to-guides/admin-guide/alerts'
+      'https://docs.wondersgroup.com/how-to-guides/admin-guide/alerts'
     );
     expect(docsURLs.TAGS_DOCS).toBe(
-      'https://docs.u-metadata.org/main-concepts/metadata-standard/schemas/api/tags'
+      'https://docs.wondersgroup.com/main-concepts/metadata-standard/schemas/api/tags'
     );
     expect(docsURLs.AIRFLOW_DOCS).toBe(
-      'https://docs.u-metadata.org/deployment/ingestion/external/airflow'
+      'https://docs.wondersgroup.com/deployment/ingestion/external/airflow'
     );
     expect(docsURLs.FOLLOW_DATA_ASSET).toBe(
-      'https://docs.u-metadata.org/how-to-guides/guide-for-data-users/follow-data-asset'
+      'https://docs.wondersgroup.com/how-to-guides/guide-for-data-users/follow-data-asset'
     );
     expect(docsURLs.RECENTLY_VIEWED).toBe(
-      'https://docs.u-metadata.org/how-to-guides/data-discovery/discover'
+      'https://docs.wondersgroup.com/how-to-guides/data-discovery/discover'
     );
     expect(docsURLs.DATA_QUALITY_PROFILER_DOCS).toBe(
-      'https://docs.u-metadata.org/how-to-guides/data-quality-observability'
+      'https://docs.wondersgroup.com/how-to-guides/data-quality-observability'
     );
     expect(docsURLs.CUSTOM_PROPERTIES_DOCS).toBe(
-      'https://docs.u-metadata.org/how-to-guides/guide-for-data-users/custom'
+      'https://docs.wondersgroup.com/how-to-guides/guide-for-data-users/custom'
     );
     expect(docsURLs.DATA_DISCOVERY_DOCS).toBe(
-      'https://docs.u-metadata.org/how-to-guides/data-discovery'
+      'https://docs.wondersgroup.com/how-to-guides/data-discovery'
     );
     expect(docsURLs.HOW_TO_GUIDE_DOCS).toBe(
-      'https://docs.u-metadata.org/how-to-guides'
+      'https://docs.wondersgroup.com/how-to-guides'
     );
     expect(docsURLs.OMD_SLACK_LINK).toBe(
       'https://join.slack.com/t/umetadata/shared_invite/zt-1r1kv175f-9qM5eTB39MF6U2DBhZhWow'
     );
     expect(docsURLs.OMD_REPOSITORY_LINK).toBe(
-      'https://star-us.u-metadata.org/'
+      'https://star-us.wondersgroup.com/'
     );
   });
 
@@ -186,7 +186,7 @@ describe('DocumentationLinksClassBase', () => {
       'https://join.slack.com/t/umetadata/shared_invite/zt-1r1kv175f-9qM5eTB39MF6U2DBhZhWow'
     );
     expect(docsURLs.OMD_REPOSITORY_LINK).toBe(
-      'https://star-us.u-metadata.org/'
+      'https://star-us.wondersgroup.com/'
     );
   });
 });

@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/api/lineage/lineagePaginationInfo.json",
+  "$id": "https://wondersgroup.com/schema/api/lineage/lineagePaginationInfo.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "LineagePaginationInfo",
   "description": "Pagination information for lineage entities across different layers and depths",

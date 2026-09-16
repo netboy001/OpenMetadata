@@ -1932,7 +1932,7 @@ public class ImpersonationTest extends JwtAuthUMetadataApplicationTest {
 
   private DecodedJWT decodedJWT(String token) {
     Algorithm algorithm = Algorithm.RSA256(jwtTokenGenerator.getPublicKey(), null);
-    JWTVerifier verifier = JWT.require(algorithm).withIssuer("u-metadata.org").build();
+    JWTVerifier verifier = JWT.require(algorithm).withIssuer("wondersgroup.com").build();
     return verifier.verify(token);
   }
 

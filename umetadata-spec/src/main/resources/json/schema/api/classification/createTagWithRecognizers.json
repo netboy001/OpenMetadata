@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/api/classification/createTagWithRecognizers.json",
+  "$id": "https://wondersgroup.com/schema/api/classification/createTagWithRecognizers.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "CreateTagWithRecognizersRequest",
   "description": "Create or Update Tag Request with Recognizer Configuration",

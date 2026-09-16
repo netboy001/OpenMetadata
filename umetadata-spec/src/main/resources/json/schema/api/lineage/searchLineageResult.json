@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/api/lineage/searchLineageResult.json",
+  "$id": "https://wondersgroup.com/schema/api/lineage/searchLineageResult.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "SearchLineageResult",
   "description": "Search Lineage Response for the Lineage Request",

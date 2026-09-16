@@ -389,12 +389,12 @@ public class RdfResource {
   }
 
   private String buildLineageQuery(UUID entityId, String entityType, String direction) {
-    String entityUri = "https://u-metadata.org/entity/" + entityType + "/" + entityId;
+    String entityUri = "https://wondersgroup.com/entity/" + entityType + "/" + entityId;
 
     return switch (direction.toLowerCase()) {
       case "upstream" -> String.format(
           """
-          PREFIX om: <https://u-metadata.org/ontology/>
+          PREFIX om: <https://wondersgroup.com/ontology/>
           SELECT DISTINCT ?entity ?name ?type ?distance
           WHERE {
             <%s> om:upstream+ ?entity .
@@ -408,7 +408,7 @@ public class RdfResource {
 
       case "downstream" -> String.format(
           """
-          PREFIX om: <https://u-metadata.org/ontology/>
+          PREFIX om: <https://wondersgroup.com/ontology/>
           SELECT DISTINCT ?entity ?name ?type ?distance
           WHERE {
             <%s> om:downstream+ ?entity .
@@ -422,7 +422,7 @@ public class RdfResource {
 
       default -> String.format(
           """
-          PREFIX om: <https://u-metadata.org/ontology/>
+          PREFIX om: <https://wondersgroup.com/ontology/>
           SELECT DISTINCT ?entity ?name ?type ?relationship
           WHERE {
             {

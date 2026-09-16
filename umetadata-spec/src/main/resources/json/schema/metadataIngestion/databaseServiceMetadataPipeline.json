@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/metadataIngestion/databaseServiceMetadataPipeline.json",
+  "$id": "https://wondersgroup.com/schema/metadataIngestion/databaseServiceMetadataPipeline.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "DatabaseServiceMetadataPipeline",
   "description": "DatabaseService Metadata Pipeline Configuration.",

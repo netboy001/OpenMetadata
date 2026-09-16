@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/governance/workflows/elements/nodes/automatedTask/checkEntityAttributesTask.json",
+  "$id": "https://wondersgroup.com/schema/governance/workflows/elements/nodes/automatedTask/checkEntityAttributesTask.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "CheckEntityAttributesTaskDefinition",
   "description": "Checks if an Entity attributes fit given rules.",

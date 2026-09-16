@@ -29,7 +29,7 @@ import org.umetadata.service.rdf.translator.JsonLdTranslator;
 @Slf4j
 public class RdfRepository {
 
-  private static final String KNOWLEDGE_GRAPH = "https://u-metadata.org/graph/knowledge";
+  private static final String KNOWLEDGE_GRAPH = "https://wondersgroup.com/graph/knowledge";
 
   private final RdfConfiguration config;
   private final RdfStorageInterface storageService;
@@ -236,7 +236,7 @@ public class RdfRepository {
   private Model createRelationshipModel(EntityRelationship relationship) {
     Model model = ModelFactory.createDefaultModel();
 
-    model.setNsPrefix("om", "https://u-metadata.org/ontology/");
+    model.setNsPrefix("om", "https://wondersgroup.com/ontology/");
     model.setNsPrefix("prov", "http://www.w3.org/ns/prov#");
     model.setNsPrefix("dct", "http://purl.org/dc/terms/");
 
@@ -266,20 +266,20 @@ public class RdfRepository {
 
   private Property getRelationshipPredicate(String relationshipType, Model model) {
     return switch (relationshipType.toLowerCase()) {
-      case "contains" -> model.createProperty("https://u-metadata.org/ontology/", "contains");
+      case "contains" -> model.createProperty("https://wondersgroup.com/ontology/", "contains");
       case "uses" -> model.createProperty("http://www.w3.org/ns/prov#", "used");
-      case "owns" -> model.createProperty("https://u-metadata.org/ontology/", "owns");
-      case "parentof" -> model.createProperty("https://u-metadata.org/ontology/", "parentOf");
-      case "childof" -> model.createProperty("https://u-metadata.org/ontology/", "childOf");
-      case "relatedto" -> model.createProperty("https://u-metadata.org/ontology/", "relatedTo");
-      case "appliedto" -> model.createProperty("https://u-metadata.org/ontology/", "appliedTo");
-      case "testedby" -> model.createProperty("https://u-metadata.org/ontology/", "testedBy");
+      case "owns" -> model.createProperty("https://wondersgroup.com/ontology/", "owns");
+      case "parentof" -> model.createProperty("https://wondersgroup.com/ontology/", "parentOf");
+      case "childof" -> model.createProperty("https://wondersgroup.com/ontology/", "childOf");
+      case "relatedto" -> model.createProperty("https://wondersgroup.com/ontology/", "relatedTo");
+      case "appliedto" -> model.createProperty("https://wondersgroup.com/ontology/", "appliedTo");
+      case "testedby" -> model.createProperty("https://wondersgroup.com/ontology/", "testedBy");
       case "upstream" -> model.createProperty("http://www.w3.org/ns/prov#", "wasDerivedFrom");
       case "downstream" -> model.createProperty("http://www.w3.org/ns/prov#", "wasInfluencedBy");
       case "joinedwith" -> model.createProperty(
-          "https://u-metadata.org/ontology/", "joinedWith");
+          "https://wondersgroup.com/ontology/", "joinedWith");
       case "processedby" -> model.createProperty("http://www.w3.org/ns/prov#", "wasGeneratedBy");
-      default -> model.createProperty("https://u-metadata.org/ontology/", relationshipType);
+      default -> model.createProperty("https://wondersgroup.com/ontology/", relationshipType);
     };
   }
 
@@ -325,7 +325,7 @@ public class RdfRepository {
     try {
       Model model = ModelFactory.createDefaultModel();
 
-      model.setNsPrefix("om", "https://u-metadata.org/ontology/");
+      model.setNsPrefix("om", "https://wondersgroup.com/ontology/");
       model.setNsPrefix("prov", "http://www.w3.org/ns/prov#");
       model.setNsPrefix("dct", "http://purl.org/dc/terms/");
 
@@ -340,7 +340,7 @@ public class RdfRepository {
       toResource.addProperty(derivedFrom, fromResource);
 
       // UMetadata-specific upstream for compatibility
-      Property upstream = model.createProperty("https://u-metadata.org/ontology/", "UPSTREAM");
+      Property upstream = model.createProperty("https://wondersgroup.com/ontology/", "UPSTREAM");
       fromResource.addProperty(upstream, toResource);
 
       if (lineageDetails != null) {
@@ -355,22 +355,22 @@ public class RdfRepository {
         Resource detailsResource = model.createResource(detailsUri);
 
         Property hasLineageDetails =
-            model.createProperty("https://u-metadata.org/ontology/", "hasLineageDetails");
+            model.createProperty("https://wondersgroup.com/ontology/", "hasLineageDetails");
         fromResource.addProperty(hasLineageDetails, detailsResource);
 
         detailsResource.addProperty(
             model.createProperty("http://www.w3.org/1999/02/22-rdf-syntax-ns#", "type"),
-            model.createResource("https://u-metadata.org/ontology/LineageDetails"));
+            model.createResource("https://wondersgroup.com/ontology/LineageDetails"));
 
         if (lineageDetails.getSqlQuery() != null && !lineageDetails.getSqlQuery().isEmpty()) {
           detailsResource.addProperty(
-              model.createProperty("https://u-metadata.org/ontology/", "sqlQuery"),
+              model.createProperty("https://wondersgroup.com/ontology/", "sqlQuery"),
               lineageDetails.getSqlQuery());
         }
 
         if (lineageDetails.getSource() != null) {
           detailsResource.addProperty(
-              model.createProperty("https://u-metadata.org/ontology/", "lineageSource"),
+              model.createProperty("https://wondersgroup.com/ontology/", "lineageSource"),
               lineageDetails.getSource().value());
         }
 
@@ -395,7 +395,7 @@ public class RdfRepository {
         if (lineageDetails.getColumnsLineage() != null
             && !lineageDetails.getColumnsLineage().isEmpty()) {
           Property hasColumnLineage =
-              model.createProperty("https://u-metadata.org/ontology/", "hasColumnLineage");
+              model.createProperty("https://wondersgroup.com/ontology/", "hasColumnLineage");
 
           for (org.umetadata.schema.type.ColumnLineage colLineage :
               lineageDetails.getColumnsLineage()) {
@@ -405,11 +405,11 @@ public class RdfRepository {
             detailsResource.addProperty(hasColumnLineage, colLineageResource);
             colLineageResource.addProperty(
                 model.createProperty("http://www.w3.org/1999/02/22-rdf-syntax-ns#", "type"),
-                model.createResource("https://u-metadata.org/ontology/ColumnLineage"));
+                model.createResource("https://wondersgroup.com/ontology/ColumnLineage"));
 
             if (colLineage.getFromColumns() != null) {
               Property fromColumnProp =
-                  model.createProperty("https://u-metadata.org/ontology/", "fromColumn");
+                  model.createProperty("https://wondersgroup.com/ontology/", "fromColumn");
               for (String fromCol : colLineage.getFromColumns()) {
                 colLineageResource.addProperty(fromColumnProp, fromCol);
               }
@@ -417,13 +417,13 @@ public class RdfRepository {
 
             if (colLineage.getToColumn() != null) {
               colLineageResource.addProperty(
-                  model.createProperty("https://u-metadata.org/ontology/", "toColumn"),
+                  model.createProperty("https://wondersgroup.com/ontology/", "toColumn"),
                   colLineage.getToColumn());
             }
 
             if (colLineage.getFunction() != null) {
               colLineageResource.addProperty(
-                  model.createProperty("https://u-metadata.org/ontology/", "transformFunction"),
+                  model.createProperty("https://wondersgroup.com/ontology/", "transformFunction"),
                   colLineage.getFunction());
             }
           }
@@ -446,12 +446,12 @@ public class RdfRepository {
 
         if (lineageDetails.getCreatedBy() != null) {
           detailsResource.addProperty(
-              model.createProperty("https://u-metadata.org/ontology/", "lineageCreatedBy"),
+              model.createProperty("https://wondersgroup.com/ontology/", "lineageCreatedBy"),
               lineageDetails.getCreatedBy());
         }
         if (lineageDetails.getUpdatedBy() != null) {
           detailsResource.addProperty(
-              model.createProperty("https://u-metadata.org/ontology/", "lineageUpdatedBy"),
+              model.createProperty("https://wondersgroup.com/ontology/", "lineageUpdatedBy"),
               lineageDetails.getUpdatedBy());
         }
       }
@@ -464,7 +464,7 @@ public class RdfRepository {
       if (!triples.isEmpty()) {
         String deleteQuery =
             String.format(
-                "DELETE WHERE { GRAPH <%s> { <%s> <https://u-metadata.org/ontology/UPSTREAM> <%s> . } }; "
+                "DELETE WHERE { GRAPH <%s> { <%s> <https://wondersgroup.com/ontology/UPSTREAM> <%s> . } }; "
                     + "DELETE WHERE { GRAPH <%s> { <%s> <http://www.w3.org/ns/prov#wasDerivedFrom> <%s> . } }",
                 KNOWLEDGE_GRAPH, fromUri, toUri, KNOWLEDGE_GRAPH, toUri, fromUri);
 
@@ -687,7 +687,7 @@ public class RdfRepository {
       org.apache.jena.rdf.model.Model ontologyModel =
           org.apache.jena.rdf.model.ModelFactory.createDefaultModel();
       String ontologyQuery =
-          "CONSTRUCT { ?s ?p ?o } WHERE { GRAPH <https://u-metadata.org/graph/ontology> { ?s ?p ?o } }";
+          "CONSTRUCT { ?s ?p ?o } WHERE { GRAPH <https://wondersgroup.com/graph/ontology> { ?s ?p ?o } }";
       String ontologyData = storageService.executeSparqlQuery(ontologyQuery, "text/turtle");
       if (ontologyData != null && !ontologyData.isEmpty()) {
         ontologyModel.read(new java.io.StringReader(ontologyData), null, "TURTLE");
@@ -798,7 +798,7 @@ public class RdfRepository {
   }
 
   private String extractEntityTypeFromUri(String entityUri) {
-    // Extract entity type from URI like https://u-metadata.org/entity/table/uuid
+    // Extract entity type from URI like https://wondersgroup.com/entity/table/uuid
     if (entityUri.contains("/entity/")) {
       String[] parts = entityUri.split("/entity/")[1].split("/");
       if (parts.length >= 1) {
@@ -827,7 +827,7 @@ public class RdfRepository {
   }
 
   private String extractEntityIdFromUri(String entityUri) {
-    // Extract entity ID from URI like https://u-metadata.org/entity/table/uuid
+    // Extract entity ID from URI like https://wondersgroup.com/entity/table/uuid
     if (entityUri.contains("/entity/")) {
       String[] parts = entityUri.split("/entity/")[1].split("/");
       if (parts.length >= 2) {
@@ -942,7 +942,7 @@ public class RdfRepository {
   }
 
   private String buildSingleNodeQuery(String nodeUri) {
-    return "PREFIX om: <https://u-metadata.org/ontology/> "
+    return "PREFIX om: <https://wondersgroup.com/ontology/> "
         + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> "
         + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> "
         + "SELECT DISTINCT ?subject ?predicate ?object WHERE { "

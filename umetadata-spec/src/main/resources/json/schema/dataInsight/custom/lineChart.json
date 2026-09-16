@@ -1,5 +1,5 @@
 {
-    "$id": "https://u-metadata.org/schema/dataInsight/custom/lineChart.json",
+    "$id": "https://wondersgroup.com/schema/dataInsight/custom/lineChart.json",
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "LineChart",
     "description": "Line Chart",

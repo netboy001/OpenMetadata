@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/data/apiCollection.json",
+  "$id": "https://wondersgroup.com/schema/entity/data/apiCollection.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "APICollection",
   "$comment": "@om-entity-type",

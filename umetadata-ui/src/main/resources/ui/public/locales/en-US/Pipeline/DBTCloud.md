@@ -7,7 +7,7 @@ UMetadata is integrated with DBT cloud up to version <a href="https://docs.getdb
 
 The Ingestion framework uses <a href="https://docs.getdbt.com/dbt-cloud/api-v2#/" target="_blank">DBT Cloud APIs</a> to connect to the dbtcloud  and fetch metadata.
 
-You can find further information on the dbtcloud connector in the <a href="https://docs.u-metadata.org/connectors/pipeline/dbtcloud" target="_blank">docs</a>.
+You can find further information on the dbtcloud connector in the <a href="https://docs.wondersgroup.com/connectors/pipeline/dbtcloud" target="_blank">docs</a>.
 
 ## Connection Details
 $$section

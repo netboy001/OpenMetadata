@@ -137,7 +137,7 @@ authorizerConfiguration:
   # Added only for test purposes and not for production setup
   testPrincipals:
     - "test"
-  principalDomain: "u-metadata.org"
+  principalDomain: "wondersgroup.com"
   enforcePrincipalDomain: false
   enableSecureSocketConnection: false
   allowedEmailRegistrationDomains:
@@ -183,7 +183,7 @@ authenticationConfiguration:
 jwtTokenConfiguration:
   rsapublicKeyFilePath: "src/test/resources/public_key.der"
   rsaprivateKeyFilePath: "src/test/resources/private_key.der"
-  jwtissuer: "u-metadata.org"
+  jwtissuer: "wondersgroup.com"
   keyId: "Gb389a-9f76-gdjs-a92j-0242bk94356"
 
 eventMonitoringConfiguration:

@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/governance/workflows/elements/nodes/automatedTask/rollbackEntityTask.json",
+  "$id": "https://wondersgroup.com/schema/governance/workflows/elements/nodes/automatedTask/rollbackEntityTask.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "RollbackEntityTaskDefinition",
   "description": "Rolls back an entity to its previous approved version. Always rolls back to the most recent 'Approved' status.",

@@ -49,7 +49,7 @@ const TEST_ACCOUNTS = new Map([
   [
     'admin',
     {
-      email: 'admin@u-metadata.org',
+      email: 'admin@wondersgroup.com',
       email_verified: true,
       name: 'Test Admin',
       sub: 'admin',
@@ -59,7 +59,7 @@ const TEST_ACCOUNTS = new Map([
   [
     'user1',
     {
-      email: 'user1@u-metadata.org',
+      email: 'user1@wondersgroup.com',
       email_verified: true,
       name: 'Test User 1',
       sub: 'user1',
@@ -72,7 +72,7 @@ const TEST_ACCOUNTS = new Map([
   [
     'claim-user',
     {
-      email: 'claim.user.mapped@u-metadata.org',
+      email: 'claim.user.mapped@wondersgroup.com',
       email_verified: true,
       name: 'Claim Mapped User',
       sub: 'claim-user',

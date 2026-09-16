@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/system/validationResponse.json",
+  "$id": "https://wondersgroup.com/schema/system/validationResponse.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "SystemValidationResponse",
   "description": "Define the system validation response",

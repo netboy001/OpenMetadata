@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/metadataIngestion/storage/storageMetadataADLSConfig.json",
+  "$id": "https://wondersgroup.com/schema/metadataIngestion/storage/storageMetadataADLSConfig.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Storage Metadata ADLS Config",
   "description": "Storage Metadata Manifest file ADLS path config.",

@@ -8,8 +8,8 @@ public class OntologyLoader {
 
   private static final String ONTOLOGY_PATH = "/rdf/ontology/";
   private static final String SHAPES_PATH = "/rdf/shapes/";
-  private static final String ONTOLOGY_GRAPH = "https://u-metadata.org/graph/ontology";
-  private static final String SHAPES_GRAPH = "https://u-metadata.org/graph/shapes";
+  private static final String ONTOLOGY_GRAPH = "https://wondersgroup.com/graph/ontology";
+  private static final String SHAPES_GRAPH = "https://wondersgroup.com/graph/shapes";
 
   private final RdfRepository rdfRepository;
 

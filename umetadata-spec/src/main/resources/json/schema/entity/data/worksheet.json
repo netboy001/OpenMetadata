@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/data/worksheet.json",
+  "$id": "https://wondersgroup.com/schema/entity/data/worksheet.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Worksheet",
   "$comment": "@om-entity-type",

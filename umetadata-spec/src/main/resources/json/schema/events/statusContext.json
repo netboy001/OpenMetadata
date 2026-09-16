@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/events/statusContext.json",
+  "$id": "https://wondersgroup.com/schema/events/statusContext.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "FailedEvents",
   "description": "Status Context",

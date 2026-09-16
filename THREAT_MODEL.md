@@ -256,7 +256,7 @@ UMetadata's metadata-only architecture inherently limits security risks compared
 
 ## References
 
-- [UMetadata Security Documentation](https://docs.u-metadata.org/deployment/security)
+- [UMetadata Security Documentation](https://docs.wondersgroup.com/deployment/security)
 - [OWASP Top 10](https://owasp.org/www-project-top-ten/)
 - [CIS Controls](https://www.cisecurity.org/controls)
 

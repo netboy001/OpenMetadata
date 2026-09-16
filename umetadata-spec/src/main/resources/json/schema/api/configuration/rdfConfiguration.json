@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/api/configuration/rdfConfiguration.json",
+  "$id": "https://wondersgroup.com/schema/api/configuration/rdfConfiguration.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "RdfConfiguration",
   "description": "Configuration for RDF/Knowledge Graph support in UMetadata",
@@ -47,7 +47,7 @@
       "description": "Base URI for RDF resources",
       "type": "string",
       "format": "uri",
-      "default": "https://u-metadata.org/"
+      "default": "https://wondersgroup.com/"
     },
     "inferenceEnabled": {
       "description": "Enable inference/reasoning on SPARQL queries. When enabled, SPARQL queries will use the inference engine to derive additional triples based on the reasoning level.",

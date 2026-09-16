@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/configuration/assetCertificationSettings.json",
+  "$id": "https://wondersgroup.com/schema/configuration/assetCertificationSettings.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "AssetCertificationSettings",
   "description": "This schema defines the Asset Certification Settings.",

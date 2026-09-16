@@ -2,9 +2,9 @@
 
 We ❤️ all contributions, big and small!
 
-Read [Build Code and Run Tests](https://docs.u-metadata.org/developers/contribute/build-code-and-run-tests) for how to setup your local development environment. Get started with our [Good first issues](https://github.com/u-metadata/UMetadata/issues?q=is%3Aissue+is%3Aopen+label%3A%22good-first-issue%22).
+Read [Build Code and Run Tests](https://docs.wondersgroup.com/developers/contribute/build-code-and-run-tests) for how to setup your local development environment. Get started with our [Good first issues](https://github.com/u-metadata/UMetadata/issues?q=is%3Aissue+is%3Aopen+label%3A%22good-first-issue%22).
 
-We also recommend joining the UMetadata [Slack Workspace](https://slack.u-metadata.org/) to meet the team, stay up to date with product features, and chat with other contributors! 
+We also recommend joining the UMetadata [Slack Workspace](https://slack.wondersgroup.com/) to meet the team, stay up to date with product features, and chat with other contributors! 
 
 Once joining our Slack we recommend Introducing yourself in the #introductions channel. Tell us a bit about yourself and how you are currently using UMetadata if you are.
 

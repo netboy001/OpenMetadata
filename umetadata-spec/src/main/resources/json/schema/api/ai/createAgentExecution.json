@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/api/ai/createAgentExecution.json",
+  "$id": "https://wondersgroup.com/schema/api/ai/createAgentExecution.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "CreateAgentExecutionRequest",
   "description": "Create Agent Execution entity request",

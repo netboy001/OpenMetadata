@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/api/mcp/mcpToolDefinition.json",
+  "$id": "https://wondersgroup.com/schema/api/mcp/mcpToolDefinition.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "MCP Tool Definition",
   "description": "Definition of a tool available in the Model Context Protocol",

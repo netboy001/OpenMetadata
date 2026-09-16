@@ -22,7 +22,7 @@ def get_provider_config():
     """
     return {
         "name": "UMetadata",
-        "description": "`UMetadata <https://u-metadata.org/>`__",
+        "description": "`UMetadata <https://wondersgroup.com/>`__",
         "package-name": "umetadata-ingestion",
         "version": "0.4.1",
         "connection-types": [

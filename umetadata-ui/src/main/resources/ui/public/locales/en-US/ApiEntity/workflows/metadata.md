@@ -15,7 +15,7 @@ For example, to include only those API Collections whose name starts with the wo
 
 For example, to exclude all API Collections with the name containing the word `demo`, add the regex pattern in the exclude field as `.*demo.*`.
 
-Checkout <a href="https://docs.u-metadata.org/connectors/ingestion/workflows/metadata/filter-patterns/database#database-filter-pattern" target="_blank">this</a> document for further examples on filter patterns.
+Checkout <a href="https://docs.wondersgroup.com/connectors/ingestion/workflows/metadata/filter-patterns/database#database-filter-pattern" target="_blank">this</a> document for further examples on filter patterns.
 $$
 
 $$section

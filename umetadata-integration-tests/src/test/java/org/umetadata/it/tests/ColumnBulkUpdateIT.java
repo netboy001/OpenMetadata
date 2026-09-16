@@ -1601,8 +1601,8 @@ public class ColumnBulkUpdateIT {
 
     String dataConsumerToken =
         JwtAuthProvider.tokenFor(
-            "data-consumer@u-metadata.org",
-            "data-consumer@u-metadata.org",
+            "data-consumer@wondersgroup.com",
+            "data-consumer@wondersgroup.com",
             new String[] {"DataConsumer"},
             3600);
 

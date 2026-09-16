@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/type/customProperties/complexTypes.json",
+  "$id": "https://wondersgroup.com/schema/type/customProperties/complexTypes.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "description": "This schema defines custom properties complex types.",
   "definitions": {

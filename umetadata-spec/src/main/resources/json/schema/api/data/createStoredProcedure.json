@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/api/data/createStoredProcedure.json",
+  "$id": "https://wondersgroup.com/schema/api/data/createStoredProcedure.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "CreateStoredProcedureRequest",
   "description": "Create Stored Procedure Request",

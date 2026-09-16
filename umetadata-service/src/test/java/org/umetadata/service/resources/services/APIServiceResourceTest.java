@@ -101,7 +101,7 @@ public class APIServiceResourceTest extends ServiceResourceTest<ApiService, Crea
                     .withOpenAPISchemaConnection(
                         new OpenAPISchemaURL()
                             .withOpenAPISchemaURL(
-                                new URI("http://sandbox.u-metadata.org/swagger.json"))));
+                                new URI("http://sandbox.wondersgroup.com/swagger.json"))));
     ApiService service =
         createAndCheckEntity(
             createRequest(test).withDescription(null).withConnection(connection1),

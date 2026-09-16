@@ -1,5 +1,5 @@
 {
-    "$id": "https://u-metadata.org/schema/entity/applications/configuration/external/automator/propagationStopConfig.json",
+    "$id": "https://wondersgroup.com/schema/entity/applications/configuration/external/automator/propagationStopConfig.json",
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "PropagationStopConfig",
     "description": "Configuration to stop lineage propagation based on conditions",

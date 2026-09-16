@@ -4,7 +4,7 @@ In this section, we provide guides and references to use the Druid connector.
 
 ## Requirements
 
-You can find further information on the Druid connector in the <a href="https://docs.u-metadata.org/connectors/database/druid" target="_blank">docs</a>.
+You can find further information on the Druid connector in the <a href="https://docs.wondersgroup.com/connectors/database/druid" target="_blank">docs</a>.
 
 ## Connection Details
 

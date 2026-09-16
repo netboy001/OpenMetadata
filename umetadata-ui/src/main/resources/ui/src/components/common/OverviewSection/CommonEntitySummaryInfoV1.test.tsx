@@ -143,7 +143,7 @@ describe('CommonEntitySummaryInfoV1', () => {
         value: 'UMetadata',
         isLink: true,
         isExternal: true,
-        url: 'https://u-metadata.org',
+        url: 'https://wondersgroup.com',
         visible: ['explore'],
       },
     ];
@@ -155,7 +155,7 @@ describe('CommonEntitySummaryInfoV1', () => {
     const anchor = container.querySelector('a.summary-item-link');
 
     expect(anchor).toBeInTheDocument();
-    expect(anchor).toHaveAttribute('href', 'https://u-metadata.org');
+    expect(anchor).toHaveAttribute('href', 'https://wondersgroup.com');
     expect(screen.getByTestId('external-link-icon')).toBeInTheDocument();
   });
 

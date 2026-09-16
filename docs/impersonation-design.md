@@ -542,7 +542,7 @@ public Response generateImpersonationToken(
 ```json
 // umetadata-spec/src/main/resources/json/schema/auth/impersonationRequest.json
 {
-  "$id": "https://u-metadata.org/schema/auth/impersonationRequest.json",
+  "$id": "https://wondersgroup.com/schema/auth/impersonationRequest.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "ImpersonationRequest",
   "description": "Request to generate an impersonation token",

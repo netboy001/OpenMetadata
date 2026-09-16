@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/type/aiCompliance.json",
+  "$id": "https://wondersgroup.com/schema/type/aiCompliance.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "AICompliance",
   "description": "Reusable AI compliance and regulatory framework assessments. Can be applied to AI Applications, LLM Models, MCP Servers, and other AI entities.",

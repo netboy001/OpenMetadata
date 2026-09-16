@@ -526,7 +526,7 @@ class TestUMetaGlossary:
             TermReference(name="GT1S1", endpoint="https://www.getcollate.io")
         )
         updated_glossary_term_1.references.append(
-            TermReference(name="GT1S2", endpoint="https://u-metadata.org/")
+            TermReference(name="GT1S2", endpoint="https://wondersgroup.com/")
         )
         updated_glossary_term_1.references.append(
             TermReference(

@@ -23,7 +23,7 @@ To enable it, set the following environment variables before starting Airflow:
 The ingestion_dependency.sh script will automatically configure the lineage backend when
 UMETADATA_LINEAGE_ENABLED=true is set.
 
-Please refer to https://docs.u-metadata.org/connectors/pipeline/airflow/lineage-backend on how to configure the lineage backend
+Please refer to https://docs.wondersgroup.com/connectors/pipeline/airflow/lineage-backend on how to configure the lineage backend
 with Airflow Scheduler
 
 This is an example to demonstrate on how to configure a Airflow DAG's inlets and outlets.

@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/data/entityHierarchy.json",
+  "$id": "https://wondersgroup.com/schema/entity/data/entityHierarchy.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "EntityHierarchy",
   "description": "This schema defines the entity hierarchy structure.",

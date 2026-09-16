@@ -53,7 +53,7 @@ If you have external services other than glue and facing permission issues, add 
 $$
 
 
-You can find further information on the Athena connector in the <a href="https://docs.u-metadata.org/connectors/database/athena" target="_blank">docs</a>.
+You can find further information on the Athena connector in the <a href="https://docs.wondersgroup.com/connectors/database/athena" target="_blank">docs</a>.
 
 ## Connection Details
 

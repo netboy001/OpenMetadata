@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/type/changeSummary.json",
+  "$id": "https://wondersgroup.com/schema/type/changeSummary.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Change Summary",
   "description": "This schema defines structure for change summaries.",

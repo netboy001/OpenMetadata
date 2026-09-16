@@ -3,7 +3,7 @@
 Data Insight Ingestion Pipeline Configuration.
 
 
-You can find further information on the Data Insight Ingestion in the <a href="https://docs.u-metadata.org/umetadata/data-insight" target="_blank">docs</a>.
+You can find further information on the Data Insight Ingestion in the <a href="https://docs.wondersgroup.com/umetadata/data-insight" target="_blank">docs</a>.
 
 $$section
 

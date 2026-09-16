@@ -28,8 +28,8 @@ import org.umetadata.service.rdf.translator.RdfPropertyMapper;
  */
 class RdfPropertyMapperTest {
 
-  private static final String BASE_URI = "https://u-metadata.org/";
-  private static final String OM_NS = "https://u-metadata.org/ontology/";
+  private static final String BASE_URI = "https://wondersgroup.com/";
+  private static final String OM_NS = "https://wondersgroup.com/ontology/";
   private static final String PROV_NS = "http://www.w3.org/ns/prov#";
   private static final String DCT_NS = "http://purl.org/dc/terms/";
 

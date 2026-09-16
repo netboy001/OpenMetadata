@@ -10,7 +10,7 @@ You will need the following permissions to extract Salesforce metadata:
 - **API Access**: You must have the API Enabled permission in your Salesforce organization.
 - **Object Permissions**: You must have read access to the Salesforce objects that you want to ingest.
 
-You can find further information on the Salesforce connector in the <a href="https://docs.u-metadata.org/connectors/database/salesforce" target="_blank">docs</a>.
+You can find further information on the Salesforce connector in the <a href="https://docs.wondersgroup.com/connectors/database/salesforce" target="_blank">docs</a>.
 
 ## Connection Details
 

@@ -46,7 +46,7 @@ public class SecretsManagerFactory {
       If for example we want to set the AWS SSM (non-managed) we configure
       the server as `secretsManager: aws-ssm` and set the Airflow env vars
       to connect to AWS SSM as specified in the docs:
-      https://docs.u-metadata.org/deployment/secrets-manager/supported-implementations/aws-ssm-parameter-store
+      https://docs.wondersgroup.com/deployment/secrets-manager/supported-implementations/aws-ssm-parameter-store
       */
       secretsManager = DBSecretsManager.getInstance(secretsManagerProvider, secretsConfig);
       case MANAGED_AWS -> secretsManager = AWSSecretsManager.getInstance(secretsConfig);

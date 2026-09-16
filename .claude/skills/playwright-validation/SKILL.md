@@ -61,7 +61,7 @@ This skill guides you through validating UI changes and ensuring comprehensive P
 
 2. **Authenticate if needed:**
    - Use `mcp__playwright__browser_fill_form` for login
-   - Default admin: `admin@u-metadata.org` / `admin`
+   - Default admin: `admin@wondersgroup.com` / `admin`
 
 3. **Navigate to the feature area:**
    - Use `mcp__playwright__browser_click` for navigation

@@ -1066,13 +1066,13 @@ public class PipelineRepository extends EntityRepository<Pipeline> {
       // Create unique execution URI
       String executionUri =
           String.format(
-              "https://u-metadata.org/execution/%s/%d",
+              "https://wondersgroup.com/execution/%s/%d",
               pipeline.getId(), pipelineStatus.getTimestamp());
-      String pipelineUri = "https://u-metadata.org/entity/pipeline/" + pipeline.getId();
+      String pipelineUri = "https://wondersgroup.com/entity/pipeline/" + pipeline.getId();
 
       StringBuilder sparql = new StringBuilder();
       sparql.append("PREFIX prov: <http://www.w3.org/ns/prov#>\n");
-      sparql.append("PREFIX om: <https://u-metadata.org/ontology/>\n");
+      sparql.append("PREFIX om: <https://wondersgroup.com/ontology/>\n");
       sparql.append("PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n");
       sparql.append("INSERT DATA {\n");
 
@@ -1105,7 +1105,7 @@ public class PipelineRepository extends EntityRepository<Pipeline> {
       // Add executed by if available
       if (pipelineStatus.getExecutedBy() != null) {
         String agentUri =
-            "https://u-metadata.org/entity/"
+            "https://wondersgroup.com/entity/"
                 + pipelineStatus.getExecutedBy().getType()
                 + "/"
                 + pipelineStatus.getExecutedBy().getId();
@@ -1120,7 +1120,7 @@ public class PipelineRepository extends EntityRepository<Pipeline> {
               EntityReference dataset =
                   Entity.getEntityReferenceByName(
                       Entity.TABLE, input.getDatasetFQN(), Include.NON_DELETED);
-              String datasetUri = "https://u-metadata.org/entity/table/" + dataset.getId();
+              String datasetUri = "https://wondersgroup.com/entity/table/" + dataset.getId();
               sparql.append(String.format("    prov:used <%s> ;\n", datasetUri));
 
               if (input.getRowCount() != null) {
@@ -1143,7 +1143,7 @@ public class PipelineRepository extends EntityRepository<Pipeline> {
               EntityReference dataset =
                   Entity.getEntityReferenceByName(
                       Entity.TABLE, output.getDatasetFQN(), Include.NON_DELETED);
-              String datasetUri = "https://u-metadata.org/entity/table/" + dataset.getId();
+              String datasetUri = "https://wondersgroup.com/entity/table/" + dataset.getId();
               sparql.append(String.format("    prov:generated <%s> ;\n", datasetUri));
 
               if (output.getRowCount() != null) {

@@ -4,7 +4,7 @@ In this section, we provide guides and references to use the SQLite connector.
 
 ## Requirements
 
-You can find further information on the SQLite connector in the <a href="https://docs.u-metadata.org/connectors/database/sqlite" target="_blank">docs</a>.
+You can find further information on the SQLite connector in the <a href="https://docs.wondersgroup.com/connectors/database/sqlite" target="_blank">docs</a>.
 
 ## Connection Details
 

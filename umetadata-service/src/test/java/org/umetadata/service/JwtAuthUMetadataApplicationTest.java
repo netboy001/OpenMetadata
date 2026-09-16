@@ -559,7 +559,7 @@ public abstract class JwtAuthUMetadataApplicationTest {
                 String.format("http://%s:%d/umetadata", rdfHost, rdfPort)));
         configOverrides.add(ConfigOverride.config("rdf.username", "admin"));
         configOverrides.add(ConfigOverride.config("rdf.password", "test-admin"));
-        configOverrides.add(ConfigOverride.config("rdf.baseUri", "https://u-metadata.org/"));
+        configOverrides.add(ConfigOverride.config("rdf.baseUri", "https://wondersgroup.com/"));
 
         LOG.info("RDF configuration overrides added");
       } catch (Exception e) {

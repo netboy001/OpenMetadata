@@ -1,12 +1,12 @@
 # Airbyte
 
-In this section, we provide guides and references to use the Airbyte connector. You can view the full documentation for Airbyte <a href="https://docs.u-metadata.org/connectors/pipeline/airbyte" target="_blank">here</a>.
+In this section, we provide guides and references to use the Airbyte connector. You can view the full documentation for Airbyte <a href="https://docs.wondersgroup.com/connectors/pipeline/airbyte" target="_blank">here</a>.
 
 ## Requirements
 
 We extract Airbyte's metadata by using its <a href="https://docs.airbyte.com/api-documentation/" target="_blank">API</a>. To run this ingestion, you just need a user with permissions to the Airbyte instance.
 
-You can find further information on the Airbyte connector in the <a href="https://docs.u-metadata.org/connectors/pipeline/airbyte" target="_blank">docs</a>.
+You can find further information on the Airbyte connector in the <a href="https://docs.wondersgroup.com/connectors/pipeline/airbyte" target="_blank">docs</a>.
 
 ## Connection Details
 

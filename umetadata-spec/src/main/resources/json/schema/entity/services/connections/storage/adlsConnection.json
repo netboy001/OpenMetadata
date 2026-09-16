@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/services/connections/storage/adlsConnection.json",
+  "$id": "https://wondersgroup.com/schema/entity/services/connections/storage/adlsConnection.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "ADLS Connection",
   "description": "ADLS Connection.",

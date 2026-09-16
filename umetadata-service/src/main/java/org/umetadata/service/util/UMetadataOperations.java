@@ -352,7 +352,7 @@ public class UMetadataOperations implements Callable<Integer> {
       @Option(
               names = {"--supportUrl"},
               description =
-                  "Support URL for help or documentation (e.g. https://slack.u-metadata.org)",
+                  "Support URL for help or documentation (e.g. https://slack.wondersgroup.com)",
               required = true)
           String supportUrl,
       @Option(

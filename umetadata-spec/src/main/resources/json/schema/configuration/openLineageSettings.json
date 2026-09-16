@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/configuration/openLineageSettings.json",
+  "$id": "https://wondersgroup.com/schema/configuration/openLineageSettings.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "OpenLineageSettings",
   "description": "Settings for OpenLineage HTTP API integration. Configure how UMetadata receives and processes lineage events from external systems like Spark, Airflow, and Flink.",

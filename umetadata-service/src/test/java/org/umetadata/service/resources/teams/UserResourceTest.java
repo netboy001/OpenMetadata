@@ -187,7 +187,7 @@ public class UserResourceTest extends EntityResourceTest<User, CreateUser> {
     CreateUser createUserWithAccess =
         new CreateUser()
             .withName(USER_WITH_CREATE_PERMISSION_NAME)
-            .withEmail(USER_WITH_CREATE_PERMISSION_NAME + "@u-metadata.org")
+            .withEmail(USER_WITH_CREATE_PERMISSION_NAME + "@wondersgroup.com")
             .withProfile(PROFILE)
             .withRoles(List.of(CREATE_ACCESS_ROLE.getId()))
             .withIsBot(false);
@@ -2078,7 +2078,7 @@ public class UserResourceTest extends EntityResourceTest<User, CreateUser> {
     emailUser = emailUser.length() > 64 ? emailUser.substring(0, 64) : emailUser;
     return new CreateUser()
         .withName(entityName)
-        .withEmail(emailUser + "@u-metadata.org")
+        .withEmail(emailUser + "@wondersgroup.com")
         .withProfile(PROFILE)
         .withIsBot(false);
   }
@@ -2584,7 +2584,7 @@ public class UserResourceTest extends EntityResourceTest<User, CreateUser> {
   void test_loginWithDeletedUpdatedByUser_200_ok(TestInfo test) throws HttpResponseException {
     // Create an admin user to update another user
     String username = "tempAdmin";
-    Map<String, String> TEMP_ADMIN_AUTH_HEADERS = authHeaders(username + "@u-metadata.org");
+    Map<String, String> TEMP_ADMIN_AUTH_HEADERS = authHeaders(username + "@wondersgroup.com");
     User adminUser =
         createEntity(createRequest("tempAdmin").withIsAdmin(true), TEMP_ADMIN_AUTH_HEADERS);
 

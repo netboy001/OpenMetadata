@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/type/pipelineObservabilityResponse.json",
+  "$id": "https://wondersgroup.com/schema/type/pipelineObservabilityResponse.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "PipelineObservabilityResponse",
   "description": "Response containing pipeline observability data grouped by tables",

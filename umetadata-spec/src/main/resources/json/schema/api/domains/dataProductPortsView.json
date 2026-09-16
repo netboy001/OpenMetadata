@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/api/domains/dataProductPortsView.json",
+  "$id": "https://wondersgroup.com/schema/api/domains/dataProductPortsView.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "DataProductPortsView",
   "description": "Combined view of input and output ports for a data product, optimized for lineage-like visualization with independent pagination for each port type. Returns full entity details for each port.",

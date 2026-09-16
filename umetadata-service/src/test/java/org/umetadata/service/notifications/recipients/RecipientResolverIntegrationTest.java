@@ -139,7 +139,7 @@ public class RecipientResolverIntegrationTest extends UMetadataApplicationTest {
   /**
    * Test that OWNERS destination resolves the owner of an entity.
    *
-   * Creates a table with owner reference (user1@u-metadata.org).
+   * Creates a table with owner reference (user1@wondersgroup.com).
    * Expected: Resolves to EMAIL recipient with USER1's email.
    */
   @Test

@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/type/tagLabelMetadata.json",
+  "$id": "https://wondersgroup.com/schema/type/tagLabelMetadata.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "TagLabelMetadata",
   "description": "Additional metadata associated with a tag label, including information about how the tag was applied.",

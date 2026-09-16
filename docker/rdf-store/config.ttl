@@ -43,5 +43,5 @@
         [ text:field "description" ; 
           text:predicate <http://purl.org/dc/terms/description> ]
         [ text:field "name" ; 
-          text:predicate <https://u-metadata.org/ontology/name> ]
+          text:predicate <https://wondersgroup.com/ontology/name> ]
     ) .

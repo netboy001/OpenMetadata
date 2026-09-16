@@ -30,7 +30,7 @@ import org.umetadata.service.UMetadataApplicationTest;
 public class GlossaryFluentAPITest extends UMetadataApplicationTest {
 
   private static UMetadataClient sdkClient;
-  private static final String ADMIN_AUTH_HEADERS = "admin@u-metadata.org";
+  private static final String ADMIN_AUTH_HEADERS = "admin@wondersgroup.com";
 
   @BeforeAll
   public static void setup(TestInfo testInfo) throws URISyntaxException, IOException {

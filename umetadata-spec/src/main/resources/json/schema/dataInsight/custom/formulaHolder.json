@@ -1,5 +1,5 @@
 {
-    "$id": "https://u-metadata.org/schema/dataInsight/custom/formulaHolder.json",
+    "$id": "https://wondersgroup.com/schema/dataInsight/custom/formulaHolder.json",
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "formulaHolder",
     "description": "formulaHolder",

@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/type/pipelineObservability.json",
+  "$id": "https://wondersgroup.com/schema/type/pipelineObservability.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Pipeline Observability",
   "description": "This schema defines pipeline observability data that can be associated with data assets to track pipeline execution information.",

@@ -59,7 +59,7 @@ class JwtFilterTest {
   private static RSAPublicKey publicKey;
   private static UriInfo mockRequestURIInfo;
 
-  private static final String OM_ISSUER = "u-metadata.org";
+  private static final String OM_ISSUER = "wondersgroup.com";
   private static final String OM_KEY_ID = "om-signing-key";
 
   @BeforeAll

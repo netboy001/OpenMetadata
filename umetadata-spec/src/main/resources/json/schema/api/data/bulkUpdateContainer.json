@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/api/data/bulkUpdateContainer.json",
+  "$id": "https://wondersgroup.com/schema/api/data/bulkUpdateContainer.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "BulkUpdateContainer",
   "description": "Schema for bulk updating multiple containers with differential updates",

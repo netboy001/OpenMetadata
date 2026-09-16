@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/metadataIngestion/workflow.json",
+  "$id": "https://wondersgroup.com/schema/metadataIngestion/workflow.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "MetadataWorkflow",
   "description": "UMetadata Ingestion Framework definition.",

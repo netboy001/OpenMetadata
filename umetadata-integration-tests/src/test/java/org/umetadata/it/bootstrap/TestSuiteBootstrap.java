@@ -587,7 +587,7 @@ public class TestSuiteBootstrap implements LauncherSessionListener {
     }
 
     rdfConfig.setEnabled(false);
-    rdfConfig.setBaseUri(java.net.URI.create("https://u-metadata.org/"));
+    rdfConfig.setBaseUri(java.net.URI.create("https://wondersgroup.com/"));
     rdfConfig.setStorageType(RdfConfiguration.StorageType.FUSEKI);
     rdfConfig.setRemoteEndpoint(java.net.URI.create(fusekiEndpoint));
     rdfConfig.setUsername("admin");

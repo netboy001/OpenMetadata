@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/governance/workflows/elements/nodes/gateway/parallelGateway.json",
+  "$id": "https://wondersgroup.com/schema/governance/workflows/elements/nodes/gateway/parallelGateway.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "ParallelGatewayDefinition",
   "description": "Parallel Gateway. It should be used when we want to Parallelize or sync back Parallelized tasks.",

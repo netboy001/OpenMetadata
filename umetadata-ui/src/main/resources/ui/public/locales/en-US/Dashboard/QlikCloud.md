@@ -9,7 +9,7 @@ Configure and schedule QlikCloud metadata and profiler workflows from the UMetad
 
 We will extract the metadata using the <a href="https://qlik.dev/apis/" target="_blank">Qlik Cloud REST APIs</a>.
 
-You can find further information on the Qlik Cloud connector in the <a href="https://docs.u-metadata.org/connectors/dashboard/qlikcloud" target="_blank">docs</a>.
+You can find further information on the Qlik Cloud connector in the <a href="https://docs.wondersgroup.com/connectors/dashboard/qlikcloud" target="_blank">docs</a>.
 
 
 ## Connection Details

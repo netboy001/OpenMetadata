@@ -64,7 +64,7 @@ public class SdkClients {
         if (ADMIN_CLIENT == null) {
           ADMIN_CLIENT =
               createClient(
-                  "admin@u-metadata.org", "admin@u-metadata.org", new String[] {"admin"});
+                  "admin@wondersgroup.com", "admin@wondersgroup.com", new String[] {"admin"});
         }
       }
     }
@@ -76,7 +76,7 @@ public class SdkClients {
       synchronized (SdkClients.class) {
         if (TEST_USER_CLIENT == null) {
           TEST_USER_CLIENT =
-              createClient("test@u-metadata.org", "test@u-metadata.org", new String[] {});
+              createClient("test@wondersgroup.com", "test@wondersgroup.com", new String[] {});
         }
       }
     }
@@ -89,8 +89,8 @@ public class SdkClients {
         if (BOT_CLIENT == null) {
           BOT_CLIENT =
               createClient(
-                  "ingestion-bot@u-metadata.org",
-                  "ingestion-bot@u-metadata.org",
+                  "ingestion-bot@wondersgroup.com",
+                  "ingestion-bot@wondersgroup.com",
                   new String[] {"bot"});
         }
       }
@@ -108,8 +108,8 @@ public class SdkClients {
         if (DATA_STEWARD_CLIENT == null) {
           DATA_STEWARD_CLIENT =
               createClient(
-                  "data-steward@u-metadata.org",
-                  "data-steward@u-metadata.org",
+                  "data-steward@wondersgroup.com",
+                  "data-steward@wondersgroup.com",
                   new String[] {"DataSteward"});
         }
       }
@@ -123,8 +123,8 @@ public class SdkClients {
         if (DATA_CONSUMER_CLIENT == null) {
           DATA_CONSUMER_CLIENT =
               createClient(
-                  "data-consumer@u-metadata.org",
-                  "data-consumer@u-metadata.org",
+                  "data-consumer@wondersgroup.com",
+                  "data-consumer@wondersgroup.com",
                   new String[] {"DataConsumer"});
         }
       }
@@ -195,7 +195,7 @@ public class SdkClients {
             .build();
     UMetadataClient client = new UMetadataClient(cfg);
     // Set default client for fluent APIs used in factories (only for admin)
-    if (email.equals("admin@u-metadata.org")) {
+    if (email.equals("admin@wondersgroup.com")) {
       initializeFluentAPIs(client);
     }
     return client;
@@ -265,6 +265,6 @@ public class SdkClients {
   /** Get an admin JWT token for direct HTTP calls */
   public static String getAdminToken() {
     return JwtAuthProvider.tokenFor(
-        "admin@u-metadata.org", "admin@u-metadata.org", new String[] {"admin"}, 3600);
+        "admin@wondersgroup.com", "admin@wondersgroup.com", new String[] {"admin"}, 3600);
   }
 }

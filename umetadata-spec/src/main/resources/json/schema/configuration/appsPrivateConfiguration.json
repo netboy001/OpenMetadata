@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/configuration/appsPrivateConfiguration.json",
+  "$id": "https://wondersgroup.com/schema/entity/configuration/appsPrivateConfiguration.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "AppsPrivateConfiguration",
   "description": "This schema defines a list of configurations for the Application Framework",

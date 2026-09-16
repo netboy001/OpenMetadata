@@ -4312,7 +4312,7 @@ public class GlossaryTermResourceTest extends EntityResourceTest<GlossaryTerm, C
             GlossaryRepository.GlossaryCsv.HEADERS,
             listOf(
                 String.format(
-                    "termImportExportTest.parentTerm,t1,dsp1,\"dsc1,1\",h1;h2;h3,,term1;http://term1,PII.None,user:%s,user:%s,%s,\"#FF5733\",https://example.com/icon1.png,\"termDateCp:18-09-2024;termDateTimeCp:18-09-2024 01:09:34;termDurationCp:PT5H30M10S;termEmailCp:admin@u-metadata.org;termEntRefCp:team:\"\"%s\"\";termEntRefListCp:user:\"\"%s\"\"|user:\"\"%s\"\"\"",
+                    "termImportExportTest.parentTerm,t1,dsp1,\"dsc1,1\",h1;h2;h3,,term1;http://term1,PII.None,user:%s,user:%s,%s,\"#FF5733\",https://example.com/icon1.png,\"termDateCp:18-09-2024;termDateTimeCp:18-09-2024 01:09:34;termDurationCp:PT5H30M10S;termEmailCp:admin@wondersgroup.com;termEntRefCp:team:\"\"%s\"\";termEntRefListCp:user:\"\"%s\"\"|user:\"\"%s\"\"\"",
                     reviewerRef.get(0), user1, "Approved", team11, user1, user2),
                 String.format(
                     "termImportExportTest.parentTerm,t2,dsp2,dsc2,h1;h3;h3,,term2;https://term2,PII.NonSensitive,,user:%s,%s,\"#00FF00\",https://example.com/icon2.svg,\"termEnumCpMulti:val1|val2|val3;termEnumCpSingle:single1;termIntegerCp:7777;termMarkdownCp:# Sample Markdown Text;termNumberCp:123456;\"\"termQueryCp:select col,row from table where id ='30';\"\";termStringCp:sample string content;termTimeCp:10:08:45;termTimeIntervalCp:1726142300000:17261420000;termTimestampCp:1726142400000\"",
@@ -4355,7 +4355,7 @@ public class GlossaryTermResourceTest extends EntityResourceTest<GlossaryTerm, C
       assertEquals("18-09-2024", t1ExtMap.get("termDateCp").toString());
       assertEquals("18-09-2024 01:09:34", t1ExtMap.get("termDateTimeCp").toString());
       assertEquals("PT5H30M10S", t1ExtMap.get("termDurationCp").toString());
-      assertEquals("admin@u-metadata.org", t1ExtMap.get("termEmailCp").toString());
+      assertEquals("admin@wondersgroup.com", t1ExtMap.get("termEmailCp").toString());
       assertTrue(t1ExtMap.get("termEntRefCp").toString().contains(team11));
       String entRefListValue = t1ExtMap.get("termEntRefListCp").toString();
       assertTrue(entRefListValue.contains(user1));

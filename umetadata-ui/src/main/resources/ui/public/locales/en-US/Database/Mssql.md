@@ -15,10 +15,10 @@ GRANT SELECT TO Mary;
 ```
 
 ### Profiler & Data Quality
-Executing the profiler Workflow or data quality tests, will require the user to have `SELECT` permission on the tables/schemas where the profiler/tests will be executed. More information on the profiler workflow setup can be found <a href="https://docs.u-metadata.org/how-to-guides/data-quality-observability/profiler/workflow" target="_blank">here</a> and data quality tests <a href="https://docs.u-metadata.org/connectors/ingestion/workflows/data-quality" target="_blank">here</a>.
+Executing the profiler Workflow or data quality tests, will require the user to have `SELECT` permission on the tables/schemas where the profiler/tests will be executed. More information on the profiler workflow setup can be found <a href="https://docs.wondersgroup.com/how-to-guides/data-quality-observability/profiler/workflow" target="_blank">here</a> and data quality tests <a href="https://docs.wondersgroup.com/connectors/ingestion/workflows/data-quality" target="_blank">here</a>.
 
 ### Usage & Lineage
-For the usage and lineage workflow, the user will need `SELECT` privilege table. You can find more information on the usage workflow <a href="https://docs.u-metadata.org/connectors/ingestion/workflows/usage" target="_blank">here</a> and the lineage workflow <a href="https://docs.u-metadata.org/connectors/ingestion/workflows/lineage" target="_blank">here</a>.
+For the usage and lineage workflow, the user will need `SELECT` privilege table. You can find more information on the usage workflow <a href="https://docs.wondersgroup.com/connectors/ingestion/workflows/usage" target="_blank">here</a> and the lineage workflow <a href="https://docs.wondersgroup.com/connectors/ingestion/workflows/lineage" target="_blank">here</a>.
 
 ### Remote Connection
 
@@ -46,7 +46,7 @@ If you are using SQL server on Windows, you must configure the firewall on the c
 
 For details step please refer this <a href="https://docs.microsoft.com/en-us/sql/database-engine/configure-windows/configure-a-windows-firewall-for-database-engine-access?view=sql-server-ver15" target="_blank">link</a>.
 
-You can find further information on the MSSQL connector in the <a href="https://docs.u-metadata.org/connectors/database/mssql" target="_blank">docs</a>.
+You can find further information on the MSSQL connector in the <a href="https://docs.wondersgroup.com/connectors/database/mssql" target="_blank">docs</a>.
 
 ## Connection Details
 

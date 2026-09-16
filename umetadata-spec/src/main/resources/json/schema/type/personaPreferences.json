@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/type/personaPreferences.json",
+  "$id": "https://wondersgroup.com/schema/type/personaPreferences.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "PersonaPreferences",
   "description": "User-specific preferences for a persona that override default persona UI customization. These are limited customizations that users can apply to personalize their experience while still inheriting the base persona configuration.",

@@ -109,7 +109,7 @@ public class SemanticSearchEngine {
       // Query user's interaction patterns from RDF
       String sparql =
           """
-        PREFIX om: <https://u-metadata.org/ontology/>
+        PREFIX om: <https://wondersgroup.com/ontology/>
         SELECT ?entity ?type ?interaction ?timestamp
         WHERE {
           ?user om:id "%s" .
@@ -170,7 +170,7 @@ public class SemanticSearchEngine {
         // Query graph patterns around the entity
         String sparql =
             """
-          PREFIX om: <https://u-metadata.org/ontology/>
+          PREFIX om: <https://wondersgroup.com/ontology/>
           SELECT ?predicate ?object ?objectType
           WHERE {
             <%s> ?predicate ?object .
@@ -213,7 +213,7 @@ public class SemanticSearchEngine {
       for (SearchResult result : results) {
         String sparql =
             """
-          PREFIX om: <https://u-metadata.org/ontology/>
+          PREFIX om: <https://wondersgroup.com/ontology/>
           SELECT ?related ?type ?relationship
           WHERE {
             <%s> ?relationship ?related .
@@ -333,11 +333,11 @@ public class SemanticSearchEngine {
 
   private List<String> getEntitiesOfType(String entityType) {
     // Query from the appropriate named graph with both om: and dcat: types
-    String graphUri = "https://u-metadata.org/graph/" + entityType.toLowerCase();
+    String graphUri = "https://wondersgroup.com/graph/" + entityType.toLowerCase();
     String omType = entityType.substring(0, 1).toUpperCase() + entityType.substring(1);
     String sparql =
         """
-      PREFIX om: <https://u-metadata.org/ontology/>
+      PREFIX om: <https://wondersgroup.com/ontology/>
       PREFIX dcat: <http://www.w3.org/ns/dcat#>
       SELECT DISTINCT ?entity
       WHERE {
@@ -356,7 +356,7 @@ public class SemanticSearchEngine {
 
   private String getEntityUri(EntityReference ref) {
     return String.format(
-        "https://u-metadata.org/entity/%s/%s", ref.getType().toLowerCase(), ref.getId());
+        "https://wondersgroup.com/entity/%s/%s", ref.getType().toLowerCase(), ref.getId());
   }
 
   private EntityReference getEntityFromUri(String uri) {
@@ -379,7 +379,7 @@ public class SemanticSearchEngine {
       try {
         String sparql =
             """
-          PREFIX om: <https://u-metadata.org/ontology/>
+          PREFIX om: <https://wondersgroup.com/ontology/>
           SELECT (COUNT(DISTINCT ?common) as ?commonCount)
           WHERE {
             {

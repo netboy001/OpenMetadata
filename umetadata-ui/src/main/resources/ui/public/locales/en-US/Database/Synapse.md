@@ -16,7 +16,7 @@ CREATE USER Mary WITH PASSWORD = '********';
 GRANT SELECT TO Mary;
 ```
 
-You can find further information on the Azure Synapse connector in the <a href="https://docs.u-metadata.org/connectors/database/synapse" target="_blank">docs</a>.
+You can find further information on the Azure Synapse connector in the <a href="https://docs.wondersgroup.com/connectors/database/synapse" target="_blank">docs</a>.
 
 ## Connection Details
 

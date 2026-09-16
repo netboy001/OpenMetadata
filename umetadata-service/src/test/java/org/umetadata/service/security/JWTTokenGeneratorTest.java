@@ -41,7 +41,7 @@ class JWTTokenGeneratorTest {
   @BeforeAll
   public void setup() {
     jwtTokenConfiguration = new JWTTokenConfiguration();
-    jwtTokenConfiguration.setJwtissuer("u-metadata.org");
+    jwtTokenConfiguration.setJwtissuer("wondersgroup.com");
     jwtTokenConfiguration.setRsaprivateKeyFilePath(rsaPrivateKeyPath);
     jwtTokenConfiguration.setRsapublicKeyFilePath(rsaPublicKeyPath);
     jwtTokenGenerator = JWTTokenGenerator.getInstance();
@@ -53,7 +53,7 @@ class JWTTokenGeneratorTest {
   void testGenerateJWTToken() {
     User user =
         new User()
-            .withEmail("ingestion-bot@u-metadata.org")
+            .withEmail("ingestion-bot@wondersgroup.com")
             .withName("ingestion-bot")
             .withDisplayName("ingestion-bot");
     JWTAuthMechanism jwtAuthMechanism =

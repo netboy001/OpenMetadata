@@ -17,7 +17,7 @@ For example, to include only those directories whose name starts with the word `
 
 For example, to exclude all directories with the name containing the word `archive`, add regex pattern in the exclude field as `.*archive.*`.
 
-Checkout [this](https://docs.u-metadata.org/connectors/ingestion/workflows/metadata/filter-patterns) document for further examples on filter patterns.
+Checkout [this](https://docs.wondersgroup.com/connectors/ingestion/workflows/metadata/filter-patterns) document for further examples on filter patterns.
 $$
 
 $$section

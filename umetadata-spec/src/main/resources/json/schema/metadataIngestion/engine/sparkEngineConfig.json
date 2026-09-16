@@ -1,5 +1,5 @@
 {
-    "$id": "https://u-metadata.org/schema/metadataIngestion/engine/sparkEngineConfig.json",
+    "$id": "https://wondersgroup.com/schema/metadataIngestion/engine/sparkEngineConfig.json",
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "Spark Engine Configuration",
     "description": "This schema defines the configuration for a Spark Engine runner.",

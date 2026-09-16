@@ -206,7 +206,7 @@ public class JsonLdTranslator {
   public Model toRdf(EntityInterface entity) throws JsonLdError {
     Model model = ModelFactory.createDefaultModel();
 
-    model.setNsPrefix("om", "https://u-metadata.org/ontology/");
+    model.setNsPrefix("om", "https://wondersgroup.com/ontology/");
     model.setNsPrefix("rdfs", "http://www.w3.org/2000/01/rdf-schema#");
     model.setNsPrefix("dcat", "http://www.w3.org/ns/dcat#");
     model.setNsPrefix("foaf", "http://xmlns.com/foaf/0.1/");

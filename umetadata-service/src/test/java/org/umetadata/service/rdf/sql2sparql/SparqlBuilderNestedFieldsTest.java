@@ -198,7 +198,7 @@ class SparqlBuilderNestedFieldsTest {
     @DisplayName("Should have UMetadata prefix configured")
     void testOmPrefixConfigured() {
       String prefixes = mappingContext.getPrefixDeclarations();
-      assertTrue(prefixes.contains("PREFIX om: <https://u-metadata.org/ontology/>"));
+      assertTrue(prefixes.contains("PREFIX om: <https://wondersgroup.com/ontology/>"));
     }
 
     @Test

@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/services/llmService.json",
+  "$id": "https://wondersgroup.com/schema/entity/services/llmService.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "LLMService",
   "description": "LLM Service Entity for managing Large Language Model providers such as OpenAI, Anthropic, Azure OpenAI, AWS Bedrock, etc.",

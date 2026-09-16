@@ -24,7 +24,7 @@ GRANT SELECT_CATALOG_ROLE TO new_role;
 
 **Important:** UMetadata utilise `python-oracledb` qui supoorte seulement les version 12c, 18c, 19c, et 21c d'Oracle.
 
-Vous pourrez également trouver plus de détails dans la [section Oracle](https://docs.u-metadata.org/connectors/database/oracle) de la documentation.
+Vous pourrez également trouver plus de détails dans la [section Oracle](https://docs.wondersgroup.com/connectors/database/oracle) de la documentation.
 
 ## Connection Details
 

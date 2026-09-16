@@ -11,9 +11,9 @@
  *  limitations under the License.
  */
 
-export const URL_JOIN_SLACK = 'https://slack.u-metadata.org';
-export const URL_U_METADATA_DOCS = 'https://docs.u-metadata.org/';
+export const URL_JOIN_SLACK = 'https://slack.wondersgroup.com';
+export const URL_U_METADATA_DOCS = 'https://docs.wondersgroup.com/';
 export const URL_GITHUB_REPO = 'https://github.com/u-metadata/UMetadata';
 
 export const URL_OM_RELEASE_UPDATES =
-  'https://u-metadata.org/product-updates#{{currentVersion}}';
+  'https://wondersgroup.com/product-updates#{{currentVersion}}';

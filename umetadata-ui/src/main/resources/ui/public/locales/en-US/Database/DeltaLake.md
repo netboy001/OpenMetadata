@@ -10,7 +10,7 @@ The Delta Lake connector internally spins up a Spark Application (`pyspark` 3.X 
 
 You will need to make sure that the ingestion process can properly access the Metastore service or the database, and that your Metastore version is compatible with Spark 3.X.
 
-You can find further information on the Delta Lake connector in the <a href="https://docs.u-metadata.org/connectors/database/deltalake" target="_blank">docs</a>.
+You can find further information on the Delta Lake connector in the <a href="https://docs.wondersgroup.com/connectors/database/deltalake" target="_blank">docs</a>.
 
 ### If extracting the metadata from the Storage
 

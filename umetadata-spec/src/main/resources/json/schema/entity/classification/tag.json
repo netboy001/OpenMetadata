@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/classification/tag.json",
+  "$id": "https://wondersgroup.com/schema/entity/classification/tag.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Tag",
   "$comment": "@om-entity-type",

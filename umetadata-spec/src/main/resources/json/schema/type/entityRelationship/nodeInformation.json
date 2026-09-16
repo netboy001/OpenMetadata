@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/type/entityRelationship/nodeInformation.json",
+  "$id": "https://wondersgroup.com/schema/type/entityRelationship/nodeInformation.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "NodeInformation",
   "description": "Entity Relationship Node Information.",

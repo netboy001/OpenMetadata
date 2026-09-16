@@ -30,7 +30,7 @@ UMetadata retrieves information about streams and sample data from the streams i
 
 For more information on Kinesis permissions visit the <a href="https://docs.aws.amazon.com/streams/latest/dev/controlling-access.html" target="_blank">AWS Kinesis official documentation</a>.
 
-You can find further information on the Kinesis connector in the <a href="https://docs.u-metadata.org/connectors/messaging/kinesis" target="_blank">docs</a>.
+You can find further information on the Kinesis connector in the <a href="https://docs.wondersgroup.com/connectors/messaging/kinesis" target="_blank">docs</a>.
 
 ## Connection Details
 

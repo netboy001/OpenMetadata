@@ -36,7 +36,7 @@ $$
 
 The service principal only works with <a href="https://docs.microsoft.com/en-us/power-bi/collaborate-share/service-create-the-new-workspaces" target="_blank">new workspaces</a> (<a href="https://community.powerbi.com/t5/Service/Error-while-executing-Get-dataset-call-quot-API-is-not/m-p/912360#M85711" target="_blank">reference</a>).
 
-You can find further information on the PowerBi connector in the <a href="https://docs.u-metadata.org/connectors/dashboard/powerbi" target="_blank">docs</a>.
+You can find further information on the PowerBi connector in the <a href="https://docs.wondersgroup.com/connectors/dashboard/powerbi" target="_blank">docs</a>.
 
 ## Connection Details
 

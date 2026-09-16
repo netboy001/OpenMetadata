@@ -47,7 +47,7 @@ def validate_athena_injected_partitioning(
         "Table profiler config is missing for table with injected partitioning. Please define "
         "the partitioning in the table profiler config for column {column_name}. "
         "For more information, visit "
-        "https://docs.u-metadata.org/v1.3.x/connectors/ingestion/workflows/profiler#profiler-options "
+        "https://docs.wondersgroup.com/v1.3.x/connectors/ingestion/workflows/profiler#profiler-options "
     )
 
     column_partitions: Optional[List[PartitionColumnDetails]] = table_partitions.columns
@@ -171,7 +171,7 @@ def _handle_bigquery_partition(
             f"Unknown partition type {partition.intervalType}. Cannot infer partition. Partitionning "
             "will be set to None. If partitionning is required for your table, you can set it "
             "directly in the table config. More information can be found at "
-            "https://docs.u-metadata.org/latest/how-to-guides/data-quality-observability/profiler/"
+            "https://docs.wondersgroup.com/latest/how-to-guides/data-quality-observability/profiler/"
             "workflow#4.-updating-profiler-setting-at-the-table-level"
         )
 

@@ -28,7 +28,7 @@ public class RdfPropertyMapper {
   private final Map<String, Object> contextCache;
 
   // Common namespace URIs
-  private static final String OM_NS = "https://u-metadata.org/ontology/";
+  private static final String OM_NS = "https://wondersgroup.com/ontology/";
   private static final String DCT_NS = "http://purl.org/dc/terms/";
   private static final String DCAT_NS = "http://www.w3.org/ns/dcat#";
   private static final String PROV_NS = "http://www.w3.org/ns/prov#";

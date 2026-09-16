@@ -96,7 +96,7 @@ class ColumnValuesToBeUniqueValidator(
             raise ValueError(
                 f"\nQuery on table/column {column.name if column is not None else ''} returned None. Your table might be empty. "
                 "If you confirmed your table is not empty and are still seeing this message you can:\n"
-                "\t1. check the documentation: https://docs.u-metadata.org/v1.3.x/connectors/ingestion/workflows/data-quality/tests\n"
+                "\t1. check the documentation: https://docs.wondersgroup.com/v1.3.x/connectors/ingestion/workflows/data-quality/tests\n"
                 "\t2. reach out to the Collate team for support"
             )
 

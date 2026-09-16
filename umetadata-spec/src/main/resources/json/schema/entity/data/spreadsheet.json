@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/data/spreadsheet.json",
+  "$id": "https://wondersgroup.com/schema/entity/data/spreadsheet.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Spreadsheet",
   "$comment": "@om-entity-type",

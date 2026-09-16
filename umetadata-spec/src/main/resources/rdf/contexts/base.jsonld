@@ -1,7 +1,7 @@
 {
   "@context": {
     "@version": 1.1,
-    "om": "https://u-metadata.org/ontology/",
+    "om": "https://wondersgroup.com/ontology/",
     "dcat": "http://www.w3.org/ns/dcat#",
     "prov": "http://www.w3.org/ns/prov#",
     "skos": "http://www.w3.org/2004/02/skos/core#",

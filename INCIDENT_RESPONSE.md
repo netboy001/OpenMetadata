@@ -31,7 +31,7 @@ All security issues must be reported privately through one of these channels:
    - Click "Report a vulnerability"
    - Provide detailed information
 
-2. **Email**: security@u-metadata.org
+2. **Email**: security@wondersgroup.com
    - Encrypt sensitive details using our PGP key (available on our website)
 
 ### What to Include
@@ -210,7 +210,7 @@ Since UMetadata handles only metadata, not actual data:
 ## Contact Information
 
 ### Security Team
-- **Email**: security@u-metadata.org
+- **Email**: security@wondersgroup.com
 - **GitHub Security**: https://github.com/u-metadata/UMetadata/security
 - **Incident Lead**: @harshach
 

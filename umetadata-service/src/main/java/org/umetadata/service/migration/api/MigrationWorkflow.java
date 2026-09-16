@@ -106,7 +106,7 @@ public class MigrationWorkflow {
           "There are pending migrations to be run on the database."
               + " Please backup your data and run `./bootstrap/umetadata-ops.sh migrate`."
               + " You can find more information on upgrading UMetadata at"
-              + " https://docs.u-metadata.org/deployment/upgrade ");
+              + " https://docs.wondersgroup.com/deployment/upgrade ");
     }
   }
 

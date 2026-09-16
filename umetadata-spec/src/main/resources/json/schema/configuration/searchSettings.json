@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/configuration/searchSettings.json",
+  "$id": "https://wondersgroup.com/schema/entity/configuration/searchSettings.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "SearchSettings",
   "type": "object",

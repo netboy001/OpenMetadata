@@ -1,6 +1,6 @@
 <br />修改测试<br />
 <p align="center">
-    <a href="https://u-metadata.org">
+    <a href="https://wondersgroup.com">
         <img alt="Logo" src="https://github.com/u-metadata/UMetadata/assets/40225091/e794ced8-7220-4393-8efc-3faf93bfb503" width="49%">
     </a>
 </p>
@@ -15,7 +15,7 @@
 </div>
 
 ## What is UMetadata?
-[UMetadata](https://u-metadata.org/)  is a unified metadata platform for data discovery, data observability, and data governance powered by a central metadata repository, in-depth column-level lineage, and seamless team collaboration. It is one of the fastest-growing open-source projects with a vibrant community and adoption by a diverse set of companies in a variety of industry verticals. Based on U Metadata Standards and APIs, supporting connectors to a wide range of data services, UMetadata enables end-to-end metadata management, giving you the freedom to unlock the value of your data assets.
+[UMetadata](https://wondersgroup.com/)  is a unified metadata platform for data discovery, data observability, and data governance powered by a central metadata repository, in-depth column-level lineage, and seamless team collaboration. It is one of the fastest-growing open-source projects with a vibrant community and adoption by a diverse set of companies in a variety of industry verticals. Based on U Metadata Standards and APIs, supporting connectors to a wide range of data services, UMetadata enables end-to-end metadata management, giving you the freedom to unlock the value of your data assets.
 <div align="center">
     <img src="https://github.com/u-metadata/UMetadata/assets/40225091/ebfb4ec5-f0a2-4d58-8ce5-a082b5cf0f76" width=800>
 </div>
@@ -26,7 +26,7 @@ Contents:
 - [Features](#key-features-of-umetadata)
 - [Try our Sandbox](#try-our-sandbox)
 - [Install & Run](#install-and-run-umetadata)
-- [Roadmap](https://docs.u-metadata.org/latest/roadmap)
+- [Roadmap](https://docs.wondersgroup.com/latest/roadmap)
 - [Documentation and Support](#documentation-and-support)
 - [Contributors](#contributors)
 
@@ -71,14 +71,14 @@ UMetadata Consists of Four Main Components:
 
 ## Try our Sandbox
 
-Take a look and play with sample data at [http://sandbox.u-metadata.org](http://sandbox.u-metadata.org)
+Take a look and play with sample data at [http://sandbox.wondersgroup.com](http://sandbox.wondersgroup.com)
 
 ## Install and Run UMetadata
-Get up and running in a few minutes. See the UMetadata documentation for [installation instructions](https://docs.u-metadata.org/quick-start/local-docker-deployment).
+Get up and running in a few minutes. See the UMetadata documentation for [installation instructions](https://docs.wondersgroup.com/quick-start/local-docker-deployment).
 
 ## Documentation and Support
 
-We're here to help and make UMetadata even better! Check out [UMetadata documentation](https://docs.u-metadata.org/) for a complete description of UMetadata's features. Join our [Slack Community](https://slack.u-metadata.org/) to get in touch with us if you want to chat, need help, or discuss new feature requirements.
+We're here to help and make UMetadata even better! Check out [UMetadata documentation](https://docs.wondersgroup.com/) for a complete description of UMetadata's features. Join our [Slack Community](https://slack.wondersgroup.com/) to get in touch with us if you want to chat, need help, or discuss new feature requirements.
 
 
 ## Contributors

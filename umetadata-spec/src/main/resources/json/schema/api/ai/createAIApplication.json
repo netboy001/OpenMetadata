@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/api/ai/createAIApplication.json",
+  "$id": "https://wondersgroup.com/schema/api/ai/createAIApplication.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "CreateAIApplicationRequest",
   "description": "Create AI Application entity request",

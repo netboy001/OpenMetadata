@@ -55,7 +55,7 @@ public class AirflowRESTClient extends PipelineServiceClient {
   private static final String TRUSTSTORE_PATH_KEY = "truststorePath";
   private static final String TRUSTSTORE_PASSWORD_KEY = "truststorePassword";
   private static final String DOCS_LINK =
-      "Follow [this guide](https://docs.u-metadata.org/deployment/ingestion/umetadata) for further details.";
+      "Follow [this guide](https://docs.wondersgroup.com/deployment/ingestion/umetadata) for further details.";
 
   protected final String username;
   protected final String password;

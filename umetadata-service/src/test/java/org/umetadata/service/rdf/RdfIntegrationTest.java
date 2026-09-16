@@ -26,10 +26,10 @@ import org.junit.jupiter.api.Test;
  */
 class RdfIntegrationTest {
 
-  private static final String OM_NS = "https://u-metadata.org/ontology/";
+  private static final String OM_NS = "https://wondersgroup.com/ontology/";
   private static final String PROV_NS = "http://www.w3.org/ns/prov#";
   private static final String RDF_NS = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
-  private static final String BASE_URI = "https://u-metadata.org/";
+  private static final String BASE_URI = "https://wondersgroup.com/";
 
   private Model model;
 

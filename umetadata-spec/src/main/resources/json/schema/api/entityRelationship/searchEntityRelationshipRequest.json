@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/api/entityRelationship/searchEntityRelationshipRequest.json",
+  "$id": "https://wondersgroup.com/schema/api/entityRelationship/searchEntityRelationshipRequest.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "SearchEntityRelationshipRequest",
   "description": "Search Entity Relationship Request Schema to find entity relationships from Elastic Search.",

@@ -8,7 +8,7 @@ To ingest Tableau metadata, the username used in the configuration **must** have
 
 To create lineage between Tableau dashboards and any database service via the queries provided from Tableau Metadata API, please enable the Tableau Metadata API for your tableau server. For more information on enabling the Tableau Metadata APIs follow the link <a href="https://help.tableau.com/current/api/metadata_api/en-us/docs/meta_api_start.html" target="_blank">here</a>.
 
-You can find further information on the Tableau connector in the <a href="https://docs.u-metadata.org/connectors/dashboard/tableau" target="_blank">docs</a>.
+You can find further information on the Tableau connector in the <a href="https://docs.wondersgroup.com/connectors/dashboard/tableau" target="_blank">docs</a>.
 
 
 ## Authentication Type

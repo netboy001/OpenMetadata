@@ -1,5 +1,5 @@
 {
-  "$id": "https://u-metadata.org/schema/entity/services/connections/drive/googleDriveConnection.json",
+  "$id": "https://wondersgroup.com/schema/entity/services/connections/drive/googleDriveConnection.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "GoogleDriveConnection",
   "description": "Google Drive Connection Config",
