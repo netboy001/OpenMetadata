@@ -29,7 +29,7 @@ If you encounter issues connecting to the Schema Registry, ensure that the proto
 - Use `http://localhost:8081` instead of `localhost:8081`.
 The Schema Registry requires a properly formatted URL, including the protocol (`http://` or `https://`). While this differentiation is expected in the Schema Registry configuration, it may not be immediately apparent.
 
-**NOTE**: For now, the schema will be the last version found for the schema name `{topic-name}-value`. An <a href="https://github.com/u-metadata/UMetadata/issues/10399" target="_blank">issue</a> to improve how it currently works has been opened.
+**NOTE**: For now, the schema will be the last version found for the schema name `{topic-name}-value`. An <a href="https://10.1.98.30:5080/umd/umetadata/UMetadata/issues/10399" target="_blank">issue</a> to improve how it currently works has been opened.
 $$
 
 $$section

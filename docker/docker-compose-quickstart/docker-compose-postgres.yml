@@ -18,7 +18,7 @@ volumes:
 services:
   postgresql:
     container_name: umetadata_postgresql
-    image: docker.getcollate.io/umetadata/postgresql:1.12.14
+    image: docker.wondersgroup.com/umetadata/postgresql:1.12.14
     restart: always
     command: "--work_mem=10MB"
     environment:
@@ -61,7 +61,7 @@ services:
 
   execute-migrate-all:
     container_name: execute_migrate_all
-    image: docker.getcollate.io/umetadata/server:1.12.14
+    image: docker.wondersgroup.com/umetadata/server:1.12.14
     command: "./bootstrap/umetadata-ops.sh migrate"
     environment:
       UMETADATA_CLUSTER_NAME: ${UMETADATA_CLUSTER_NAME:-umetadata}
@@ -286,7 +286,7 @@ services:
   umetadata-server:
     container_name: umetadata_server
     restart: always
-    image: docker.getcollate.io/umetadata/server:1.12.14
+    image: docker.wondersgroup.com/umetadata/server:1.12.14
     environment:
       UMETADATA_CLUSTER_NAME: ${UMETADATA_CLUSTER_NAME:-umetadata}
       SERVER_PORT: ${SERVER_PORT:-8585}
@@ -505,7 +505,7 @@ services:
 
   ingestion:
     container_name: umetadata_ingestion
-    image: docker.getcollate.io/umetadata/ingestion:1.12.14
+    image: docker.wondersgroup.com/umetadata/ingestion:1.12.14
     depends_on:
       elasticsearch:
         condition: service_started

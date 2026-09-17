@@ -17,7 +17,7 @@ import {
 } from './AuthProvider.util';
 
 const userProfile = {
-  email: 'testUser@gmail.com',
+  email: 'testUser@qq.com',
   sub: 'i_am_sub',
   preferred_username: 'i_am_preferred_username',
   name: 'Test User',
@@ -249,7 +249,7 @@ describe('extractNameFromUserProfile', () => {
         name: 'Alice Johnson',
         given_name: 'Alice',
         family_name: 'Johnson',
-        email: 'alice.johnson@gmail.com',
+        email: 'alice.johnson@qq.com',
         picture: 'https://lh3.googleusercontent.com/a/123',
         sub: 'google-id-456',
       } as unknown as UserProfile;
@@ -400,7 +400,7 @@ describe('Test Auth Provider utils', () => {
     const { name, email } = getNameFromUserData(userProfile, ['email']);
 
     expect(name).toEqual('testUser');
-    expect(email).toEqual('testUser@gmail.com');
+    expect(email).toEqual('testUser@qq.com');
   });
 
   it('getNameFromUserData should return name and email from claim: sub', () => {
@@ -430,7 +430,7 @@ describe('Test Auth Provider utils', () => {
     );
 
     expect(name).toEqual('testUser');
-    expect(generatedEmail).toEqual('testUser@gmail.com');
+    expect(generatedEmail).toEqual('testUser@qq.com');
   });
 
   it('getNameFromUserData should respect domain present in claim over principleClaim', () => {
@@ -441,17 +441,17 @@ describe('Test Auth Provider utils', () => {
     );
 
     expect(name).toEqual('testUser');
-    expect(generatedEmail).toEqual('testUser@gmail.com');
+    expect(generatedEmail).toEqual('testUser@qq.com');
   });
 
   it('getNameFromUserData should handle the claim if it contains @', () => {
     const { name, email } = getNameFromUserData(
-      { ...userProfile, preferred_username: 'test@gmail.com' },
+      { ...userProfile, preferred_username: 'test@qq.com' },
       ['preferred_username', 'email', 'sub']
     );
 
     expect(name).toEqual('test');
-    expect(email).toEqual('test@gmail.com');
+    expect(email).toEqual('test@qq.com');
   });
 
   it('getNameFromUserData should add principle domain if domain is missing', () => {

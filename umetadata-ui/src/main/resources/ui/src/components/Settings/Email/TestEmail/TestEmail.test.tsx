@@ -81,7 +81,7 @@ describe('Test Email component', () => {
 
     const input = screen.getByTestId('test-email-input');
 
-    fireEvent.change(input, { target: { value: 'test@gmail.com' } });
+    fireEvent.change(input, { target: { value: 'test@qq.com' } });
 
     const submitButton = screen.getByText('label.test');
 

@@ -20,7 +20,7 @@ export const mockUserData = {
   version: 0.1,
   updatedAt: 1648704499857,
   updatedBy: 'xyz',
-  email: 'xyz@gmail.com',
+  email: 'xyz@qq.com',
   href: 'http://localhost:8585/api/v1/users/d6764107-e8b4-4748-b256-c86fecc66064',
   isAdmin: false,
   profile: {
@@ -96,7 +96,7 @@ export const mockUsersTabData = {
   version: 1.5,
   updatedAt: 1707198736848,
   updatedBy: 'admin',
-  email: 'aaron_johnson0@gmail.com',
+  email: 'aaron_johnson0@qq.com',
   href: 'http://localhost:8585/api/v1/users/f281e7fd-5fd3-4279-8a2d-ade80febd743',
   isAdmin: false,
   teams: [

@@ -118,7 +118,7 @@ class JwtFilterTest {
     jwt =
         JWT.create()
             .withExpiresAt(Date.from(Instant.now().plus(1, ChronoUnit.DAYS)))
-            .withClaim("email", "sam@gmail.com")
+            .withClaim("email", "sam@qq.com")
             .sign(algorithm);
     ContainerRequestContext newContext = createRequestContextWithJwt(jwt);
 
@@ -155,7 +155,7 @@ class JwtFilterTest {
     String jwt =
         JWT.create()
             .withExpiresAt(Date.from(Instant.now().plus(1, ChronoUnit.DAYS)))
-            .withClaim("email", "sam@gmail.com")
+            .withClaim("email", "sam@qq.com")
             .sign(algorithm);
 
     ContainerRequestContext context = createRequestContextWithJwt(jwt);
@@ -211,7 +211,7 @@ class JwtFilterTest {
     String jwt =
         JWT.create()
             .withExpiresAt(Date.from(Instant.now().plus(1, ChronoUnit.DAYS)))
-            .withClaim("emailAddress", "sam@gmail.com")
+            .withClaim("emailAddress", "sam@qq.com")
             .sign(algorithm);
 
     ContainerRequestContext context = createRequestContextWithJwt(jwt);

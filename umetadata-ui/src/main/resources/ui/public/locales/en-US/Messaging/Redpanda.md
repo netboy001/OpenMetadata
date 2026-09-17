@@ -23,7 +23,7 @@ $$section
 
 URL of the Schema Registry used to ingest the schemas of the topics.
 
-**NOTE**: For now, the schema will be the last version found for the schema name `{topic-name}-value`. An <a href="https://github.com/u-metadata/UMetadata/issues/10399" target="_blank">issue</a> to improve how it currently works has been opened.
+**NOTE**: For now, the schema will be the last version found for the schema name `{topic-name}-value`. An <a href="https://10.1.98.30:5080/umd/umetadata/UMetadata/issues/10399" target="_blank">issue</a> to improve how it currently works has been opened.
 $$
 
 $$section

@@ -32,7 +32,7 @@ const emailConfigValues = {
   emailingEntity: 'UMetadata',
   supportUrl: 'https://slack.wondersgroup.com',
   enableSmtpServer: false,
-  senderMail: 'test@gmail.com',
+  senderMail: 'test@qq.com',
   serverEndpoint: 'http://localhost:3000',
   serverPort: 357,
   username: 'test',

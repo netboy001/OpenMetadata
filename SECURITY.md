@@ -14,7 +14,7 @@ currently being supported with security updates.
 
 Reporting security issues
 
-If you think you have found a security vulnerability, please create a GitHub Security Advisory [here](https://github.com/u-metadata/UMetadata/security/advisories/new). This can be used for all of UMetadata products. 
+If you think you have found a security vulnerability, please create a GitHub Security Advisory [here](https://10.1.98.30:5080/umd/umetadata/UMetadata/security/advisories/new). This can be used for all of UMetadata products. 
 
 The security advisory should be open in a draft mode. After the initial reply to your report, the UMetadata team will keep you informed of the progress towards a fix and full announcement, and may ask for additional information or guidance.
 

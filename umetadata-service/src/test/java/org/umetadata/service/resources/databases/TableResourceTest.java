@@ -1653,7 +1653,7 @@ public class TableResourceTest extends EntityResourceTest<Table, CreateTable> {
             userResourceTest
                 .createRequest(test)
                 .withName("test1")
-                .withEmail("test1@gmail.com")
+                .withEmail("test1@qq.com")
                 .withIsBot(false),
             ADMIN_AUTH_HEADERS);
 

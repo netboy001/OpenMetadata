@@ -1,6 +1,6 @@
 # UMetadata Helm Chart Local Testing
 
-Helper to test changes from https://github.com/u-metadata/umetadata-helm-charts with local images while developing.
+Helper to test changes from https://10.1.98.30:5080/umd/umetadata/umetadata-helm-charts with local images while developing.
 
 ## Prerequisites
 
@@ -172,7 +172,7 @@ spec:
       serviceAccountName: umetadata-ingestion-test
       containers:
       - name: test
-        image: docker.getcollate.io/umetadata/ingestion:latest
+        image: docker.wondersgroup.com/umetadata/ingestion:latest
         command: ["echo", "Test pipeline job works"]
       restartPolicy: Never
 EOF
@@ -202,7 +202,7 @@ spec:
       serviceAccountName: umetadata-ingestion-test
       containers:
       - name: main
-        image: docker.getcollate.io/umetadata/ingestion:latest
+        image: docker.wondersgroup.com/umetadata/ingestion:latest
         command: ["sh", "-c", "echo 'Starting ingestion...'; sleep 10; echo 'Something went wrong!'; exit 1"]
       restartPolicy: Never
 EOF

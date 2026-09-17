@@ -99,7 +99,7 @@ public class K8sPipelineClientConfig {
     this.namespace = getStringParam(params, NAMESPACE_KEY, "umetadata-pipelines");
     this.ingestionImage =
         getStringParam(
-            params, INGESTION_IMAGE_KEY, "docker.getcollate.io/umetadata/ingestion:latest");
+            params, INGESTION_IMAGE_KEY, "docker.wondersgroup.com/umetadata/ingestion:latest");
     this.imagePullPolicy = getStringParam(params, IMAGE_PULL_POLICY_KEY, "IfNotPresent");
     this.imagePullSecrets =
         parseImagePullSecrets(getStringParam(params, IMAGE_PULL_SECRETS_KEY, ""));

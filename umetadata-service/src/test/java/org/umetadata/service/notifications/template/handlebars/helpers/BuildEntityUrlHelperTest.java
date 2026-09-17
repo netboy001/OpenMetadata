@@ -36,7 +36,7 @@ import org.umetadata.service.Entity;
  * any DB-backed settings.
  *
  * <p>Reproduces the two notification-link regressions reported in
- * https://github.com/u-metadata/UMetadata/issues/27918:
+ * https://wondersgroup.com/u-metadata/UMetadata/issues/27918:
  * <ul>
  *   <li>EVENT_SUBSCRIPTION links pointed at the singular {@code /settings/notifications/alert/}
  *       (404) instead of the actual UI route {@code /settings/notifications/alerts/}.

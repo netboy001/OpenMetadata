@@ -126,7 +126,7 @@ RUN pip install "umetadata-ingestion[airflow]~=${RI_VERSION}"
 RUN pip install "umetadata-ingestion[${INGESTION_DEPENDENCY}]~=${RI_VERSION}"
 
 
-# Temporary workaround for https://github.com/u-metadata/UMetadata/issues/9593
+# Temporary workaround for https://10.1.98.30:5080/umd/umetadata/UMetadata/issues/9593
 RUN [ $(uname -m) = "x86_64" ] \
   && pip install "umetadata-ingestion[db2]~=${RI_VERSION}" \
   || echo "DB2 not supported on ARM architectures."

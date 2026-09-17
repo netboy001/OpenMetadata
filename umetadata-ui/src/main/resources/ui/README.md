@@ -32,7 +32,7 @@ Using the command below, spin up the server locally from the directory `umetadat
 Alternatively, you can connect to an already started UMetadata Server to develop UI by setting the `DEV_SERVER_TARGET` environment variable.
 ```shell
 # For example, the openmetedata server service launched with docker compose:
-# https://github.com/u-metadata/UMetadata/blob/main/docker/development/docker-compose.yml
+# https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/docker/development/docker-compose.yml
 export DEV_SERVER_TARGET=http://umetadata-server:8585/
 
 # Follow the steps to Run UMetadata UI...
@@ -107,7 +107,7 @@ To ensure consistency with our primary language, which is `en-us`, it is necessa
 
 To copy the contents of en-us.json and add it to your translation JSON file, follow these steps:
 
-- Go to [en-us.json](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/src/locale/languages/en-us.json)
+- Go to [en-us.json](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/src/locale/languages/en-us.json)
 - Copy the content of file
 - Open your translation JSON file.
 - Paste the copied text into your translation JSON file.

@@ -14,7 +14,7 @@
 export const mockChangedFormData = {
   fullName: 'f_name m_name l_name',
   userName: 'mockUserName',
-  email: 'test@gmail.com',
+  email: 'test@qq.com',
 };
 
 export const mockCreateUser = {

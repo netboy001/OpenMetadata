@@ -401,7 +401,7 @@ export const getPropertyValues = (
     case 'email':
       return {
         value: 'john@gamil.com',
-        newValue: 'user@getcollate.io',
+        newValue: 'user@wondersgroup.com',
       };
     case 'enum':
       return {

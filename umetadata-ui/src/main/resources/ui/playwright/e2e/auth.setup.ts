@@ -37,43 +37,43 @@ const userUUID = uuid();
 const dataConsumer = new UserClass({
   firstName: 'PW ',
   lastName: `DataConsumer ${userUUID}`,
-  email: `pw-data-consumer-${userUUID}@gmail.com`,
+  email: `pw-data-consumer-${userUUID}@qq.com`,
   password: 'User@OMD123',
 });
 const dataSteward = new UserClass({
   firstName: 'PW ',
   lastName: `DataSteward ${userUUID}`,
-  email: `pw-data-steward-${userUUID}@gmail.com`,
+  email: `pw-data-steward-${userUUID}@qq.com`,
   password: 'User@OMD123',
 });
 const editDescriptionUser = new UserClass({
   firstName: 'PW ',
   lastName: `EditDescription ${userUUID}`,
-  email: `pw-edit-description-${userUUID}@gmail.com`,
+  email: `pw-edit-description-${userUUID}@qq.com`,
   password: 'User@OMD123',
 });
 const editTagsUser = new UserClass({
   firstName: 'PW ',
   lastName: `EditTags ${userUUID}`,
-  email: `pw-edit-tags-${userUUID}@gmail.com`,
+  email: `pw-edit-tags-${userUUID}@qq.com`,
   password: 'User@OMD123',
 });
 const editGlossaryTermUser = new UserClass({
   firstName: 'PW ',
   lastName: `EditGlossaryTerm ${userUUID}`,
-  email: `pw-edit-glossary-term-${userUUID}@gmail.com`,
+  email: `pw-edit-glossary-term-${userUUID}@qq.com`,
   password: 'User@OMD123',
 });
 const viewOnlyUser = new UserClass({
   firstName: 'PW ',
   lastName: `ViewOnly ${userUUID}`,
-  email: `pw-view-only-${userUUID}@gmail.com`,
+  email: `pw-view-only-${userUUID}@qq.com`,
   password: 'User@OMD123',
 });
 const ownerUser = new UserClass({
   firstName: 'PW ',
   lastName: `Owner ${userUUID}`,
-  email: `pw-owner-${userUUID}@gmail.com`,
+  email: `pw-owner-${userUUID}@qq.com`,
   password: 'User@OMD123',
 });
 

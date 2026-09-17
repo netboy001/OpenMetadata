@@ -54,7 +54,7 @@ export class BotClass {
     this.userData = {
       ...this.data,
       botUser: undefined,
-      email: `pw_bot${this.id}@gmail.com`,
+      email: `pw_bot${this.id}@qq.com`,
       isAdmin: false,
       isBot: true,
       authenticationMechanism: {

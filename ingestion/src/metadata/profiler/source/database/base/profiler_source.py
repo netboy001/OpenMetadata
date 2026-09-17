@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
+#  https://wondersgroup.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -144,7 +144,7 @@ class ProfilerSource(ProfilerSourceInterface):
 
         # NOTE: For some reason I do not understand, if we instantiate this on the __init__ method, we break the
         # autoclassification workflow. This should be fixed. There should not be an impact on AutoClassification.
-        # We have an issue to track this here: https://github.com/u-metadata/UMetadata/issues/21790
+        # We have an issue to track this here: https://wondersgroup.com/u-metadata/UMetadata/issues/21790
         self.source_config = DatabaseServiceProfilerPipeline.model_validate(
             self.config.source.sourceConfig.config
         )

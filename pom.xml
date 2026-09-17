@@ -27,7 +27,7 @@
     UMetadata enables end-to-end metadata management, giving you the freedom to unlock the value of your data assets.
   </description>
   <version>1.12.14</version>
-  <url>https://github.com/u-metadata/UMetadata</url>
+  <url>http://10.1.98.30:5080/umd/umetadata</url>
   <modules>
     <module>umetadata-spec</module>
     <module>umetadata-sdk</module>
@@ -60,9 +60,9 @@
   <developers>
     <developer>
       <name>UMetadata</name>
-      <email>umetadata@getcollate.io</email>
-      <organization>Get Collate</organization>
-      <organizationUrl>https://getcollate.io/</organizationUrl>
+      <email>umetadata@wondersgroup.com</email>
+      <organization>Get Wondersgroup</organization>
+      <organizationUrl>https://wondersgroup.com/</organizationUrl>
     </developer>
   </developers>
 

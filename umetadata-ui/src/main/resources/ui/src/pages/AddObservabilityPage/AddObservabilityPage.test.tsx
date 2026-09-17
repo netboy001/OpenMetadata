@@ -35,7 +35,7 @@ const MOCK_DATA = [
     },
     subscriptionType: 'Email',
     subscriptionConfig: {
-      receivers: ['test@gmail.com'],
+      receivers: ['test@qq.com'],
     },
     enabled: true,
     batchSize: 10,

@@ -23,7 +23,7 @@ const mockUserDetail = {
   version: 0.1,
   updatedAt: 1652179111681,
   updatedBy: 'anonymous',
-  email: 'customermail2020@gmail.com',
+  email: 'customermail2020@qq.com',
   href: 'http://localhost:8585/api/v1/users/cb3db26a-5e01-4d14-8f06-bb1040c28ad0',
   isBot: true,
   isAdmin: false,

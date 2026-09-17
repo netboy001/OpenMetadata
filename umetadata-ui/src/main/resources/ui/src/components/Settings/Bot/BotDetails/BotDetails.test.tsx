@@ -32,7 +32,7 @@ const botUserData = {
   version: 0.2,
   updatedAt: 1652699178358,
   updatedBy: 'anonymous',
-  email: 'sachinchaurasiyachotey87@gmail.com',
+  email: 'sachinchaurasiyachotey87@qq.com',
   href: 'http://localhost:8585/api/v1/users/ea09aed1-0251-4a75-b92a-b65641610c53',
   isBot: true,
   isAdmin: false,

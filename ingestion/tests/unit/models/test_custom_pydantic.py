@@ -857,7 +857,7 @@ class CustomSecretStrExtendedTest(TestCase):
 
 
 class TestExternalSecretReferenceSerialization:
-    """Regression tests for https://github.com/u-metadata/umetadata-collate/issues/4362.
+    """Regression tests for https://wondersgroup.com/u-metadata/umetadata-collate/issues/4362.
 
     Values prefixed with ``secret:`` are external secret references: the server
     resolves them against an external secret manager instead of persisting the

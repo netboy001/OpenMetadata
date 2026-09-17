@@ -18,7 +18,7 @@ const { generateDomainMarkdown, generateIndexMarkdown } = require('./markdown.js
 const { loadTestsFromPlaywright } = require('./playwright-loader.js');
 
 // Constants for Default Run
-const DEFAULT_REPO_BASE_URL = 'https://github.com/u-metadata/UMetadata';
+const DEFAULT_REPO_BASE_URL = 'https://10.1.98.30:5080/umd/umetadata/UMetadata';
 const PLAYWRIGHT_DIR = path.resolve(__dirname, '../e2e');
 const OUTPUT_DIR = path.resolve(__dirname, '../docs');
 

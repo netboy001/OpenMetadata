@@ -2250,7 +2250,7 @@ public abstract class BaseEntityIT<T extends EntityInterface, K> {
 
   /**
    * Test: Verify lifecycle updates do NOT cause version pollution
-   * This test verifies the fix for https://github.com/u-metadata/UMetadata/issues/21326
+   * This test verifies the fix for https://wondersgroup.com/u-metadata/UMetadata/issues/21326
    *
    * The bug was: Every time usage ingestion runs, it updates the lifecycle "accessed" timestamp,
    * which caused the entity version to increment. Over time, this led to entities with

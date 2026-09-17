@@ -27,7 +27,7 @@ public class DefaultMessageBrandingProvider implements MessageBrandingProvider {
 
   @Override
   public String getLogoUrl() {
-    return "https://cdn.getcollate.io/omd_logo192.png";
+    return "https://cdn.wondersgroup.com/omd_logo192.png";
   }
 
   @Override

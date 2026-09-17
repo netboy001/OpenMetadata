@@ -455,7 +455,7 @@ pipelineServiceClientConfiguration:
     truststorePassword: ${AIRFLOW_TRUST_STORE_PASSWORD:-""}
     ## Kubernetes client parameters
     namespace: ${K8S_NAMESPACE:-"umetadata-pipelines"}
-    ingestionImage: ${K8S_INGESTION_IMAGE:-"docker.getcollate.io/umetadata/ingestion-base:latest"}
+    ingestionImage: ${K8S_INGESTION_IMAGE:-"docker.wondersgroup.com/umetadata/ingestion-base:latest"}
     imagePullPolicy: ${K8S_IMAGE_PULL_POLICY:-"IfNotPresent"}
     imagePullSecrets: ${K8S_IMAGE_PULL_SECRETS:-""}
     serviceAccountName: ${K8S_SERVICE_ACCOUNT_NAME:-"umetadata-ingestion"}

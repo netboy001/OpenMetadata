@@ -13,7 +13,7 @@
 
 export const URL_JOIN_SLACK = 'https://slack.wondersgroup.com';
 export const URL_U_METADATA_DOCS = 'https://docs.wondersgroup.com/';
-export const URL_GITHUB_REPO = 'https://github.com/u-metadata/UMetadata';
+export const URL_GITHUB_REPO = 'https://10.1.98.30:5080/umd/umetadata/UMetadata';
 
 export const URL_OM_RELEASE_UPDATES =
   'https://wondersgroup.com/product-updates#{{currentVersion}}';

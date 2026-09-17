@@ -89,7 +89,7 @@ export const WIDGET_COMPONENTS = {
   [GlossaryTermDetailPageWidgetKeys.REFERENCES]: () => {
     const references = [
       { name: 'Google', endpoint: 'https://www.google.com' },
-      { name: 'Collate', endpoint: 'https://www.getcollate.io' },
+      { name: 'Collate', endpoint: 'https://www.wondersgroup.com' },
     ];
 
     return references.map((term) => renderReferenceElement(term));

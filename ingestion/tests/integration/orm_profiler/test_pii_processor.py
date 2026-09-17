@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
+#  https://wondersgroup.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -83,7 +83,7 @@ table_data = TableData(
             2,
         ],
         [73, "Alan", "B.", None, "joshua.alan@yahoo.com", None],
-        [71, "Gerald", "C.", datetime.date(2018, 1, 18), "geraldc@gmail.com", 3],
+        [71, "Gerald", "C.", datetime.date(2018, 1, 18), "geraldc@qq.com", 3],
         [35, "Sara", "T.", datetime.date(2018, 2, 21), "saratimithi@godesign.com", 2],
         [22, "Sean", "H.", datetime.date(2018, 1, 26), "heroldsean@google.com", 3],
         [50, "Billy", "L.", datetime.date(2018, 1, 5), "bliam@random.com", 2],
@@ -98,7 +98,7 @@ table_data = TableData(
         [5, "Katherine", "R.", None, None, None],
         [31, "Jane", "G.", datetime.date(2018, 2, 17), "gg34jane@hammer.com", 1],
         [45, "Scott", "B.", None, None, None],
-        [21, "Willie", "H.", datetime.date(2018, 3, 28), "12hwilliejose@gmail.com", 1],
+        [21, "Willie", "H.", datetime.date(2018, 3, 28), "12hwilliejose@qq.com", 1],
         [18, "Johnny", "K.", datetime.date(2018, 2, 27), "johnnykk@dexter.com", 1],
         [6, "Sarah", "R.", datetime.date(2018, 2, 19), "rrsarah@britinia.com", 1],
         [56, "Joshua", "K.", None, None, None],
@@ -106,7 +106,7 @@ table_data = TableData(
         [94, "Gregory", "H.", datetime.date(2018, 1, 4), "peter.gregory@japer.com", 2],
         [83, "Virginia", "R.", None, None, None],
         [17, "Kimberly", "R.", None, None, None],
-        [2, "Shawn", "M.", datetime.date(2018, 1, 11), "shawn344@gmail.com", 1],
+        [2, "Shawn", "M.", datetime.date(2018, 1, 11), "shawn344@qq.com", 1],
         [60, "Norma", "W.", None, None, None],
         [87, "Phillip", "B.", None, None, None],
     ],

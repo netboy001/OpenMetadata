@@ -78,7 +78,7 @@ test.describe('Glossary Hierarchy', () => {
   });
 
   // H-M04: Move term to root of different glossary
-  // Skipped due to known issue: https://github.com/u-metadata/UMetadata/pull/24794
+  // Skipped due to known issue: 10.1.98.30:5080/umd/umetadata/UMetadata/pull/24794
   test('should move term to root of different glossary', async ({ page }) => {
     const { apiContext, afterAction } = await getApiContext(page);
     const glossary1 = new Glossary();
@@ -117,7 +117,7 @@ test.describe('Glossary Hierarchy', () => {
   });
 
   // H-M05: Move term with children to different glossary
-  // Skipped due to known issue: https://github.com/u-metadata/UMetadata/pull/24794
+  // Skipped due to known issue: 10.1.98.30:5080/umd/umetadata/UMetadata/pull/24794
   test('should move term with children to different glossary', async ({
     page,
   }) => {

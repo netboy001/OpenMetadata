@@ -32,7 +32,7 @@ export const MOCK_DATA_CONTRACT = {
   entity: {
     id: 'ee9d44a0-815d-4ac9-8422-4f9d02ddf04d',
     type: 'table',
-    href: 'https://demo.getcollate.io/v1/tables/ee9d44a0-815d-4ac9-8422-4f9d02ddf04d',
+    href: 'https://demo.wondersgroup.com/v1/tables/ee9d44a0-815d-4ac9-8422-4f9d02ddf04d',
   },
   testSuite: {
     id: '24859b7c-a2ef-4e0e-b3b7-67a61ed14bc9',

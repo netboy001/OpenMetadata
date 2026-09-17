@@ -99,12 +99,12 @@ class McpCallbackServletTest {
           @Override
           String resolveServerOrigin() {
             callCount[0]++;
-            return "https://example.getcollate.io";
+            return "https://example.wondersgroup.com";
           }
         };
 
     HttpServletRequest req = mock(HttpServletRequest.class);
-    when(req.getHeader("Origin")).thenReturn("https://example.getcollate.io");
+    when(req.getHeader("Origin")).thenReturn("https://example.wondersgroup.com");
 
     servlet.isOriginAllowed(req);
     servlet.isOriginAllowed(req);
@@ -169,8 +169,8 @@ class McpCallbackServletTest {
 
   @Test
   void resolveServerOrigin_noPort_returnsSchemePlusHost() throws Exception {
-    String origin = invokeResolveServerOrigin("https://devrel.getcollate.io");
-    assertThat(origin).isEqualTo("https://devrel.getcollate.io");
+    String origin = invokeResolveServerOrigin("https://devrel.wondersgroup.com");
+    assertThat(origin).isEqualTo("https://devrel.wondersgroup.com");
   }
 
   @Test
@@ -180,11 +180,11 @@ class McpCallbackServletTest {
             mock(UserSSOOAuthProvider.class), mock(McpPendingAuthRequestRepository.class)) {
           @Override
           String resolveServerOrigin() {
-            return "https://example.getcollate.io";
+            return "https://example.wondersgroup.com";
           }
         };
     HttpServletRequest request = mock(HttpServletRequest.class);
-    when(request.getHeader("Origin")).thenReturn("https://example.getcollate.io");
+    when(request.getHeader("Origin")).thenReturn("https://example.wondersgroup.com");
 
     assertThat(servlet.isOriginAllowed(request)).isTrue();
   }
@@ -196,7 +196,7 @@ class McpCallbackServletTest {
             mock(UserSSOOAuthProvider.class), mock(McpPendingAuthRequestRepository.class)) {
           @Override
           String resolveServerOrigin() {
-            return "https://example.getcollate.io";
+            return "https://example.wondersgroup.com";
           }
         };
     HttpServletRequest request = mock(HttpServletRequest.class);
@@ -235,7 +235,7 @@ class McpCallbackServletTest {
 
           @Override
           String resolveServerOrigin() {
-            return "https://example.getcollate.io";
+            return "https://example.wondersgroup.com";
           }
         };
     HttpServletRequest request = mock(HttpServletRequest.class);

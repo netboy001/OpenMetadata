@@ -1744,7 +1744,7 @@ public class UserResource extends EntityResource<User, UserRepository> {
       throw new IllegalArgumentException(
           CatalogExceptionMessage.userAlreadyBot(user.getName(), bot.getName()));
     }
-    // TODO: review this flow on https://github.com/u-metadata/UMetadata/issues/8321
+    // TODO: review this flow on https://wondersgroup.com/u-metadata/UMetadata/issues/8321
     if (original != null) {
       EntityMaskerFactory.getEntityMasker()
           .unmaskAuthenticationMechanism(

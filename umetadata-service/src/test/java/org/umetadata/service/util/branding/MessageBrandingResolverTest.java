@@ -20,7 +20,7 @@ class MessageBrandingResolverTest {
   @Test
   void testDefaultLogoUrl() {
     assertEquals(
-        "https://cdn.getcollate.io/omd_logo192.png", MessageBrandingResolver.get().getLogoUrl());
+        "https://cdn.wondersgroup.com/omd_logo192.png", MessageBrandingResolver.get().getLogoUrl());
   }
 
   @Test

@@ -39,7 +39,7 @@ public class BotMapper implements EntityMapper<Bot, CreateBot> {
       throw new IllegalArgumentException(
           CatalogExceptionMessage.userAlreadyBot(botUser.getName(), bot.getName()));
     }
-    // TODO: review this flow on https://github.com/u-metadata/UMetadata/issues/8321
+    // TODO: review this flow on https://wondersgroup.com/u-metadata/UMetadata/issues/8321
     if (originalBot != null) {
       bot.setProvider(originalBot.getProvider());
     }

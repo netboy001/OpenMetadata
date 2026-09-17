@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
+#  https://wondersgroup.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -100,7 +100,7 @@ class CliCommonDB:
                 self.expected_profiled_tables(),
             )
             # Since we removed view lineage from metadata workflow as part
-            # of https://github.com/u-metadata/UMetadata/pull/18558
+            # of https://wondersgroup.com/u-metadata/UMetadata/pull/18558
             # we need to introduce Lineage E2E base and add view lineage check there.
 
         def assert_for_test_lineage(self, source_status: Status, sink_status: Status):

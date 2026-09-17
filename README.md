@@ -1,7 +1,7 @@
 <br />修改测试<br />
 <p align="center">
     <a href="https://wondersgroup.com">
-        <img alt="Logo" src="https://github.com/u-metadata/UMetadata/assets/40225091/e794ced8-7220-4393-8efc-3faf93bfb503" width="49%">
+        <img alt="Logo" src="https://10.1.98.30:5080/umd/umetadata/UMetadata/assets/40225091/e794ced8-7220-4393-8efc-3faf93bfb503" width="49%">
     </a>
 </p>
 
@@ -10,14 +10,14 @@
 <div align="center">
     
 ![Commit Activity](https://img.shields.io/github/commit-activity/m/u-metadata/UMetadata?style=for-the-badge)
-[![Release](https://img.shields.io/github/release/u-metadata/UMetadata/all.svg?style=for-the-badge)](https://github.com/u-metadata/UMetadata/releases)
+[![Release](https://img.shields.io/github/release/u-metadata/UMetadata/all.svg?style=for-the-badge)](https://10.1.98.30:5080/umd/umetadata/UMetadata/releases)
 
 </div>
 
 ## What is UMetadata?
 [UMetadata](https://wondersgroup.com/)  is a unified metadata platform for data discovery, data observability, and data governance powered by a central metadata repository, in-depth column-level lineage, and seamless team collaboration. It is one of the fastest-growing open-source projects with a vibrant community and adoption by a diverse set of companies in a variety of industry verticals. Based on U Metadata Standards and APIs, supporting connectors to a wide range of data services, UMetadata enables end-to-end metadata management, giving you the freedom to unlock the value of your data assets.
 <div align="center">
-    <img src="https://github.com/u-metadata/UMetadata/assets/40225091/ebfb4ec5-f0a2-4d58-8ce5-a082b5cf0f76" width=800>
+    <img src="https://10.1.98.30:5080/umd/umetadata/UMetadata/assets/40225091/ebfb4ec5-f0a2-4d58-8ce5-a082b5cf0f76" width=800>
 </div>
 
 <br />
@@ -39,23 +39,23 @@ UMetadata Consists of Four Main Components:
 ## Key Features of UMetadata
 **Data Discovery**: Find and explore all your data assets in a single place using various strategies, such as keyword search, data associations, and advanced queries. You can search across tables, topics, dashboards, pipelines, and services.
 
-![12](https://github.com/u-metadata/UMetadata/assets/40225091/0dbd2746-c93d-4a47-8d3e-ceb3ae01436f)
+![12](https://10.1.98.30:5080/umd/umetadata/UMetadata/assets/40225091/0dbd2746-c93d-4a47-8d3e-ceb3ae01436f)
 <br><br><br>
 **Data Collaboration**: Communicate, converse, and cooperate with other users and teams on data assets. You can get event notifications, send alerts, add announcements, create tasks, and use conversation threads.
 
-![11](https://github.com/u-metadata/UMetadata/assets/40225091/7df29e12-8a29-44b7-9466-42474823783f)
+![11](https://10.1.98.30:5080/umd/umetadata/UMetadata/assets/40225091/7df29e12-8a29-44b7-9466-42474823783f)
 <br><br><br>
 **Data Quality and Profiler**: Measure and monitor the quality with **no-code** to build trust in your data. You can define and run data quality tests, group them into test suites, and view the results in an interactive dashboard. With powerful collaboration, make data quality a shared responsibility in your organization.
 
-![8](https://github.com/u-metadata/UMetadata/assets/40225091/6b330827-cc2d-4d06-abf0-a4d42ce532ba)
+![8](https://10.1.98.30:5080/umd/umetadata/UMetadata/assets/40225091/6b330827-cc2d-4d06-abf0-a4d42ce532ba)
 <br><br><br>
 **Data Governance**: Enforce data policies and standards across your organization. You can define data domains and data products, assign owners and stakeholders, and classify data assets using tags and terms. Use powerful automation features to auto-classify your data.
 
-![10](https://github.com/u-metadata/UMetadata/assets/40225091/f7384a71-6b58-44ad-983f-e302718ee3f1)
+![10](https://10.1.98.30:5080/umd/umetadata/UMetadata/assets/40225091/f7384a71-6b58-44ad-983f-e302718ee3f1)
 <br><br><br>
 **Data Insights and KPIs**: Use reports and platform analytics to understand how your organization's data is doing. Data Insights provides a single-pane view of all the key metrics to reflect the state of your data best. Define the Key Performance Indicators (KPIs) and set goals within UMetadata to work towards better documentation, ownership, and tiering. Alerts can be set against the KPIs to be received on a specified schedule.
 
-![9](https://github.com/u-metadata/UMetadata/assets/40225091/61fc2f65-2436-4fc9-9434-c27ee9b25183)
+![9](https://10.1.98.30:5080/umd/umetadata/UMetadata/assets/40225091/61fc2f65-2436-4fc9-9434-c27ee9b25183)
 <br><br><br>
 **Data Lineage**: Track and visualize the origin and transformation of your data assets end-to-end. You can view column-level lineage, filter queries, and edit lineage manually using a no-code editor.
   
@@ -89,13 +89,13 @@ Don't want to miss anything? Give the project a ⭐ 🚀
 
 A HUGE THANK YOU to all our supporters!
 
-<a href="https://github.com/u-metadata/UMetadata/graphs/contributors">
+<a href="https://10.1.98.30:5080/umd/umetadata/UMetadata/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=u-metadata/UMetadata&max=4000&columns=30" />
 </a>
 
 ## Stargazers
 
-[![Stargazers of @u-metadata/UMetadata repo](http://reporoster.com/stars/u-metadata/UMetadata)](https://github.com/u-metadata/UMetadata/stargazers)
+[![Stargazers of @u-metadata/UMetadata repo](http://reporoster.com/stars/u-metadata/UMetadata)](https://10.1.98.30:5080/umd/umetadata/UMetadata/stargazers)
 
 ## License
 UMetadata is released under [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)

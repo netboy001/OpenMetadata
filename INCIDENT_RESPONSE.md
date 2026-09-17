@@ -13,12 +13,12 @@ This incident response plan covers:
 
 ## Incident Lead
 
-**Primary Incident Lead**: @harshach
+**Primary Incident Lead**: @xuxiang
 - Responsible for coordinating incident response
 - Decision authority for security releases
 - External communication coordination
 
-**Backup Incident Leads**: @pmbrull, @mohityadav766, @tutte
+**Backup Incident Leads**: @heye, @tonganzhou, @dengyuting
 
 ## Reporting Security Issues
 
@@ -27,7 +27,7 @@ This incident response plan covers:
 All security issues must be reported privately through one of these channels:
 
 1. **GitHub Security Advisories** (Preferred)
-   - Navigate to: https://github.com/u-metadata/UMetadata/security/advisories
+   - Navigate to: https://10.1.98.30:5080/umd/umetadata/UMetadata/security/advisories
    - Click "Report a vulnerability"
    - Provide detailed information
 
@@ -62,7 +62,7 @@ All security issues must be reported privately through one of these channels:
 1. **Acknowledge Receipt**
    - Send confirmation to reporter
    - Assign tracking identifier
-   - Engage incident lead (@harshach)
+   - Engage incident lead (@xuxiang)
 
 2. **Initial Assessment**
    - Verify the vulnerability
@@ -78,7 +78,7 @@ All security issues must be reported privately through one of these channels:
 ### Phase 2: Investigation & Coordination (24-72 hours)
 
 1. **Form Response Team**
-   - Incident Lead: @harshach
+   - Incident Lead: @xuxiang
    - Security Engineer(s)
    - Affected component maintainer(s)
    - Communications coordinator
@@ -211,12 +211,12 @@ Since UMetadata handles only metadata, not actual data:
 
 ### Security Team
 - **Email**: security@wondersgroup.com
-- **GitHub Security**: https://github.com/u-metadata/UMetadata/security
-- **Incident Lead**: @harshach
+- **GitHub Security**: https://10.1.98.30:5080/umd/umetadata/UMetadata/security
+- **Incident Lead**: @xuxiang
 
 ### Escalation Path
 1. Security Team
-2. Incident Lead (@harshach)
+2. Incident Lead (@xuxiang)
 3. UMetadata Maintainers
 4. Collate (parent organization) if required
 

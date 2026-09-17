@@ -23,7 +23,7 @@ const OKTA_TENANT = {
   clientId: process.env[SSO_ENV.OKTA_CLIENT_ID] ?? '0oayn277hnOhUpVLd697',
   domain: process.env[SSO_ENV.OKTA_DOMAIN] ?? 'integrator-9351624.okta.com',
   principalDomain:
-    process.env[SSO_ENV.OKTA_PRINCIPAL_DOMAIN] ?? 'getcollate.io',
+    process.env[SSO_ENV.OKTA_PRINCIPAL_DOMAIN] ?? 'wondersgroup.com',
 } as const;
 
 const buildConfigPayload = (): ProviderConfigOverride => {

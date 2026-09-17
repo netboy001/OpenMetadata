@@ -663,7 +663,7 @@ public class DatabaseResourceIT extends BaseEntityIT<Database, CreateDatabase> {
    * and these quotes can conflict with CSV's field encapsulation when not
    * properly escaped during export.
    *
-   * @see <a href="https://github.com/u-metadata/UMetadata/issues/24401">Issue #24401</a>
+   * @see <a href="https://wondersgroup.com/u-metadata/UMetadata/issues/24401">Issue #24401</a>
    */
   @Test
   void test_csvExportImportWithDotInServiceName(TestNamespace ns) {
@@ -758,7 +758,7 @@ public class DatabaseResourceIT extends BaseEntityIT<Database, CreateDatabase> {
    * <p>Creates: "service.name" -> database -> schema -> table
    * <p>Verifies that FQNs are correctly built with proper quoting throughout the hierarchy.
    *
-   * @see <a href="https://github.com/u-metadata/UMetadata/issues/24401">Issue #24401</a>
+   * @see <a href="https://wondersgroup.com/u-metadata/UMetadata/issues/24401">Issue #24401</a>
    */
   @Test
   void test_hierarchyWithDotInServiceName_fqnPropagation(TestNamespace ns) {
@@ -851,7 +851,7 @@ public class DatabaseResourceIT extends BaseEntityIT<Database, CreateDatabase> {
    * quoted FQNs correctly without throwing:
    * "Invalid character between encapsulated token and delimiter"
    *
-   * @see <a href="https://github.com/u-metadata/UMetadata/issues/24401">Issue #24401</a>
+   * @see <a href="https://wondersgroup.com/u-metadata/UMetadata/issues/24401">Issue #24401</a>
    */
   @Test
   void test_csvExportImportWithDotInServiceName_fullHierarchy(TestNamespace ns) {
@@ -1065,7 +1065,7 @@ public class DatabaseResourceIT extends BaseEntityIT<Database, CreateDatabase> {
    * <p>Tests edge case where service name contains multiple dots (e.g., "prod.us.east.snowflake").
    * This exercises the FQN quoting logic more extensively.
    *
-   * @see <a href="https://github.com/u-metadata/UMetadata/issues/24401">Issue #24401</a>
+   * @see <a href="https://wondersgroup.com/u-metadata/UMetadata/issues/24401">Issue #24401</a>
    */
   @Test
   void test_csvExportImportWithMultipleDotsInServiceName(TestNamespace ns) {

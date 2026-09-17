@@ -102,7 +102,7 @@ RUN pip install --no-build-isolation "cx_Oracle>=8.3.0,<9"
 RUN pip install "umetadata-managed-apis~=${RI_VERSION}" --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-3.1.5/constraints-3.10.txt"
 RUN pip install "umetadata-ingestion[${INGESTION_DEPENDENCY}]~=${RI_VERSION}"
 
-# Temporary workaround for https://github.com/u-metadata/UMetadata/issues/9593
+# Temporary workaround for https://10.1.98.30:5080/umd/umetadata/UMetadata/issues/9593
 RUN [ $(uname -m) = "x86_64" ] \
   && pip install "umetadata-ingestion[db2]~=${RI_VERSION}" \
   || echo "DB2 not supported on ARM architectures."

@@ -247,7 +247,7 @@ test('Classification Page', async ({ page }) => {
     await expect(page.getByTestId('add-domain')).toBeVisible();
     await expect(page.getByTestId('add-owner')).toBeVisible();
 
-    /* This code test will be fix in this PR  https://github.com/u-metadata/UMetadata/pull/18333  */
+    /* This code test will be fix in this PR  10.1.98.30:5080/umd/umetadata/UMetadata/pull/18333  */
     // await table.visitEntityPage(page);
     // await addTagToTableColumn(page, {
     //   tagName: tag.responseData.name,

@@ -232,7 +232,7 @@ export const MOCK_MARKETING_TEAM = {
       displayName: 'Aaron Warren',
       deleted: false,
       href: 'test',
-      email: 'aaron_warren5@gmail.com',
+      email: 'aaron_warren5@qq.com',
     },
   ],
   childrenCount: 0,

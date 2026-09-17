@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
+#  https://wondersgroup.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -36,7 +36,7 @@ EXPECTED_DATABRICKS_DETAILS = [
     TableQuery(
         dialect="databricks",
         query=' /* {"app": "UMetadata", "version": "0.13.0.dev0"} */\nSHOW TABLES IN `test`',
-        userName="vijay@getcollate.io",
+        userName="vijay@wondersgroup.com",
         startTime="1665566128192",
         endTime="1665566128329",
         analysisDate=DateTime(datetime.now()),
@@ -47,7 +47,7 @@ EXPECTED_DATABRICKS_DETAILS = [
     TableQuery(
         dialect="databricks",
         query=' /* {"app": "UMetadata", "version": "0.13.0.dev0"} */\nSHOW TABLES IN `test`',
-        userName="vijay@getcollate.io",
+        userName="vijay@wondersgroup.com",
         startTime="1665566127416",
         endTime="1665566127568",
         analysisDate=DateTime(datetime.now()),
@@ -58,7 +58,7 @@ EXPECTED_DATABRICKS_DETAILS = [
     TableQuery(
         dialect="databricks",
         query=' /* {"app": "UMetadata", "version": "0.13.0.dev0"} */\nSHOW TABLES IN `default`',
-        userName="vijay@getcollate.io",
+        userName="vijay@wondersgroup.com",
         startTime="1665566125414",
         endTime="1665566125579",
         analysisDate=DateTime(datetime.now()),
@@ -69,7 +69,7 @@ EXPECTED_DATABRICKS_DETAILS = [
     TableQuery(
         dialect="databricks",
         query=' /* {"app": "UMetadata", "version": "0.13.0.dev0"} */\nDESCRIBE default.view3',
-        userName="vijay@getcollate.io",
+        userName="vijay@wondersgroup.com",
         startTime="1665566124428",
         endTime="1665566124730",
         analysisDate=DateTime(datetime.now()),

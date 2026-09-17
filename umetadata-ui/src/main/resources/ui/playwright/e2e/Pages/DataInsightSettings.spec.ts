@@ -157,7 +157,7 @@ test.describe.serial(
     });
 
     if (process.env.PLAYWRIGHT_IS_OSS) {
-      // add this test once we have https://github.com/u-metadata/UMetadata/issues/19387
+      // add this test once we have 10.1.98.30:5080/umd/umetadata/UMetadata/issues/19387
       test.fixme('Run application', async ({ page }) => {
         const appResponse = page.waitForResponse(
           `/api/v1/apps/name/DataInsightsApplication?fields=*`

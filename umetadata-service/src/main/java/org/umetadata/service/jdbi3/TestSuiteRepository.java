@@ -462,7 +462,7 @@ public class TestSuiteRepository extends EntityRepository<TestSuite> {
 
   public TestSummary getTestSummary(UUID testSuiteId) {
     try {
-      // TODO: Delete with https://github.com/u-metadata/UMetadata/pull/18323
+      // TODO: Delete with https://wondersgroup.com/u-metadata/UMetadata/pull/18323
       TestSummary testSummary;
       if (testSuiteId == null) {
         String aggregationStr =

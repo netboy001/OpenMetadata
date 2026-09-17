@@ -35,7 +35,7 @@ version="${version:=1.10.4}"
 download="${download:=false}"
 
 if [[ ! -f umetadata-compose.yml ]] || [[ "$download" == "true" ]]; then
-  source="https://github.com/u-metadata/UMetadata/releases/download/${version}-release/docker-compose.yml"
+  source="https://10.1.98.30:5080/umd/umetadata/UMetadata/releases/download/${version}-release/docker-compose.yml"
   echo "Downloading umetadata-compose.yml from $source"
   curl -fsSL $source -o umetadata-compose.yml
 fi

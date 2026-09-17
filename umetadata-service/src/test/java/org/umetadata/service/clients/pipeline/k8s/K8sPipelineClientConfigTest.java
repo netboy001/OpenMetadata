@@ -34,7 +34,7 @@ class K8sPipelineClientConfigTest {
     K8sPipelineClientConfig config = new K8sPipelineClientConfig(null);
 
     assertEquals("umetadata-pipelines", config.getNamespace());
-    assertEquals("docker.getcollate.io/umetadata/ingestion:latest", config.getIngestionImage());
+    assertEquals("docker.wondersgroup.com/umetadata/ingestion:latest", config.getIngestionImage());
     assertEquals("IfNotPresent", config.getImagePullPolicy());
     assertEquals("umetadata-ingestion", config.getServiceAccountName());
     assertEquals(604800, config.getTtlSecondsAfterFinished()); // 1 week

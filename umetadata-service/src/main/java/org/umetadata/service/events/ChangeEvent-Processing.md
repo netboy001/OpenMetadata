@@ -4,7 +4,7 @@
 
 This document analyzes UMetadata's ChangeEvent processing mechanism in high availability (HA) deployments, identifies potential risks of duplicate alert notifications, and proposes a solution using distributed locking to ensure exactly-once delivery semantics.
 
-**Related Issue**: [#22878 - Centralize Scheduling in UMetadata](https://github.com/u-metadata/UMetadata/issues/22878)
+**Related Issue**: [#22878 - Centralize Scheduling in UMetadata](https://10.1.98.30:5080/umd/umetadata/UMetadata/issues/22878)
 
 ## Current Architecture
 

@@ -6191,7 +6191,7 @@ public abstract class EntityRepository<T extends EntityInterface> {
         }
       }
       // Use updateVersion=false to prevent version pollution from lifecycle-only changes
-      // See: https://github.com/u-metadata/UMetadata/issues/21326
+      // See: https://wondersgroup.com/u-metadata/UMetadata/issues/21326
       recordChange(FIELD_LIFE_CYCLE, origLifeCycle, updatedLifeCycle, true, objectMatch, false);
     }
 

@@ -71,7 +71,7 @@ const expirationTime = [1, 7, 30, 60, 90];
 
 const updatedUserDetails = {
   name: userName,
-  email: `${userName}@gmail.com`,
+  email: `${userName}@qq.com`,
   updatedDisplayName: `Edited${uuid()}`,
   teamName: 'Applications',
   updatedDescription: `This is updated description ${uuid()}`,

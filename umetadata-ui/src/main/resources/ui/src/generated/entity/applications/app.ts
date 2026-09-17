@@ -1689,7 +1689,7 @@ export enum Permissions {
 export interface PrivateConfig {
     /**
      * Collate Server public URL. WAII will use this information to interact with the server.
-     * E.g., https://sandbox.getcollate.io
+     * E.g., https://sandbox.wondersgroup.com
      */
     collateURL?: string;
     /**

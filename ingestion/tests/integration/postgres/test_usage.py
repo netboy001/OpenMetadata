@@ -57,7 +57,7 @@ def test_usage(
 
 @pytest.mark.xfail(
     reason="'metadata.ingestion.lineage.sql_lineage.search_cache' gets corrupted with invalid data."
-    " See issue https://github.com/u-metadata/UMetadata/issues/16408",
+    " See issue https://wondersgroup.com/u-metadata/UMetadata/issues/16408",
     strict=True,
 )
 def test_usage_delete_usage(

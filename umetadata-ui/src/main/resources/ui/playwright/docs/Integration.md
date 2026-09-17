@@ -16,7 +16,7 @@
 <details open>
 <summary>📄 <b>ServiceIngestion.spec.ts</b> (45 tests, 45 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/nightly/ServiceIngestion.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/nightly/ServiceIngestion.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/nightly/ServiceIngestion.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/nightly/ServiceIngestion.spec.ts)
 
 ### Api Service
 
@@ -128,7 +128,7 @@
 <details open>
 <summary>📄 <b>ServiceCreationPermissions.spec.ts</b> (6 tests, 6 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Flow/ServiceCreationPermissions.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/ServiceCreationPermissions.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Flow/ServiceCreationPermissions.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/ServiceCreationPermissions.spec.ts)
 
 ### Service Creation with isOwner() Permissions
 
@@ -146,7 +146,7 @@
 <details open>
 <summary>📄 <b>ServiceForm.spec.ts</b> (4 tests, 4 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Flow/ServiceForm.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/ServiceForm.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Flow/ServiceForm.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/ServiceForm.spec.ts)
 
 ### Service form functionality
 
@@ -162,7 +162,7 @@
 <details open>
 <summary>📄 <b>ApiCollection.spec.ts</b> (1 tests, 2 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Flow/ApiCollection.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/ApiCollection.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Flow/ApiCollection.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/ApiCollection.spec.ts)
 
 ### API Collection Entity Special Test Cases
 
@@ -177,7 +177,7 @@
 <details open>
 <summary>📄 <b>ApiServiceRest.spec.ts</b> (1 tests, 1 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Flow/ApiServiceRest.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/ApiServiceRest.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Flow/ApiServiceRest.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/ApiServiceRest.spec.ts)
 
 ### API service
 
@@ -190,7 +190,7 @@
 <details open>
 <summary>📄 <b>IngestionBot.spec.ts</b> (1 tests, 4 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Flow/IngestionBot.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/IngestionBot.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Flow/IngestionBot.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/IngestionBot.spec.ts)
 
 ### Ingestion Bot 
 
@@ -207,7 +207,7 @@
 <details open>
 <summary>📄 <b>ServiceListing.spec.ts</b> (1 tests, 1 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Pages/ServiceListing.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/ServiceListing.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Pages/ServiceListing.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/ServiceListing.spec.ts)
 
 ### Service Listing
 

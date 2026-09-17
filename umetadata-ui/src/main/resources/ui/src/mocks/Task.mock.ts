@@ -66,7 +66,7 @@ export const TASK_FEED: Thread = {
 export const APPROVAL_TASK_FEED: Thread = {
   id: '4569705b-78b9-448f-8d1a-060401f03d9d',
   type: ThreadType.Task,
-  href: 'https://nbndatacatalogue-np.getcollate.io//v1/feed/4569705b-78b9-448f-8d1a-060401f03d9d',
+  href: 'https://nbndatacatalogue-np.wondersgroup.com//v1/feed/4569705b-78b9-448f-8d1a-060401f03d9d',
   threadTs: 1773708257515,
   about:
     '<#E::table::starburst.cdl.sharp_incnet.v_incnet_location::columns::location_id>',
@@ -173,7 +173,7 @@ export const MOCK_ASSIGNEE_DATA = {
             version: 0.8,
             updatedAt: 1699428544440,
             updatedBy: 'ashish',
-            email: 'ashish@getcollate.io',
+            email: 'ashish@wondersgroup.com',
             isBot: false,
             isAdmin: true,
             profile: {
@@ -264,7 +264,7 @@ export const MOCK_ASSIGNEE_DATA = {
             version: 0.2,
             updatedAt: 1702647808915,
             updatedBy: 'ingestion-bot',
-            email: 'ashley_king5@gmail.com',
+            email: 'ashley_king5@qq.com',
             isAdmin: false,
             teams: [
               {

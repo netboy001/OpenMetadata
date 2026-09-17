@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
+#  https://wondersgroup.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -697,7 +697,7 @@ def split_table_name(table_name: str) -> Dict[str, Optional[str]]:
     :return: dict with data
     """
     # Revisit: Check the antlr grammer for issue when string has double quotes
-    # Issue Link: https://github.com/u-metadata/UMetadata/issues/8874
+    # Issue Link: https://wondersgroup.com/u-metadata/UMetadata/issues/8874
     details: List[str] = split(table_name.replace('"', ""))
     # Pad None to the left until size of list is 3
     # If more than 3 parts, take only the last 3 (database, schema, table)

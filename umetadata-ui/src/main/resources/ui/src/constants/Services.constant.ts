@@ -395,7 +395,7 @@ export const SERVICE_DEFAULT_ERROR_MAP = {
 };
 // 3 minutes timeout to wait for test connection status
 // Increasing it temporarily while we investigate test connection delays
-// @pmbrull
+// @heye
 export const FETCHING_EXPIRY_TIME = 3 * 60 * 1000;
 export const FETCH_INTERVAL = 2000;
 export const WORKFLOW_COMPLETE_STATUS = [

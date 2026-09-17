@@ -50,14 +50,14 @@ If we choose to inform the GitHub credentials to ingest LookML Views:
 $$section
 #### Repository Owner $(id="repositoryOwner")
 
-The owner (user or organization) of a GitHub repository. For example, in https://github.com/u-metadata/UMetadata, the owner is `u-metadata`.
+The owner (user or organization) of a GitHub repository. For example, in https://10.1.98.30:5080/umd/umetadata/UMetadata, the owner is `u-metadata`.
 
 $$
 
 $$section
 #### Repository Name $(id="repositoryName")
 
-The name of a GitHub repository. For example, in https://github.com/u-metadata/UMetadata, the name is `UMetadata`.
+The name of a GitHub repository. For example, in https://10.1.98.30:5080/umd/umetadata/UMetadata, the name is `UMetadata`.
 
 $$
 

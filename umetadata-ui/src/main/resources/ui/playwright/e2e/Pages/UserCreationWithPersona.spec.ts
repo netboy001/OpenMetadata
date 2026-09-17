@@ -50,7 +50,7 @@ test.describe('Create user with persona', async () => {
     const userWithPersonaName = `pw-user-persona-${uuid()}`;
     await addUser(page, {
       name: userWithPersonaName,
-      email: `${userWithPersonaName}@gmail.com`,
+      email: `${userWithPersonaName}@qq.com`,
       password: `User@${uuid()}`,
       role: role.responseData.displayName,
       personas: [

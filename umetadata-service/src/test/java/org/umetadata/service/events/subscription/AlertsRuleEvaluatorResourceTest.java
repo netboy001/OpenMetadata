@@ -93,7 +93,7 @@ class AlertsRuleEvaluatorResourceTest extends UMetadataApplicationTest {
   void test_matchAnyEntityFqn() throws IOException {
     // Create Table Entity
     // SpEl parsing fails for non-basic UTF-8
-    // https://github.com/u-metadata/UMetadata/issues/10376
+    // https://wondersgroup.com/u-metadata/UMetadata/issues/10376
     List<Column> columns = List.of(TableResourceTest.getColumn(C1, ColumnDataType.INT, null));
     CreateTable create = tableResourceTest.createRequest("table").withColumns(columns);
     Table createdTable = tableResourceTest.createAndCheckEntity(create, ADMIN_AUTH_HEADERS);

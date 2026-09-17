@@ -191,7 +191,7 @@ public class McpSdkUpgradeTest {
 
   @Test
   void testElicitationCapabilitiesDeserialization() throws Exception {
-    // Regression test for https://github.com/u-metadata/UMetadata/issues/26454
+    // Regression test for https://wondersgroup.com/u-metadata/UMetadata/issues/26454
     // MCP clients implementing the 2025-11-25 spec send elicitation with form/url fields.
     // SDK <= 0.17.1 threw UnrecognizedPropertyException crashing the handshake.
     JacksonMcpJsonMapper jsonMapper = new JacksonMcpJsonMapper(JsonUtils.getObjectMapper());

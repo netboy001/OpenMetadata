@@ -109,7 +109,7 @@ public abstract class BaseServiceIT<T extends EntityInterface, K extends CreateE
    * <p>This test validates issue #24401: Service names with dots should be properly handled in FQN
    * quoting.
    *
-   * @see <a href="https://github.com/u-metadata/UMetadata/issues/24401">Issue #24401</a>
+   * @see <a href="https://wondersgroup.com/u-metadata/UMetadata/issues/24401">Issue #24401</a>
    */
   @Test
   void test_serviceNameWithDot_fqnQuoting(TestNamespace ns) {

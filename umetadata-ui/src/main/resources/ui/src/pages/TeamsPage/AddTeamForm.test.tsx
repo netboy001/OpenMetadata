@@ -119,7 +119,7 @@ describe('AddTeamForm component', () => {
     // input email
     const emailInput = getByTestId('email');
     await act(async () => {
-      fireEvent.change(emailInput, { target: { value: 'testteam@gmail.com' } });
+      fireEvent.change(emailInput, { target: { value: 'testteam@qq.com' } });
     });
 
     // save form
@@ -132,7 +132,7 @@ describe('AddTeamForm component', () => {
     expect(mockSave).toHaveBeenCalledWith({
       name: 'test',
       displayName: 'Test Team',
-      email: 'testteam@gmail.com',
+      email: 'testteam@qq.com',
       description: '',
       teamType: 'Group',
     });

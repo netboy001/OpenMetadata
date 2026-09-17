@@ -139,7 +139,7 @@ The Learning Resources system provides contextual, in-product learning materials
   "categories": ["Discovery", "DataGovernance"],
   "difficulty": "Intro",
   "source": {
-    "url": "https://www.getcollate.io/learning-center/resource/Intro_GlossaryBasics",
+    "url": "https://www.wondersgroup.com/learning-center/resource/Intro_GlossaryBasics",
     "provider": "Collate",
     "embedConfig": {
       "content": "# Glossary Basics\n\nMarkdown content here..."
@@ -1106,7 +1106,7 @@ import { LearningIcon } from 'components/Learning/LearningIcon/LearningIcon.comp
   "categories": ["Discovery", "DataGovernance"],
   "difficulty": "Intermediate",
   "source": {
-    "url": "https://www.getcollate.io/learning-center/my-feature",
+    "url": "https://www.wondersgroup.com/learning-center/my-feature",
     "provider": "Collate",
     "embedConfig": {
       "content": "# Understanding My Feature\n\nMarkdown content here..."

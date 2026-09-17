@@ -54,7 +54,7 @@ def mysql_container(tmp_path_factory):
         engine.dispose()
         assert_dangling_connections(container, 1)
         yield container
-        # Needs to be handled for Test Cases https://github.com/u-metadata/UMetadata/issues/21187
+        # Needs to be handled for Test Cases https://wondersgroup.com/u-metadata/UMetadata/issues/21187
         assert_dangling_connections(container, 9)
 
 

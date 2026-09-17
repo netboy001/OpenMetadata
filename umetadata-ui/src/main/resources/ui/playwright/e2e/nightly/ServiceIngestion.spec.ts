@@ -40,7 +40,7 @@ const table = new TableClass();
 const services: Record<string, typeof ApiIngestionClass> = {
   'Api Service': ApiIngestionClass,
   // Skipping S3 as it is failing intermittently in CI
-  // Remove the comment when fixed: https://github.com/u-metadata/UMetadata/issues/23727
+  // Remove the comment when fixed: 10.1.98.30:5080/umd/umetadata/UMetadata/issues/23727
   // S3IngestionClass,
   'Metabase Service': MetabaseIngestionClass,
   'Mysql Service': MysqlIngestionClass,

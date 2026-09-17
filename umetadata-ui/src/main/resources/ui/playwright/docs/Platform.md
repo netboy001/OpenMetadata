@@ -27,7 +27,7 @@
 <details open>
 <summary>📄 <b>ODCSImportExport.spec.ts</b> (42 tests, 42 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Pages/ODCSImportExport.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/ODCSImportExport.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Pages/ODCSImportExport.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/ODCSImportExport.spec.ts)
 
 ### ODCS Import/Export
 
@@ -81,7 +81,7 @@
 <details open>
 <summary>📄 <b>AuditLogs.spec.ts</b> (34 tests, 80 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Pages/AuditLogs.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/AuditLogs.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Pages/AuditLogs.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/AuditLogs.spec.ts)
 
 ### Audit Logs Page
 
@@ -232,7 +232,7 @@
 <details open>
 <summary>📄 <b>InputOutputPorts.spec.ts</b> (30 tests, 142 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Pages/InputOutputPorts.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/InputOutputPorts.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Pages/InputOutputPorts.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/InputOutputPorts.spec.ts)
 
 ### Input Output Ports
 
@@ -416,7 +416,7 @@
 <details open>
 <summary>📄 <b>ConditionalPermissions.spec.ts</b> (22 tests, 22 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Flow/ConditionalPermissions.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/ConditionalPermissions.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Flow/ConditionalPermissions.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/ConditionalPermissions.spec.ts)
 
 ### Standalone Tests
 
@@ -450,7 +450,7 @@
 <details open>
 <summary>📄 <b>LearningResources.spec.ts</b> (19 tests, 40 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Pages/LearningResources.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/LearningResources.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Pages/LearningResources.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/LearningResources.spec.ts)
 
 ### Learning Resources Admin Page
 
@@ -531,7 +531,7 @@
 <details open>
 <summary>📄 <b>AutoPilot.spec.ts</b> (12 tests, 12 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Features/AutoPilot.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/AutoPilot.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Features/AutoPilot.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/AutoPilot.spec.ts)
 
 ### Rest
 
@@ -580,7 +580,7 @@
 <details open>
 <summary>📄 <b>ColumnSorting.spec.ts</b> (7 tests, 7 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Features/ColumnSorting.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/ColumnSorting.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Features/ColumnSorting.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/ColumnSorting.spec.ts)
 
 ### Table Column Sorting
 
@@ -599,7 +599,7 @@
 <details open>
 <summary>📄 <b>Collect.spec.ts</b> (7 tests, 7 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Flow/Collect.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/Collect.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Flow/Collect.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/Collect.spec.ts)
 
 ### Collect end point should work properly
 
@@ -618,7 +618,7 @@
 <details open>
 <summary>📄 <b>CertificationDropdown.spec.ts</b> (6 tests, 6 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Features/CertificationDropdown.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/CertificationDropdown.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Features/CertificationDropdown.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/CertificationDropdown.spec.ts)
 
 ### Certification Dropdown
 
@@ -636,7 +636,7 @@
 <details open>
 <summary>📄 <b>DescriptionSuggestion.spec.ts</b> (5 tests, 9 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Features/DescriptionSuggestion.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/DescriptionSuggestion.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Features/DescriptionSuggestion.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/DescriptionSuggestion.spec.ts)
 
 ### Description Suggestions Table Entity
 
@@ -658,7 +658,7 @@
 <details open>
 <summary>📄 <b>MultipleRename.spec.ts</b> (4 tests, 4 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Features/MultipleRename.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/MultipleRename.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Features/MultipleRename.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/MultipleRename.spec.ts)
 
 ### Multiple Rename Tests
 
@@ -674,7 +674,7 @@
 <details open>
 <summary>📄 <b>FrequentlyJoined.spec.ts</b> (2 tests, 2 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Flow/FrequentlyJoined.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/FrequentlyJoined.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Flow/FrequentlyJoined.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/FrequentlyJoined.spec.ts)
 
 ### Frequently Joined
 
@@ -688,7 +688,7 @@
 <details open>
 <summary>📄 <b>auth.setup.ts</b> (1 tests, 1 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/auth.setup.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/auth.setup.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/auth.setup.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/auth.setup.ts)
 
 ### Standalone Tests
 
@@ -701,7 +701,7 @@
 <details open>
 <summary>📄 <b>dataInsightApp.ts</b> (1 tests, 1 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/dataInsightApp.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/dataInsightApp.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/dataInsightApp.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/dataInsightApp.ts)
 
 ### Standalone Tests
 
@@ -714,7 +714,7 @@
 <details open>
 <summary>📄 <b>entity-data.setup.ts</b> (1 tests, 1 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/entity-data.setup.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/entity-data.setup.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/entity-data.setup.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/entity-data.setup.ts)
 
 ### Standalone Tests
 
@@ -727,7 +727,7 @@
 <details open>
 <summary>📄 <b>entity-data.teardown.ts</b> (1 tests, 1 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/entity-data.teardown.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/entity-data.teardown.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/entity-data.teardown.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/entity-data.teardown.ts)
 
 ### Standalone Tests
 
@@ -740,7 +740,7 @@
 <details open>
 <summary>📄 <b>Markdown.spec.ts</b> (1 tests, 1 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Features/Markdown.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/Markdown.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Features/Markdown.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/Markdown.spec.ts)
 
 ### Markdown
 
@@ -753,7 +753,7 @@
 <details open>
 <summary>📄 <b>Permission.spec.ts</b> (1 tests, 3 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Features/Permission.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/Permission.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Features/Permission.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/Permission.spec.ts)
 
 ### Standalone Tests
 
@@ -769,7 +769,7 @@
 <details open>
 <summary>📄 <b>ApiDocs.spec.ts</b> (1 tests, 1 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Flow/ApiDocs.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/ApiDocs.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Flow/ApiDocs.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/ApiDocs.spec.ts)
 
 ### API docs should work properly
 
@@ -782,7 +782,7 @@
 <details open>
 <summary>📄 <b>AppBasic.spec.ts</b> (1 tests, 1 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Flow/AppBasic.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/AppBasic.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Flow/AppBasic.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/AppBasic.spec.ts)
 
 ### Standalone Tests
 
@@ -795,7 +795,7 @@
 <details open>
 <summary>📄 <b>Bots.spec.ts</b> (1 tests, 5 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Pages/Bots.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/Bots.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Pages/Bots.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/Bots.spec.ts)
 
 ### Bots Page should work properly
 
@@ -813,7 +813,7 @@
 <details open>
 <summary>📄 <b>CSVImportWithQuotesAndCommas.spec.ts</b> (1 tests, 3 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Pages/CSVImportWithQuotesAndCommas.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/CSVImportWithQuotesAndCommas.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Pages/CSVImportWithQuotesAndCommas.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/CSVImportWithQuotesAndCommas.spec.ts)
 
 ### CSV Import with Commas and Quotes - All Entity Types
 
@@ -829,7 +829,7 @@
 <details open>
 <summary>📄 <b>HealthCheck.spec.ts</b> (1 tests, 1 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Pages/HealthCheck.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/HealthCheck.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Pages/HealthCheck.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/HealthCheck.spec.ts)
 
 ### Health Check for UMetadata
 
@@ -842,7 +842,7 @@
 <details open>
 <summary>📄 <b>OmdURLConfiguration.spec.ts</b> (1 tests, 1 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Pages/OmdURLConfiguration.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/OmdURLConfiguration.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Pages/OmdURLConfiguration.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/OmdURLConfiguration.spec.ts)
 
 ### OM URL configuration
 
@@ -862,7 +862,7 @@
 <details open>
 <summary>📄 <b>Entity.spec.ts</b> (357 tests, 463 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Pages/Entity.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/Entity.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Pages/Entity.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/Entity.spec.ts)
 
 ### Api Endpoint
 
@@ -1503,7 +1503,7 @@
 <details open>
 <summary>📄 <b>EntityDataSteward.spec.ts</b> (158 tests, 158 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Pages/EntityDataSteward.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/EntityDataSteward.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Pages/EntityDataSteward.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/EntityDataSteward.spec.ts)
 
 ### ApiEndpoint
 
@@ -1743,7 +1743,7 @@
 <details open>
 <summary>📄 <b>EntityDataConsumer.spec.ts</b> (143 tests, 143 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Pages/EntityDataConsumer.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/EntityDataConsumer.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Pages/EntityDataConsumer.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/EntityDataConsumer.spec.ts)
 
 ### ApiEndpoint
 
@@ -1968,7 +1968,7 @@
 <details open>
 <summary>📄 <b>ServiceEntity.spec.ts</b> (140 tests, 158 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Pages/ServiceEntity.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/ServiceEntity.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Pages/ServiceEntity.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/ServiceEntity.spec.ts)
 
 ### Api Service
 
@@ -2213,7 +2213,7 @@
 <details open>
 <summary>📄 <b>ColumnBulkOperations.spec.ts</b> (79 tests, 79 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Features/ColumnBulkOperations.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/ColumnBulkOperations.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Features/ColumnBulkOperations.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/ColumnBulkOperations.spec.ts)
 
 ### Column Bulk Operations Page
 
@@ -2444,7 +2444,7 @@
 <details open>
 <summary>📄 <b>RightEntityPanelFlow.spec.ts</b> (46 tests, 48 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Flow/RightEntityPanelFlow.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/RightEntityPanelFlow.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Flow/RightEntityPanelFlow.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/RightEntityPanelFlow.spec.ts)
 
 ### Right Entity Panel - Admin User Flow
 
@@ -2515,7 +2515,7 @@
 <details open>
 <summary>📄 <b>EntityPermissions.spec.ts</b> (40 tests, 40 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Features/Permissions/EntityPermissions.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/Permissions/EntityPermissions.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Features/Permissions/EntityPermissions.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/Permissions/EntityPermissions.spec.ts)
 
 ### Table Permissions
 
@@ -2627,7 +2627,7 @@
 <details open>
 <summary>📄 <b>EntitySummaryPanel.spec.ts</b> (18 tests, 18 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Features/EntitySummaryPanel.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/EntitySummaryPanel.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Features/EntitySummaryPanel.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/EntitySummaryPanel.spec.ts)
 
 ### Entity Summary Panel
 
@@ -2662,7 +2662,7 @@
 <details open>
 <summary>📄 <b>ServiceEntityPermissions.spec.ts</b> (16 tests, 16 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Features/Permissions/ServiceEntityPermissions.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/Permissions/ServiceEntityPermissions.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Features/Permissions/ServiceEntityPermissions.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/Permissions/ServiceEntityPermissions.spec.ts)
 
 ### Api Service Permissions
 
@@ -2725,7 +2725,7 @@
 <details open>
 <summary>📄 <b>EntityVersionPages.spec.ts</b> (14 tests, 70 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/VersionPages/EntityVersionPages.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/VersionPages/EntityVersionPages.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/VersionPages/EntityVersionPages.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/VersionPages/EntityVersionPages.spec.ts)
 
 ### Entity Version pages
 
@@ -2821,7 +2821,7 @@
 <details open>
 <summary>📄 <b>ServiceEntityVersionPage.spec.ts</b> (12 tests, 48 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/VersionPages/ServiceEntityVersionPage.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/VersionPages/ServiceEntityVersionPage.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/VersionPages/ServiceEntityVersionPage.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/VersionPages/ServiceEntityVersionPage.spec.ts)
 
 ### Service Version pages
 
@@ -2893,7 +2893,7 @@
 <details open>
 <summary>📄 <b>RestoreEntityInheritedFields.spec.ts</b> (11 tests, 11 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Features/RestoreEntityInheritedFields.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/RestoreEntityInheritedFields.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Features/RestoreEntityInheritedFields.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/RestoreEntityInheritedFields.spec.ts)
 
 ### ApiEndpoint
 
@@ -2966,7 +2966,7 @@
 <details open>
 <summary>📄 <b>EntityRenameConsolidation.spec.ts</b> (9 tests, 9 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Features/EntityRenameConsolidation.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/EntityRenameConsolidation.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Features/EntityRenameConsolidation.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/EntityRenameConsolidation.spec.ts)
 
 ### Entity Rename + Field Update Consolidation
 
@@ -2987,7 +2987,7 @@
 <details open>
 <summary>📄 <b>BulkImportWithDotInName.spec.ts</b> (8 tests, 9 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Features/BulkImportWithDotInName.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/BulkImportWithDotInName.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Features/BulkImportWithDotInName.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/BulkImportWithDotInName.spec.ts)
 
 ### Bulk Import Export with Dot in Service Name
 
@@ -3016,7 +3016,7 @@
 <details open>
 <summary>📄 <b>BulkEditEntity.spec.ts</b> (6 tests, 11 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Features/BulkEditEntity.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/BulkEditEntity.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Features/BulkEditEntity.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/BulkEditEntity.spec.ts)
 
 ### Bulk Edit Entity
 
@@ -3045,7 +3045,7 @@
 <details open>
 <summary>📄 <b>BulkImport.spec.ts</b> (6 tests, 27 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Features/BulkImport.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/BulkImport.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Features/BulkImport.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/BulkImport.spec.ts)
 
 ### Bulk Import Export
 
@@ -3090,7 +3090,7 @@
 <details open>
 <summary>📄 <b>QueryEntity.spec.ts</b> (3 tests, 8 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Features/QueryEntity.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/QueryEntity.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Features/QueryEntity.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/QueryEntity.spec.ts)
 
 ### Standalone Tests
 
@@ -3111,7 +3111,7 @@
 <details open>
 <summary>📄 <b>EntityRightCollapsablePanel.spec.ts</b> (1 tests, 1 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Features/EntityRightCollapsablePanel.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/EntityRightCollapsablePanel.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Features/EntityRightCollapsablePanel.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/EntityRightCollapsablePanel.spec.ts)
 
 ### Standalone Tests
 
@@ -3131,7 +3131,7 @@
 <details open>
 <summary>📄 <b>SettingsNavigationPage.spec.ts</b> (6 tests, 6 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Features/SettingsNavigationPage.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/SettingsNavigationPage.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Features/SettingsNavigationPage.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/SettingsNavigationPage.spec.ts)
 
 ### Settings Navigation Page Tests
 
@@ -3149,7 +3149,7 @@
 <details open>
 <summary>📄 <b>DataInsightSettings.spec.ts</b> (4 tests, 4 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Pages/DataInsightSettings.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/DataInsightSettings.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Pages/DataInsightSettings.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/DataInsightSettings.spec.ts)
 
 ### Data Insight settings page should work properly
 
@@ -3165,7 +3165,7 @@
 <details open>
 <summary>📄 <b>SearchSettings.spec.ts</b> (4 tests, 4 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Pages/SearchSettings.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/SearchSettings.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Pages/SearchSettings.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/SearchSettings.spec.ts)
 
 ### Search Settings Tests
 
@@ -3186,7 +3186,7 @@
 <details open>
 <summary>📄 <b>LineageSettings.spec.ts</b> (2 tests, 6 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Flow/LineageSettings.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/LineageSettings.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Flow/LineageSettings.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/LineageSettings.spec.ts)
 
 ### Lineage Settings Tests
 
@@ -3205,7 +3205,7 @@
 <details open>
 <summary>📄 <b>CronValidations.spec.ts</b> (1 tests, 1 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Features/CronValidations.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/CronValidations.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Features/CronValidations.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/CronValidations.spec.ts)
 
 ### Cron Validations
 
@@ -3225,7 +3225,7 @@
 <details open>
 <summary>📄 <b>CustomizeDetailPage.spec.ts</b> (25 tests, 83 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Features/CustomizeDetailPage.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/CustomizeDetailPage.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Features/CustomizeDetailPage.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/CustomizeDetailPage.spec.ts)
 
 ### Persona customize UI tab
 
@@ -3346,7 +3346,7 @@
 <details open>
 <summary>📄 <b>CustomizeWidgets.spec.ts</b> (9 tests, 45 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Flow/CustomizeWidgets.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/CustomizeWidgets.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Flow/CustomizeWidgets.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/CustomizeWidgets.spec.ts)
 
 ### Standalone Tests
 
@@ -3412,7 +3412,7 @@
 <details open>
 <summary>📄 <b>PersonaFlow.spec.ts</b> (6 tests, 11 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Flow/PersonaFlow.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/PersonaFlow.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Flow/PersonaFlow.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/PersonaFlow.spec.ts)
 
 ### Persona operations
 
@@ -3441,7 +3441,7 @@
 <details open>
 <summary>📄 <b>CustomizeLandingPage.spec.ts</b> (3 tests, 5 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Flow/CustomizeLandingPage.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/CustomizeLandingPage.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Flow/CustomizeLandingPage.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/CustomizeLandingPage.spec.ts)
 
 ### Customize Landing Page Flow
 
@@ -3459,7 +3459,7 @@
 <details open>
 <summary>📄 <b>CustomThemeConfig.spec.ts</b> (3 tests, 3 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Pages/CustomThemeConfig.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/CustomThemeConfig.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Pages/CustomThemeConfig.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/CustomThemeConfig.spec.ts)
 
 ### Custom Theme Config Page
 
@@ -3481,7 +3481,7 @@
 <details open>
 <summary>📄 <b>Pagination.spec.ts</b> (31 tests, 31 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Features/Pagination.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/Pagination.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Features/Pagination.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/Pagination.spec.ts)
 
 ### Pagination tests for Users page
 
@@ -3614,7 +3614,7 @@
 <details open>
 <summary>📄 <b>Navbar.spec.ts</b> (22 tests, 22 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Flow/Navbar.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/Navbar.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Flow/Navbar.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/Navbar.spec.ts)
 
 ### Standalone Tests
 
@@ -3648,7 +3648,7 @@
 <details open>
 <summary>📄 <b>NavigationBlocker.spec.ts</b> (5 tests, 5 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Features/NavigationBlocker.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/NavigationBlocker.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Features/NavigationBlocker.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/NavigationBlocker.spec.ts)
 
 ### Navigation Blocker Tests
 
@@ -3665,7 +3665,7 @@
 <details open>
 <summary>📄 <b>GlobalPageSize.spec.ts</b> (1 tests, 1 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Features/GlobalPageSize.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/GlobalPageSize.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Features/GlobalPageSize.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/GlobalPageSize.spec.ts)
 
 ### Table & Data Model columns table pagination
 
@@ -3685,7 +3685,7 @@
 <details open>
 <summary>📄 <b>Lineage.spec.ts</b> (48 tests, 107 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Pages/Lineage.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/Lineage.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Pages/Lineage.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/Lineage.spec.ts)
 
 ### node selection edge behavior
 
@@ -3841,7 +3841,7 @@
 <details open>
 <summary>📄 <b>ImpactAnalysis.spec.ts</b> (10 tests, 10 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Features/ImpactAnalysis.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/ImpactAnalysis.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Features/ImpactAnalysis.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/ImpactAnalysis.spec.ts)
 
 ### Impact Analysis
 
@@ -3863,7 +3863,7 @@
 <details open>
 <summary>📄 <b>PlatformLineage.spec.ts</b> (1 tests, 1 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Flow/PlatformLineage.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/PlatformLineage.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Flow/PlatformLineage.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/PlatformLineage.spec.ts)
 
 ### Standalone Tests
 
@@ -3883,7 +3883,7 @@
 <details open>
 <summary>📄 <b>Users.spec.ts</b> (29 tests, 34 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Pages/Users.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/Users.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Pages/Users.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/Users.spec.ts)
 
 ### User with Admin Roles
 
@@ -3962,7 +3962,7 @@
 <details open>
 <summary>📄 <b>Teams.spec.ts</b> (19 tests, 31 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Pages/Teams.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/Teams.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Pages/Teams.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/Teams.spec.ts)
 
 ### Teams Page
 
@@ -4022,7 +4022,7 @@
 <details open>
 <summary>📄 <b>TeamsDragAndDrop.spec.ts</b> (9 tests, 9 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Features/TeamsDragAndDrop.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/TeamsDragAndDrop.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Features/TeamsDragAndDrop.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/TeamsDragAndDrop.spec.ts)
 
 ### Teams drag and drop should work properly
 
@@ -4043,7 +4043,7 @@
 <details open>
 <summary>📄 <b>UserDetails.spec.ts</b> (9 tests, 9 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Pages/UserDetails.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/UserDetails.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Pages/UserDetails.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/UserDetails.spec.ts)
 
 ### User with different Roles
 
@@ -4064,7 +4064,7 @@
 <details open>
 <summary>📄 <b>OnlineUsers.spec.ts</b> (7 tests, 8 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Features/OnlineUsers.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/OnlineUsers.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Features/OnlineUsers.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/OnlineUsers.spec.ts)
 
 ### Online Users Feature
 
@@ -4085,7 +4085,7 @@
 <details open>
 <summary>📄 <b>UserProfileOnlineStatus.spec.ts</b> (5 tests, 5 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Features/UserProfileOnlineStatus.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/UserProfileOnlineStatus.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Features/UserProfileOnlineStatus.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/UserProfileOnlineStatus.spec.ts)
 
 ### User Profile Online Status
 
@@ -4102,7 +4102,7 @@
 <details open>
 <summary>📄 <b>TeamsHierarchy.spec.ts</b> (3 tests, 3 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Features/TeamsHierarchy.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/TeamsHierarchy.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Features/TeamsHierarchy.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/TeamsHierarchy.spec.ts)
 
 ### Add Nested Teams and Test TeamsSelectable
 
@@ -4117,7 +4117,7 @@
 <details open>
 <summary>📄 <b>PersonaDeletionUserProfile.spec.ts</b> (1 tests, 4 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Flow/PersonaDeletionUserProfile.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/PersonaDeletionUserProfile.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Flow/PersonaDeletionUserProfile.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/PersonaDeletionUserProfile.spec.ts)
 
 ### User profile works after persona deletion
 
@@ -4134,7 +4134,7 @@
 <details open>
 <summary>📄 <b>UsersPagination.spec.ts</b> (1 tests, 1 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Flow/UsersPagination.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/UsersPagination.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Flow/UsersPagination.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/UsersPagination.spec.ts)
 
 ### Soft Delete User Pagination
 
@@ -4147,7 +4147,7 @@
 <details open>
 <summary>📄 <b>UserCreationWithPersona.spec.ts</b> (1 tests, 1 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Pages/UserCreationWithPersona.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/UserCreationWithPersona.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Pages/UserCreationWithPersona.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/UserCreationWithPersona.spec.ts)
 
 ### Create user with persona
 
@@ -4167,7 +4167,7 @@
 <details open>
 <summary>📄 <b>SSOConfiguration.spec.ts</b> (43 tests, 43 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Features/SSOConfiguration.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/SSOConfiguration.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Features/SSOConfiguration.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Features/SSOConfiguration.spec.ts)
 
 ### SSO Configuration Tests
 
@@ -4229,7 +4229,7 @@
 <details open>
 <summary>📄 <b>SearchRBAC.spec.ts</b> (11 tests, 11 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Flow/SearchRBAC.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/SearchRBAC.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Flow/SearchRBAC.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/SearchRBAC.spec.ts)
 
 ### Standalone Tests
 
@@ -4252,7 +4252,7 @@
 <details open>
 <summary>📄 <b>AddRoleAndAssignToUser.spec.ts</b> (3 tests, 3 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Flow/AddRoleAndAssignToUser.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/AddRoleAndAssignToUser.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Flow/AddRoleAndAssignToUser.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/AddRoleAndAssignToUser.spec.ts)
 
 ### Add role and assign it to the user
 
@@ -4267,7 +4267,7 @@
 <details open>
 <summary>📄 <b>Policies.spec.ts</b> (3 tests, 11 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Pages/Policies.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/Policies.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Pages/Policies.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/Policies.spec.ts)
 
 ### Policy page should work properly
 
@@ -4291,7 +4291,7 @@
 <details open>
 <summary>📄 <b>Roles.spec.ts</b> (2 tests, 9 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Pages/Roles.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/Roles.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Pages/Roles.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/Roles.spec.ts)
 
 ### Standalone Tests
 
@@ -4320,7 +4320,7 @@
 <details open>
 <summary>📄 <b>Tour.spec.ts</b> (3 tests, 3 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Flow/Tour.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/Tour.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Flow/Tour.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Flow/Tour.spec.ts)
 
 ### Tour should work properly
 
@@ -4342,7 +4342,7 @@
 <details open>
 <summary>📄 <b>DataInsightReportApplication.spec.ts</b> (4 tests, 4 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Pages/DataInsightReportApplication.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/DataInsightReportApplication.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Pages/DataInsightReportApplication.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/DataInsightReportApplication.spec.ts)
 
 ### Data Insight Report Application
 
@@ -4358,7 +4358,7 @@
 <details open>
 <summary>📄 <b>SearchIndexApplication.spec.ts</b> (1 tests, 7 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Pages/SearchIndexApplication.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/SearchIndexApplication.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Pages/SearchIndexApplication.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/SearchIndexApplication.spec.ts)
 
 ### Standalone Tests
 
@@ -4385,7 +4385,7 @@
 <details open>
 <summary>📄 <b>Login.spec.ts</b> (5 tests, 5 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Pages/Login.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/Login.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Pages/Login.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/Login.spec.ts)
 
 ### Login flow should work properly
 
@@ -4403,7 +4403,7 @@
 <details open>
 <summary>📄 <b>LoginConfiguration.spec.ts</b> (2 tests, 2 scenarios)</summary>
 
-> Source: [`src/main/resources/ui/playwright/e2e/Pages/LoginConfiguration.spec.ts`](https://github.com/u-metadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/LoginConfiguration.spec.ts)
+> Source: [`src/main/resources/ui/playwright/e2e/Pages/LoginConfiguration.spec.ts`](https://10.1.98.30:5080/umd/umetadata/UMetadata/blob/main/umetadata-ui/src/main/resources/ui/playwright/e2e/Pages/LoginConfiguration.spec.ts)
 
 ### Login configuration
 

@@ -23,7 +23,7 @@ volumes:
 services:
   mysql:
     container_name: umetadata_mysql
-    image: docker.getcollate.io/umetadata/db:1.8.0-SNAPSHOT
+    image: docker.wondersgroup.com/umetadata/db:1.8.0-SNAPSHOT
     command: "--sort_buffer_size=10M"
     restart: always
     environment:
@@ -101,7 +101,7 @@ services:
 
   execute-migrate-all:
     container_name: execute_migrate_all
-    image: docker.getcollate.io/umetadata/server:1.8.0-SNAPSHOT
+    image: docker.wondersgroup.com/umetadata/server:1.8.0-SNAPSHOT
     command: "./bootstrap/umetadata-ops.sh migrate"
     environment:
       UMETADATA_CLUSTER_NAME: ${UMETADATA_CLUSTER_NAME:-umetadata}
@@ -275,7 +275,7 @@ services:
   umetadata-server:
     container_name: umetadata_server
     restart: always
-    image: docker.getcollate.io/umetadata/server:1.8.0-SNAPSHOT
+    image: docker.wondersgroup.com/umetadata/server:1.8.0-SNAPSHOT
     environment:
       UMETADATA_CLUSTER_NAME: ${UMETADATA_CLUSTER_NAME:-umetadata}
       SERVER_PORT: ${SERVER_PORT:-8585}
@@ -453,7 +453,7 @@ services:
     build:
       context: ../
       dockerfile: docker/development/Dockerfile
-    image: docker.getcollate.io/umetadata/ingestion:1.8.0-SNAPSHOT
+    image: docker.wondersgroup.com/umetadata/ingestion:1.8.0-SNAPSHOT
     depends_on:
       elasticsearch:
         condition: service_healthy

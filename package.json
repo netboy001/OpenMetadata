@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/u-metadata/UMetadata.git"
+    "url": "http://10.1.98.30:5080/umd/umetadata.git"
   },
   "devDependencies": {
     "quicktype": "20.0.27"

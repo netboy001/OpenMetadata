@@ -34,7 +34,7 @@ const user = new UserClass();
 const services = [
   ApiIngestionClass,
   // Skipping S3 as it is failing intermittently in CI
-  // Remove the comment when fixed: https://github.com/u-metadata/UMetadata/issues/23727
+  // Remove the comment when fixed: 10.1.98.30:5080/umd/umetadata/UMetadata/issues/23727
   // S3IngestionClass,
   MetabaseIngestionClass,
   MysqlIngestionClass,

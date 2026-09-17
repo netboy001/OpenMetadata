@@ -34,8 +34,8 @@ const commonTeamDetails = {
   username: 'Aaron Johnson',
   userId: 'aaron_johnson0',
   assetname: 'dim_address',
-  email: 'team1@gmail.com',
-  updatedEmail: 'updatedemail@gmail.com',
+  email: 'team1@qq.com',
+  updatedEmail: 'updatedemail@qq.com',
 };
 
 const teamNameGroup = `team-ct-test-${uuid()}`;

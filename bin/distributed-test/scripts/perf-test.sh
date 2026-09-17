@@ -345,7 +345,7 @@ Read & mixed workload benchmarking:
   --realistic                   Run Phase 4 with all entity types concurrently in a shared worker pool
 
 Other:
-  --server URL                  Target server URL (default: https://mohitcorp.getcollate.io)
+  --server URL                  Target server URL (default: https://mohitcorp.wondersgroup.com)
   --workers NUM                 Concurrent workers (default: 20)
   -h, --help                    Show this help message
 

@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
+#  https://wondersgroup.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -66,7 +66,7 @@ class TestUMetaGlossary:
         """
         create_user_request = CreateUserRequest(
             name=EntityName("test.user.1"),
-            email=Email(root="test.user.1@getcollate.io"),
+            email=Email(root="test.user.1@wondersgroup.com"),
         )
 
         user = create_user(create_user_request)
@@ -278,7 +278,7 @@ class TestUMetaGlossary:
         user_1 = create_user(
             CreateUserRequest(
                 name=EntityName("test.user.1"),
-                email=Email(root="test.user.1@getcollate.io"),
+                email=Email(root="test.user.1@wondersgroup.com"),
             ),
         )
 
@@ -308,14 +308,14 @@ class TestUMetaGlossary:
         user_2 = create_user(
             CreateUserRequest(
                 name=EntityName("test.user.2"),
-                email=Email(root="test.user.2@getcollate.io"),
+                email=Email(root="test.user.2@wondersgroup.com"),
             ),
         )
 
         user_3 = create_user(
             CreateUserRequest(
                 name=EntityName("test.user.3"),
-                email=Email(root="test.user.3@getcollate.io"),
+                email=Email(root="test.user.3@wondersgroup.com"),
             ),
         )
 
@@ -487,7 +487,7 @@ class TestUMetaGlossary:
         if updated_glossary_term_1.references is None:
             updated_glossary_term_1.references = []
         updated_glossary_term_1.references.append(
-            TermReference(name="GT1S1", endpoint="https://www.getcollate.io")
+            TermReference(name="GT1S1", endpoint="https://www.wondersgroup.com")
         )
         patched_glossary_term_1 = metadata.patch(
             entity=GlossaryTerm,
@@ -523,14 +523,14 @@ class TestUMetaGlossary:
         # Add  many references
         updated_glossary_term_1 = deepcopy(patched_glossary_term_1)
         updated_glossary_term_1.references.append(
-            TermReference(name="GT1S1", endpoint="https://www.getcollate.io")
+            TermReference(name="GT1S1", endpoint="https://www.wondersgroup.com")
         )
         updated_glossary_term_1.references.append(
             TermReference(name="GT1S2", endpoint="https://wondersgroup.com/")
         )
         updated_glossary_term_1.references.append(
             TermReference(
-                name="GT1S3", endpoint="https://github.com/u-metadata/UMetadata"
+                name="GT1S3", endpoint="https://wondersgroup.com/u-metadata/UMetadata"
             )
         )
 

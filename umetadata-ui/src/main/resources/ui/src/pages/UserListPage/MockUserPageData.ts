@@ -21,7 +21,7 @@ export const MOCK_USER_DATA = {
       version: 0.4,
       updatedAt: 1659077698874,
       updatedBy: 'anonymous',
-      email: 'aaron_johnson0@gmail.com',
+      email: 'aaron_johnson0@qq.com',
       href: 'http://localhost:8585/api/v1/users/4efd3518-16ae-483c-8c99-d622bcbfbfab',
       isAdmin: false,
       teams: [

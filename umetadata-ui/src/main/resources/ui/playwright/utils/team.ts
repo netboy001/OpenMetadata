@@ -129,7 +129,7 @@ export const getNewTeamDetails = (teamName: string) => {
     teamType: 'BusinessUnit',
     description: `Team ${teamName} Description`,
     ownername: 'admin',
-    email: 'team@gmail.com',
+    email: 'team@qq.com',
   };
 };
 

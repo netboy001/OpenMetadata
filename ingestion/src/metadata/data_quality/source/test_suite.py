@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
+#  https://wondersgroup.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -143,7 +143,7 @@ class TestSuiteSource(Source):
                         "If the connection is not stored in UMetadata, please provide it in the YAML file."
                     )
 
-                # TODO: Clean after https://github.com/u-metadata/UMetadata/issues/21259
+                # TODO: Clean after https://wondersgroup.com/u-metadata/UMetadata/issues/21259
                 # We are forcing the secret evaluation to "ignore" null secrets down the line
                 # Remove this when the issue above is fixed and empty secrets migrated
                 source_config_class = type(service.connection)

@@ -1,7 +1,7 @@
 # UMetadata Kubernetes Operator Makefile
 
 # Variables
-IMAGE_NAME ?= docker.getcollate.io/umetadata/omjob-operator
+IMAGE_NAME ?= docker.wondersgroup.com/umetadata/omjob-operator
 VERSION ?= 1.12.0-SNAPSHOT
 JAR_FILE = target/umetadata-k8s-operator-$(VERSION)-boot.jar
 

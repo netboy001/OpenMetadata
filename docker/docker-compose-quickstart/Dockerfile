@@ -12,7 +12,7 @@
 # Build stage
 FROM alpine:3 AS build
 ARG RI_VERSION="1.12.14"
-ENV RELEASE_URL="https://github.com/u-metadata/UMetadata/releases/download/${RI_VERSION}-release/umetadata-${RI_VERSION}.tar.gz"
+ENV RELEASE_URL="https://10.1.98.30:5080/umd/umetadata/UMetadata/releases/download/${RI_VERSION}-release/umetadata-${RI_VERSION}.tar.gz"
 
 RUN mkdir -p /opt/umetadata && \
     wget ${RELEASE_URL} && \
@@ -30,7 +30,7 @@ LABEL org.u-metadata.vendor="UMetadata"
 LABEL org.u-metadata.release-version="$RI_VERSION"
 LABEL org.u-metadata.description="UMetadata is an open source platform for metadata management and discovery."
 LABEL org.u-metadata.url="https://wondersgroup.com/"
-LABEL org.u-metadata.vcs-url="https://github.com/u-metadata/UMetadata"
+LABEL org.u-metadata.vcs-url="https://10.1.98.30:5080/umd/umetadata/UMetadata"
 LABEL org.u-metadata.build-date=$BUILD_DATE
 LABEL org.u-metadata.commit-id=$COMMIT_ID
 

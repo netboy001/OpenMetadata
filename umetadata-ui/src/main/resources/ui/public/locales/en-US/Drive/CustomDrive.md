@@ -4,7 +4,7 @@ In this section, we provide guides and references to use the Custom Drive connec
 
 Note that this connector is a wrapper for any Python class you create and add to the UMetadata ingestion image. The full idea around it is bringing you the tools to bring into UMetadata any source that is only available within your business/engineering context.
 
-You can learn more about Custom Connectors and see them in action in the following [Webinar](https://www.youtube.com/watch?v=fDUj30Ub9VE&ab_channel=UMetadata). Also, you can directly jump to the demo code [here](https://github.com/u-metadata/umetadata-demo/tree/main/custom-connector).
+You can learn more about Custom Connectors and see them in action in the following [Webinar](https://www.youtube.com/watch?v=fDUj30Ub9VE&ab_channel=UMetadata). Also, you can directly jump to the demo code [here](https://10.1.98.30:5080/umd/umetadata/umetadata-demo/tree/main/custom-connector).
 
 ## Connection Details
 
@@ -31,7 +31,7 @@ If, for example, we want to run a piece of logic based on the value of a paramet
 business_unit = self.service_connection.connectionOptions.__root__.get("business_unit")
 ```
 
-You can find a full example of this implementation [here](https://github.com/u-metadata/umetadata-demo/blob/main/custom-connector/connector/my_csv_connector.py#L91).
+You can find a full example of this implementation [here](https://10.1.98.30:5080/umd/umetadata/umetadata-demo/blob/main/custom-connector/connector/my_csv_connector.py#L91).
 
 $$
 

@@ -14,7 +14,7 @@ services:
   execute-migrate-all:
     container_name: execute_migrate_all
     command: "./bootstrap/umetadata-ops.sh migrate"
-    image: docker.getcollate.io/umetadata/server:1.12.14
+    image: docker.wondersgroup.com/umetadata/server:1.12.14
     environment:
       UMETADATA_CLUSTER_NAME: ${UMETADATA_CLUSTER_NAME:-umetadata}
       SERVER_PORT: ${SERVER_PORT:-8585}
@@ -238,7 +238,7 @@ services:
   umetadata-server:
     container_name: umetadata_server
     restart: always
-    image: docker.getcollate.io/umetadata/server:1.12.14
+    image: docker.wondersgroup.com/umetadata/server:1.12.14
     environment:
       UMETADATA_CLUSTER_NAME: ${UMETADATA_CLUSTER_NAME:-umetadata}
       SERVER_PORT: ${SERVER_PORT:-8585}

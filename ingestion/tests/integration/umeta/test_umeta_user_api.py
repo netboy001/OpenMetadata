@@ -2,7 +2,7 @@
 #  Licensed under the Collate Community License, Version 1.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  https://github.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
+#  https://wondersgroup.com/u-metadata/UMetadata/blob/main/ingestion/LICENSE
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -71,24 +71,24 @@ class UMetaUserTest(TestCase):
 
         cls.team: Team = cls.metadata.create_or_update(
             data=CreateTeamRequest(
-                teamType=TeamType.Group, name="ops.team", email="ops.team@getcollate.io"
+                teamType=TeamType.Group, name="ops.team", email="ops.team@wondersgroup.com"
             )
         )
 
         cls.user_1: User = cls.metadata.create_or_update(
             data=CreateUserRequest(
                 name="random.user.es",
-                email="random.user.es@getcollate.io",
+                email="random.user.es@wondersgroup.com",
                 description="test",
             ),
         )
 
         cls.user_2: User = cls.metadata.create_or_update(
-            data=CreateUserRequest(name="Levy", email="user2.1234@getcollate.io"),
+            data=CreateUserRequest(name="Levy", email="user2.1234@wondersgroup.com"),
         )
 
         cls.user_3: User = cls.metadata.create_or_update(
-            data=CreateUserRequest(name="Lima", email="random.lima@getcollate.io"),
+            data=CreateUserRequest(name="Lima", email="random.lima@wondersgroup.com"),
         )
 
         cls.service: DashboardService = cls.metadata.create_or_update(
@@ -167,13 +167,13 @@ class UMetaUserTest(TestCase):
         # To get this fixed, we had to update the `email` field in the
         # index as a `keyword` and search by `email.keyword` in ES.
         self.assertIsNone(
-            self.metadata.get_reference_by_email(email="idonotexist@getcollate.io")
+            self.metadata.get_reference_by_email(email="idonotexist@wondersgroup.com")
         )
 
         # I can get User 1, who has the name equal to its email
         self.assertEqual(
             self.user_1.id,
-            self.metadata.get_reference_by_email(email="random.user.es@getcollate.io")
+            self.metadata.get_reference_by_email(email="random.user.es@wondersgroup.com")
             .root[0]
             .id,
         )
@@ -181,7 +181,7 @@ class UMetaUserTest(TestCase):
         # I can get User 2, who has an email not matching the name
         self.assertEqual(
             self.user_2.id,
-            self.metadata.get_reference_by_email(email="user2.1234@getcollate.io")
+            self.metadata.get_reference_by_email(email="user2.1234@wondersgroup.com")
             .root[0]
             .id,
         )
@@ -189,7 +189,7 @@ class UMetaUserTest(TestCase):
         # I can get the team by its mail
         self.assertEqual(
             self.team.id,
-            self.metadata.get_reference_by_email(email="ops.team@getcollate.io")
+            self.metadata.get_reference_by_email(email="ops.team@wondersgroup.com")
             .root[0]
             .id,
         )
