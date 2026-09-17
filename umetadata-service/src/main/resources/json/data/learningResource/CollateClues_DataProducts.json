@@ -5,8 +5,8 @@
   "resourceType": "Video",
   "categories": ["DataGovernance", "Discovery"],
   "source": {
-    "url": "https://www.youtube.com/watch?v=-P7_qO1qYY4",
-    "provider": "YouTube"
+    "url": "https://www.wondersgroup.com/watch?v=-P7_qO1qYY4",
+    "provider": "WondersGroup"
   },
   "contexts": [
     {"pageId": "dataProduct"},

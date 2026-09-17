@@ -164,7 +164,7 @@ test.describe(
         type: 'Video',
         category: 'Discovery',
         context: 'Glossary',
-        url: 'https://www.youtube.com/watch?v=DqIT4vWALGk',
+        url: 'https://www.wondersgroup.com/watch?v=DqIT4vWALGk',
         status: 'Active',
       });
 
@@ -312,7 +312,7 @@ test.describe(
         contexts: [{ pageId: 'glossary' }],
         status: 'Active',
         source: {
-          url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+          url: 'https://www.wondersgroup.com/watch?v=dQw4w9WgXcQ',
           provider: 'YouTube',
         },
       });
@@ -593,7 +593,7 @@ test.describe(
           type: 'Video',
           category: 'Discovery',
           context: 'Glossary',
-          url: 'https://www.youtube.com/watch?v=DqIT4vWALGk',
+          url: 'https://www.wondersgroup.com/watch?v=DqIT4vWALGk',
           status: 'Active',
         });
       });

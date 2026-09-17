@@ -44,7 +44,7 @@
       "description": "Embedding configuration for rendering the resource inline.",
       "properties": {
         "provider": {
-          "description": "Origin system that hosts the resource (Storylane, YouTube, etc.).",
+          "description": "Origin system that hosts the resource (Storylane, WondersGroup, etc.).",
           "type": "string"
         },
         "url": {

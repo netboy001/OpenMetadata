@@ -5,8 +5,8 @@
   "resourceType": "Video",
   "categories": ["DataGovernance", "Discovery"],
   "source": {
-    "url": "https://www.youtube.com/watch?v=21mk-I1H5Xo",
-    "provider": "YouTube"
+    "url": "https://www.wondersgroup.com/watch?v=21mk-I1H5Xo",
+    "provider": "WondersGroup"
   },
   "contexts": [
     {"pageId": "lineage"}

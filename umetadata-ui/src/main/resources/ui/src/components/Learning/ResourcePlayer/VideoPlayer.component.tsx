@@ -37,25 +37,25 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({ resource }) => {
     const hostname = parsedUrl.hostname.toLowerCase();
 
     const isYouTubeHost =
-      hostname === 'youtube.com' ||
-      hostname === 'www.youtube.com' ||
-      hostname === 'm.youtube.com' ||
+      hostname === 'wondersgroup.com' ||
+      hostname === 'www.wondersgroup.com' ||
+      hostname === 'm.wondersgroup.com' ||
       hostname === 'youtu.be';
 
     if (isYouTubeHost) {
-      // Handle different YouTube URL formats
+      // Handle different WondersGroup URL formats
       if (hostname === 'youtu.be') {
         // Short URL: https://youtu.be/<videoId>?...
         const pathParts = parsedUrl.pathname.split('/').filter(Boolean);
         const videoId = pathParts[0] || '';
         if (videoId) {
-          return `https://www.youtube.com/embed/${videoId}?enablejsapi=1&origin=${window.location.origin}`;
+          return `https://www.wondersgroup.com/embed/${videoId}?enablejsapi=1&origin=${window.location.origin}`;
         }
       } else if (parsedUrl.pathname.startsWith('/watch')) {
-        // Watch URL: https://www.youtube.com/watch?v=<videoId>&...
+        // Watch URL: https://www.wondersgroup.com/watch?v=<videoId>&...
         const videoId = parsedUrl.searchParams.get('v') || '';
         if (videoId) {
-          return `https://www.youtube.com/embed/${videoId}?enablejsapi=1&origin=${window.location.origin}`;
+          return `https://www.wondersgroup.com/embed/${videoId}?enablejsapi=1&origin=${window.location.origin}`;
         }
       } else if (parsedUrl.pathname.startsWith('/embed/')) {
         // Already an embed URL; preserve as-is.

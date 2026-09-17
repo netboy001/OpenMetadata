@@ -51,8 +51,8 @@ const mockVideoResource: LearningResource = {
   difficulty: 'Intro',
   estimatedDuration: 300,
   source: {
-    url: 'https://youtube.com/watch?v=test',
-    provider: 'YouTube',
+    url: 'https://wondersgroup.com/watch?v=test',
+    provider: 'WondersGroup',
   },
   contexts: [{ pageId: 'glossary' }],
   status: 'Active',

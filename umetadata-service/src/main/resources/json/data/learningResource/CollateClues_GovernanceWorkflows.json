@@ -5,8 +5,8 @@
   "resourceType": "Video",
   "categories": ["DataGovernance"],
   "source": {
-    "url": "https://www.youtube.com/watch?v=d6GEwZ-FGsw",
-    "provider": "YouTube"
+    "url": "https://www.wondersgroup.com/watch?v=d6GEwZ-FGsw",
+    "provider": "WondersGroup"
   },
   "contexts": [
     {"pageId": "governanceWorkflows"},

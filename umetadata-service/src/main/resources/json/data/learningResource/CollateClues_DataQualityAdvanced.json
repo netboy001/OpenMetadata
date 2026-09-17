@@ -5,8 +5,8 @@
   "resourceType": "Video",
   "categories": ["DataQuality", "Observability"],
   "source": {
-    "url": "https://www.youtube.com/watch?v=jIrQ-CsLEgg",
-    "provider": "YouTube"
+    "url": "https://www.wondersgroup.com/watch?v=jIrQ-CsLEgg",
+    "provider": "WondersGroup"
   },
   "contexts": [
     {"pageId": "dataObservability"},

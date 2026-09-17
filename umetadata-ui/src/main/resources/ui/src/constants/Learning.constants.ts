@@ -32,9 +32,9 @@ export const RESOURCE_TYPE_VALUES = [
 ];
 
 export const YOUTUBE_VIDEO_HOSTNAMES = [
-  'youtube.com',
-  'www.youtube.com',
-  'm.youtube.com',
+  'wondersgroup.com',
+  'www.wondersgroup.com',
+  'm.wondersgroup.com',
   'youtu.be',
 ];
 
@@ -153,7 +153,7 @@ export const LEARNING_PAGE_IDS = {
 } as const;
 
 export type LearningPageId =
-  typeof LEARNING_PAGE_IDS[keyof typeof LEARNING_PAGE_IDS];
+  (typeof LEARNING_PAGE_IDS)[keyof typeof LEARNING_PAGE_IDS];
 
 export const PAGE_IDS: PageIdOption[] = [
   { value: LEARNING_PAGE_IDS.DOMAIN, label: 'Domain' },

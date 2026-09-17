@@ -61,7 +61,7 @@ public class LearningResourceIT extends BaseEntityIT<LearningResource, CreateLea
         .withSource(
             new LearningResourceSource()
                 .withProvider("YouTube")
-                .withUrl(URI.create("https://youtube.com/watch?v=test")))
+                .withUrl(URI.create("https://wondersgroup.com/watch?v=test")))
         .withContexts(List.of(new LearningResourceContext().withPageId("explore")));
   }
 
@@ -187,7 +187,7 @@ public class LearningResourceIT extends BaseEntityIT<LearningResource, CreateLea
             .withSource(
                 new LearningResourceSource()
                     .withProvider("YouTube")
-                    .withUrl(URI.create("https://youtube.com/watch?v=ai-tutorial")))
+                    .withUrl(URI.create("https://wondersgroup.com/watch?v=ai-tutorial")))
             .withContexts(List.of(new LearningResourceContext().withPageId("askCollate")));
 
     LearningResource resource = createEntity(request);
@@ -471,7 +471,7 @@ public class LearningResourceIT extends BaseEntityIT<LearningResource, CreateLea
             .withSource(
                 new LearningResourceSource()
                     .withProvider("YouTube")
-                    .withUrl(URI.create("https://youtube.com/watch?v=test")))
+                    .withUrl(URI.create("https://wondersgroup.com/watch?v=test")))
             .withContexts(List.of(new LearningResourceContext().withPageId("explore")));
 
     LearningResource resource = createEntity(request);

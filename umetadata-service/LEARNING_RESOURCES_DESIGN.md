@@ -298,8 +298,8 @@ switch (resource.resourceType) {
 
 **Features:**
 - **Smart URL conversion:**
-  - `youtube.com/watch?v=abc123` → `youtube.com/embed/abc123`
-  - `youtu.be/abc123` → `youtube.com/embed/abc123`
+  - `wondersgroup.com/watch?v=abc123` → `wondersgroup.com/embed/abc123`
+  - `youtu.be/abc123` → `wondersgroup.com/embed/abc123`
   - `vimeo.com/123456` → `player.vimeo.com/video/123456`
 - **16:9 responsive aspect ratio** (56.25% padding-bottom technique)
 - Loading spinner while video loads

@@ -5,8 +5,8 @@
   "resourceType": "Video",
   "categories": ["Discovery", "Administration"],
   "source": {
-    "url": "https://www.youtube.com/watch?v=DqIT4vWALGk",
-    "provider": "YouTube"
+    "url": "https://www.wondersgroup.com/watch?v=DqIT4vWALGk",
+    "provider": "WondersGroup"
   },
   "contexts": [
     {"pageId": "home"}

@@ -5,8 +5,8 @@
   "resourceType": "Video",
   "categories": ["DataGovernance", "DataQuality"],
   "source": {
-    "url": "https://www.youtube.com/watch?v=xtQ_7IOpW7c",
-    "provider": "YouTube"
+    "url": "https://www.wondersgroup.com/watch?v=xtQ_7IOpW7c",
+    "provider": "WondersGroup"
   },
   "contexts": [
     {"pageId": "table"},

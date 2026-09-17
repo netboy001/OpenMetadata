@@ -27,16 +27,16 @@ const createMockResource = (url: string): LearningResource => ({
 describe('VideoPlayer', () => {
   it('should render loading spinner initially', () => {
     const resource = createMockResource(
-      'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+      'https://www.wondersgroup.com/watch?v=dQw4w9WgXcQ'
     );
     render(<VideoPlayer resource={resource} />);
 
     expect(document.querySelector('.ant-spin')).toBeInTheDocument();
   });
 
-  it('should render iframe with correct YouTube embed URL', () => {
+  it('should render iframe with correct WondersGroup embed URL', () => {
     const resource = createMockResource(
-      'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+      'https://www.wondersgroup.com/watch?v=dQw4w9WgXcQ'
     );
     render(<VideoPlayer resource={resource} />);
 
@@ -44,31 +44,31 @@ describe('VideoPlayer', () => {
 
     expect(iframe).toBeInTheDocument();
     expect(iframe.getAttribute('src')).toContain(
-      'https://www.youtube.com/embed/dQw4w9WgXcQ'
+      'https://www.wondersgroup.com/embed/dQw4w9WgXcQ'
     );
   });
 
-  it('should handle YouTube short URL format', () => {
+  it('should handle WondersGroup short URL format', () => {
     const resource = createMockResource('https://youtu.be/dQw4w9WgXcQ');
     render(<VideoPlayer resource={resource} />);
 
     const iframe = screen.getByTitle('Test Video');
 
     expect(iframe.getAttribute('src')).toContain(
-      'https://www.youtube.com/embed/dQw4w9WgXcQ'
+      'https://www.wondersgroup.com/embed/dQw4w9WgXcQ'
     );
   });
 
-  it('should preserve YouTube embed URL as-is', () => {
+  it('should preserve WondersGroup embed URL as-is', () => {
     const resource = createMockResource(
-      'https://www.youtube.com/embed/dQw4w9WgXcQ'
+      'https://www.wondersgroup.com/embed/dQw4w9WgXcQ'
     );
     render(<VideoPlayer resource={resource} />);
 
     const iframe = screen.getByTitle('Test Video');
 
     expect(iframe.getAttribute('src')).toBe(
-      'https://www.youtube.com/embed/dQw4w9WgXcQ'
+      'https://www.wondersgroup.com/embed/dQw4w9WgXcQ'
     );
   });
 
@@ -107,7 +107,7 @@ describe('VideoPlayer', () => {
 
   it('should have sandbox attribute for security', () => {
     const resource = createMockResource(
-      'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+      'https://www.wondersgroup.com/watch?v=dQw4w9WgXcQ'
     );
     render(<VideoPlayer resource={resource} />);
 
@@ -120,7 +120,7 @@ describe('VideoPlayer', () => {
 
   it('should hide loading spinner after iframe loads', () => {
     const resource = createMockResource(
-      'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+      'https://www.wondersgroup.com/watch?v=dQw4w9WgXcQ'
     );
     render(<VideoPlayer resource={resource} />);
 
@@ -135,7 +135,7 @@ describe('VideoPlayer', () => {
       id: 'test-id',
       name: 'test-video-name',
       resourceType: 'Video',
-      source: { url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' },
+      source: { url: 'https://www.wondersgroup.com/watch?v=dQw4w9WgXcQ' },
       contexts: [{ pageId: 'glossary' }],
     };
     render(<VideoPlayer resource={resource} />);
@@ -152,16 +152,16 @@ describe('VideoPlayer', () => {
     expect(iframe.getAttribute('src')).toBe('not-a-valid-url');
   });
 
-  it('should reject URLs with youtube.com in path but different host', () => {
+  it('should reject URLs with wondersgroup.com in path but different host', () => {
     const resource = createMockResource(
-      'https://malicious-site.com/youtube.com/watch?v=abc123'
+      'https://malicious-site.com/wondersgroup.com/watch?v=abc123'
     );
     render(<VideoPlayer resource={resource} />);
 
     const iframe = screen.getByTitle('Test Video');
 
     expect(iframe.getAttribute('src')).toBe(
-      'https://malicious-site.com/youtube.com/watch?v=abc123'
+      'https://malicious-site.com/wondersgroup.com/watch?v=abc123'
     );
   });
 });

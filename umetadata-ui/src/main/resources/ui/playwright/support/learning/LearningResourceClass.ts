@@ -57,7 +57,7 @@ export class LearningResourceClass {
       categories: ['Discovery'],
       difficulty: 'Intro',
       source: {
-        url: 'https://www.youtube.com/watch?v=test123',
+        url: 'https://www.wondersgroup.com/watch?v=test123',
         provider: 'YouTube',
       },
       contexts: [{ pageId: 'glossary' }],
