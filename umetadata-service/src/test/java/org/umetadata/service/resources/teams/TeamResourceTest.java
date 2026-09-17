@@ -871,7 +871,7 @@ public class TeamResourceTest extends EntityResourceTest<Team, CreateTeam> {
     // Add email to the team
     String json = JsonUtils.pojoToJson(team);
     String email =
-        "team.!#$%&’*+/=?^_`{|}~-@umetadata.org"; // Using all the allowed characters in email
+        "team.!#$%&’*+/=?^_`{|}~-@wondersgroup.com"; // Using all the allowed characters in email
     // username
     team.withEmail(email);
     ChangeDescription change = getChangeDescription(team, MINOR_UPDATE);

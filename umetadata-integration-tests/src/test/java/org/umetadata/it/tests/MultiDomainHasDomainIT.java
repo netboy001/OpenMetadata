@@ -81,7 +81,7 @@ public class MultiDomainHasDomainIT {
                     role,
                     List.of(domain1.getFullyQualifiedName(), domain2.getFullyQualifiedName()));
             try {
-              String userEmail = p + "_user@test.umetadata.org";
+              String userEmail = p + "_user@test.wondersgroup.com";
               User testUser = createUser(adminClient, p + "_user", userEmail, team);
               try {
                 DatabaseService dbService = DatabaseServiceTestFactory.createPostgres(ns);
@@ -193,7 +193,7 @@ public class MultiDomainHasDomainIT {
           Team team =
               createTeam(adminClient, p + "_team", role, List.of(domain.getFullyQualifiedName()));
           try {
-            String userEmail = p + "_user@test.umetadata.org";
+            String userEmail = p + "_user@test.wondersgroup.com";
             User testUser = createUser(adminClient, p + "_user", userEmail, team);
             try {
               DatabaseService dbService = DatabaseServiceTestFactory.createPostgres(ns);
@@ -277,7 +277,7 @@ public class MultiDomainHasDomainIT {
           Team team =
               createTeam(adminClient, p + "_team", role, List.of(domain.getFullyQualifiedName()));
           try {
-            String userEmail = p + "_user@test.umetadata.org";
+            String userEmail = p + "_user@test.wondersgroup.com";
             User testUser = createUser(adminClient, p + "_user", userEmail, team);
             try {
               DatabaseService dbService = DatabaseServiceTestFactory.createPostgres(ns);

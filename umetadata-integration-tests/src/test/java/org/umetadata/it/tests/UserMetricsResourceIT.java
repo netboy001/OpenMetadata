@@ -212,7 +212,7 @@ public class UserMetricsResourceIT {
     int initialBotUsers = (Integer) initialMetrics.get("bot_users");
 
     String userName = ns.prefix("metricsuser");
-    String email = "metricsuser_" + ns.shortPrefix() + "@test.umetadata.org";
+    String email = "metricsuser_" + ns.shortPrefix() + "@test.wondersgroup.com";
     CreateUser createUser = new CreateUser().withName(userName).withEmail(email).withIsBot(false);
 
     UserService usersApi = adminClient.users();
@@ -282,7 +282,7 @@ public class UserMetricsResourceIT {
 
     for (int i = 0; i < 3; i++) {
       String userName = ns.prefix("multiuser" + i);
-      String email = "multiuser" + i + "_" + ns.shortPrefix() + "@test.umetadata.org";
+      String email = "multiuser" + i + "_" + ns.shortPrefix() + "@test.wondersgroup.com";
       CreateUser createUser = new CreateUser().withName(userName).withEmail(email).withIsBot(false);
 
       User user = usersApi.create(createUser);

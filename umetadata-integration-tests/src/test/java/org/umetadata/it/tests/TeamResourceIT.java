@@ -335,7 +335,7 @@ public class TeamResourceIT extends BaseEntityIT<Team, CreateTeam> {
     if (sanitized.length() > 60) {
       sanitized = sanitized.substring(0, 52) + UUID.randomUUID().toString().substring(0, 8);
     }
-    return sanitized + "@umetadata.org";
+    return sanitized + "@wondersgroup.com";
   }
 
   @Test
@@ -1031,7 +1031,7 @@ public class TeamResourceIT extends BaseEntityIT<Team, CreateTeam> {
     if (sanitized.length() > 60) {
       sanitized = sanitized.substring(0, 52) + UUID.randomUUID().toString().substring(0, 8);
     }
-    String email = sanitized + "@test.umetadata.org";
+    String email = sanitized + "@test.wondersgroup.com";
 
     CreateUser createUser =
         new CreateUser()

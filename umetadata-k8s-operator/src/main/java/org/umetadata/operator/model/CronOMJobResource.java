@@ -21,7 +21,7 @@ import io.fabric8.kubernetes.model.annotation.Plural;
 import io.fabric8.kubernetes.model.annotation.Singular;
 import io.fabric8.kubernetes.model.annotation.Version;
 
-@Group("pipelines.umetadata.org")
+@Group("pipelines.wondersgroup.com")
 @Version("v1")
 @Kind("CronOMJob")
 @Plural("cronomjobs")

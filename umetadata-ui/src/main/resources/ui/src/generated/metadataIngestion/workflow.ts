@@ -5479,7 +5479,7 @@ export interface Pipeline {
      * Use system tables to extract metrics. Metrics that cannot be gathered from system tables
      * will use the default methods. Using system tables can be faster but requires gathering
      * statistics before running (for example using the ANALYZE procedure). More information can
-     * be found in the documentation: https://docs.umetadata.org/latest/profler
+     * be found in the documentation: https://docs.wondersgroup.com/latest/profler
      */
     useStatistics?: boolean;
     /**

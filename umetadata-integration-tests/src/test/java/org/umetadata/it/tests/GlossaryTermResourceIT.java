@@ -3064,7 +3064,7 @@ public class GlossaryTermResourceIT extends BaseEntityIT<GlossaryTerm, CreateGlo
             .create(
                 new CreateUser()
                     .withName(userName)
-                    .withEmail(userName + "@test.umetadata.org")
+                    .withEmail(userName + "@test.wondersgroup.com")
                     .withDescription("Reviewer user for glossary soft-delete list test"));
 
     CreateGlossaryTerm create =

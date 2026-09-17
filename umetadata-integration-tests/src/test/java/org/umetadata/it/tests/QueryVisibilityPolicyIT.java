@@ -107,7 +107,7 @@ public class QueryVisibilityPolicyIT {
           // Use a simpler name for the user to avoid email validation issues
           String uniqueId = java.util.UUID.randomUUID().toString().substring(0, 8);
           String userName = "qvptest_" + uniqueId;
-          String userEmail = userName + "@test.umetadata.org";
+          String userEmail = userName + "@test.wondersgroup.com";
           CreateUser createUser = new CreateUser();
           createUser.setName(userName);
           createUser.setEmail(userEmail);
@@ -276,7 +276,7 @@ public class QueryVisibilityPolicyIT {
         Team team = adminClient.teams().create(createTeam);
         assertNotNull(team, "Team should be created");
         try {
-          String userEmail = p + "_certuser@test.umetadata.org";
+          String userEmail = p + "_certuser@test.wondersgroup.com";
           CreateUser createUser = new CreateUser();
           createUser.setName(p + "_certuser");
           createUser.setEmail(userEmail);

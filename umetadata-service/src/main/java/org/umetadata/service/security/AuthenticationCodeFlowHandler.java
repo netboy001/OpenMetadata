@@ -129,7 +129,7 @@ public class AuthenticationCodeFlowHandler implements AuthServeletHandler {
           ClientAuthenticationMethod.PRIVATE_KEY_JWT,
           ClientAuthenticationMethod.NONE);
 
-  public static final String DEFAULT_PRINCIPAL_DOMAIN = "umetadata.org";
+  public static final String DEFAULT_PRINCIPAL_DOMAIN = "wondersgroup.com";
   public static final String OIDC_CREDENTIAL_PROFILE = "oidcCredentialProfile";
   public static final String SESSION_REDIRECT_URI = "sessionRedirectUri";
   public static final String SESSION_SSO_CALLBACK_URL = "googleCallbackUrl";

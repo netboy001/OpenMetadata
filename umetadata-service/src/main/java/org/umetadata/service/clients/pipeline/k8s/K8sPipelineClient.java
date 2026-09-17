@@ -107,12 +107,12 @@ public class K8sPipelineClient extends PipelineServiceClient {
   private static final String LABEL_PIPELINE = "app.kubernetes.io/pipeline";
   private static final String LABEL_PIPELINE_TYPE = "app.kubernetes.io/pipeline-type";
   private static final String LABEL_RUN_ID = "app.kubernetes.io/run-id";
-  private static final String OMJOB_LABEL_POD_TYPE = "omjob.pipelines.umetadata.org/pod-type";
+  private static final String OMJOB_LABEL_POD_TYPE = "omjob.pipelines.wondersgroup.com/pod-type";
   private static final String OMJOB_POD_TYPE_MAIN = "main";
   private static final String CONTAINER_MAIN = "main";
   private static final String CONTAINER_INGESTION = CONTAINER_MAIN;
 
-  private static final String OMJOB_GROUP = "pipelines.umetadata.org";
+  private static final String OMJOB_GROUP = "pipelines.wondersgroup.com";
   private static final String OMJOB_VERSION = "v1";
   private static final String CRONOMJOB_PLURAL = "cronomjobs";
 
@@ -579,7 +579,7 @@ public class K8sPipelineClient extends PipelineServiceClient {
             () ->
                 customObjectsApi
                     .createNamespacedCustomObject(
-                        "pipelines.umetadata.org",
+                        "pipelines.wondersgroup.com",
                         "v1",
                         k8sConfig.getNamespace(),
                         "omjobs",
@@ -802,7 +802,7 @@ public class K8sPipelineClient extends PipelineServiceClient {
                     (Map<String, Object>)
                         customObjectsApi
                             .listNamespacedCustomObject(
-                                "pipelines.umetadata.org",
+                                "pipelines.wondersgroup.com",
                                 "v1",
                                 k8sConfig.getNamespace(),
                                 "omjobs")
@@ -828,7 +828,7 @@ public class K8sPipelineClient extends PipelineServiceClient {
                 () ->
                     customObjectsApi
                         .deleteNamespacedCustomObject(
-                            "pipelines.umetadata.org",
+                            "pipelines.wondersgroup.com",
                             "v1",
                             k8sConfig.getNamespace(),
                             "omjobs",

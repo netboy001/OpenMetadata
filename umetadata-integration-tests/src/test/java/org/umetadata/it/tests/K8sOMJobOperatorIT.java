@@ -234,7 +234,7 @@ public class K8sOMJobOperatorIT {
         client
             .pods()
             .inNamespace(TEST_NAMESPACE)
-            .withLabel("omjob.pipelines.umetadata.org/name", testJobName)
+            .withLabel("omjob.pipelines.wondersgroup.com/name", testJobName)
             .delete();
       }
     } catch (Exception e) {

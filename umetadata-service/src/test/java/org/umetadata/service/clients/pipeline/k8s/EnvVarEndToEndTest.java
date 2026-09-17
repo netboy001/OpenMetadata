@@ -126,7 +126,7 @@ class EnvVarEndToEndTest {
     // Create CronOMJob
     CronOMJob cronOMJob =
         CronOMJob.builder()
-            .apiVersion("pipelines.umetadata.org/v1")
+            .apiVersion("pipelines.wondersgroup.com/v1")
             .kind("CronOMJob")
             .metadata(
                 CronOMJob.CronOMJobMetadata.builder()
@@ -209,7 +209,7 @@ class EnvVarEndToEndTest {
 
     OMJob omJob =
         OMJob.builder()
-            .apiVersion("pipelines.umetadata.org/v1")
+            .apiVersion("pipelines.wondersgroup.com/v1")
             .kind("OMJob")
             .metadata(OMJob.OMJobMetadata.builder().name("test-job").namespace("default").build())
             .spec(OMJob.OMJobSpec.builder().mainPodSpec(podSpec).exitHandlerSpec(podSpec).build())
@@ -315,7 +315,7 @@ class EnvVarEndToEndTest {
             .build();
 
     return CronOMJob.builder()
-        .apiVersion("pipelines.umetadata.org/v1")
+        .apiVersion("pipelines.wondersgroup.com/v1")
         .kind("CronOMJob")
         .metadata(
             CronOMJob.CronOMJobMetadata.builder()

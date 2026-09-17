@@ -106,7 +106,7 @@ public class WorkflowTriggerPermissionsIT {
             .workflows()
             .create(testConnectionRequest(ns.prefix("owner-trig"), ownedService.getName()));
 
-    String ownerToken = tokenFor("shared_user2@test.umetadata.org", new String[] {});
+    String ownerToken = tokenFor("shared_user2@test.wondersgroup.com", new String[] {});
     HttpResponse<String> response = triggerWorkflow(workflow.getId(), ownerToken);
 
     assertAuthPassed(
@@ -127,7 +127,7 @@ public class WorkflowTriggerPermissionsIT {
             .workflows()
             .create(testConnectionRequest(ns.prefix("nonowner-trig"), ownedService.getName()));
 
-    String nonOwnerToken = tokenFor("shared_user3@test.umetadata.org", new String[] {});
+    String nonOwnerToken = tokenFor("shared_user3@test.wondersgroup.com", new String[] {});
     HttpResponse<String> response = triggerWorkflow(workflow.getId(), nonOwnerToken);
 
     assertEquals(

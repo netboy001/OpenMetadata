@@ -67,7 +67,7 @@ public class IngestionPipelineOwnerInheritanceIT {
         adminClient
             .users()
             .create(
-                new CreateUser().withName(userName).withEmail(userName + "@test.umetadata.org"));
+                new CreateUser().withName(userName).withEmail(userName + "@test.wondersgroup.com"));
 
     try {
       DashboardService service = DashboardServiceTestFactory.createMetabase(ns);
@@ -154,7 +154,7 @@ public class IngestionPipelineOwnerInheritanceIT {
                 .create(
                     new CreateUser()
                         .withName(ownerName)
-                        .withEmail(ownerName + "@test.umetadata.org")
+                        .withEmail(ownerName + "@test.wondersgroup.com")
                         .withRoles(List.of(ownerRole.getId())));
 
         String otherName = "ipauthother_" + unique;
@@ -164,7 +164,7 @@ public class IngestionPipelineOwnerInheritanceIT {
                 .create(
                     new CreateUser()
                         .withName(otherName)
-                        .withEmail(otherName + "@test.umetadata.org"));
+                        .withEmail(otherName + "@test.wondersgroup.com"));
 
         try {
           DashboardService service = DashboardServiceTestFactory.createMetabase(ns);

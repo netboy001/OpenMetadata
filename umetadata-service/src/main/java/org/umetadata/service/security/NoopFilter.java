@@ -34,7 +34,7 @@ public class NoopFilter implements ContainerRequestFilter {
 
   public void filter(ContainerRequestContext containerRequestContext) {
     CatalogPrincipal catalogPrincipal =
-        new CatalogPrincipal("anonymous", "anonymous@umetadata.org");
+        new CatalogPrincipal("anonymous", "anonymous@wondersgroup.com");
     String scheme = containerRequestContext.getUriInfo().getRequestUri().getScheme();
     CatalogSecurityContext catalogSecurityContext =
         new CatalogSecurityContext(

@@ -88,7 +88,7 @@ public class SearchPropagationIntegrationTest extends UMetadataApplicationTest {
     CreateUser createUser =
         new CreateUser()
             .withName("test_propagation_owner")
-            .withEmail("test_propagation_owner@umetadata.org")
+            .withEmail("test_propagation_owner@wondersgroup.com")
             .withDisplayName("Test Propagation Owner");
     testUser = userResourceTest.createEntity(createUser, ADMIN_AUTH_HEADERS);
 
@@ -654,7 +654,7 @@ public class SearchPropagationIntegrationTest extends UMetadataApplicationTest {
     CreateUser createDomainOwner =
         new CreateUser()
             .withName("test_domain_owner_propagation")
-            .withEmail("test_domain_owner_propagation@umetadata.org")
+            .withEmail("test_domain_owner_propagation@wondersgroup.com")
             .withDisplayName("Test Domain Owner for Propagation");
     User domainOwner = userResourceTest.createEntity(createDomainOwner, ADMIN_AUTH_HEADERS);
 
@@ -720,7 +720,7 @@ public class SearchPropagationIntegrationTest extends UMetadataApplicationTest {
     CreateUser createDomainOwner =
         new CreateUser()
             .withName("test_domain_owner_dp_propagation")
-            .withEmail("test_domain_owner_dp_propagation@umetadata.org")
+            .withEmail("test_domain_owner_dp_propagation@wondersgroup.com")
             .withDisplayName("Test Domain Owner for DP Propagation");
     User domainOwner = userResourceTest.createEntity(createDomainOwner, ADMIN_AUTH_HEADERS);
 

@@ -85,7 +85,7 @@ class JwtFilterTest {
     when(mockRequestURIInfo.getRequestUri()).thenReturn(uri);
 
     List<String> principalClaims = List.of("sub", "email");
-    String domain = "umetadata.org";
+    String domain = "wondersgroup.com";
     boolean enforcePrincipalDomain = false;
     jwtFilter = new JwtFilter(jwkProvider, principalClaims, domain, enforcePrincipalDomain);
   }
@@ -93,7 +93,7 @@ class JwtFilterTest {
   @Test
   void testPrincipalDomainEnforcement() {
     List<String> principalClaims = List.of("EMAIL", "sub");
-    String domain = "umetadata.org";
+    String domain = "wondersgroup.com";
     boolean enforcePrincipalDomain = true;
     jwtFilter = new JwtFilter(jwkProvider, principalClaims, domain, enforcePrincipalDomain);
 
@@ -101,7 +101,7 @@ class JwtFilterTest {
     String jwt =
         JWT.create()
             .withExpiresAt(Date.from(Instant.now().plus(1, ChronoUnit.DAYS)))
-            .withClaim("email", "sam@umetadata.org")
+            .withClaim("email", "sam@wondersgroup.com")
             .sign(algorithm);
 
     ContainerRequestContext context = createRequestContextWithJwt(jwt);

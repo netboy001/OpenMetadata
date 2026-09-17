@@ -35,7 +35,7 @@ class LabelBuilderTest {
     assertEquals("umetadata", labels.get("app.kubernetes.io/name"));
     assertEquals("ingestion", labels.get("app.kubernetes.io/component"));
     assertEquals("omjob-operator", labels.get("app.kubernetes.io/managed-by"));
-    assertEquals("test-omjob", labels.get("omjob.pipelines.umetadata.org/name"));
+    assertEquals("test-omjob", labels.get("omjob.pipelines.wondersgroup.com/name"));
     assertEquals("mysql-pipeline", labels.get("app.kubernetes.io/pipeline"));
     assertEquals("run-12345", labels.get("app.kubernetes.io/run-id"));
   }
@@ -46,7 +46,7 @@ class LabelBuilderTest {
     Map<String, String> labels = LabelBuilder.buildMainPodLabels(omJob);
 
     assertTrue(labels.containsKey("app.kubernetes.io/name"));
-    assertEquals("main", labels.get("omjob.pipelines.umetadata.org/pod-type"));
+    assertEquals("main", labels.get("omjob.pipelines.wondersgroup.com/pod-type"));
   }
 
   @Test
@@ -55,7 +55,7 @@ class LabelBuilderTest {
     Map<String, String> labels = LabelBuilder.buildExitHandlerLabels(omJob);
 
     assertTrue(labels.containsKey("app.kubernetes.io/name"));
-    assertEquals("exit-handler", labels.get("omjob.pipelines.umetadata.org/pod-type"));
+    assertEquals("exit-handler", labels.get("omjob.pipelines.wondersgroup.com/pod-type"));
   }
 
   @Test
@@ -63,16 +63,16 @@ class LabelBuilderTest {
     OMJobResource omJob = createTestOMJob();
 
     Map<String, String> podSelector = LabelBuilder.buildPodSelector(omJob);
-    assertEquals("test-omjob", podSelector.get("omjob.pipelines.umetadata.org/name"));
+    assertEquals("test-omjob", podSelector.get("omjob.pipelines.wondersgroup.com/name"));
     assertEquals(1, podSelector.size());
 
     Map<String, String> mainSelector = LabelBuilder.buildMainPodSelector(omJob);
     assertTrue(mainSelector.entrySet().containsAll(podSelector.entrySet()));
-    assertEquals("main", mainSelector.get("omjob.pipelines.umetadata.org/pod-type"));
+    assertEquals("main", mainSelector.get("omjob.pipelines.wondersgroup.com/pod-type"));
 
     Map<String, String> exitSelector = LabelBuilder.buildExitHandlerSelector(omJob);
     assertTrue(exitSelector.entrySet().containsAll(podSelector.entrySet()));
-    assertEquals("exit-handler", exitSelector.get("omjob.pipelines.umetadata.org/pod-type"));
+    assertEquals("exit-handler", exitSelector.get("omjob.pipelines.wondersgroup.com/pod-type"));
   }
 
   @Test

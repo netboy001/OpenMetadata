@@ -253,7 +253,7 @@ class DataInsightsEnricherBehaviorIT {
             .create(
                 new CreateUser()
                     .withName(ns.shortPrefix("ephemeral"))
-                    .withEmail(ns.shortPrefix("ephemeral") + "@test.umetadata.org"));
+                    .withEmail(ns.shortPrefix("ephemeral") + "@test.wondersgroup.com"));
 
     DatabaseService svc = DatabaseServiceTestFactory.create(ns, "Postgres");
     Database db = DatabaseTestFactory.create(ns, svc.getFullyQualifiedName());

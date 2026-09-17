@@ -164,7 +164,7 @@ public class McpToolsValidationTest extends UMetadataApplicationTest {
   private void createTestUser() {
     try {
       String userName = "mcp-test-user-" + UUID.randomUUID().toString().substring(0, 8);
-      String userEmail = userName + "@umetadata.org";
+      String userEmail = userName + "@wondersgroup.com";
       String password = "McpTest@1234";
 
       // Create user with password using UserResourceTest pattern

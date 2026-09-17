@@ -1127,7 +1127,7 @@ public class DomainResourceIT extends BaseEntityIT<Domain, CreateDomain> {
             .create(
                 new CreateUser()
                     .withName(userName)
-                    .withEmail(userName + "@test.umetadata.org")
+                    .withEmail(userName + "@test.wondersgroup.com")
                     .withDescription("Expert user for domain soft-delete test"));
 
     CreateDomain create =
@@ -1162,7 +1162,7 @@ public class DomainResourceIT extends BaseEntityIT<Domain, CreateDomain> {
             .create(
                 new CreateUser()
                     .withName(userName)
-                    .withEmail(userName + "@test.umetadata.org")
+                    .withEmail(userName + "@test.wondersgroup.com")
                     .withDescription("Expert user for domain list soft-delete test"));
 
     CreateDomain create =
@@ -1205,7 +1205,7 @@ public class DomainResourceIT extends BaseEntityIT<Domain, CreateDomain> {
             .create(
                 new CreateUser()
                     .withName(userName)
-                    .withEmail(userName + "@test.umetadata.org")
+                    .withEmail(userName + "@test.wondersgroup.com")
                     .withDescription("Expert user for domain include-all soft-delete test"));
 
     CreateDomain create =
@@ -1252,7 +1252,7 @@ public class DomainResourceIT extends BaseEntityIT<Domain, CreateDomain> {
         client
             .users()
             .create(
-                new CreateUser().withName(userName).withEmail(userName + "@test.umetadata.org"));
+                new CreateUser().withName(userName).withEmail(userName + "@test.wondersgroup.com"));
 
     Domain domain = createEntity(createRequest(ns.prefix("dom_follower"), ns));
 
@@ -1281,7 +1281,7 @@ public class DomainResourceIT extends BaseEntityIT<Domain, CreateDomain> {
   @Test
   void softDeletedVoter_notReturnedInListEndpoint(TestNamespace ns) {
     String userName = ns.shortPrefix("voter_list");
-    String userEmail = userName + "@test.umetadata.org";
+    String userEmail = userName + "@test.wondersgroup.com";
 
     UMetadataClient adminClient = SdkClients.adminClient();
     User voter =

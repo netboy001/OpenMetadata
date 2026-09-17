@@ -339,7 +339,7 @@ public final class SharedEntities {
     CreateUser createUser =
         new CreateUser()
             .withName(name)
-            .withEmail(name + "@test.umetadata.org")
+            .withEmail(name + "@test.wondersgroup.com")
             .withTeams(teamIds)
             .withRoles(roleIds);
     return userService.create(createUser);

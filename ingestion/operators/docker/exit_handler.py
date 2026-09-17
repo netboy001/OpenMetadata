@@ -112,8 +112,8 @@ def get_kubernetes_client() -> Optional[client.CoreV1Api]:
 
 
 LABEL_JOB_NAME = "job-name"
-LABEL_OMJOB_NAME = "omjob.pipelines.umetadata.org/name"
-LABEL_POD_TYPE = "omjob.pipelines.umetadata.org/pod-type"
+LABEL_OMJOB_NAME = "omjob.pipelines.wondersgroup.com/name"
+LABEL_POD_TYPE = "omjob.pipelines.wondersgroup.com/pod-type"
 LABEL_APP_RUN_ID = "app.kubernetes.io/run-id"
 POD_TYPE_MAIN = "main"
 

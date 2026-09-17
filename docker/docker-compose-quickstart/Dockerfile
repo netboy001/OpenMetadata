@@ -25,7 +25,7 @@ ARG RI_VERSION="1.12.14"
 ARG BUILD_DATE
 ARG COMMIT_ID
 LABEL maintainer="UMetadata"
-LABEL org.u-metadata.image.authors="support@umetadata.org"
+LABEL org.u-metadata.image.authors="support@wondersgroup.com"
 LABEL org.u-metadata.vendor="UMetadata"
 LABEL org.u-metadata.release-version="$RI_VERSION"
 LABEL org.u-metadata.description="UMetadata is an open source platform for metadata management and discovery."

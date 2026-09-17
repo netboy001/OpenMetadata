@@ -135,7 +135,7 @@ kubectl apply -f charts/umetadata/templates/omjob-operator-deployment.yaml
 ### OMJob Specification
 
 ```yaml
-apiVersion: pipelines.umetadata.org/v1
+apiVersion: pipelines.wondersgroup.com/v1
 kind: OMJob
 metadata:
   name: om-job-mysql-pipeline-a1b2c3d4
@@ -270,7 +270,7 @@ kubectl get pods -l app.kubernetes.io/name=omjob-operator
 kubectl logs -l app.kubernetes.io/name=omjob-operator -f
 
 # Check CRD installation
-kubectl get crd omjobs.pipelines.umetadata.org
+kubectl get crd omjobs.pipelines.wondersgroup.com
 ```
 
 ### Enable Debug Logging

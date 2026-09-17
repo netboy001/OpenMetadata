@@ -198,16 +198,16 @@ public class SamlSettingsHolder {
 
       if (authzConfig == null) {
         LOG.error("AuthorizerConfiguration is null in getDomain()");
-        return "umetadata.org"; // Default fallback
+        return "wondersgroup.com"; // Default fallback
       }
 
       String domain = authzConfig.getPrincipalDomain();
       LOG.debug("Retrieved principal domain: {}", domain);
-      return domain != null ? domain : "umetadata.org";
+      return domain != null ? domain : "wondersgroup.com";
 
     } catch (Exception e) {
       LOG.error("Error retrieving domain dynamically", e);
-      return "umetadata.org"; // Default fallback
+      return "wondersgroup.com"; // Default fallback
     }
   }
 }

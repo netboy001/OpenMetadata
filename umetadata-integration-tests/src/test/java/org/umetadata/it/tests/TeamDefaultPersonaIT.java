@@ -92,7 +92,7 @@ public class TeamDefaultPersonaIT {
     if (sanitized.length() > 60) {
       sanitized = sanitized.substring(0, 52) + UUID.randomUUID().toString().substring(0, 8);
     }
-    String email = sanitized + "@test.umetadata.org";
+    String email = sanitized + "@test.wondersgroup.com";
 
     CreateUser request =
         new CreateUser()
@@ -376,7 +376,7 @@ public class TeamDefaultPersonaIT {
     if (sanitized.length() > 60) {
       sanitized = sanitized.substring(0, 52) + UUID.randomUUID().toString().substring(0, 8);
     }
-    String email = sanitized + "@test.umetadata.org";
+    String email = sanitized + "@test.wondersgroup.com";
     CreateUser userRequest =
         new CreateUser()
             .withName(userName)
@@ -416,7 +416,7 @@ public class TeamDefaultPersonaIT {
     if (sanitized.length() > 60) {
       sanitized = sanitized.substring(0, 52) + UUID.randomUUID().toString().substring(0, 8);
     }
-    String email = sanitized + "@test.umetadata.org";
+    String email = sanitized + "@test.wondersgroup.com";
     CreateUser userRequest =
         new CreateUser()
             .withName(userName)
@@ -823,6 +823,6 @@ public class TeamDefaultPersonaIT {
     if (sanitized.length() > 60) {
       sanitized = sanitized.substring(0, 52) + UUID.randomUUID().toString().substring(0, 8);
     }
-    return sanitized + "@test.umetadata.org";
+    return sanitized + "@test.wondersgroup.com";
   }
 }

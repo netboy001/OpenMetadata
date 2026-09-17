@@ -149,7 +149,7 @@ public class UMetadataHttpClientTest {
         UMetadataConfig.builder()
             .baseUrl("http://localhost:8585/api")
             .testMode(true)
-            .accessToken("test@umetadata.org")
+            .accessToken("test@wondersgroup.com")
             .build();
 
     httpClient =
@@ -169,7 +169,7 @@ public class UMetadataHttpClientTest {
     verify(mockOkHttpClient).newCall(requestCaptor.capture());
 
     Request capturedRequest = requestCaptor.getValue();
-    assertEquals("test@umetadata.org", capturedRequest.header("X-Auth-Params-Email"));
+    assertEquals("test@wondersgroup.com", capturedRequest.header("X-Auth-Params-Email"));
     assertNull(capturedRequest.header("Authorization"));
   }
 

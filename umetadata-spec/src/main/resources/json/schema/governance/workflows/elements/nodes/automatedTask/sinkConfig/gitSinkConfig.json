@@ -85,7 +85,7 @@
           "description": "Git commit author email.",
           "type": "string",
           "format": "email",
-          "default": "bot@umetadata.org"
+          "default": "bot@wondersgroup.com"
         }
       },
       "additionalProperties": false

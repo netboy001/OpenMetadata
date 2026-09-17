@@ -126,7 +126,7 @@ public class AppRepository extends EntityRepository<App> {
           new CreateUser()
               .withName(botName)
               .withDisplayName(application.getDisplayName())
-              .withEmail(String.format("%s@umetadata.org", botName))
+              .withEmail(String.format("%s@wondersgroup.com", botName))
               .withIsAdmin(false)
               .withIsBot(true)
               .withAuthenticationMechanism(authMechanism)

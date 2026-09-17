@@ -117,7 +117,7 @@ public class UserResourceIT extends BaseEntityIT<User, CreateUser> {
     if (sanitized.length() > 60) {
       sanitized = sanitized.substring(0, 52) + UUID.randomUUID().toString().substring(0, 8);
     }
-    return sanitized + "@test.umetadata.org";
+    return sanitized + "@test.wondersgroup.com";
   }
 
   /**

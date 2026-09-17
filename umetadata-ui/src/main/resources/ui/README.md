@@ -129,7 +129,7 @@ Before running Playwright tests, ensure you have:
    - Set the `PLAYWRIGHT_TEST_BASE_URL` environment variable to point to your server
 
 2. **Admin User Setup**: Tests require an admin user with the following credentials:
-   - Email: `admin@umetadata.org`
+   - Email: `admin@wondersgroup.com`
    - Password: `admin`
 
 ### Installation

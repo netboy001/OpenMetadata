@@ -139,8 +139,8 @@ public class SdkClients {
           // USER1 has AllowAll role assigned in SharedEntities for permission tests
           USER1_CLIENT =
               createClient(
-                  "shared_user1@test.umetadata.org",
-                  "shared_user1@test.umetadata.org",
+                  "shared_user1@test.wondersgroup.com",
+                  "shared_user1@test.wondersgroup.com",
                   new String[] {});
         }
       }
@@ -154,8 +154,8 @@ public class SdkClients {
         if (USER2_CLIENT == null) {
           USER2_CLIENT =
               createClient(
-                  "shared_user2@test.umetadata.org",
-                  "shared_user2@test.umetadata.org",
+                  "shared_user2@test.wondersgroup.com",
+                  "shared_user2@test.wondersgroup.com",
                   new String[] {});
         }
       }
@@ -169,8 +169,8 @@ public class SdkClients {
         if (USER3_CLIENT == null) {
           USER3_CLIENT =
               createClient(
-                  "shared_user3@test.umetadata.org",
-                  "shared_user3@test.umetadata.org",
+                  "shared_user3@test.wondersgroup.com",
+                  "shared_user3@test.wondersgroup.com",
                   new String[] {});
         }
       }

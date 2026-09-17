@@ -45,7 +45,7 @@ import org.umetadata.service.security.auth.CatalogSecurityContext;
 
 @Slf4j
 public final class SecurityUtil {
-  public static final String DEFAULT_PRINCIPAL_DOMAIN = "umetadata.org";
+  public static final String DEFAULT_PRINCIPAL_DOMAIN = "wondersgroup.com";
   public static final String ISSUER_CLAIM = "iss";
 
   private SecurityUtil() {}

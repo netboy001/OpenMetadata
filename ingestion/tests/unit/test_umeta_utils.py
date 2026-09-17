@@ -195,7 +195,7 @@ class UMetaUtilsTest(TestCase):
     def test_decode_jwt_token_with_padding(self):
         """Test decoding a JWT token that needs padding"""
         # Create a payload that will need padding
-        payload = {"sub": "admin", "email": "admin@umetadata.org"}
+        payload = {"sub": "admin", "email": "admin@wondersgroup.com"}
 
         # Encode without padding
         payload_encoded = (
@@ -210,7 +210,7 @@ class UMetaUtilsTest(TestCase):
 
         self.assertIsNotNone(result)
         self.assertEqual(result["sub"], "admin")
-        self.assertEqual(result["email"], "admin@umetadata.org")
+        self.assertEqual(result["email"], "admin@wondersgroup.com")
 
     def test_decode_jwt_token_invalid_format(self):
         """Test decoding an invalid JWT token format"""

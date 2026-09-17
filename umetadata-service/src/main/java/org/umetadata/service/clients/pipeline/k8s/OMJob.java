@@ -89,7 +89,7 @@ public class OMJob {
    * Create a default OMJob instance
    */
   public static OMJob createDefault() {
-    return OMJob.builder().apiVersion("pipelines.umetadata.org/v1").kind("OMJob").build();
+    return OMJob.builder().apiVersion("pipelines.wondersgroup.com/v1").kind("OMJob").build();
   }
 
   /**

@@ -142,7 +142,7 @@ public class McpIntegrationTest extends UMetadataApplicationTest {
   private void createTestUser() {
     try {
       String userName = "mcp-integration-user-" + UUID.randomUUID().toString().substring(0, 8);
-      String userEmail = userName + "@umetadata.org";
+      String userEmail = userName + "@wondersgroup.com";
       String password = "McpIntegration@1234";
 
       CreateUser createUser =

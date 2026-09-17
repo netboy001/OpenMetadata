@@ -21,7 +21,7 @@ import { visitUserProfilePage } from '../../utils/user';
 
 const user = new UserClass();
 const CREDENTIALS = user.data;
-const invalidEmail = 'userTest@umetadata.org';
+const invalidEmail = 'userTest@wondersgroup.com';
 const invalidPassword = 'testUsers@123';
 
 test.describe.configure({

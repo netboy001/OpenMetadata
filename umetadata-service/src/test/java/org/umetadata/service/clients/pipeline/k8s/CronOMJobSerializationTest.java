@@ -62,7 +62,7 @@ class CronOMJobSerializationTest {
 
     CronOMJob cronOMJob =
         CronOMJob.builder()
-            .apiVersion("pipelines.umetadata.org/v1")
+            .apiVersion("pipelines.wondersgroup.com/v1")
             .kind("CronOMJob")
             .metadata(
                 CronOMJob.CronOMJobMetadata.builder()
@@ -81,7 +81,7 @@ class CronOMJobSerializationTest {
 
     // Verify the structure is correct
     assertNotNull(cronOMJobMap);
-    assertEquals("pipelines.umetadata.org/v1", cronOMJobMap.get("apiVersion"));
+    assertEquals("pipelines.wondersgroup.com/v1", cronOMJobMap.get("apiVersion"));
     assertEquals("CronOMJob", cronOMJobMap.get("kind"));
 
     // Verify metadata
@@ -151,7 +151,7 @@ class CronOMJobSerializationTest {
 
     CronOMJob cronOMJob =
         CronOMJob.builder()
-            .apiVersion("pipelines.umetadata.org/v1")
+            .apiVersion("pipelines.wondersgroup.com/v1")
             .kind("CronOMJob")
             .metadata(
                 CronOMJob.CronOMJobMetadata.builder()
@@ -220,7 +220,7 @@ class CronOMJobSerializationTest {
 
     CronOMJob cronOMJob =
         CronOMJob.builder()
-            .apiVersion("pipelines.umetadata.org/v1")
+            .apiVersion("pipelines.wondersgroup.com/v1")
             .kind("CronOMJob")
             .metadata(
                 CronOMJob.CronOMJobMetadata.builder()
@@ -289,7 +289,7 @@ class CronOMJobSerializationTest {
 
     CronOMJob cronOMJob =
         CronOMJob.builder()
-            .apiVersion("pipelines.umetadata.org/v1")
+            .apiVersion("pipelines.wondersgroup.com/v1")
             .kind("CronOMJob")
             .metadata(
                 CronOMJob.CronOMJobMetadata.builder()

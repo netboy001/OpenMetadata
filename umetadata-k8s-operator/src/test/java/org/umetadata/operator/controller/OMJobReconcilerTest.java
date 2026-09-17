@@ -255,7 +255,7 @@ class OMJobReconcilerTest {
     spec.setTtlSecondsAfterFinished(3600);
 
     OMJobResource omJob = new OMJobResource();
-    omJob.setApiVersion("pipelines.umetadata.org/v1");
+    omJob.setApiVersion("pipelines.wondersgroup.com/v1");
     omJob.setKind("OMJob");
     omJob.setMetadata(
         new ObjectMetaBuilder()

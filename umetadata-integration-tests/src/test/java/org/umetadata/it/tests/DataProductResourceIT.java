@@ -2957,7 +2957,7 @@ public class DataProductResourceIT extends BaseEntityIT<DataProduct, CreateDataP
             .create(
                 new CreateUser()
                     .withName(userName)
-                    .withEmail(userName + "@test.umetadata.org")
+                    .withEmail(userName + "@test.wondersgroup.com")
                     .withDescription("Expert user for soft-delete test"));
 
     CreateDataProduct create =
@@ -2993,7 +2993,7 @@ public class DataProductResourceIT extends BaseEntityIT<DataProduct, CreateDataP
             .create(
                 new CreateUser()
                     .withName(userName)
-                    .withEmail(userName + "@test.umetadata.org")
+                    .withEmail(userName + "@test.wondersgroup.com")
                     .withDescription("Expert user for bulk soft-delete test"));
 
     CreateDataProduct create =
@@ -3034,7 +3034,7 @@ public class DataProductResourceIT extends BaseEntityIT<DataProduct, CreateDataP
             .create(
                 new CreateUser()
                     .withName(userName)
-                    .withEmail(userName + "@test.umetadata.org")
+                    .withEmail(userName + "@test.wondersgroup.com")
                     .withDescription("Owner user for soft-delete list test"));
 
     CreateDataProduct create =

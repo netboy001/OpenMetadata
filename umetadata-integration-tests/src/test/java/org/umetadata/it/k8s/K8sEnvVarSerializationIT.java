@@ -70,7 +70,7 @@ class K8sEnvVarSerializationIT {
 
     OMJob omJob =
         OMJob.builder()
-            .apiVersion("pipelines.umetadata.org/v1")
+            .apiVersion("pipelines.wondersgroup.com/v1")
             .kind("OMJob")
             .metadata(OMJob.OMJobMetadata.builder().name("test-omjob").namespace(NAMESPACE).build())
             .spec(OMJob.OMJobSpec.builder().mainPodSpec(podSpec).exitHandlerSpec(podSpec).build())
@@ -110,7 +110,7 @@ class K8sEnvVarSerializationIT {
 
     CronOMJob cronOMJob =
         CronOMJob.builder()
-            .apiVersion("pipelines.umetadata.org/v1")
+            .apiVersion("pipelines.wondersgroup.com/v1")
             .kind("CronOMJob")
             .metadata(
                 CronOMJob.CronOMJobMetadata.builder()
@@ -334,7 +334,7 @@ class K8sEnvVarSerializationIT {
             .build();
 
     return CronOMJob.builder()
-        .apiVersion("pipelines.umetadata.org/v1")
+        .apiVersion("pipelines.wondersgroup.com/v1")
         .kind("CronOMJob")
         .metadata(
             CronOMJob.CronOMJobMetadata.builder()
@@ -367,7 +367,7 @@ class K8sEnvVarSerializationIT {
             .build();
 
     return OMJob.builder()
-        .apiVersion("pipelines.umetadata.org/v1")
+        .apiVersion("pipelines.wondersgroup.com/v1")
         .kind("OMJob")
         .metadata(OMJob.OMJobMetadata.builder().name("test-omjob").namespace(NAMESPACE).build())
         .spec(OMJob.OMJobSpec.builder().mainPodSpec(podSpec).exitHandlerSpec(podSpec).build())

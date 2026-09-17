@@ -33,8 +33,8 @@ public class LabelBuilder {
   public static final String LABEL_APP_RUN_ID = "app.kubernetes.io/run-id";
 
   // OMJob-specific labels
-  public static final String LABEL_OMJOB_NAME = "omjob.pipelines.umetadata.org/name";
-  public static final String LABEL_POD_TYPE = "omjob.pipelines.umetadata.org/pod-type";
+  public static final String LABEL_OMJOB_NAME = "omjob.pipelines.wondersgroup.com/name";
+  public static final String LABEL_POD_TYPE = "omjob.pipelines.wondersgroup.com/pod-type";
 
   // Values
   public static final String APP_NAME = "umetadata";

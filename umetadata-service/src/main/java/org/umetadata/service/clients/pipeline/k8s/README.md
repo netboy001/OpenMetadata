@@ -110,8 +110,8 @@ K8sPipelineClient labels all pipeline resources with:
 - `app.kubernetes.io/run-id = <run id>` (for non-scheduled runs)
 
 The OMJob operator adds/uses:
-- `omjob.pipelines.umetadata.org/name`
-- `omjob.pipelines.umetadata.org/pod-type` (`main` or `exit-handler`)
+- `omjob.pipelines.wondersgroup.com/name`
+- `omjob.pipelines.wondersgroup.com/pod-type` (`main` or `exit-handler`)
 - `app.kubernetes.io/managed-by = omjob-operator`
 
 Logs, Status, and Control

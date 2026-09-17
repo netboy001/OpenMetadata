@@ -14,7 +14,7 @@ import org.umetadata.sdk.config.UMetadataConfig;
  */
 public abstract class BaseSDKTest {
   protected static final String TEST_SERVER_URL = "http://localhost:8585/api";
-  protected static final String TEST_USER_EMAIL = "test@umetadata.org";
+  protected static final String TEST_USER_EMAIL = "test@wondersgroup.com";
 
   protected UMetadataClient client;
   protected UMetadataConfig config;

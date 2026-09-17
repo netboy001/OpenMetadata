@@ -256,7 +256,7 @@ class CRDSchemaValidationTest {
             .build();
 
     OMJobResource resource = new OMJobResource();
-    resource.setApiVersion("pipelines.umetadata.org/v1");
+    resource.setApiVersion("pipelines.wondersgroup.com/v1");
     resource.setKind("OMJob");
     resource.setMetadata(metadata);
     resource.setSpec(spec);
@@ -295,7 +295,7 @@ class CRDSchemaValidationTest {
         new ObjectMetaBuilder().withName("test-cronomjob").withNamespace("umetadata").build();
 
     CronOMJobResource resource = new CronOMJobResource();
-    resource.setApiVersion("pipelines.umetadata.org/v1");
+    resource.setApiVersion("pipelines.wondersgroup.com/v1");
     resource.setKind("CronOMJob");
     resource.setMetadata(metadata);
     resource.setSpec(cronSpec);

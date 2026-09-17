@@ -29,7 +29,7 @@ import io.fabric8.kubernetes.model.annotation.Version;
  * It uses the same structure as the K8sPipelineClient OMJob model but with
  * Fabric8 annotations for Kubernetes integration.
  */
-@Group("pipelines.umetadata.org")
+@Group("pipelines.wondersgroup.com")
 @Version("v1")
 @Kind("OMJob")
 @Plural("omjobs")

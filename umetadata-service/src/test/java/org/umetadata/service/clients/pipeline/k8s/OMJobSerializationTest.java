@@ -55,7 +55,7 @@ class OMJobSerializationTest {
 
     OMJob omJob =
         OMJob.builder()
-            .apiVersion("pipelines.umetadata.org/v1")
+            .apiVersion("pipelines.wondersgroup.com/v1")
             .kind("OMJob")
             .metadata(
                 OMJob.OMJobMetadata.builder()
@@ -75,7 +75,7 @@ class OMJobSerializationTest {
 
     // Verify the structure is correct
     assertNotNull(omJobMap);
-    assertEquals("pipelines.umetadata.org/v1", omJobMap.get("apiVersion"));
+    assertEquals("pipelines.wondersgroup.com/v1", omJobMap.get("apiVersion"));
     assertEquals("OMJob", omJobMap.get("kind"));
 
     // Verify metadata
@@ -137,7 +137,7 @@ class OMJobSerializationTest {
 
     OMJob omJob =
         OMJob.builder()
-            .apiVersion("pipelines.umetadata.org/v1")
+            .apiVersion("pipelines.wondersgroup.com/v1")
             .kind("OMJob")
             .metadata(
                 OMJob.OMJobMetadata.builder()
@@ -203,7 +203,7 @@ class OMJobSerializationTest {
 
     OMJob omJob =
         OMJob.builder()
-            .apiVersion("pipelines.umetadata.org/v1")
+            .apiVersion("pipelines.wondersgroup.com/v1")
             .kind("OMJob")
             .metadata(
                 OMJob.OMJobMetadata.builder()
@@ -269,7 +269,7 @@ class OMJobSerializationTest {
 
     OMJob omJob =
         OMJob.builder()
-            .apiVersion("pipelines.umetadata.org/v1")
+            .apiVersion("pipelines.wondersgroup.com/v1")
             .kind("OMJob")
             .metadata(
                 OMJob.OMJobMetadata.builder()

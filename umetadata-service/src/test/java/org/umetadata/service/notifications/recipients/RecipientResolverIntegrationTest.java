@@ -102,7 +102,7 @@ public class RecipientResolverIntegrationTest extends UMetadataApplicationTest {
     // Initialize TeamResourceTest to create a test team with email
     teamResourceTest = new TeamResourceTest();
     CreateTeam createTestTeam = teamResourceTest.createRequest("recipient-test-team");
-    createTestTeam.withEmail("recipient-test-team@umetadata.org");
+    createTestTeam.withEmail("recipient-test-team@wondersgroup.com");
     TEST_TEAM = teamResourceTest.createEntity(createTestTeam, ADMIN_AUTH_HEADERS);
 
     LOG.info(
