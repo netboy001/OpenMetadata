@@ -1288,12 +1288,12 @@ public class IngestionPipelineResourceIT
 
     IngestionPipeline fetched = getEntity(created.getId().toString());
     assertNull(
-        fetched.getUMetadataServerConnection(),
+        fetched.getuMetadataServerConnection(),
         "SECURITY: GET by ID must NOT return uMetadataServerConnection to prevent JWT token exposure");
 
     IngestionPipeline fetchedByName = getEntityByName(created.getFullyQualifiedName());
     assertNull(
-        fetchedByName.getUMetadataServerConnection(),
+        fetchedByName.getuMetadataServerConnection(),
         "SECURITY: GET by name must NOT return uMetadataServerConnection to prevent JWT token exposure");
   }
 
@@ -1328,7 +1328,7 @@ public class IngestionPipelineResourceIT
 
     for (IngestionPipeline pipeline : pipelines.getData()) {
       assertNull(
-          pipeline.getUMetadataServerConnection(),
+          pipeline.getuMetadataServerConnection(),
           String.format(
               "SECURITY: LIST must NOT return uMetadataServerConnection for pipeline [%s]",
               pipeline.getName()));
@@ -1358,7 +1358,7 @@ public class IngestionPipelineResourceIT
 
     IngestionPipeline version = getVersion(created.getId(), created.getVersion());
     assertNull(
-        version.getUMetadataServerConnection(),
+        version.getuMetadataServerConnection(),
         "SECURITY: GET version must NOT return uMetadataServerConnection");
   }
 
@@ -1383,7 +1383,7 @@ public class IngestionPipelineResourceIT
     IngestionPipeline fetchedByBot =
         SdkClients.ingestionBotClient().ingestionPipelines().get(created.getId().toString());
     assertNull(
-        fetchedByBot.getUMetadataServerConnection(),
+        fetchedByBot.getuMetadataServerConnection(),
         "SECURITY: Even bot users must NOT see uMetadataServerConnection via GET API. "
             + "JWT should only be passed to pipeline service during deploy.");
   }
@@ -1409,7 +1409,7 @@ public class IngestionPipelineResourceIT
     created.setDescription("Updated description for security test");
     IngestionPipeline updated = patchEntity(created.getId().toString(), created);
     assertNull(
-        updated.getUMetadataServerConnection(),
+        updated.getuMetadataServerConnection(),
         "SECURITY: PUT response must NOT return uMetadataServerConnection");
   }
 
@@ -1431,7 +1431,7 @@ public class IngestionPipelineResourceIT
 
     IngestionPipeline created = createEntity(request);
     assertNull(
-        created.getUMetadataServerConnection(),
+        created.getuMetadataServerConnection(),
         "SECURITY: CREATE response must NOT return uMetadataServerConnection");
   }
 

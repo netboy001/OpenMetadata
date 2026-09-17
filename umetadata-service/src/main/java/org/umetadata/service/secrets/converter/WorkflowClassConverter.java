@@ -42,11 +42,11 @@ public class WorkflowClassConverter extends ClassConverter {
                 TestSparkEngineConnectionRequest.class))
         .ifPresent(workflow::setRequest);
 
-    if (workflow.getUMetadataServerConnection() != null) {
-      workflow.setUMetadataServerConnection(
+    if (workflow.getuMetadataServerConnection() != null) {
+      workflow.setuMetadataServerConnection(
           (UMetadataConnection)
               ClassConverterFactory.getConverter(UMetadataConnection.class)
-                  .convert(workflow.getUMetadataServerConnection()));
+                  .convert(workflow.getuMetadataServerConnection()));
     }
 
     return workflow;

@@ -263,8 +263,8 @@ public abstract class SecretsManager {
 
   public void encryptIngestionPipeline(IngestionPipeline ingestionPipeline) {
     UMetadataConnection uMetadataConnection =
-        encryptUMetadataConnection(ingestionPipeline.getUMetadataServerConnection(), true);
-    ingestionPipeline.setUMetadataServerConnection(null);
+        encryptUMetadataConnection(ingestionPipeline.getuMetadataServerConnection(), true);
+    ingestionPipeline.setuMetadataServerConnection(null);
     // we don't store OM conn sensitive data
     IngestionPipelineBuilder.addDefinedConfig(ingestionPipeline);
     try {
@@ -276,13 +276,13 @@ public abstract class SecretsManager {
           String.format(
               "Failed to encrypt ingestion pipeline instance [%s]", ingestionPipeline.getName()));
     }
-    ingestionPipeline.setUMetadataServerConnection(uMetadataConnection);
+    ingestionPipeline.setuMetadataServerConnection(uMetadataConnection);
   }
 
   public void decryptIngestionPipeline(IngestionPipeline ingestionPipeline) {
     UMetadataConnection uMetadataConnection =
-        decryptUMetadataConnection(ingestionPipeline.getUMetadataServerConnection());
-    ingestionPipeline.setUMetadataServerConnection(null);
+        decryptUMetadataConnection(ingestionPipeline.getuMetadataServerConnection());
+    ingestionPipeline.setuMetadataServerConnection(null);
     // we don't store OM conn sensitive data
     IngestionPipelineBuilder.addDefinedConfig(ingestionPipeline);
     try {
@@ -293,16 +293,16 @@ public abstract class SecretsManager {
           String.format(
               "Failed to decrypt ingestion pipeline instance [%s]", ingestionPipeline.getName()));
     }
-    ingestionPipeline.setUMetadataServerConnection(uMetadataConnection);
+    ingestionPipeline.setuMetadataServerConnection(uMetadataConnection);
   }
 
   public Workflow encryptWorkflow(Workflow workflow) {
     UMetadataConnection uMetadataConnection =
-        encryptUMetadataConnection(workflow.getUMetadataServerConnection(), true);
+        encryptUMetadataConnection(workflow.getuMetadataServerConnection(), true);
     Workflow workflowConverted =
         (Workflow) ClassConverterFactory.getConverter(Workflow.class).convert(workflow);
     // we don't store OM conn sensitive data
-    workflowConverted.setUMetadataServerConnection(null);
+    workflowConverted.setuMetadataServerConnection(null);
     try {
       encryptPasswordFields(
           workflowConverted, buildSecretId(true, "workflow", workflow.getName()), true);
@@ -311,17 +311,17 @@ public abstract class SecretsManager {
           Response.Status.BAD_REQUEST,
           String.format("Failed to encrypt workflow instance [%s]", workflow.getName()));
     }
-    workflowConverted.setUMetadataServerConnection(uMetadataConnection);
+    workflowConverted.setuMetadataServerConnection(uMetadataConnection);
     return workflowConverted;
   }
 
   public Workflow decryptWorkflow(Workflow workflow) {
     UMetadataConnection uMetadataConnection =
-        decryptUMetadataConnection(workflow.getUMetadataServerConnection());
+        decryptUMetadataConnection(workflow.getuMetadataServerConnection());
     Workflow workflowConverted =
         (Workflow) ClassConverterFactory.getConverter(Workflow.class).convert(workflow);
     // we don't store OM conn sensitive data
-    workflowConverted.setUMetadataServerConnection(null);
+    workflowConverted.setuMetadataServerConnection(null);
     try {
       decryptPasswordFields(workflowConverted);
     } catch (Exception e) {
@@ -329,7 +329,7 @@ public abstract class SecretsManager {
           Response.Status.BAD_REQUEST,
           String.format("Failed to decrypt workflow instance [%s]", workflow.getName()));
     }
-    workflowConverted.setUMetadataServerConnection(uMetadataConnection);
+    workflowConverted.setuMetadataServerConnection(uMetadataConnection);
     return workflowConverted;
   }
 
@@ -584,7 +584,7 @@ public abstract class SecretsManager {
     Workflow workflowConverted =
         (Workflow) ClassConverterFactory.getConverter(Workflow.class).convert(workflow);
     // we don't store OM conn sensitive data
-    workflowConverted.setUMetadataServerConnection(null);
+    workflowConverted.setuMetadataServerConnection(null);
     try {
       deleteSecrets(workflowConverted, buildSecretId(true, "workflow", workflow.getName()));
     } catch (Exception e) {

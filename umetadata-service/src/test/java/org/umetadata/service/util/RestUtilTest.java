@@ -45,14 +45,14 @@ class RestUtilTest extends UMetadataApplicationTest {
             SettingsType.U_METADATA_BASE_URL_CONFIGURATION,
             UMetadataBaseUrlConfiguration.class);
 
-    UriInfo uriInfo = mockUriInfo(urlConfiguration.getUMetadataUrl());
+    UriInfo uriInfo = mockUriInfo(urlConfiguration.getuMetadataUrl());
     UMetadataApplicationConfig config = UMetadataApplicationConfigHolder.getInstance();
     String apiPath = config.getApiRootPath();
     apiPath =
         apiPath != null && apiPath.endsWith("/")
             ? apiPath.substring(0, apiPath.length() - 1)
             : apiPath;
-    String omUrl = urlConfiguration.getUMetadataUrl();
+    String omUrl = urlConfiguration.getuMetadataUrl();
     omUrl = omUrl != null && omUrl.endsWith("/") ? omUrl.substring(0, omUrl.length() - 1) : omUrl;
     String baseUrl = omUrl + apiPath;
 
@@ -283,11 +283,11 @@ class RestUtilTest extends UMetadataApplicationTest {
             SettingsType.U_METADATA_BASE_URL_CONFIGURATION.value());
     UMetadataBaseUrlConfiguration originalConfig =
         (UMetadataBaseUrlConfiguration) originalSetting.getConfigValue();
-    String originalUrl = originalConfig.getUMetadataUrl();
+    String originalUrl = originalConfig.getuMetadataUrl();
 
     try {
       UMetadataBaseUrlConfiguration trailingSlashConfig =
-          new UMetadataBaseUrlConfiguration().withUMetadataUrl("http://localhost:8585/");
+          new UMetadataBaseUrlConfiguration().withuMetadataUrl("http://localhost:8585/");
       systemRepository.createOrUpdate(
           new Settings()
               .withConfigType(SettingsType.U_METADATA_BASE_URL_CONFIGURATION)
@@ -315,7 +315,7 @@ class RestUtilTest extends UMetadataApplicationTest {
 
     try {
       UMetadataBaseUrlConfiguration noSlashConfig =
-          new UMetadataBaseUrlConfiguration().withUMetadataUrl("http://localhost:8585");
+          new UMetadataBaseUrlConfiguration().withuMetadataUrl("http://localhost:8585");
       systemRepository.createOrUpdate(
           new Settings()
               .withConfigType(SettingsType.U_METADATA_BASE_URL_CONFIGURATION)
@@ -342,7 +342,7 @@ class RestUtilTest extends UMetadataApplicationTest {
 
     try {
       UMetadataBaseUrlConfiguration multiSlashConfig =
-          new UMetadataBaseUrlConfiguration().withUMetadataUrl("http://localhost:8585///");
+          new UMetadataBaseUrlConfiguration().withuMetadataUrl("http://localhost:8585///");
       systemRepository.createOrUpdate(
           new Settings()
               .withConfigType(SettingsType.U_METADATA_BASE_URL_CONFIGURATION)

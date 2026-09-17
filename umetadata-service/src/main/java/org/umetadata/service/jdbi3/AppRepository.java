@@ -566,7 +566,7 @@ public class AppRepository extends EntityRepository<App> {
     List<EntityReference> newSubs = new ArrayList<>(listOrEmpty(app.getEventSubscriptions()));
     newSubs.add(eventSubscription.getEntityReference());
     App updated = JsonUtils.deepCopy(app, App.class).withEventSubscriptions(newSubs);
-    updated.setUMetadataServerConnection(null);
+    updated.setuMetadataServerConnection(null);
     getUpdater(app, updated, Operation.PUT, null).update();
     return updated;
   }
@@ -581,7 +581,7 @@ public class AppRepository extends EntityRepository<App> {
     List<EntityReference> newSubs = new ArrayList<>(listOrEmpty(app.getEventSubscriptions()));
     newSubs.removeIf(sub -> sub.getId().equals(eventSubscriptionId));
     App updated = JsonUtils.deepCopy(app, App.class).withEventSubscriptions(newSubs);
-    updated.setUMetadataServerConnection(null);
+    updated.setuMetadataServerConnection(null);
     getUpdater(app, updated, Operation.PUT, null).update();
     return updated;
   }

@@ -328,7 +328,7 @@ public class UMetadataOperations implements Callable<Integer> {
           new Settings()
               .withConfigType(SettingsType.U_METADATA_BASE_URL_CONFIGURATION)
               .withConfigValue(
-                  new UMetadataBaseUrlConfiguration().withUMetadataUrl(uri.toString()));
+                  new UMetadataBaseUrlConfiguration().withuMetadataUrl(uri.toString()));
 
       Entity.getSystemRepository().createOrUpdate(updatedSettings);
       LOG.info("Updated UMetadata URL to: {}", uMetadataUrl);
@@ -3023,8 +3023,8 @@ public class UMetadataOperations implements Callable<Integer> {
         if (settings != null && settings.getConfigValue() != null) {
           UMetadataBaseUrlConfiguration urlConfig =
               (UMetadataBaseUrlConfiguration) settings.getConfigValue();
-          if (urlConfig != null && urlConfig.getUMetadataUrl() != null) {
-            return urlConfig.getUMetadataUrl();
+          if (urlConfig != null && urlConfig.getuMetadataUrl() != null) {
+            return urlConfig.getuMetadataUrl();
           }
         }
       }

@@ -180,7 +180,7 @@ abstract class TestEntityMasker {
                     .withConnection(new DatabaseConnection().withConfig(buildMysqlConnection()))
                     .withServiceType(ServiceType.DATABASE)
                     .withConnectionType("Mysql"))
-            .withUMetadataServerConnection(buildUMetadataConnection());
+            .withuMetadataServerConnection(buildUMetadataConnection());
     Workflow masked = EntityMaskerFactory.createEntityMasker().maskWorkflow(workflow);
     assertNotNull(masked);
     assertEquals(
@@ -257,7 +257,7 @@ abstract class TestEntityMasker {
                     new DbtPipeline()
                         .withDbtConfigSource(
                             new DbtGCSConfig().withDbtSecurityConfig(buildGcpCredentials()))))
-        .withUMetadataServerConnection(buildUMetadataConnection());
+        .withuMetadataServerConnection(buildUMetadataConnection());
   }
 
   private UMetadataConnection buildUMetadataConnection() {

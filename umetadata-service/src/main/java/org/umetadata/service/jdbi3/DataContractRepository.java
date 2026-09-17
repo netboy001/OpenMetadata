@@ -1152,7 +1152,7 @@ public class DataContractRepository extends EntityRepository<DataContract> {
   private void prepareAndDeployIngestionPipeline(IngestionPipeline pipeline, TestSuite testSuite) {
     UMetadataConnection uMetadataServerConnection =
         new UMetadataConnectionBuilder(uMetadataApplicationConfig, pipeline).build();
-    pipeline.setUMetadataServerConnection(
+    pipeline.setuMetadataServerConnection(
         SecretsManagerFactory.getSecretsManager()
             .encryptUMetadataConnection(uMetadataServerConnection, false));
 
@@ -1169,7 +1169,7 @@ public class DataContractRepository extends EntityRepository<DataContract> {
   private void prepareAndRunIngestionPipeline(IngestionPipeline pipeline, TestSuite testSuite) {
     UMetadataConnection uMetadataServerConnection =
         new UMetadataConnectionBuilder(uMetadataApplicationConfig, pipeline).build();
-    pipeline.setUMetadataServerConnection(
+    pipeline.setuMetadataServerConnection(
         SecretsManagerFactory.getSecretsManager()
             .encryptUMetadataConnection(uMetadataServerConnection, false));
 

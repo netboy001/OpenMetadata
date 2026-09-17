@@ -360,7 +360,7 @@ public class AbstractNativeApplication implements NativeApplication {
         .copy(new IngestionPipeline(), create, user)
         .withPipelineType(create.getPipelineType())
         .withAirflowConfig(create.getAirflowConfig())
-        .withUMetadataServerConnection(uMetadataServerConnection)
+        .withuMetadataServerConnection(uMetadataServerConnection)
         .withSourceConfig(create.getSourceConfig())
         .withLoggerLevel(create.getLoggerLevel())
         .withService(create.getService());

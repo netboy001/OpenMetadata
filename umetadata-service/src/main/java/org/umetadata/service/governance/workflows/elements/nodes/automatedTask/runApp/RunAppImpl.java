@@ -246,7 +246,7 @@ public class RunAppImpl {
     UMetadataApplicationConfig config = repository.getUMetadataApplicationConfig();
 
     IngestionPipeline ingestionPipeline = repository.get(null, pipelineRef.getId(), EMPTY_FIELDS);
-    ingestionPipeline.setUMetadataServerConnection(
+    ingestionPipeline.setuMetadataServerConnection(
         new UMetadataConnectionBuilder(config).build());
 
     Map<String, Object> ingestionPipelineConfig =

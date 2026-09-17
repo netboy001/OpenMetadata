@@ -36,11 +36,11 @@ public final class IngestionPipelineBuilder {
               ClassConverterFactory.getConverter(DbtPipeline.class)
                   .convert(ingestionPipeline.getSourceConfig().getConfig()));
     }
-    if (ingestionPipeline.getUMetadataServerConnection() != null) {
-      ingestionPipeline.setUMetadataServerConnection(
+    if (ingestionPipeline.getuMetadataServerConnection() != null) {
+      ingestionPipeline.setuMetadataServerConnection(
           (UMetadataConnection)
               ClassConverterFactory.getConverter(UMetadataConnection.class)
-                  .convert(ingestionPipeline.getUMetadataServerConnection()));
+                  .convert(ingestionPipeline.getuMetadataServerConnection()));
     }
   }
 }

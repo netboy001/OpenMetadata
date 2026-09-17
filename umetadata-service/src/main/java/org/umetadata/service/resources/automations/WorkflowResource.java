@@ -383,7 +383,7 @@ public class WorkflowResource extends EntityResource<Workflow, WorkflowRepositor
     EntityUtil.Fields fields = getFields(FIELD_OWNERS);
     Workflow workflow = repository.get(uriInfo, id, fields);
     authorizeWorkflowTrigger(securityContext, workflow);
-    workflow.setUMetadataServerConnection(
+    workflow.setuMetadataServerConnection(
         new UMetadataConnectionBuilder(uMetadataApplicationConfig).build());
     /*
      We will send the encrypted Workflow to the Pipeline Service Client
@@ -666,7 +666,7 @@ public class WorkflowResource extends EntityResource<Workflow, WorkflowRepositor
       return workflowConverted;
     }
     Workflow workflowDecrypted = secretsManager.decryptWorkflow(workflow);
-    workflowDecrypted.setUMetadataServerConnection(null);
+    workflowDecrypted.setuMetadataServerConnection(null);
     if (authorizer.shouldMaskPasswords(securityContext)) {
       workflowDecrypted = EntityMaskerFactory.getEntityMasker().maskWorkflow(workflowDecrypted);
     }

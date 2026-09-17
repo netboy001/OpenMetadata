@@ -47,7 +47,7 @@ public class DefaultOperationalConfigProvider {
     String url =
         new HttpUrl.Builder().scheme("http").host("localhost").port(8585).build().toString();
     String baseUrl = url.substring(0, url.length() - 1);
-    return new UMetadataBaseUrlConfiguration().withUMetadataUrl(baseUrl);
+    return new UMetadataBaseUrlConfiguration().withuMetadataUrl(baseUrl);
   }
 
   private void parseOperationsConfig(String filePath) {

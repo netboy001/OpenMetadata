@@ -84,7 +84,7 @@ public final class RestUtil {
             SettingsCache.getSetting(
                     SettingsType.U_METADATA_BASE_URL_CONFIGURATION,
                     UMetadataBaseUrlConfiguration.class)
-                .getUMetadataUrl())
+                .getuMetadataUrl())
         .filter(url -> !url.isBlank())
         .map(RestUtil::removeTrailingSlash)
         .map(url -> UriBuilder.fromUri(url).path(apiPath).path(collPath).build())

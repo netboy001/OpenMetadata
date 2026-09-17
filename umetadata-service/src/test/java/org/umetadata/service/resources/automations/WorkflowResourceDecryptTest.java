@@ -71,7 +71,7 @@ class WorkflowResourceDecryptTest {
     Workflow result = invokeDecryptOrNullify(workflow);
 
     assertNull(
-        result.getUMetadataServerConnection(),
+        result.getuMetadataServerConnection(),
         "SECURITY: decryptOrNullify must NOT return uMetadataServerConnection to prevent JWT token exposure");
   }
 
@@ -93,6 +93,6 @@ class WorkflowResourceDecryptTest {
         .withId(UUID.randomUUID())
         .withName("test-workflow")
         .withWorkflowType(WorkflowType.TEST_CONNECTION)
-        .withUMetadataServerConnection(connection);
+        .withuMetadataServerConnection(connection);
   }
 }

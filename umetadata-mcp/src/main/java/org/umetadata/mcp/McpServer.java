@@ -324,8 +324,8 @@ public class McpServer implements McpServerProvider {
           org.umetadata.schema.api.configuration.UMetadataBaseUrlConfiguration urlConfig =
               (org.umetadata.schema.api.configuration.UMetadataBaseUrlConfiguration)
                   settings.getConfigValue();
-          if (urlConfig != null && urlConfig.getUMetadataUrl() != null) {
-            String url = urlConfig.getUMetadataUrl();
+          if (urlConfig != null && urlConfig.getuMetadataUrl() != null) {
+            String url = urlConfig.getuMetadataUrl();
             LOG.info("Base URL retrieved from system settings: {}", url);
             return url;
           }

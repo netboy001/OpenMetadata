@@ -349,7 +349,7 @@ public class IngestionPipelineRepository extends EntityRepository<IngestionPipel
                 uMetadataApplicationConfig, decrypted)
             .build();
     SecretsManager secretsManager = SecretsManagerFactory.getSecretsManager();
-    decrypted.setUMetadataServerConnection(
+    decrypted.setuMetadataServerConnection(
         secretsManager.encryptUMetadataConnection(uMetadataServerConnection, false));
 
     ServiceEntityInterface service =
@@ -418,7 +418,7 @@ public class IngestionPipelineRepository extends EntityRepository<IngestionPipel
     // Relationships and fields such as service are derived and not stored as part of json
     EntityReference service = ingestionPipeline.getService();
     UMetadataConnection umetadataConnection =
-        ingestionPipeline.getUMetadataServerConnection();
+        ingestionPipeline.getuMetadataServerConnection();
 
     SecretsManager secretsManager = SecretsManagerFactory.getSecretsManager();
 
@@ -433,12 +433,12 @@ public class IngestionPipelineRepository extends EntityRepository<IngestionPipel
 
     ingestionPipeline
         .withService(null)
-        .withUMetadataServerConnection(null)
+        .withuMetadataServerConnection(null)
         .withProcessingEngine(null);
     store(ingestionPipeline, update);
     ingestionPipeline
         .withService(service)
-        .withUMetadataServerConnection(umetadataConnection)
+        .withuMetadataServerConnection(umetadataConnection)
         .withProcessingEngine(processingEngine);
   }
 
@@ -451,7 +451,7 @@ public class IngestionPipelineRepository extends EntityRepository<IngestionPipel
     for (IngestionPipeline ingestionPipeline : entities) {
       EntityReference service = ingestionPipeline.getService();
       UMetadataConnection umetadataConnection =
-          ingestionPipeline.getUMetadataServerConnection();
+          ingestionPipeline.getuMetadataServerConnection();
 
       if (secretsManager != null) {
         secretsManager.encryptIngestionPipeline(ingestionPipeline);
@@ -463,7 +463,7 @@ public class IngestionPipelineRepository extends EntityRepository<IngestionPipel
 
       ingestionPipeline
           .withService(null)
-          .withUMetadataServerConnection(null)
+          .withuMetadataServerConnection(null)
           .withProcessingEngine(null);
 
       String jsonCopy = gson.toJson(ingestionPipeline);
@@ -471,7 +471,7 @@ public class IngestionPipelineRepository extends EntityRepository<IngestionPipel
 
       ingestionPipeline
           .withService(service)
-          .withUMetadataServerConnection(umetadataConnection)
+          .withuMetadataServerConnection(umetadataConnection)
           .withProcessingEngine(processingEngine);
     }
 

@@ -148,15 +148,15 @@ public class WorkflowConfigBuilder {
             : LogLevels.INFO);
 
     // Validate UMetadataServerConnection is properly configured
-    if (ingestionPipeline.getUMetadataServerConnection() == null) {
+    if (ingestionPipeline.getuMetadataServerConnection() == null) {
       throw new IllegalArgumentException("UMetadata server connection is required but not set");
     }
-    if (ingestionPipeline.getUMetadataServerConnection().getSecurityConfig() == null) {
+    if (ingestionPipeline.getuMetadataServerConnection().getSecurityConfig() == null) {
       throw new IllegalArgumentException(
           "UMetadata server connection securityConfig is required but not set");
     }
 
-    workflowConfig.setUMetadataServerConfig(ingestionPipeline.getUMetadataServerConnection());
+    workflowConfig.setuMetadataServerConfig(ingestionPipeline.getuMetadataServerConnection());
     return workflowConfig;
   }
 

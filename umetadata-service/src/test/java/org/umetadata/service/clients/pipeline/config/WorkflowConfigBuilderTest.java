@@ -92,8 +92,8 @@ public class WorkflowConfigBuilderTest extends WorkflowConfigTest {
         WorkflowConfigBuilder.buildDefaultWorkflowConfig(ingestionPipeline);
     assertEquals(workflowConfig.getLoggerLevel(), LogLevels.DEBUG);
     assertEquals(
-        workflowConfig.getUMetadataServerConfig(),
-        ingestionPipeline.getUMetadataServerConnection());
+        workflowConfig.getuMetadataServerConfig(),
+        ingestionPipeline.getuMetadataServerConnection());
   }
 
   @Test

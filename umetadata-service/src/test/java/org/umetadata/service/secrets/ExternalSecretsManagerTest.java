@@ -101,7 +101,7 @@ public abstract class ExternalSecretsManagerTest {
     Workflow expectedWorkflow =
         new Workflow()
             .withName("my-workflow")
-            .withUMetadataServerConnection(connection)
+            .withuMetadataServerConnection(connection)
             .withRequest(testRequest);
     Workflow actualWorkflow = JsonUtils.convertValue(expectedWorkflow, Workflow.class);
 
@@ -111,14 +111,14 @@ public abstract class ExternalSecretsManagerTest {
     // JWT token is not encrypted since it's not stored in the db. It's handled at runtime.
     assertEquals(
         secretKey,
-        actualWorkflow.getUMetadataServerConnection().getSecurityConfig().getJwtToken());
+        actualWorkflow.getuMetadataServerConnection().getSecurityConfig().getJwtToken());
 
     // Decrypt the workflow and ensure password and secrete key are decrypted
     actualWorkflow = secretsManager.decryptWorkflow(actualWorkflow);
     assertEquals(password, getPassword(actualWorkflow));
     assertEquals(
         secretKey,
-        actualWorkflow.getUMetadataServerConnection().getSecurityConfig().getJwtToken());
+        actualWorkflow.getuMetadataServerConnection().getSecurityConfig().getJwtToken());
     assertEquals(expectedWorkflow, actualWorkflow);
   }
 

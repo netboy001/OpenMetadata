@@ -82,7 +82,7 @@ public abstract class WorkflowConfigTest {
                 .withName(MOCK_SERVICE_NAME))
         .withSourceConfig(new SourceConfig().withConfig(new DatabaseServiceMetadataPipeline()))
         .withAirflowConfig(new AirflowConfig().withRetries(1))
-        .withUMetadataServerConnection(
+        .withuMetadataServerConnection(
             new UMetadataConnection()
                 .withAuthProvider(AuthProvider.UMETADATA)
                 .withHostPort("http://umetadata-server:8585/api")
@@ -111,7 +111,7 @@ public abstract class WorkflowConfigTest {
                         .withType(ApplicationPipeline.ApplicationConfigType.APPLICATION)
                         .withSourcePythonClass("metadata.ingestion.path")
                         .withAppConfig(new CollateAIAppConfig())))
-        .withUMetadataServerConnection(
+        .withuMetadataServerConnection(
             new UMetadataConnection()
                 .withAuthProvider(AuthProvider.UMETADATA)
                 .withHostPort("http://umetadata-server:8585/api")

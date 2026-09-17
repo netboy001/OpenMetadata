@@ -78,7 +78,7 @@ public class WorkflowResourceIT {
     assertEquals(WorkflowType.TEST_CONNECTION, workflow.getWorkflowType());
     assertNotNull(workflow.getRequest());
     assertNull(
-        workflow.getUMetadataServerConnection(),
+        workflow.getuMetadataServerConnection(),
         "SECURITY: Create response must NOT return uMetadataServerConnection to prevent JWT token exposure");
   }
 
@@ -327,12 +327,12 @@ public class WorkflowResourceIT {
 
     Workflow fetchedById = client.workflows().get(created.getId().toString());
     assertNull(
-        fetchedById.getUMetadataServerConnection(),
+        fetchedById.getuMetadataServerConnection(),
         "SECURITY: GET by ID must NOT return uMetadataServerConnection to prevent JWT token exposure");
 
     Workflow fetchedByName = client.workflows().getByName(created.getFullyQualifiedName());
     assertNull(
-        fetchedByName.getUMetadataServerConnection(),
+        fetchedByName.getuMetadataServerConnection(),
         "SECURITY: GET by name must NOT return uMetadataServerConnection to prevent JWT token exposure");
   }
 
@@ -352,7 +352,7 @@ public class WorkflowResourceIT {
 
     for (Workflow workflow : response.getData()) {
       assertNull(
-          workflow.getUMetadataServerConnection(),
+          workflow.getuMetadataServerConnection(),
           String.format(
               "SECURITY: LIST must NOT return uMetadataServerConnection for workflow [%s]",
               workflow.getName()));
@@ -369,7 +369,7 @@ public class WorkflowResourceIT {
     Workflow updated = client.workflows().update(created.getId().toString(), created);
 
     assertNull(
-        updated.getUMetadataServerConnection(),
+        updated.getuMetadataServerConnection(),
         "SECURITY: PUT response must NOT return uMetadataServerConnection to prevent JWT token exposure");
   }
 
@@ -383,7 +383,7 @@ public class WorkflowResourceIT {
 
     Workflow version = client.workflows().getVersion(created.getId().toString(), initialVersion);
     assertNull(
-        version.getUMetadataServerConnection(),
+        version.getuMetadataServerConnection(),
         "SECURITY: GET version must NOT return uMetadataServerConnection to prevent JWT token exposure");
   }
 }

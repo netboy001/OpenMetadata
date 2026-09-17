@@ -175,7 +175,7 @@ public class IngestionPipelineResourceTest
     validateSourceConfig(createRequest.getSourceConfig(), ingestion.getSourceConfig(), ingestion);
     // SECURITY: UMetadataServerConnection should NOT be returned in GET/LIST API responses
     // to prevent JWT token exposure. It's only populated during deploy operations.
-    assertNull(ingestion.getUMetadataServerConnection());
+    assertNull(ingestion.getuMetadataServerConnection());
   }
 
   @Override
@@ -1039,14 +1039,14 @@ public class IngestionPipelineResourceTest
     // GET by ID should NOT return uMetadataServerConnection (contains JWT)
     IngestionPipeline fetched = getEntity(created.getId(), ADMIN_AUTH_HEADERS);
     assertNull(
-        fetched.getUMetadataServerConnection(),
+        fetched.getuMetadataServerConnection(),
         "SECURITY: GET by ID must NOT return uMetadataServerConnection to prevent JWT token exposure");
 
     // GET by name should NOT return uMetadataServerConnection
     IngestionPipeline fetchedByName =
         getEntityByName(created.getFullyQualifiedName(), null, ADMIN_AUTH_HEADERS);
     assertNull(
-        fetchedByName.getUMetadataServerConnection(),
+        fetchedByName.getuMetadataServerConnection(),
         "SECURITY: GET by name must NOT return uMetadataServerConnection to prevent JWT token exposure");
   }
 
@@ -1064,7 +1064,7 @@ public class IngestionPipelineResourceTest
     // Regular user (owner) should also NOT see JWT token
     IngestionPipeline fetched = getEntity(created.getId(), authHeaders(USER1.getName()));
     assertNull(
-        fetched.getUMetadataServerConnection(),
+        fetched.getuMetadataServerConnection(),
         "SECURITY: Regular users must NOT see uMetadataServerConnection");
   }
 
@@ -1091,7 +1091,7 @@ public class IngestionPipelineResourceTest
 
     for (IngestionPipeline pipeline : pipelines.getData()) {
       assertNull(
-          pipeline.getUMetadataServerConnection(),
+          pipeline.getuMetadataServerConnection(),
           String.format(
               "SECURITY: LIST must NOT return uMetadataServerConnection for pipeline [%s]",
               pipeline.getName()));
@@ -1116,7 +1116,7 @@ public class IngestionPipelineResourceTest
     IngestionPipeline version =
         getVersion(created.getId(), created.getVersion(), ADMIN_AUTH_HEADERS);
     assertNull(
-        version.getUMetadataServerConnection(),
+        version.getuMetadataServerConnection(),
         "SECURITY: GET version must NOT return uMetadataServerConnection");
   }
 
@@ -1133,7 +1133,7 @@ public class IngestionPipelineResourceTest
     // The JWT is only needed internally during deploy operations
     IngestionPipeline fetchedByBot = getEntity(created.getId(), INGESTION_BOT_AUTH_HEADERS);
     assertNull(
-        fetchedByBot.getUMetadataServerConnection(),
+        fetchedByBot.getuMetadataServerConnection(),
         "SECURITY: Even bot users must NOT see uMetadataServerConnection via GET API. "
             + "JWT should only be passed to pipeline service during deploy.");
   }
@@ -1152,7 +1152,7 @@ public class IngestionPipelineResourceTest
         updateIngestionPipeline(
             request.withDescription("Updated description for security test"), ADMIN_AUTH_HEADERS);
     assertNull(
-        updated.getUMetadataServerConnection(),
+        updated.getuMetadataServerConnection(),
         "SECURITY: PUT response must NOT return uMetadataServerConnection");
   }
 

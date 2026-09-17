@@ -497,8 +497,8 @@ public class ReindexingOrchestrator {
         if (settings != null && settings.getConfigValue() != null) {
           UMetadataBaseUrlConfiguration urlConfig =
               (UMetadataBaseUrlConfiguration) settings.getConfigValue();
-          if (urlConfig != null && urlConfig.getUMetadataUrl() != null) {
-            return urlConfig.getUMetadataUrl();
+          if (urlConfig != null && urlConfig.getuMetadataUrl() != null) {
+            return urlConfig.getuMetadataUrl();
           }
         }
       }

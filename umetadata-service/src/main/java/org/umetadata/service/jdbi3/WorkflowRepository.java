@@ -51,7 +51,7 @@ public class WorkflowRepository extends EntityRepository<Workflow> {
 
   @Override
   public void storeEntity(Workflow entity, boolean update) {
-    UMetadataConnection umetadataConnection = entity.getUMetadataServerConnection();
+    UMetadataConnection umetadataConnection = entity.getuMetadataServerConnection();
     SecretsManager secretsManager = SecretsManagerFactory.getSecretsManager();
 
     if (secretsManager != null) {
@@ -60,11 +60,11 @@ public class WorkflowRepository extends EntityRepository<Workflow> {
 
     // Don't store owners, database, href and tags as JSON. Build it on the fly based on
     // relationships
-    entity.withUMetadataServerConnection(null);
+    entity.withuMetadataServerConnection(null);
     store(entity, update);
 
     // Restore the relationships
-    entity.withUMetadataServerConnection(umetadataConnection);
+    entity.withuMetadataServerConnection(umetadataConnection);
   }
 
   public void storeEntities(List<Workflow> workflows) {
@@ -73,18 +73,18 @@ public class WorkflowRepository extends EntityRepository<Workflow> {
     SecretsManager secretsManager = SecretsManagerFactory.getSecretsManager();
 
     for (Workflow workflow : workflows) {
-      UMetadataConnection umetadataConnection = workflow.getUMetadataServerConnection();
+      UMetadataConnection umetadataConnection = workflow.getuMetadataServerConnection();
 
       if (secretsManager != null) {
         workflow = secretsManager.encryptWorkflow(workflow);
       }
 
-      workflow.withUMetadataServerConnection(null);
+      workflow.withuMetadataServerConnection(null);
 
       String jsonCopy = gson.toJson(workflow);
       workflowsToStore.add(gson.fromJson(jsonCopy, Workflow.class));
 
-      workflow.withUMetadataServerConnection(umetadataConnection);
+      workflow.withuMetadataServerConnection(umetadataConnection);
     }
 
     storeMany(workflowsToStore);

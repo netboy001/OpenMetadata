@@ -744,7 +744,7 @@ class K8sPipelineClientTest {
     jwtConfig.setJwtToken("test-jwt-token");
     serverConnection.setSecurityConfig(jwtConfig);
 
-    pipeline.setUMetadataServerConnection(serverConnection);
+    pipeline.setuMetadataServerConnection(serverConnection);
 
     return pipeline;
   }

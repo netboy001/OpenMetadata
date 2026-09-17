@@ -1234,9 +1234,9 @@ public class K8sPipelineClient extends PipelineServiceClient {
 
     Map<String, byte[]> secretData = new HashMap<>();
 
-    if (pipeline.getUMetadataServerConnection() != null
-        && pipeline.getUMetadataServerConnection().getSecurityConfig() != null) {
-      Object securityConfig = pipeline.getUMetadataServerConnection().getSecurityConfig();
+    if (pipeline.getuMetadataServerConnection() != null
+        && pipeline.getuMetadataServerConnection().getSecurityConfig() != null) {
+      Object securityConfig = pipeline.getuMetadataServerConnection().getSecurityConfig();
       String configJson = JsonUtils.pojoToJson(securityConfig);
       secretData.put(SECRET_KEY_SECURITY_CONFIG, configJson.getBytes(StandardCharsets.UTF_8));
     }
@@ -1880,7 +1880,7 @@ public class K8sPipelineClient extends PipelineServiceClient {
    * authentication even when the service layer doesn't set the connection.
    */
   private void ensureServerConnectionConfigured(IngestionPipeline pipeline) {
-    if (pipeline.getUMetadataServerConnection() == null) {
+    if (pipeline.getuMetadataServerConnection() == null) {
       LOG.warn(PIPELINE_MISSING_CONNECTION_WARNING, pipeline.getName());
 
       // For unit tests, we don't require actual JWT token retrieval
@@ -1895,12 +1895,12 @@ public class K8sPipelineClient extends PipelineServiceClient {
       org.umetadata.schema.services.connections.metadata.UMetadataConnection
           serverConnection = createDefaultServerConnection();
 
-      pipeline.setUMetadataServerConnection(serverConnection);
+      pipeline.setuMetadataServerConnection(serverConnection);
       LOG.info(DEFAULT_CONNECTION_INFO, pipeline.getName(), serverConnection.getHostPort());
       return;
     }
 
-    if (pipeline.getUMetadataServerConnection().getSecurityConfig() == null) {
+    if (pipeline.getuMetadataServerConnection().getSecurityConfig() == null) {
       LOG.error(PIPELINE_MISSING_SECURITY_CONFIG_ERROR, pipeline.getName());
       throw new IllegalStateException(PIPELINE_CONNECTION_STATE_ERROR);
     }

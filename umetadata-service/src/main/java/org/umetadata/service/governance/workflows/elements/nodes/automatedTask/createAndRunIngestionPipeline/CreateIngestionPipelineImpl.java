@@ -289,7 +289,7 @@ public class CreateIngestionPipelineImpl {
                 .build();
         return ingestionPipeline
             .withService(service.getEntityReference())
-            .withUMetadataServerConnection(uMetadataServerConnection);
+            .withuMetadataServerConnection(uMetadataServerConnection);
       }
     }
     return null;

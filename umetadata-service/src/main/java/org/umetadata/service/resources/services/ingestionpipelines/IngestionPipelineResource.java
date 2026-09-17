@@ -1344,10 +1344,10 @@ public class IngestionPipelineResource
     limits.enforceLimits(securityContext, createResourceContext, operationContext);
     if (CommonUtil.nullOrEmpty(botName)) {
       // Use Default Ingestion Bot
-      ingestionPipeline.setUMetadataServerConnection(
+      ingestionPipeline.setuMetadataServerConnection(
           new UMetadataConnectionBuilder(uMetadataApplicationConfig).build());
     } else {
-      ingestionPipeline.setUMetadataServerConnection(
+      ingestionPipeline.setuMetadataServerConnection(
           new UMetadataConnectionBuilder(uMetadataApplicationConfig, botName).build());
     }
     decryptOrNullify(securityContext, ingestionPipeline, true);
@@ -1378,10 +1378,10 @@ public class IngestionPipelineResource
       UMetadataConnection uMetadataServerConnection =
           new UMetadataConnectionBuilder(uMetadataApplicationConfig, ingestionPipeline)
               .build();
-      ingestionPipeline.setUMetadataServerConnection(
+      ingestionPipeline.setuMetadataServerConnection(
           secretsManager.encryptUMetadataConnection(uMetadataServerConnection, false));
     } else {
-      ingestionPipeline.setUMetadataServerConnection(null);
+      ingestionPipeline.setuMetadataServerConnection(null);
     }
 
     if (authorizer.shouldMaskPasswords(securityContext) && !forceNotMask) {

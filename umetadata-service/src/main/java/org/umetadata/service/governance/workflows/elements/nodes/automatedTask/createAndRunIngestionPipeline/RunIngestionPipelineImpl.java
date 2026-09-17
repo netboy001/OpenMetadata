@@ -49,7 +49,7 @@ public class RunIngestionPipelineImpl {
     UMetadataApplicationConfig config = repository.getUMetadataApplicationConfig();
 
     IngestionPipeline ingestionPipeline = repository.get(null, ingestionPipelineId, EMPTY_FIELDS);
-    ingestionPipeline.setUMetadataServerConnection(
+    ingestionPipeline.setuMetadataServerConnection(
         new UMetadataConnectionBuilder(config).build());
 
     return ingestionPipeline;

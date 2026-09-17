@@ -137,8 +137,8 @@ public class McpCallbackServlet extends HttpServlet {
         if (settings != null && settings.getConfigValue() != null) {
           UMetadataBaseUrlConfiguration urlConfig =
               (UMetadataBaseUrlConfiguration) settings.getConfigValue();
-          if (urlConfig != null && urlConfig.getUMetadataUrl() != null) {
-            return urlConfig.getUMetadataUrl();
+          if (urlConfig != null && urlConfig.getuMetadataUrl() != null) {
+            return urlConfig.getuMetadataUrl();
           }
         }
       }
@@ -313,7 +313,7 @@ public class McpCallbackServlet extends HttpServlet {
         if (settings != null) {
           UMetadataBaseUrlConfiguration urlConfig =
               (UMetadataBaseUrlConfiguration) settings.getConfigValue();
-          baseUrl = urlConfig != null ? urlConfig.getUMetadataUrl() : null;
+          baseUrl = urlConfig != null ? urlConfig.getuMetadataUrl() : null;
         }
       }
       if (baseUrl == null) {

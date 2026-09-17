@@ -211,7 +211,7 @@ public class AppResource extends EntityResource<App, AppRepository> {
    * We don't want to store runtime information into the DB
    */
   private void unsetAppRuntimeProperties(App app) {
-    app.setUMetadataServerConnection(null);
+    app.setuMetadataServerConnection(null);
     app.setPrivateConfiguration(null);
   }
 
@@ -1483,7 +1483,7 @@ public class AppResource extends EntityResource<App, AppRepository> {
     secretsManager.decryptIngestionPipeline(ingestionPipeline);
     UMetadataConnection uMetadataServerConnection =
         new UMetadataConnectionBuilder(uMetadataApplicationConfig, botName).build();
-    ingestionPipeline.setUMetadataServerConnection(
+    ingestionPipeline.setuMetadataServerConnection(
         secretsManager.encryptUMetadataConnection(uMetadataServerConnection, false));
     if (authorizer.shouldMaskPasswords(securityContext) && !forceNotMask) {
       EntityMaskerFactory.getEntityMasker().maskIngestionPipeline(ingestionPipeline);
@@ -1500,7 +1500,7 @@ public class AppResource extends EntityResource<App, AppRepository> {
         ingestionPipelineRepository.get(
             uriInfo, pipelineRef.getId(), ingestionPipelineRepository.getFields(FIELD_OWNERS));
 
-    ingestionPipeline.setUMetadataServerConnection(app.getUMetadataServerConnection());
+    ingestionPipeline.setuMetadataServerConnection(app.getuMetadataServerConnection());
     decryptOrNullify(securityContext, ingestionPipeline, app.getBot().getName(), true);
 
     return ingestionPipeline;

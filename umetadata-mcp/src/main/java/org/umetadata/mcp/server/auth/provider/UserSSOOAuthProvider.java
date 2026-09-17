@@ -163,7 +163,7 @@ public class UserSSOOAuthProvider implements OAuthAuthorizationServerProvider {
             (org.umetadata.schema.api.configuration.UMetadataBaseUrlConfiguration)
                 baseUrlSettings.getConfigValue();
         if (baseUrlConfig != null) {
-          return baseUrlConfig.getUMetadataUrl();
+          return baseUrlConfig.getuMetadataUrl();
         }
       }
     } catch (Exception e) {

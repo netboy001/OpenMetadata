@@ -70,7 +70,7 @@ public class ApplicationHandler {
    * Load the apps' OM configuration and private parameters
    */
   public void setAppRuntimeProperties(App app) {
-    app.setUMetadataServerConnection(
+    app.setuMetadataServerConnection(
         new UMetadataConnectionBuilder(config, app.getBot().getName()).build());
     try {
       AppPrivateConfig appPrivateConfig = configReader.readConfigFromResource(app.getName());
@@ -339,7 +339,7 @@ public class ApplicationHandler {
     LOG.info("migrating app quartz configuration for {}", application.getName());
     App updatedApp = JsonUtils.readOrConvertValue(appInfo, App.class);
     App currentApp = appRepository.getDao().findEntityById(application.getId());
-    updatedApp.setUMetadataServerConnection(null);
+    updatedApp.setuMetadataServerConnection(null);
     updatedApp.setPrivateConfiguration(null);
     updatedApp.setScheduleType(currentApp.getScheduleType());
     updatedApp.setAppSchedule(currentApp.getAppSchedule());
