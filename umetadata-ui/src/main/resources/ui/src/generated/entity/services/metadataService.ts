@@ -468,8 +468,8 @@ export interface Connection {
 /**
  * UMetadata Server Authentication Provider.
  *
- * UMetadata Server Authentication Provider. Make sure configure same auth providers as
- * the one configured on UMetadata server.
+ * UMetadata Server Authentication Provider. Make sure configure same auth providers as the
+ * one configured on UMetadata server.
  */
 export enum AuthProvider {
     Auth0 = "auth0",
@@ -480,8 +480,8 @@ export enum AuthProvider {
     Google = "google",
     LDAP = "ldap",
     Okta = "okta",
-    Umetadata = "umetadata",
     Saml = "saml",
+    Umetadata = "umetadata",
 }
 
 /**
@@ -526,8 +526,8 @@ export interface AlationDatabaseConnection {
     connectionOptions?:   { [key: string]: string };
     /**
      * Database of the data source. This is optional parameter, if you would like to restrict
-     * the metadata reading to a single database. When left blank, UMetadata Ingestion
-     * attempts to scan all the databases.
+     * the metadata reading to a single database. When left blank, UMetadata Ingestion attempts
+     * to scan all the databases.
      */
     database?: string;
     /**
@@ -595,8 +595,8 @@ export interface AlationDatabaseConnection {
      */
     username?: string;
     /**
-     * Optional name to give to the database in UMetadata. If left blank, we will use default
-     * as the database name.
+     * Optional name to give to the database in UMetadata. If left blank, we will use default as
+     * the database name.
      */
     databaseName?: string;
     /**

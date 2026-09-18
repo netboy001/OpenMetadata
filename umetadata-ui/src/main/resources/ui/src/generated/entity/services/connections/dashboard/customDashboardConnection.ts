@@ -11,8 +11,8 @@
  *  limitations under the License.
  */
 /**
- * Custom Dashboard Service connection to build a source that is not supported by
- * UMetadata yet.
+ * Custom Dashboard Service connection to build a source that is not supported by UMetadata
+ * yet.
  */
 export interface CustomDashboardConnection {
     /**

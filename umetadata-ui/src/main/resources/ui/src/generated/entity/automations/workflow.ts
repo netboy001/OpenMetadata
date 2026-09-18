@@ -62,8 +62,7 @@ export interface Workflow {
     /**
      * Name of the workflow.
      */
-    name:                          string;
-    uMetadataServerConnection?: UMetadataConnection;
+    name: string;
     /**
      * Owners of this workflow.
      */
@@ -79,7 +78,8 @@ export interface Workflow {
     /**
      * Workflow computation status.
      */
-    status?: WorkflowStatus;
+    status?:                    WorkflowStatus;
+    uMetadataServerConnection?: UMetadataConnection;
     /**
      * Last update time corresponding to the new version of the entity in Unix epoch time
      * milliseconds.
@@ -220,366 +220,6 @@ export interface EntityReference {
      * `dashboardService`...
      */
     type: string;
-}
-
-/**
- * UMetadata Connection Config
- */
-export interface UMetadataConnection {
-    /**
-     * UMetadata server API version to use.
-     */
-    apiVersion?: string;
-    /**
-     * UMetadata Server Authentication Provider.
-     */
-    authProvider?: AuthProvider;
-    /**
-     * Cluster name to differentiate UMetadata Server instance
-     */
-    clusterName?: string;
-    /**
-     * Regex to only include/exclude databases that matches the pattern.
-     */
-    databaseFilterPattern?: FilterPattern;
-    /**
-     * Configuration for Sink Component in the UMetadata Ingestion Framework.
-     */
-    elasticsSearch?: UMetadataServerConnectionElasticsSearch;
-    /**
-     * Validate Umetadata Server & Client Version.
-     */
-    enableVersionValidation?: boolean;
-    extraHeaders?:            { [key: string]: string };
-    /**
-     * Force the overwriting of any entity during the ingestion.
-     */
-    forceEntityOverwriting?: boolean;
-    /**
-     * UMetadata Server Config. Must include API end point ex: http://localhost:8585/api
-     */
-    hostPort: string;
-    /**
-     * Include Dashboards for Indexing
-     */
-    includeDashboards?: boolean;
-    /**
-     * Include Database Services for Indexing
-     */
-    includeDatabaseServices?: boolean;
-    /**
-     * Include Glossary Terms for Indexing
-     */
-    includeGlossaryTerms?: boolean;
-    /**
-     * Include Messaging Services for Indexing
-     */
-    includeMessagingServices?: boolean;
-    /**
-     * Include MlModels for Indexing
-     */
-    includeMlModels?: boolean;
-    /**
-     * Include Pipelines for Indexing
-     */
-    includePipelines?: boolean;
-    /**
-     * Include Pipeline Services for Indexing
-     */
-    includePipelineServices?: boolean;
-    /**
-     * Include Tags for Policy
-     */
-    includePolicy?: boolean;
-    /**
-     * Include Tables for Indexing
-     */
-    includeTables?: boolean;
-    /**
-     * Include Tags for Indexing
-     */
-    includeTags?: boolean;
-    /**
-     * Include Teams for Indexing
-     */
-    includeTeams?: boolean;
-    /**
-     * Include Topics for Indexing
-     */
-    includeTopics?: boolean;
-    /**
-     * Include Users for Indexing
-     */
-    includeUsers?: boolean;
-    /**
-     * Limit the number of records for Indexing.
-     */
-    limitRecords?: number;
-    /**
-     * Regex to only include/exclude schemas that matches the pattern.
-     */
-    schemaFilterPattern?: FilterPattern;
-    /**
-     * Secrets Manager Loader for the Pipeline Service Client.
-     */
-    secretsManagerLoader?: SecretsManagerClientLoader;
-    /**
-     * Secrets Manager Provider for UMetadata Server.
-     */
-    secretsManagerProvider?: SecretsManagerProvider;
-    /**
-     * UMetadata Client security configuration.
-     */
-    securityConfig?: UMetadataJWTClientConfig;
-    /**
-     * SSL Configuration for UMetadata Server
-     */
-    sslConfig?: ConsumerConfigSSLClass;
-    /**
-     * If set to true, when creating a service during the ingestion we will store its Service
-     * Connection. Otherwise, the ingestion will create a bare service without connection
-     * details.
-     */
-    storeServiceConnection?: boolean;
-    /**
-     * Flag to enable Data Insight Extraction
-     */
-    supportsDataInsightExtraction?: boolean;
-    /**
-     * Flag to enable ElasticSearch Reindexing Extraction
-     */
-    supportsElasticSearchReindexingExtraction?: boolean;
-    /**
-     * Regex to only include/exclude tables that matches the pattern.
-     */
-    tableFilterPattern?: FilterPattern;
-    /**
-     * Service Type
-     */
-    type?: UmetadataType;
-    /**
-     * Flag to verify SSL Certificate for UMetadata Server.
-     */
-    verifySSL?: VerifySSL;
-}
-
-/**
- * UMetadata Server Authentication Provider.
- *
- * UMetadata Server Authentication Provider. Make sure configure same auth providers as
- * the one configured on UMetadata server.
- */
-export enum AuthProvider {
-    Auth0 = "auth0",
-    AwsCognito = "aws-cognito",
-    Azure = "azure",
-    Basic = "basic",
-    CustomOidc = "custom-oidc",
-    Google = "google",
-    LDAP = "ldap",
-    Okta = "okta",
-    Umetadata = "umetadata",
-    Saml = "saml",
-}
-
-/**
- * Regex to only include/exclude databases that matches the pattern.
- *
- * Regex to only fetch entities that matches the pattern.
- *
- * Regex to only include/exclude schemas that matches the pattern.
- *
- * Regex to only include/exclude tables that matches the pattern.
- *
- * Regex to only fetch api collections with names matching the pattern.
- *
- * Regex to only fetch api endpoints with names matching the pattern.
- *
- * Regex to only include/exclude stored procedures that matches the pattern.
- *
- * Regex to only fetch containers that matches the pattern.
- *
- * Regex to only include/exclude schemas that matches the pattern. System schemas
- * (information_schema, _statistics_, sys) are excluded by default.
- *
- * Regex to include/exclude FHIR resource categories
- *
- * Regex to include/exclude FHIR resource types
- *
- * Regex to only include/exclude namespaces (sources/spaces) that match the pattern. In
- * Dremio Cloud, namespaces are mapped as databases.
- *
- * Regex to only include/exclude folders that match the pattern. In Dremio Cloud, folders
- * are mapped as schemas.
- *
- * Regex to only include/exclude tables that match the pattern.
- *
- * Regex to only include/exclude dictionaries (tables) that matches the pattern.
- *
- * Regex exclude or include charts that matches the pattern.
- *
- * Regex to exclude or include dashboards that matches the pattern.
- *
- * Regex exclude or include data models that matches the pattern.
- *
- * Regex to exclude or include projects that matches the pattern.
- *
- * Regex to exclude or include charts that matches the pattern.
- *
- * Regex to only fetch topics that matches the pattern.
- *
- * Regex exclude pipelines.
- *
- * Regex to filter MuleSoft applications by name.
- *
- * Regex to only include/exclude pipelines that matches the pattern.
- *
- * Regex to only fetch MlModels with names matching the pattern.
- *
- * Regex to only include/exclude domains that match the pattern.
- *
- * Regex to only include/exclude glossaries that match the pattern.
- *
- * Regex to only fetch search indexes that matches the pattern.
- *
- * Regex to only include/exclude directories that matches the pattern.
- *
- * Regex to only include/exclude files that matches the pattern.
- *
- * Regex to only include/exclude spreadsheets that matches the pattern.
- *
- * Regex to only include/exclude worksheets that matches the pattern.
- *
- * Regex to only include/exclude directories that match the pattern.
- *
- * Regex to only include/exclude files that match the pattern.
- */
-export interface FilterPattern {
-    /**
-     * List of strings/regex patterns to match and exclude only database entities that match.
-     */
-    excludes?: string[];
-    /**
-     * List of strings/regex patterns to match and include only database entities that match.
-     */
-    includes?: string[];
-}
-
-/**
- * Configuration for Sink Component in the UMetadata Ingestion Framework.
- */
-export interface UMetadataServerConnectionElasticsSearch {
-    config?: { [key: string]: any };
-    /**
-     * Type of sink component ex: metadata
-     */
-    type: string;
-}
-
-/**
- * Secrets Manager Loader for the Pipeline Service Client.
- *
- * UMetadata Secrets Manager Client Loader. Lets the client know how the Secrets Manager
- * Credentials should be loaded from the environment.
- */
-export enum SecretsManagerClientLoader {
-    Airflow = "airflow",
-    Env = "env",
-    Noop = "noop",
-}
-
-/**
- * Secrets Manager Provider for UMetadata Server.
- *
- * UMetadata Secrets Manager Provider. Make sure to configure the same secrets manager
- * providers as the ones configured on the UMetadata server.
- *
- * Secrets Manager Provider to use for fetching secrets.
- */
-export enum SecretsManagerProvider {
-    Aws = "aws",
-    AwsSsm = "aws-ssm",
-    AzureKv = "azure-kv",
-    DB = "db",
-    Gcp = "gcp",
-    InMemory = "in-memory",
-    Kubernetes = "kubernetes",
-    ManagedAws = "managed-aws",
-    ManagedAwsSsm = "managed-aws-ssm",
-    ManagedAzureKv = "managed-azure-kv",
-}
-
-/**
- * UMetadata Client security configuration.
- *
- * uMetadataJWTClientConfig security configs.
- */
-export interface UMetadataJWTClientConfig {
-    /**
-     * UMetadata generated JWT token.
-     */
-    jwtToken: string;
-}
-
-/**
- * SSL Configuration for UMetadata Server
- *
- * Client SSL configuration
- *
- * SSL Configuration details for DB2 connection. Provide CA certificate for server
- * validation, and optionally client certificate and key for mutual TLS authentication.
- *
- * SSL Configuration details.
- *
- * SSL/TLS certificate configuration for client authentication. Provide CA certificate,
- * client certificate, and private key for mutual TLS authentication.
- *
- * SSL Configuration details. Provide the CA certificate to validate the Informix server
- * certificate. Paste the PEM content directly or upload the certificate file.
- *
- * Consumer Config SSL Config. Configuration for enabling SSL for the Consumer Config
- * connection.
- *
- * Schema Registry SSL Config. Configuration for enabling SSL for the Schema Registry
- * connection.
- *
- * UMetadata Client configured to validate SSL certificates.
- */
-export interface ConsumerConfigSSLClass {
-    /**
-     * The CA certificate used for SSL validation.
-     */
-    caCertificate?: string;
-    /**
-     * The SSL certificate used for client authentication.
-     */
-    sslCertificate?: string;
-    /**
-     * The private key associated with the SSL certificate.
-     */
-    sslKey?: string;
-}
-
-/**
- * Service Type
- *
- * UMetadata service type
- */
-export enum UmetadataType {
-    UMetadata = "UMetadata",
-}
-
-/**
- * Flag to verify SSL Certificate for UMetadata Server.
- *
- * Client SSL verification. Make sure to configure the SSLConfig if enabled.
- *
- * Client SSL verification.
- */
-export enum VerifySSL {
-    Ignore = "ignore",
-    NoSSL = "no-ssl",
-    Validate = "validate",
 }
 
 /**
@@ -780,8 +420,8 @@ export interface RequestConnection {
  *
  * Domo Database Connection Config
  *
- * Custom Database Service connection to build a source that is not supported by
- * UMetadata yet.
+ * Custom Database Service connection to build a source that is not supported by UMetadata
+ * yet.
  *
  * Sap Hana Database Connection Config
  *
@@ -844,8 +484,8 @@ export interface RequestConnection {
  *
  * Mode Connection Config
  *
- * Custom Dashboard Service connection to build a source that is not supported by
- * UMetadata yet.
+ * Custom Dashboard Service connection to build a source that is not supported by UMetadata
+ * yet.
  *
  * Domo Dashboard Connection Config
  *
@@ -876,8 +516,8 @@ export interface RequestConnection {
  *
  * Kinesis Connection Config
  *
- * Custom Messaging Service Connection to build a source that is not supported by
- * UMetadata yet.
+ * Custom Messaging Service Connection to build a source that is not supported by UMetadata
+ * yet.
  *
  * Airflow Metadata Database Connection Config
  *
@@ -901,8 +541,8 @@ export interface RequestConnection {
  *
  * Domo Pipeline Connection Config
  *
- * Custom Pipeline Service connection to build a source that is not supported by
- * UMetadata yet.
+ * Custom Pipeline Service connection to build a source that is not supported by UMetadata
+ * yet.
  *
  * Spline Metadata Database Connection Config
  *
@@ -1303,11 +943,11 @@ export interface ConfigObject {
      */
     catalogId?: string;
     /**
-     * Optional name to give to the database in UMetadata. If left blank, we will use default
-     * as the database name.
+     * Optional name to give to the database in UMetadata. If left blank, we will use default as
+     * the database name.
      *
-     * Optional name to give to the database in UMetadata. If left blank, we will use 'epic'
-     * as the database name.
+     * Optional name to give to the database in UMetadata. If left blank, we will use 'epic' as
+     * the database name.
      */
     databaseName?: string;
     /**
@@ -1335,16 +975,16 @@ export interface ConfigObject {
     authenticationMode?: any[] | boolean | number | null | AuthenticationModeObject | string;
     /**
      * Database of the data source. This is optional parameter, if you would like to restrict
-     * the metadata reading to a single database. When left blank, UMetadata Ingestion
-     * attempts to scan all the databases.
+     * the metadata reading to a single database. When left blank, UMetadata Ingestion attempts
+     * to scan all the databases.
      *
      * Database of the data source.
      *
      * Initial Redshift database to connect to. If you want to ingest all databases, set
      * ingestAllDatabases to true.
      *
-     * Optional name to give to the database in UMetadata. If left blank, we will use default
-     * as the database name.
+     * Optional name to give to the database in UMetadata. If left blank, we will use default as
+     * the database name.
      *
      * Optional: Restrict metadata ingestion to a specific namespace (source/space). When left
      * blank, all namespaces will be ingested.
@@ -1595,8 +1235,8 @@ export interface ConfigObject {
      * restrict the metadata reading to a single databaseSchema. When left blank, UMetadata
      * Ingestion attempts to scan all the databaseSchema.
      *
-     * Optional name to give to the schema in UMetadata. If left blank, we will use default
-     * as the schema name
+     * Optional name to give to the schema in UMetadata. If left blank, we will use default as
+     * the schema name
      */
     databaseSchema?: string;
     /**
@@ -2808,6 +2448,89 @@ export interface UsernamePasswordAuthentication {
 }
 
 /**
+ * Regex to only fetch api collections with names matching the pattern.
+ *
+ * Regex to only fetch entities that matches the pattern.
+ *
+ * Regex to only fetch api endpoints with names matching the pattern.
+ *
+ * Regex to only include/exclude databases that matches the pattern.
+ *
+ * Regex to only include/exclude schemas that matches the pattern.
+ *
+ * Regex to only include/exclude stored procedures that matches the pattern.
+ *
+ * Regex to only include/exclude tables that matches the pattern.
+ *
+ * Regex to only fetch containers that matches the pattern.
+ *
+ * Regex to only include/exclude schemas that matches the pattern. System schemas
+ * (information_schema, _statistics_, sys) are excluded by default.
+ *
+ * Regex to include/exclude FHIR resource categories
+ *
+ * Regex to include/exclude FHIR resource types
+ *
+ * Regex to only include/exclude namespaces (sources/spaces) that match the pattern. In
+ * Dremio Cloud, namespaces are mapped as databases.
+ *
+ * Regex to only include/exclude folders that match the pattern. In Dremio Cloud, folders
+ * are mapped as schemas.
+ *
+ * Regex to only include/exclude tables that match the pattern.
+ *
+ * Regex to only include/exclude dictionaries (tables) that matches the pattern.
+ *
+ * Regex exclude or include charts that matches the pattern.
+ *
+ * Regex to exclude or include dashboards that matches the pattern.
+ *
+ * Regex exclude or include data models that matches the pattern.
+ *
+ * Regex to exclude or include projects that matches the pattern.
+ *
+ * Regex to exclude or include charts that matches the pattern.
+ *
+ * Regex to only fetch topics that matches the pattern.
+ *
+ * Regex exclude pipelines.
+ *
+ * Regex to filter MuleSoft applications by name.
+ *
+ * Regex to only include/exclude pipelines that matches the pattern.
+ *
+ * Regex to only fetch MlModels with names matching the pattern.
+ *
+ * Regex to only include/exclude domains that match the pattern.
+ *
+ * Regex to only include/exclude glossaries that match the pattern.
+ *
+ * Regex to only fetch search indexes that matches the pattern.
+ *
+ * Regex to only include/exclude directories that matches the pattern.
+ *
+ * Regex to only include/exclude files that matches the pattern.
+ *
+ * Regex to only include/exclude spreadsheets that matches the pattern.
+ *
+ * Regex to only include/exclude worksheets that matches the pattern.
+ *
+ * Regex to only include/exclude directories that match the pattern.
+ *
+ * Regex to only include/exclude files that match the pattern.
+ */
+export interface FilterPattern {
+    /**
+     * List of strings/regex patterns to match and exclude only database entities that match.
+     */
+    excludes?: string[];
+    /**
+     * List of strings/regex patterns to match and include only database entities that match.
+     */
+    includes?: string[];
+}
+
+/**
  * Choose between Basic authentication (for self-hosted) or OAuth 2.0 client credentials
  * (for Airbyte Cloud)
  *
@@ -2858,6 +2581,25 @@ export enum AuthMechanismEnum {
     LDAP = "LDAP",
     Nosasl = "NOSASL",
     Plain = "PLAIN",
+}
+
+/**
+ * UMetadata Server Authentication Provider.
+ *
+ * UMetadata Server Authentication Provider. Make sure configure same auth providers as the
+ * one configured on UMetadata server.
+ */
+export enum AuthProvider {
+    Auth0 = "auth0",
+    AwsCognito = "aws-cognito",
+    Azure = "azure",
+    Basic = "basic",
+    CustomOidc = "custom-oidc",
+    Google = "google",
+    LDAP = "ldap",
+    Okta = "okta",
+    Saml = "saml",
+    Umetadata = "umetadata",
 }
 
 /**
@@ -3414,6 +3156,45 @@ export enum KafkaSecurityProtocol {
     SSL = "SSL",
     SaslPlaintext = "SASL_PLAINTEXT",
     SaslSSL = "SASL_SSL",
+}
+
+/**
+ * Client SSL configuration
+ *
+ * SSL Configuration details for DB2 connection. Provide CA certificate for server
+ * validation, and optionally client certificate and key for mutual TLS authentication.
+ *
+ * SSL Configuration details.
+ *
+ * SSL/TLS certificate configuration for client authentication. Provide CA certificate,
+ * client certificate, and private key for mutual TLS authentication.
+ *
+ * SSL Configuration details. Provide the CA certificate to validate the Informix server
+ * certificate. Paste the PEM content directly or upload the certificate file.
+ *
+ * Consumer Config SSL Config. Configuration for enabling SSL for the Consumer Config
+ * connection.
+ *
+ * Schema Registry SSL Config. Configuration for enabling SSL for the Schema Registry
+ * connection.
+ *
+ * SSL Configuration for UMetadata Server
+ *
+ * UMetadata Client configured to validate SSL certificates.
+ */
+export interface ConsumerConfigSSLClass {
+    /**
+     * The CA certificate used for SSL validation.
+     */
+    caCertificate?: string;
+    /**
+     * The SSL certificate used for client authentication.
+     */
+    sslCertificate?: string;
+    /**
+     * The private key associated with the SSL certificate.
+     */
+    sslKey?: string;
 }
 
 /**
@@ -4046,8 +3827,8 @@ export interface ConfigConnection {
      * Database of the data source.
      *
      * Database of the data source. This is optional parameter, if you would like to restrict
-     * the metadata reading to a single database. When left blank, UMetadata Ingestion
-     * attempts to scan all the databases.
+     * the metadata reading to a single database. When left blank, UMetadata Ingestion attempts
+     * to scan all the databases.
      */
     database?: string;
     /**
@@ -4168,8 +3949,8 @@ export interface ConfigConnection {
      */
     tableFilterPattern?: FilterPattern;
     /**
-     * Optional name to give to the database in UMetadata. If left blank, we will use default
-     * as the database name.
+     * Optional name to give to the database in UMetadata. If left blank, we will use default as
+     * the database name.
      */
     databaseName?: string;
     /**
@@ -4443,8 +4224,6 @@ export enum ConnectionScheme {
  *
  * UMetadata Client configured to validate SSL certificates.
  *
- * SSL Configuration for UMetadata Server
- *
  * SSL Configuration details for DB2 connection. Provide CA certificate for server
  * validation, and optionally client certificate and key for mutual TLS authentication.
  *
@@ -4461,6 +4240,8 @@ export enum ConnectionScheme {
  *
  * Schema Registry SSL Config. Configuration for enabling SSL for the Schema Registry
  * connection.
+ *
+ * SSL Configuration for UMetadata Server
  */
 export interface ConnectionSSLConfig {
     /**
@@ -4509,6 +4290,19 @@ export enum ConnectionType {
     RESTAPI = "RestAPI",
     S3 = "S3",
     SQLite = "SQLite",
+}
+
+/**
+ * Client SSL verification. Make sure to configure the SSLConfig if enabled.
+ *
+ * Client SSL verification.
+ *
+ * Flag to verify SSL Certificate for UMetadata Server.
+ */
+export enum VerifySSL {
+    Ignore = "ignore",
+    NoSSL = "no-ssl",
+    Validate = "validate",
 }
 
 /**
@@ -4575,8 +4369,8 @@ export interface DatabaseConnectionClass {
     connectionOptions?:   { [key: string]: string };
     /**
      * Database of the data source. This is optional parameter, if you would like to restrict
-     * the metadata reading to a single database. When left blank, UMetadata Ingestion
-     * attempts to scan all the databases.
+     * the metadata reading to a single database. When left blank, UMetadata Ingestion attempts
+     * to scan all the databases.
      */
     database: string;
     /**
@@ -4787,8 +4581,8 @@ export interface HiveMetastoreConnectionDetails {
     connectionOptions?:   { [key: string]: string };
     /**
      * Database of the data source. This is optional parameter, if you would like to restrict
-     * the metadata reading to a single database. When left blank, UMetadata Ingestion
-     * attempts to scan all the databases.
+     * the metadata reading to a single database. When left blank, UMetadata Ingestion attempts
+     * to scan all the databases.
      */
     database?: string;
     /**
@@ -4856,8 +4650,8 @@ export interface HiveMetastoreConnectionDetails {
      */
     username?: string;
     /**
-     * Optional name to give to the database in UMetadata. If left blank, we will use default
-     * as the database name.
+     * Optional name to give to the database in UMetadata. If left blank, we will use default as
+     * the database name.
      */
     databaseName?: string;
     /**
@@ -5139,6 +4933,51 @@ export enum SearchIndexMappingLanguage {
     Zh = "ZH",
 }
 
+/**
+ * Secrets Manager Loader for the Pipeline Service Client.
+ *
+ * UMetadata Secrets Manager Client Loader. Lets the client know how the Secrets Manager
+ * Credentials should be loaded from the environment.
+ */
+export enum SecretsManagerClientLoader {
+    Airflow = "airflow",
+    Env = "env",
+    Noop = "noop",
+}
+
+/**
+ * Secrets Manager Provider for UMetadata Server.
+ *
+ * UMetadata Secrets Manager Provider. Make sure to configure the same secrets manager
+ * providers as the ones configured on the UMetadata server.
+ *
+ * Secrets Manager Provider to use for fetching secrets.
+ */
+export enum SecretsManagerProvider {
+    Aws = "aws",
+    AwsSsm = "aws-ssm",
+    AzureKv = "azure-kv",
+    DB = "db",
+    Gcp = "gcp",
+    InMemory = "in-memory",
+    Kubernetes = "kubernetes",
+    ManagedAws = "managed-aws",
+    ManagedAwsSsm = "managed-aws-ssm",
+    ManagedAzureKv = "managed-azure-kv",
+}
+
+/**
+ * UMetadata Client security configuration.
+ *
+ * uMetadataJWTClientConfig security configs.
+ */
+export interface UMetadataJWTClientConfig {
+    /**
+     * UMetadata generated JWT token.
+     */
+    jwtToken: string;
+}
+
 export enum SpaceType {
     Data = "Data",
     Managed = "Managed",
@@ -5147,8 +4986,6 @@ export enum SpaceType {
 }
 
 /**
- * SSL Configuration for UMetadata Server
- *
  * Client SSL configuration
  *
  * SSL Configuration details for DB2 connection. Provide CA certificate for server
@@ -5167,6 +5004,8 @@ export enum SpaceType {
  *
  * Schema Registry SSL Config. Configuration for enabling SSL for the Schema Registry
  * connection.
+ *
+ * SSL Configuration for UMetadata Server
  *
  * UMetadata Client configured to validate SSL certificates.
  *
@@ -5430,7 +5269,6 @@ export enum ConfigType {
     Mysql = "Mysql",
     Nifi = "Nifi",
     OpenLineage = "OpenLineage",
-    UMetadata = "UMetadata",
     OpenSearch = "OpenSearch",
     Oracle = "Oracle",
     PinotDB = "PinotDB",
@@ -5475,6 +5313,7 @@ export enum ConfigType {
     ThoughtSpot = "ThoughtSpot",
     Timescale = "Timescale",
     Trino = "Trino",
+    UMetadata = "UMetadata",
     UnityCatalog = "UnityCatalog",
     VertexAI = "VertexAI",
     Vertica = "Vertica",
@@ -5955,6 +5794,167 @@ export enum WorkflowStatus {
     Pending = "Pending",
     Running = "Running",
     Successful = "Successful",
+}
+
+/**
+ * UMetadata Connection Config
+ */
+export interface UMetadataConnection {
+    /**
+     * UMetadata server API version to use.
+     */
+    apiVersion?: string;
+    /**
+     * UMetadata Server Authentication Provider.
+     */
+    authProvider?: AuthProvider;
+    /**
+     * Cluster name to differentiate UMetadata Server instance
+     */
+    clusterName?: string;
+    /**
+     * Regex to only include/exclude databases that matches the pattern.
+     */
+    databaseFilterPattern?: FilterPattern;
+    /**
+     * Configuration for Sink Component in the UMetadata Ingestion Framework.
+     */
+    elasticsSearch?: UMetadataServerConnectionElasticsSearch;
+    /**
+     * Validate Umetadata Server & Client Version.
+     */
+    enableVersionValidation?: boolean;
+    extraHeaders?:            { [key: string]: string };
+    /**
+     * Force the overwriting of any entity during the ingestion.
+     */
+    forceEntityOverwriting?: boolean;
+    /**
+     * UMetadata Server Config. Must include API end point ex: http://localhost:8585/api
+     */
+    hostPort: string;
+    /**
+     * Include Dashboards for Indexing
+     */
+    includeDashboards?: boolean;
+    /**
+     * Include Database Services for Indexing
+     */
+    includeDatabaseServices?: boolean;
+    /**
+     * Include Glossary Terms for Indexing
+     */
+    includeGlossaryTerms?: boolean;
+    /**
+     * Include Messaging Services for Indexing
+     */
+    includeMessagingServices?: boolean;
+    /**
+     * Include MlModels for Indexing
+     */
+    includeMlModels?: boolean;
+    /**
+     * Include Pipelines for Indexing
+     */
+    includePipelines?: boolean;
+    /**
+     * Include Pipeline Services for Indexing
+     */
+    includePipelineServices?: boolean;
+    /**
+     * Include Tags for Policy
+     */
+    includePolicy?: boolean;
+    /**
+     * Include Tables for Indexing
+     */
+    includeTables?: boolean;
+    /**
+     * Include Tags for Indexing
+     */
+    includeTags?: boolean;
+    /**
+     * Include Teams for Indexing
+     */
+    includeTeams?: boolean;
+    /**
+     * Include Topics for Indexing
+     */
+    includeTopics?: boolean;
+    /**
+     * Include Users for Indexing
+     */
+    includeUsers?: boolean;
+    /**
+     * Limit the number of records for Indexing.
+     */
+    limitRecords?: number;
+    /**
+     * Regex to only include/exclude schemas that matches the pattern.
+     */
+    schemaFilterPattern?: FilterPattern;
+    /**
+     * Secrets Manager Loader for the Pipeline Service Client.
+     */
+    secretsManagerLoader?: SecretsManagerClientLoader;
+    /**
+     * Secrets Manager Provider for UMetadata Server.
+     */
+    secretsManagerProvider?: SecretsManagerProvider;
+    /**
+     * UMetadata Client security configuration.
+     */
+    securityConfig?: UMetadataJWTClientConfig;
+    /**
+     * SSL Configuration for UMetadata Server
+     */
+    sslConfig?: ConsumerConfigSSLClass;
+    /**
+     * If set to true, when creating a service during the ingestion we will store its Service
+     * Connection. Otherwise, the ingestion will create a bare service without connection
+     * details.
+     */
+    storeServiceConnection?: boolean;
+    /**
+     * Flag to enable Data Insight Extraction
+     */
+    supportsDataInsightExtraction?: boolean;
+    /**
+     * Flag to enable ElasticSearch Reindexing Extraction
+     */
+    supportsElasticSearchReindexingExtraction?: boolean;
+    /**
+     * Regex to only include/exclude tables that matches the pattern.
+     */
+    tableFilterPattern?: FilterPattern;
+    /**
+     * Service Type
+     */
+    type?: UmetadataType;
+    /**
+     * Flag to verify SSL Certificate for UMetadata Server.
+     */
+    verifySSL?: VerifySSL;
+}
+
+/**
+ * Configuration for Sink Component in the UMetadata Ingestion Framework.
+ */
+export interface UMetadataServerConnectionElasticsSearch {
+    config?: { [key: string]: any };
+    /**
+     * Type of sink component ex: metadata
+     */
+    type: string;
+}
+
+/**
+ * Service Type
+ *
+ * UMetadata service type
+ */
+export enum UmetadataType {
+    UMetadata = "UMetadata",
 }
 
 /**

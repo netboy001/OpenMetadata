@@ -50,15 +50,15 @@ export interface DriveServiceMetadataPipeline {
      */
     includeWorksheets?: boolean;
     /**
-     * Optional configuration to soft delete directories in UMetadata if the source
-     * directories are deleted. Also, if the directory is deleted, all the associated entities
-     * like files, spreadsheets, worksheets, lineage, etc., with that directory will be deleted
+     * Optional configuration to soft delete directories in UMetadata if the source directories
+     * are deleted. Also, if the directory is deleted, all the associated entities like files,
+     * spreadsheets, worksheets, lineage, etc., with that directory will be deleted
      */
     markDeletedDirectories?: boolean;
     /**
-     * Optional configuration to soft delete files in UMetadata if the source files are
-     * deleted. Also, if the file is deleted, all the associated entities like lineage, etc.,
-     * with that file will be deleted
+     * Optional configuration to soft delete files in UMetadata if the source files are deleted.
+     * Also, if the file is deleted, all the associated entities like lineage, etc., with that
+     * file will be deleted
      */
     markDeletedFiles?: boolean;
     /**
@@ -75,11 +75,11 @@ export interface DriveServiceMetadataPipeline {
     markDeletedWorksheets?: boolean;
     /**
      * Set the 'Override Metadata' toggle to control whether to override the existing metadata
-     * in the UMetadata server with the metadata fetched from the source. If the toggle is
-     * set to true, the metadata fetched from the source will override the existing metadata in
-     * the UMetadata server. If the toggle is set to false, the metadata fetched from the
-     * source will not override the existing metadata in the UMetadata server. This is
-     * applicable for fields like description, tags, owner and displayName
+     * in the UMetadata server with the metadata fetched from the source. If the toggle is set
+     * to true, the metadata fetched from the source will override the existing metadata in the
+     * UMetadata server. If the toggle is set to false, the metadata fetched from the source
+     * will not override the existing metadata in the UMetadata server. This is applicable for
+     * fields like description, tags, owner and displayName
      */
     overrideMetadata?: boolean;
     /**

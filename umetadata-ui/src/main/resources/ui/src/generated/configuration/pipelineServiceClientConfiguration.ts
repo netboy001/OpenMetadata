@@ -31,8 +31,8 @@ export interface PipelineServiceClientConfiguration {
      */
     className: string;
     /**
-     * Flags if the ingestion from the UMetadata UI is enabled. If ingesting externally, we
-     * can set this value to false to not check the Pipeline Service Client component health.
+     * Flags if the ingestion from the UMetadata UI is enabled. If ingesting externally, we can
+     * set this value to false to not check the Pipeline Service Client component health.
      */
     enabled?: boolean;
     /**
@@ -64,14 +64,14 @@ export interface PipelineServiceClientConfiguration {
     parameters?:           { [key: string]: any };
     secretsManagerLoader?: SecretsManagerClientLoader;
     /**
-     * UMetadata Client SSL configuration. This SSL information is about the UMetadata
-     * server. It will be picked up from the pipelineServiceClient to use/ignore SSL when
-     * connecting to the UMetadata server.
+     * UMetadata Client SSL configuration. This SSL information is about the UMetadata server.
+     * It will be picked up from the pipelineServiceClient to use/ignore SSL when connecting to
+     * the UMetadata server.
      */
     sslConfig?: Config;
     /**
-     * Client SSL verification policy when connecting to the UMetadata server: no-ssl,
-     * ignore, validate.
+     * Client SSL verification policy when connecting to the UMetadata server: no-ssl, ignore,
+     * validate.
      */
     verifySSL?: VerifySSL;
 }
@@ -231,8 +231,8 @@ export interface UMetadataJWTClientConfig {
 /**
  * Auth Provider with which UMetadata service configured with.
  *
- * UMetadata Server Authentication Provider. Make sure configure same auth providers as
- * the one configured on UMetadata server.
+ * UMetadata Server Authentication Provider. Make sure configure same auth providers as the
+ * one configured on UMetadata server.
  */
 export enum AuthProvider {
     Auth0 = "auth0",
@@ -243,8 +243,8 @@ export enum AuthProvider {
     Google = "google",
     LDAP = "ldap",
     Okta = "okta",
-    Umetadata = "umetadata",
     Saml = "saml",
+    Umetadata = "umetadata",
 }
 
 /**
@@ -401,9 +401,9 @@ export enum SecretsManagerClientLoader {
 }
 
 /**
- * UMetadata Client SSL configuration. This SSL information is about the UMetadata
- * server. It will be picked up from the pipelineServiceClient to use/ignore SSL when
- * connecting to the UMetadata server.
+ * UMetadata Client SSL configuration. This SSL information is about the UMetadata server.
+ * It will be picked up from the pipelineServiceClient to use/ignore SSL when connecting to
+ * the UMetadata server.
  *
  * Client SSL configuration
  *
@@ -425,8 +425,8 @@ export interface Config {
 }
 
 /**
- * Client SSL verification policy when connecting to the UMetadata server: no-ssl,
- * ignore, validate.
+ * Client SSL verification policy when connecting to the UMetadata server: no-ssl, ignore,
+ * validate.
  *
  * Client SSL verification. Make sure to configure the SSLConfig if enabled.
  */

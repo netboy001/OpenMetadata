@@ -113,8 +113,8 @@ export interface ServiceConnection {
  *
  * Mode Connection Config
  *
- * Custom Dashboard Service connection to build a source that is not supported by
- * UMetadata yet.
+ * Custom Dashboard Service connection to build a source that is not supported by UMetadata
+ * yet.
  *
  * Domo Dashboard Connection Config
  *
@@ -201,8 +201,8 @@ export interface ServiceConnection {
  *
  * Domo Database Connection Config
  *
- * Custom Database Service connection to build a source that is not supported by
- * UMetadata yet.
+ * Custom Database Service connection to build a source that is not supported by UMetadata
+ * yet.
  *
  * Sap Hana Database Connection Config
  *
@@ -255,8 +255,8 @@ export interface ServiceConnection {
  *
  * Kinesis Connection Config
  *
- * Custom Messaging Service Connection to build a source that is not supported by
- * UMetadata yet.
+ * Custom Messaging Service Connection to build a source that is not supported by UMetadata
+ * yet.
  *
  * Amundsen Connection Config
  *
@@ -294,8 +294,8 @@ export interface ServiceConnection {
  *
  * Domo Pipeline Connection Config
  *
- * Custom Pipeline Service connection to build a source that is not supported by
- * UMetadata yet.
+ * Custom Pipeline Service connection to build a source that is not supported by UMetadata
+ * yet.
  *
  * Spline Metadata Database Connection Config
  *
@@ -1184,11 +1184,11 @@ export interface ConfigObject {
      */
     catalogId?: string;
     /**
-     * Optional name to give to the database in UMetadata. If left blank, we will use default
-     * as the database name.
+     * Optional name to give to the database in UMetadata. If left blank, we will use default as
+     * the database name.
      *
-     * Optional name to give to the database in UMetadata. If left blank, we will use 'epic'
-     * as the database name.
+     * Optional name to give to the database in UMetadata. If left blank, we will use 'epic' as
+     * the database name.
      */
     databaseName?: string;
     /**
@@ -1216,16 +1216,16 @@ export interface ConfigObject {
     authenticationMode?: any[] | boolean | number | null | AuthenticationModeObject | string;
     /**
      * Database of the data source. This is optional parameter, if you would like to restrict
-     * the metadata reading to a single database. When left blank, UMetadata Ingestion
-     * attempts to scan all the databases.
+     * the metadata reading to a single database. When left blank, UMetadata Ingestion attempts
+     * to scan all the databases.
      *
      * Database of the data source.
      *
      * Initial Redshift database to connect to. If you want to ingest all databases, set
      * ingestAllDatabases to true.
      *
-     * Optional name to give to the database in UMetadata. If left blank, we will use default
-     * as the database name.
+     * Optional name to give to the database in UMetadata. If left blank, we will use default as
+     * the database name.
      *
      * Optional: Restrict metadata ingestion to a specific namespace (source/space). When left
      * blank, all namespaces will be ingested.
@@ -1279,8 +1279,8 @@ export interface ConfigObject {
      * restrict the metadata reading to a single databaseSchema. When left blank, UMetadata
      * Ingestion attempts to scan all the databaseSchema.
      *
-     * Optional name to give to the schema in UMetadata. If left blank, we will use default
-     * as the schema name
+     * Optional name to give to the schema in UMetadata. If left blank, we will use default as
+     * the schema name
      */
     databaseSchema?: string;
     /**
@@ -2325,8 +2325,8 @@ export enum AuthMechanismEnum {
 /**
  * UMetadata Server Authentication Provider.
  *
- * UMetadata Server Authentication Provider. Make sure configure same auth providers as
- * the one configured on UMetadata server.
+ * UMetadata Server Authentication Provider. Make sure configure same auth providers as the
+ * one configured on UMetadata server.
  */
 export enum AuthProvider {
     Auth0 = "auth0",
@@ -2337,8 +2337,8 @@ export enum AuthProvider {
     Google = "google",
     LDAP = "ldap",
     Okta = "okta",
-    Umetadata = "umetadata",
     Saml = "saml",
+    Umetadata = "umetadata",
 }
 
 /**
@@ -3589,8 +3589,8 @@ export interface ConfigConnection {
     connectionOptions?:   { [key: string]: string };
     /**
      * Database of the data source. This is optional parameter, if you would like to restrict
-     * the metadata reading to a single database. When left blank, UMetadata Ingestion
-     * attempts to scan all the databases.
+     * the metadata reading to a single database. When left blank, UMetadata Ingestion attempts
+     * to scan all the databases.
      *
      * Database of the data source.
      */
@@ -3654,8 +3654,8 @@ export interface ConfigConnection {
      */
     type?: ConnectionType;
     /**
-     * Optional name to give to the database in UMetadata. If left blank, we will use default
-     * as the database name.
+     * Optional name to give to the database in UMetadata. If left blank, we will use default as
+     * the database name.
      */
     databaseName?: string;
     /**
@@ -4108,8 +4108,8 @@ export interface DatabaseConnectionClass {
     connectionOptions?:   { [key: string]: string };
     /**
      * Database of the data source. This is optional parameter, if you would like to restrict
-     * the metadata reading to a single database. When left blank, UMetadata Ingestion
-     * attempts to scan all the databases.
+     * the metadata reading to a single database. When left blank, UMetadata Ingestion attempts
+     * to scan all the databases.
      */
     database: string;
     /**
@@ -4320,8 +4320,8 @@ export interface HiveMetastoreConnectionDetails {
     connectionOptions?:   { [key: string]: string };
     /**
      * Database of the data source. This is optional parameter, if you would like to restrict
-     * the metadata reading to a single database. When left blank, UMetadata Ingestion
-     * attempts to scan all the databases.
+     * the metadata reading to a single database. When left blank, UMetadata Ingestion attempts
+     * to scan all the databases.
      */
     database?: string;
     /**
@@ -4389,8 +4389,8 @@ export interface HiveMetastoreConnectionDetails {
      */
     username?: string;
     /**
-     * Optional name to give to the database in UMetadata. If left blank, we will use default
-     * as the database name.
+     * Optional name to give to the database in UMetadata. If left blank, we will use default as
+     * the database name.
      */
     databaseName?: string;
     /**
@@ -5006,7 +5006,6 @@ export enum ConfigType {
     Mysql = "Mysql",
     Nifi = "Nifi",
     OpenLineage = "OpenLineage",
-    UMetadata = "UMetadata",
     OpenSearch = "OpenSearch",
     Oracle = "Oracle",
     PinotDB = "PinotDB",
@@ -5051,6 +5050,7 @@ export enum ConfigType {
     ThoughtSpot = "ThoughtSpot",
     Timescale = "Timescale",
     Trino = "Trino",
+    UMetadata = "UMetadata",
     UnityCatalog = "UnityCatalog",
     VertexAI = "VertexAI",
     Vertica = "Vertica",

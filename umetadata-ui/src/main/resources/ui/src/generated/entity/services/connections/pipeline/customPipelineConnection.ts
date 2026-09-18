@@ -11,8 +11,8 @@
  *  limitations under the License.
  */
 /**
- * Custom Pipeline Service connection to build a source that is not supported by
- * UMetadata yet.
+ * Custom Pipeline Service connection to build a source that is not supported by UMetadata
+ * yet.
  */
 export interface CustomPipelineConnection {
     connectionOptions?: { [key: string]: string };

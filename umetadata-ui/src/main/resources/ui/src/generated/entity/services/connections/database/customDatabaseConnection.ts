@@ -11,8 +11,8 @@
  *  limitations under the License.
  */
 /**
- * Custom Database Service connection to build a source that is not supported by
- * UMetadata yet.
+ * Custom Database Service connection to build a source that is not supported by UMetadata
+ * yet.
  */
 export interface CustomDatabaseConnection {
     connectionOptions?: { [key: string]: string };

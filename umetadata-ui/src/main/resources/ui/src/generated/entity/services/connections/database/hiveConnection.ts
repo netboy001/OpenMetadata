@@ -29,8 +29,8 @@ export interface HiveConnection {
      */
     databaseFilterPattern?: FilterPattern;
     /**
-     * Optional name to give to the database in UMetadata. If left blank, we will use default
-     * as the database name.
+     * Optional name to give to the database in UMetadata. If left blank, we will use default as
+     * the database name.
      */
     databaseName?: string;
     /**
@@ -149,8 +149,8 @@ export interface HiveMetastoreConnectionDetails {
     connectionOptions?:   { [key: string]: string };
     /**
      * Database of the data source. This is optional parameter, if you would like to restrict
-     * the metadata reading to a single database. When left blank, UMetadata Ingestion
-     * attempts to scan all the databases.
+     * the metadata reading to a single database. When left blank, UMetadata Ingestion attempts
+     * to scan all the databases.
      */
     database?: string;
     /**
@@ -218,8 +218,8 @@ export interface HiveMetastoreConnectionDetails {
      */
     username?: string;
     /**
-     * Optional name to give to the database in UMetadata. If left blank, we will use default
-     * as the database name.
+     * Optional name to give to the database in UMetadata. If left blank, we will use default as
+     * the database name.
      */
     databaseName?: string;
     /**

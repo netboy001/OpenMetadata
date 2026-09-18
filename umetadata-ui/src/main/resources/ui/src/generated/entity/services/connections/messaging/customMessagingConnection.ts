@@ -11,8 +11,8 @@
  *  limitations under the License.
  */
 /**
- * Custom Messaging Service Connection to build a source that is not supported by
- * UMetadata yet.
+ * Custom Messaging Service Connection to build a source that is not supported by UMetadata
+ * yet.
  */
 export interface CustomMessagingConnection {
     connectionOptions?: { [key: string]: string };

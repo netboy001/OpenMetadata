@@ -39,8 +39,8 @@ export interface PipelineServiceMetadataPipeline {
      */
     lineageInformation?: LineageInformation;
     /**
-     * Optional configuration to soft delete Pipelines in UMetadata if the source Pipelines
-     * are deleted. Also, if the Pipeline is deleted, all the associated entities like lineage,
+     * Optional configuration to soft delete Pipelines in UMetadata if the source Pipelines are
+     * deleted. Also, if the Pipeline is deleted, all the associated entities like lineage,
      * etc., with that Pipeline will be deleted
      */
     markDeletedPipelines?: boolean;
@@ -50,11 +50,11 @@ export interface PipelineServiceMetadataPipeline {
     overrideLineage?: boolean;
     /**
      * Set the 'Override Metadata' toggle to control whether to override the existing metadata
-     * in the UMetadata server with the metadata fetched from the source. If the toggle is
-     * set to true, the metadata fetched from the source will override the existing metadata in
-     * the UMetadata server. If the toggle is set to false, the metadata fetched from the
-     * source will not override the existing metadata in the UMetadata server. This is
-     * applicable for fields like description, tags, owner and displayName
+     * in the UMetadata server with the metadata fetched from the source. If the toggle is set
+     * to true, the metadata fetched from the source will override the existing metadata in the
+     * UMetadata server. If the toggle is set to false, the metadata fetched from the source
+     * will not override the existing metadata in the UMetadata server. This is applicable for
+     * fields like description, tags, owner and displayName
      */
     overrideMetadata?: boolean;
     /**

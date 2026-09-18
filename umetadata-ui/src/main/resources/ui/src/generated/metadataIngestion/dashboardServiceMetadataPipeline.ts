@@ -56,8 +56,8 @@ export interface DashboardServiceMetadataPipeline {
      */
     markDeletedDashboards?: boolean;
     /**
-     * Optional configuration to soft delete data models in UMetadata if the source data
-     * models are deleted. Also, if the data models is deleted, all the associated entities like
+     * Optional configuration to soft delete data models in UMetadata if the source data models
+     * are deleted. Also, if the data models is deleted, all the associated entities like
      * lineage, etc., with that data models will be deleted
      */
     markDeletedDataModels?: boolean;
@@ -67,11 +67,11 @@ export interface DashboardServiceMetadataPipeline {
     overrideLineage?: boolean;
     /**
      * Set the 'Override Metadata' toggle to control whether to override the existing metadata
-     * in the UMetadata server with the metadata fetched from the source. If the toggle is
-     * set to true, the metadata fetched from the source will override the existing metadata in
-     * the UMetadata server. If the toggle is set to false, the metadata fetched from the
-     * source will not override the existing metadata in the UMetadata server. This is
-     * applicable for fields like description, tags, owner and displayName
+     * in the UMetadata server with the metadata fetched from the source. If the toggle is set
+     * to true, the metadata fetched from the source will override the existing metadata in the
+     * UMetadata server. If the toggle is set to false, the metadata fetched from the source
+     * will not override the existing metadata in the UMetadata server. This is applicable for
+     * fields like description, tags, owner and displayName
      */
     overrideMetadata?: boolean;
     /**

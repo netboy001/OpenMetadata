@@ -29,8 +29,8 @@ export interface ImpalaConnection {
      */
     databaseFilterPattern?: FilterPattern;
     /**
-     * Optional name to give to the database in UMetadata. If left blank, we will use default
-     * as the database name.
+     * Optional name to give to the database in UMetadata. If left blank, we will use default as
+     * the database name.
      */
     databaseName?: string;
     /**

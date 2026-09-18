@@ -68,8 +68,8 @@ export interface DatabaseServiceMetadataPipeline {
      */
     jsonSchemaSampleSize?: number;
     /**
-     * Optional configuration to soft delete databases in UMetadata if the source databases
-     * are deleted. Also, if the database is deleted, all the associated entities like schemas,
+     * Optional configuration to soft delete databases in UMetadata if the source databases are
+     * deleted. Also, if the database is deleted, all the associated entities like schemas,
      * tables, views, stored procedures, lineage, etc., with that database will be deleted
      */
     markDeletedDatabases?: boolean;
@@ -80,9 +80,9 @@ export interface DatabaseServiceMetadataPipeline {
      */
     markDeletedSchemas?: boolean;
     /**
-     * Optional configuration to soft delete stored procedures in UMetadata if the source
-     * stored procedures are deleted. Also, if the stored procedures is deleted, all the
-     * associated entities like lineage, etc., with that stored procedures will be deleted
+     * Optional configuration to soft delete stored procedures in UMetadata if the source stored
+     * procedures are deleted. Also, if the stored procedures is deleted, all the associated
+     * entities like lineage, etc., with that stored procedures will be deleted
      */
     markDeletedStoredProcedures?: boolean;
     /**
@@ -95,11 +95,11 @@ export interface DatabaseServiceMetadataPipeline {
     markDeletedTables?: boolean;
     /**
      * Set the 'Override Metadata' toggle to control whether to override the existing metadata
-     * in the UMetadata server with the metadata fetched from the source. If the toggle is
-     * set to true, the metadata fetched from the source will override the existing metadata in
-     * the UMetadata server. If the toggle is set to false, the metadata fetched from the
-     * source will not override the existing metadata in the UMetadata server. This is
-     * applicable for fields like description, tags, owner and displayName
+     * in the UMetadata server with the metadata fetched from the source. If the toggle is set
+     * to true, the metadata fetched from the source will override the existing metadata in the
+     * UMetadata server. If the toggle is set to false, the metadata fetched from the source
+     * will not override the existing metadata in the UMetadata server. This is applicable for
+     * fields like description, tags, owner and displayName
      */
     overrideMetadata?: boolean;
     /**

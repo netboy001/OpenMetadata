@@ -28,8 +28,8 @@ export interface CreateIngestionPipeline {
      */
     domains?: string[];
     /**
-     * Enable real-time log streaming to the UMetadata server. When enabled, ingestion logs
-     * will be automatically shipped to the server's configured log storage backend (S3 or
+     * Enable real-time log streaming to the UMetadata server. When enabled, ingestion logs will
+     * be automatically shipped to the server's configured log storage backend (S3 or
      * compatible).
      */
     enableStreamableLogs?: boolean;
@@ -331,8 +331,8 @@ export interface Pipeline {
      */
     jsonSchemaSampleSize?: number;
     /**
-     * Optional configuration to soft delete databases in UMetadata if the source databases
-     * are deleted. Also, if the database is deleted, all the associated entities like schemas,
+     * Optional configuration to soft delete databases in UMetadata if the source databases are
+     * deleted. Also, if the database is deleted, all the associated entities like schemas,
      * tables, views, stored procedures, lineage, etc., with that database will be deleted
      */
     markDeletedDatabases?: boolean;
@@ -343,9 +343,9 @@ export interface Pipeline {
      */
     markDeletedSchemas?: boolean;
     /**
-     * Optional configuration to soft delete stored procedures in UMetadata if the source
-     * stored procedures are deleted. Also, if the stored procedures is deleted, all the
-     * associated entities like lineage, etc., with that stored procedures will be deleted
+     * Optional configuration to soft delete stored procedures in UMetadata if the source stored
+     * procedures are deleted. Also, if the stored procedures is deleted, all the associated
+     * entities like lineage, etc., with that stored procedures will be deleted
      */
     markDeletedStoredProcedures?: boolean;
     /**
@@ -358,11 +358,11 @@ export interface Pipeline {
     markDeletedTables?: boolean;
     /**
      * Set the 'Override Metadata' toggle to control whether to override the existing metadata
-     * in the UMetadata server with the metadata fetched from the source. If the toggle is
-     * set to true, the metadata fetched from the source will override the existing metadata in
-     * the UMetadata server. If the toggle is set to false, the metadata fetched from the
-     * source will not override the existing metadata in the UMetadata server. This is
-     * applicable for fields like description, tags, owner and displayName
+     * in the UMetadata server with the metadata fetched from the source. If the toggle is set
+     * to true, the metadata fetched from the source will override the existing metadata in the
+     * UMetadata server. If the toggle is set to false, the metadata fetched from the source
+     * will not override the existing metadata in the UMetadata server. This is applicable for
+     * fields like description, tags, owner and displayName
      */
     overrideMetadata?: boolean;
     /**
@@ -518,8 +518,8 @@ export interface Pipeline {
      */
     markDeletedDashboards?: boolean;
     /**
-     * Optional configuration to soft delete data models in UMetadata if the source data
-     * models are deleted. Also, if the data models is deleted, all the associated entities like
+     * Optional configuration to soft delete data models in UMetadata if the source data models
+     * are deleted. Also, if the data models is deleted, all the associated entities like
      * lineage, etc., with that data models will be deleted
      */
     markDeletedDataModels?: boolean;
@@ -629,8 +629,8 @@ export interface Pipeline {
      */
     includeUnDeployedPipelines?: boolean;
     /**
-     * Optional configuration to soft delete Pipelines in UMetadata if the source Pipelines
-     * are deleted. Also, if the Pipeline is deleted, all the associated entities like lineage,
+     * Optional configuration to soft delete Pipelines in UMetadata if the source Pipelines are
+     * deleted. Also, if the Pipeline is deleted, all the associated entities like lineage,
      * etc., with that Pipeline will be deleted
      */
     markDeletedPipelines?: boolean;
@@ -689,15 +689,15 @@ export interface Pipeline {
      */
     includeWorksheets?: boolean;
     /**
-     * Optional configuration to soft delete directories in UMetadata if the source
-     * directories are deleted. Also, if the directory is deleted, all the associated entities
-     * like files, spreadsheets, worksheets, lineage, etc., with that directory will be deleted
+     * Optional configuration to soft delete directories in UMetadata if the source directories
+     * are deleted. Also, if the directory is deleted, all the associated entities like files,
+     * spreadsheets, worksheets, lineage, etc., with that directory will be deleted
      */
     markDeletedDirectories?: boolean;
     /**
-     * Optional configuration to soft delete files in UMetadata if the source files are
-     * deleted. Also, if the file is deleted, all the associated entities like lineage, etc.,
-     * with that file will be deleted
+     * Optional configuration to soft delete files in UMetadata if the source files are deleted.
+     * Also, if the file is deleted, all the associated entities like lineage, etc., with that
+     * file will be deleted
      */
     markDeletedFiles?: boolean;
     /**
@@ -2745,8 +2745,8 @@ export interface ServiceConnection {
  *
  * Mode Connection Config
  *
- * Custom Dashboard Service connection to build a source that is not supported by
- * UMetadata yet.
+ * Custom Dashboard Service connection to build a source that is not supported by UMetadata
+ * yet.
  *
  * Domo Dashboard Connection Config
  *
@@ -2833,8 +2833,8 @@ export interface ServiceConnection {
  *
  * Domo Database Connection Config
  *
- * Custom Database Service connection to build a source that is not supported by
- * UMetadata yet.
+ * Custom Database Service connection to build a source that is not supported by UMetadata
+ * yet.
  *
  * Sap Hana Database Connection Config
  *
@@ -2887,8 +2887,8 @@ export interface ServiceConnection {
  *
  * Kinesis Connection Config
  *
- * Custom Messaging Service Connection to build a source that is not supported by
- * UMetadata yet.
+ * Custom Messaging Service Connection to build a source that is not supported by UMetadata
+ * yet.
  *
  * Amundsen Connection Config
  *
@@ -2926,8 +2926,8 @@ export interface ServiceConnection {
  *
  * Domo Pipeline Connection Config
  *
- * Custom Pipeline Service connection to build a source that is not supported by
- * UMetadata yet.
+ * Custom Pipeline Service connection to build a source that is not supported by UMetadata
+ * yet.
  *
  * Spline Metadata Database Connection Config
  *
@@ -3816,11 +3816,11 @@ export interface ConfigObject {
      */
     catalogId?: string;
     /**
-     * Optional name to give to the database in UMetadata. If left blank, we will use default
-     * as the database name.
+     * Optional name to give to the database in UMetadata. If left blank, we will use default as
+     * the database name.
      *
-     * Optional name to give to the database in UMetadata. If left blank, we will use 'epic'
-     * as the database name.
+     * Optional name to give to the database in UMetadata. If left blank, we will use 'epic' as
+     * the database name.
      */
     databaseName?: string;
     /**
@@ -3848,16 +3848,16 @@ export interface ConfigObject {
     authenticationMode?: any[] | boolean | number | null | AuthenticationModeObject | string;
     /**
      * Database of the data source. This is optional parameter, if you would like to restrict
-     * the metadata reading to a single database. When left blank, UMetadata Ingestion
-     * attempts to scan all the databases.
+     * the metadata reading to a single database. When left blank, UMetadata Ingestion attempts
+     * to scan all the databases.
      *
      * Database of the data source.
      *
      * Initial Redshift database to connect to. If you want to ingest all databases, set
      * ingestAllDatabases to true.
      *
-     * Optional name to give to the database in UMetadata. If left blank, we will use default
-     * as the database name.
+     * Optional name to give to the database in UMetadata. If left blank, we will use default as
+     * the database name.
      *
      * Optional: Restrict metadata ingestion to a specific namespace (source/space). When left
      * blank, all namespaces will be ingested.
@@ -3911,8 +3911,8 @@ export interface ConfigObject {
      * restrict the metadata reading to a single databaseSchema. When left blank, UMetadata
      * Ingestion attempts to scan all the databaseSchema.
      *
-     * Optional name to give to the schema in UMetadata. If left blank, we will use default
-     * as the schema name
+     * Optional name to give to the schema in UMetadata. If left blank, we will use default as
+     * the schema name
      */
     databaseSchema?: string;
     /**
@@ -4874,8 +4874,8 @@ export enum AuthMechanismEnum {
 /**
  * UMetadata Server Authentication Provider.
  *
- * UMetadata Server Authentication Provider. Make sure configure same auth providers as
- * the one configured on UMetadata server.
+ * UMetadata Server Authentication Provider. Make sure configure same auth providers as the
+ * one configured on UMetadata server.
  */
 export enum AuthProvider {
     Auth0 = "auth0",
@@ -4886,8 +4886,8 @@ export enum AuthProvider {
     Google = "google",
     LDAP = "ldap",
     Okta = "okta",
-    Umetadata = "umetadata",
     Saml = "saml",
+    Umetadata = "umetadata",
 }
 
 /**
@@ -5931,8 +5931,8 @@ export interface ConfigConnection {
     connectionOptions?:   { [key: string]: string };
     /**
      * Database of the data source. This is optional parameter, if you would like to restrict
-     * the metadata reading to a single database. When left blank, UMetadata Ingestion
-     * attempts to scan all the databases.
+     * the metadata reading to a single database. When left blank, UMetadata Ingestion attempts
+     * to scan all the databases.
      *
      * Database of the data source.
      */
@@ -5996,8 +5996,8 @@ export interface ConfigConnection {
      */
     type?: ConnectionType;
     /**
-     * Optional name to give to the database in UMetadata. If left blank, we will use default
-     * as the database name.
+     * Optional name to give to the database in UMetadata. If left blank, we will use default as
+     * the database name.
      */
     databaseName?: string;
     /**
@@ -6450,8 +6450,8 @@ export interface DatabaseConnectionClass {
     connectionOptions?:   { [key: string]: string };
     /**
      * Database of the data source. This is optional parameter, if you would like to restrict
-     * the metadata reading to a single database. When left blank, UMetadata Ingestion
-     * attempts to scan all the databases.
+     * the metadata reading to a single database. When left blank, UMetadata Ingestion attempts
+     * to scan all the databases.
      */
     database: string;
     /**
@@ -6662,8 +6662,8 @@ export interface HiveMetastoreConnectionDetails {
     connectionOptions?:   { [key: string]: string };
     /**
      * Database of the data source. This is optional parameter, if you would like to restrict
-     * the metadata reading to a single database. When left blank, UMetadata Ingestion
-     * attempts to scan all the databases.
+     * the metadata reading to a single database. When left blank, UMetadata Ingestion attempts
+     * to scan all the databases.
      */
     database?: string;
     /**
@@ -6731,8 +6731,8 @@ export interface HiveMetastoreConnectionDetails {
      */
     username?: string;
     /**
-     * Optional name to give to the database in UMetadata. If left blank, we will use default
-     * as the database name.
+     * Optional name to give to the database in UMetadata. If left blank, we will use default as
+     * the database name.
      */
     databaseName?: string;
     /**
@@ -7336,7 +7336,6 @@ export enum PurpleType {
     Mysql = "Mysql",
     Nifi = "Nifi",
     OpenLineage = "OpenLineage",
-    UMetadata = "UMetadata",
     OpenSearch = "OpenSearch",
     Oracle = "Oracle",
     PinotDB = "PinotDB",
@@ -7381,6 +7380,7 @@ export enum PurpleType {
     ThoughtSpot = "ThoughtSpot",
     Timescale = "Timescale",
     Trino = "Trino",
+    UMetadata = "UMetadata",
     UnityCatalog = "UnityCatalog",
     VertexAI = "VertexAI",
     Vertica = "Vertica",

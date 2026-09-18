@@ -393,8 +393,8 @@ export enum ClientAuthenticationMethod {
 }
 
 /**
- * UMetadata Server Authentication Provider. Make sure configure same auth providers as
- * the one configured on UMetadata server.
+ * UMetadata Server Authentication Provider. Make sure configure same auth providers as the
+ * one configured on UMetadata server.
  */
 export enum AuthProvider {
     Auth0 = "auth0",
@@ -405,8 +405,8 @@ export enum AuthProvider {
     Google = "google",
     LDAP = "ldap",
     Okta = "okta",
-    Umetadata = "umetadata",
     Saml = "saml",
+    Umetadata = "umetadata",
 }
 
 /**

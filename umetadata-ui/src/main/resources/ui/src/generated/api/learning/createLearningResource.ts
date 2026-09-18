@@ -142,7 +142,7 @@ export interface ResourceSource {
      */
     embedConfig?: { [key: string]: any };
     /**
-     * Origin system that hosts the resource (Storylane, YouTube, etc.).
+     * Origin system that hosts the resource (Storylane, WondersGroup, etc.).
      */
     provider?: string;
     /**

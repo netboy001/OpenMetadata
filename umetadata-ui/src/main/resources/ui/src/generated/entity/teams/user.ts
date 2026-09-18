@@ -11,9 +11,9 @@
  *  limitations under the License.
  */
 /**
- * A `User` represents a user of UMetadata. A user can be part of 0 or more teams. A
- * special type of user called Bot is used for automation. A user can be an owner of zero or
- * more data assets. A user can also follow zero or more data assets.
+ * A `User` represents a user of UMetadata. A user can be part of 0 or more teams. A special
+ * type of user called Bot is used for automation. A user can be an owner of zero or more
+ * data assets. A user can also follow zero or more data assets.
  */
 export interface User {
     /**

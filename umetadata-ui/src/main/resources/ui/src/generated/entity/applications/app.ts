@@ -121,8 +121,7 @@ export interface App {
     /**
      * Name of the Application.
      */
-    name:                          string;
-    uMetadataServerConnection?: UMetadataConnection;
+    name: string;
     /**
      * Owners of this workflow.
      */
@@ -178,7 +177,8 @@ export interface App {
     /**
      * A system app cannot be uninstalled or modified.
      */
-    system?: boolean;
+    system?:                    boolean;
+    uMetadataServerConnection?: UMetadataConnection;
     /**
      * Last update time corresponding to the new version of the entity in Unix epoch time
      * milliseconds.
@@ -1397,6 +1397,93 @@ export interface FieldChange {
 }
 
 /**
+ * Permission used by Native Applications.
+ *
+ * This schema defines the Permission used by Native Application.
+ */
+export enum Permissions {
+    All = "All",
+}
+
+/**
+ * Application Private configuration loaded at runtime.
+ *
+ * Private Configuration for the CollateAI External Application.
+ */
+export interface PrivateConfig {
+    /**
+     * Collate Server public URL. WAII will use this information to interact with the server.
+     * E.g., https://sandbox.wondersgroup.com
+     */
+    collateURL?: string;
+    /**
+     * Limits for the CollateAI Application.
+     */
+    limits?: AppLimitsConfig;
+    /**
+     * WAII API Token
+     */
+    token?: string;
+    /**
+     * WAII API host URL
+     */
+    waiiInstance?: string;
+    [property: string]: any;
+}
+
+/**
+ * Limits for the CollateAI Application.
+ *
+ * Private Configuration for the App Limits.
+ */
+export interface AppLimitsConfig {
+    /**
+     * The records of the limits.
+     */
+    actions: { [key: string]: number };
+    /**
+     * The start of this limit cycle. DEPRECATED: Use central billingCycleStart from
+     * LimitsConfiguration in umetadata.yaml
+     */
+    billingCycleStart?: Date;
+}
+
+/**
+ * Type of provider of an entity. Some entities are provided by the `system`. Some are
+ * entities created and provided by the `user`. Typically `system` provide entities can't be
+ * deleted and can only be disabled. Some apps such as AutoPilot create entities with
+ * `automation` provider type. These entities can be deleted by the user.
+ */
+export enum ProviderType {
+    Automation = "automation",
+    System = "system",
+    User = "user",
+}
+
+/**
+ * Execution Configuration.
+ *
+ * Live Execution object.
+ *
+ * Scheduled Execution Context Configuration.
+ */
+export interface ExecutionContext {
+}
+
+/**
+ * This schema defines the Schedule Type of Application.
+ *
+ * This schema defines the type of application.
+ */
+export enum ScheduleType {
+    Live = "Live",
+    NoSchedule = "NoSchedule",
+    OnlyManual = "OnlyManual",
+    Scheduled = "Scheduled",
+    ScheduledOrManual = "ScheduledOrManual",
+}
+
+/**
  * UMetadata Connection Config
  */
 export interface UMetadataConnection {
@@ -1540,8 +1627,8 @@ export interface UMetadataConnection {
 /**
  * UMetadata Server Authentication Provider.
  *
- * UMetadata Server Authentication Provider. Make sure configure same auth providers as
- * the one configured on UMetadata server.
+ * UMetadata Server Authentication Provider. Make sure configure same auth providers as the
+ * one configured on UMetadata server.
  */
 export enum AuthProvider {
     Auth0 = "auth0",
@@ -1552,8 +1639,8 @@ export enum AuthProvider {
     Google = "google",
     LDAP = "ldap",
     Okta = "okta",
-    Umetadata = "umetadata",
     Saml = "saml",
+    Umetadata = "umetadata",
 }
 
 /**
@@ -1670,91 +1757,4 @@ export enum VerifySSL {
     Ignore = "ignore",
     NoSSL = "no-ssl",
     Validate = "validate",
-}
-
-/**
- * Permission used by Native Applications.
- *
- * This schema defines the Permission used by Native Application.
- */
-export enum Permissions {
-    All = "All",
-}
-
-/**
- * Application Private configuration loaded at runtime.
- *
- * Private Configuration for the CollateAI External Application.
- */
-export interface PrivateConfig {
-    /**
-     * Collate Server public URL. WAII will use this information to interact with the server.
-     * E.g., https://sandbox.wondersgroup.com
-     */
-    collateURL?: string;
-    /**
-     * Limits for the CollateAI Application.
-     */
-    limits?: AppLimitsConfig;
-    /**
-     * WAII API Token
-     */
-    token?: string;
-    /**
-     * WAII API host URL
-     */
-    waiiInstance?: string;
-    [property: string]: any;
-}
-
-/**
- * Limits for the CollateAI Application.
- *
- * Private Configuration for the App Limits.
- */
-export interface AppLimitsConfig {
-    /**
-     * The records of the limits.
-     */
-    actions: { [key: string]: number };
-    /**
-     * The start of this limit cycle. DEPRECATED: Use central billingCycleStart from
-     * LimitsConfiguration in umetadata.yaml
-     */
-    billingCycleStart?: Date;
-}
-
-/**
- * Type of provider of an entity. Some entities are provided by the `system`. Some are
- * entities created and provided by the `user`. Typically `system` provide entities can't be
- * deleted and can only be disabled. Some apps such as AutoPilot create entities with
- * `automation` provider type. These entities can be deleted by the user.
- */
-export enum ProviderType {
-    Automation = "automation",
-    System = "system",
-    User = "user",
-}
-
-/**
- * Execution Configuration.
- *
- * Live Execution object.
- *
- * Scheduled Execution Context Configuration.
- */
-export interface ExecutionContext {
-}
-
-/**
- * This schema defines the Schedule Type of Application.
- *
- * This schema defines the type of application.
- */
-export enum ScheduleType {
-    Live = "Live",
-    NoSchedule = "NoSchedule",
-    OnlyManual = "OnlyManual",
-    Scheduled = "Scheduled",
-    ScheduledOrManual = "ScheduledOrManual",
 }

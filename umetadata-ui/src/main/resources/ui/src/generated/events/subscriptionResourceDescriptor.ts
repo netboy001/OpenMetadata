@@ -32,8 +32,7 @@ export interface SubscriptionResourceDescriptor {
 }
 
 /**
- * This schema defines all possible filter operations on metadata of entities in
- * UMetadata.
+ * This schema defines all possible filter operations on metadata of entities in UMetadata.
  */
 export enum Operation {
     FilterByDomain = "filterByDomain",

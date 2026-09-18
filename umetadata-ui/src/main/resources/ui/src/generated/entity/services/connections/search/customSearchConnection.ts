@@ -11,8 +11,7 @@
  *  limitations under the License.
  */
 /**
- * Custom Search Service connection to build a source that is not supported by UMetadata
- * yet.
+ * Custom Search Service connection to build a source that is not supported by UMetadata yet.
  */
 export interface CustomSearchConnection {
     connectionOptions?: { [key: string]: string };

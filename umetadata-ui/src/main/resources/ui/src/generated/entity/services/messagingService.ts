@@ -191,8 +191,8 @@ export interface MessagingConnection {
  *
  * Kinesis Connection Config
  *
- * Custom Messaging Service Connection to build a source that is not supported by
- * UMetadata yet.
+ * Custom Messaging Service Connection to build a source that is not supported by UMetadata
+ * yet.
  */
 export interface Connection {
     /**

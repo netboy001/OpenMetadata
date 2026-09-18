@@ -15,8 +15,8 @@
  */
 export interface KubernetesCredentials {
     /**
-     * Whether the Kubernetes secrets manager is running in the same cluster where the
-     * UMetadata services are running
+     * Whether the Kubernetes secrets manager is running in the same cluster where the UMetadata
+     * services are running
      */
     inCluster?: boolean;
     /**

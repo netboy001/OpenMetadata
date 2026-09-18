@@ -46,8 +46,7 @@ export interface Application {
      */
     sourcePythonClass?: string;
     /**
-     * General Workflow configuration, such as the UMetadata server connection and logging
-     * level
+     * General Workflow configuration, such as the UMetadata server connection and logging level
      */
     workflowConfig: WorkflowConfig;
 }
@@ -1189,9 +1188,8 @@ export interface AppLimitsConfig {
  * Configuration for the entire Ingestion Workflow.
  */
 export interface WorkflowConfig {
-    config?:                  { [key: string]: any };
-    loggerLevel?:             LogLevels;
-    uMetadataServerConfig: UMetadataConnection;
+    config?:      { [key: string]: any };
+    loggerLevel?: LogLevels;
     /**
      * Control if we want to flag the workflow as failed if we encounter any processing errors.
      */
@@ -1200,7 +1198,8 @@ export interface WorkflowConfig {
      * The percentage of successfully processed records that must be achieved for the pipeline
      * to be considered successful. Otherwise, the pipeline will be marked as failed.
      */
-    successThreshold?: number;
+    successThreshold?:     number;
+    uMetadataServerConfig: UMetadataConnection;
 }
 
 /**
@@ -1357,8 +1356,8 @@ export interface UMetadataConnection {
 /**
  * UMetadata Server Authentication Provider.
  *
- * UMetadata Server Authentication Provider. Make sure configure same auth providers as
- * the one configured on UMetadata server.
+ * UMetadata Server Authentication Provider. Make sure configure same auth providers as the
+ * one configured on UMetadata server.
  */
 export enum AuthProvider {
     Auth0 = "auth0",
@@ -1369,8 +1368,8 @@ export enum AuthProvider {
     Google = "google",
     LDAP = "ldap",
     Okta = "okta",
-    Umetadata = "umetadata",
     Saml = "saml",
+    Umetadata = "umetadata",
 }
 
 /**

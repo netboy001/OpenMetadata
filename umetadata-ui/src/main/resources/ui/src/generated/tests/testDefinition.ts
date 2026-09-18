@@ -449,7 +449,7 @@ export enum TestPlatform {
     Dbt = "dbt",
     Deequ = "Deequ",
     GreatExpectations = "GreatExpectations",
-    UMetadata = "UMetadata",
     Other = "Other",
     Soda = "Soda",
+    UMetadata = "UMetadata",
 }
